@@ -4,6 +4,9 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+require "../src/routes_usuarios.php";
+require "../src/routes_proyectos.php";
+
 return function (App $app) {
     $container = $app->getContainer();
 
