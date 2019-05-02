@@ -49,6 +49,9 @@ $app->get('/',function($request,$response,$args){
 	return $this->view->render($response,"index.twig");
 });
 
+$app->get('/login',function($request,$response,$args){
+	return $this->view->render($response,"login.twig");
+});
 
 // Run app
 $app->run();
