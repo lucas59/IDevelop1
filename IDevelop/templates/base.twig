@@ -1,17 +1,32 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        {% block head %}
-            <title>{% block title %}{% endblock %} - My Webpage</title>
-        {% endblock %}
-    </head>
-    <body>
-        <div>{%block barra%}{% endblock %}</div>
-        <div id="content">{% block content %}{% endblock %}</div>
-        <div id="footer">
-            {% block footer %}
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - IDevelop</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-            {% endblock %}
-        </div>
-    </body>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
+
+
+    {% endblock %}
+</head>
+<body>
+    {% include("nav.twig") %}
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+
+        {% endblock %}
+    </div>
+
+    {% include("footer.twig") %}
+</body>
 </html>
