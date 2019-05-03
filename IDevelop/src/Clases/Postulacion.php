@@ -1,7 +1,4 @@
 <?php 
-/**
- * 
- */
 class Postulacion 
 {
 	private $fecha_postulacion = '';

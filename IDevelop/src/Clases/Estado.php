@@ -1,10 +1,12 @@
 <?php 
-class Estado {
+class Estado
+{
 	private $nombre = '';
 	private $fechaini = '';
 	private $fechafin = '';
 
-	function __construct($nombre = '',$fechaini = '',$fechafin = ''){
+	function __construct($nombre = '',$fechaini = '',$fechafin = '')
+	{
 		$this->nombre = $nombre;
 		$this->fechaini = $fechaini;
 		$this->fechafin = $fechafin;

@@ -1,7 +1,4 @@
 <?php 
-/**
- * 
- */
 class Experiencia_laboral
 {
 	public $empresa = '';

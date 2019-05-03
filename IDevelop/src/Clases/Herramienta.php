@@ -1,7 +1,4 @@
 <?php 
-/**
- * 
- */
 class Herramienta 
 {
 	private $nombre = '';

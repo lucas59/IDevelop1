@@ -1,5 +1,6 @@
 <?php 
-class Empresa extend Usuario {
+class Empresa extend Usuario 
+{
 	private $nombre = '';
 	private $fecha_Creacion = '';
 	private $direccion = '';
@@ -10,7 +11,8 @@ class Empresa extend Usuario {
 	private $vision = '';
 	private $proyectos = array();
 
-	function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision='', $proyectos = ''){
+	function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision='', $proyectos = '')
+	{
 		$this->nombre = $nombre;
 		$this->fecha_Creacion = $fecha_Creacion;
 		$this->direccion = $direccion;

@@ -1,10 +1,12 @@
 <?php 
-class Usuario {
+class Usuario 
+{
 	private $email = '';
 	private $foto_perfil = '';
 	private $contrasena = '';
 	private $validaciones = array();
-	function __construct($email='',$foto_perfil='',$contrasena='', $validaciones = array()){
+	function __construct($email='',$foto_perfil='',$contrasena='', $validaciones = array())
+	{
 		$this->email = $email;
 		$this->foto_perfil = $foto_perfil;
 		$this->contrasena = $contrasena;

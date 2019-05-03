@@ -1,7 +1,4 @@
 <?php 
-/**
- * 
- */
 class Validaciones
 {
 	public $email = '';

@@ -1,5 +1,6 @@
 <?php 
-class Desarrollador extend Usuario {
+class Desarrollador extend Usuario 
+{
 	private $cedula = '';
 	private $apellido = '';
 	private $fecha_Nacimiento = '';
@@ -11,7 +12,8 @@ class Desarrollador extend Usuario {
 	private $herramientas = array();
 	private $proyectos = array();
 
-	function __construct($cedula='',$apellido='',$fecha_Nacimiento='',$pais ='',$ciudad_actual='',$desarrollo_preferido='',$experienca_laboral = array(), $postulacion = '', $herramientas = array(), $proyectos = array()){
+	function __construct($cedula='',$apellido='',$fecha_Nacimiento='',$pais ='',$ciudad_actual='',$desarrollo_preferido='',$experienca_laboral = array(), $postulacion = '', $herramientas = array(), $proyectos = array())
+	{
 		$this->cedula = $cedula;
 		$this->apellido = $apellido;
 		$this->fecha_Nacimiento = $fecha_Nacimiento;

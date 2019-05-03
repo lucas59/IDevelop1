@@ -1,5 +1,6 @@
 <?php 
-class Proyecto {
+class Proyecto 
+{
 	private $nombre = '';
 	private $descripcion = '';
 	private $fechaEntrega = '';
@@ -9,7 +10,8 @@ class Proyecto {
 	private $herramientas = array();
 	private $desarrolladores = array();
 
-	function __construct($nombre = '', $descripcion = '', $fechaEntrega = '', $estado = array(),$avanceDesarrollo = '', $postulacion = '', $herramientas = array(), $desarrolladores = array()){
+	function __construct($nombre = '', $descripcion = '', $fechaEntrega = '', $estado = array(),$avanceDesarrollo = '', $postulacion = '', $herramientas = array(), $desarrolladores = array())
+	{
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
 		$this->fechaEntrega = $fechaEntrega;

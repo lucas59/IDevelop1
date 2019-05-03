@@ -1,8 +1,6 @@
 <?php 
-/**
- * 
- */
-class Avance_desarrollo {
+class Avance_desarrollo 
+{
 	private $puntosTot = '';
 	private $avance = '';
 	private $casodeuso = array();

@@ -1,8 +1,6 @@
 <?php 
-/**
- * 
- */
-class Casodeuso {
+class Casodeuso 
+{
 	private $nombre = '';
 	private $descripcion = '';
 	private $puntos = '';
