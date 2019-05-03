@@ -27,5 +27,50 @@ class Empresa extend Usuario{
 	public function getFecha_Creacion(){
 		return $this->fecha_Creacion;
 	}
+
+	public function getDireccion(){
+		return $this->direccion;
+	}
+
+	public function getTelefono(){
+		return $this->telefono;
+	}
+
+	public function getReclutador(){
+		return $this->reclutador;
+	}
+
+	public function getRubro(){
+		return $this->rubro;
+	}
+
+	public function getMision(){
+		return $this->mision;
+	}
+
+	public function getVision(){
+		return $this->vision;
+	}
+
+	public function setNombre($nombre){
+		$this->nombre = $nombre;
+	}
+
+	public function setFecha_creacion($fecha_Creacion){
+		$this->fecha_Creacion = $fecha_Creacion;
+	}
+
+	public function setDireccion($direccion){
+		$this->direccion = $direccion;
+	}
+
+	public function setTelefono($telefono){
+		$this->telefono = $telefono;
+	}
+
+	public function setReclutador($reclutador){
+
+	}
+
 }
 ?>

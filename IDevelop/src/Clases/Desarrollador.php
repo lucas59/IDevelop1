@@ -40,6 +40,29 @@ class Desarrollador extend Usuario{
 		return $this->desarrollo_preferido;
 	}
 
+	public function setCedula($cedula){
+		$this->cedula = $cedula;
+	}
+
+	public function setApellido($apellido){
+		$this->apellido = $apellido;
+	}
+
+	public function setFecha_nacimiento($fecha_Nacimiento){
+		$this->fecha_Nacimiento = $fecha_Nacimiento;
+	}
+
+	public function setPais($pais){
+		$this->pais = $pais;
+	}
+
+	public function setCiudad_actual($ciudad_actual){
+		$this->ciudad_actual = $ciudad_actual;
+	}
+
+	public function setDesarrollo_preferido($desarrollo_preferido){
+		$this->desarrollo_preferido = $desarrollo_preferido;
+	}
 
 }
  ?>
