@@ -1,5 +1,5 @@
 <?php 
-class Empresa extend Usuario{
+class Empresa extend Usuario {
 	private $nombre = '';
 	private $fecha_Creacion = '';
 	private $direccion = '';
@@ -8,8 +8,9 @@ class Empresa extend Usuario{
 	private $rubro = '';
 	private $mision = '';
 	private $vision = '';
+	private $proyecto = array();
 
-	public function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision=''){
+	function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision='', $proyecto = ''){
 		$this->nombre = $nombre;
 		$this->fecha_Creacion = $fecha_Creacion;
 		$this->direccion = $direccion;
@@ -18,6 +19,7 @@ class Empresa extend Usuario{
 		$this->rubro = $rubro;
 		$this->mision = $mision;
 		$this->vision = $vision;
+		$this->proyecto = $proyecto;
 	}
 
 	public function getNombre(){
@@ -52,6 +54,10 @@ class Empresa extend Usuario{
 		return $this->vision;
 	}
 
+	public function getProyecto(){
+		return $this->proyecto;
+	}
+
 	public function setNombre($nombre){
 		$this->nombre = $nombre;
 	}
@@ -69,7 +75,11 @@ class Empresa extend Usuario{
 	}
 
 	public function setReclutador($reclutador){
+		$this->
+	}
 
+	public function setProyecto($proyecto){
+		array_push($this->proyecto, $proyecto);
 	}
 
 }

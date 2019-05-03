@@ -3,11 +3,12 @@ class Usuario {
 	private $email = '';
 	private $foto_perfil = '';
 	private $contrasena = '';
-
-	public function __construct($email='',$foto_perfil='',$contrasena=''){
+	private $validaciones = array();
+	function __construct($email='',$foto_perfil='',$contrasena='', $validaciones = ''){
 		$this->email = $email;
 		$this->foto_perfil = $foto_perfil;
 		$this->contrasena = $contrasena;
+		$this->validaciones = $validaciones;
 	}
 
 	public function getEmail(){
@@ -22,6 +23,10 @@ class Usuario {
 		return $this->contrasena;
 	}
 
+	public function getValidaciones(){
+		return $this->validaciones;
+	}
+
 	public function setEmail($email){
 		$this->email = $email;
 	}
@@ -32,6 +37,10 @@ class Usuario {
 
 	public function setContrasena($contrasena){
 		$this->contrasena = $contrasena;
+	}
+
+	public function setValidaciones($validaciones){
+		array_push($this->validaciones, $validaciones);
 	}
 }
  ?>
