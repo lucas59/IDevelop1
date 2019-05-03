@@ -30,6 +30,10 @@ class Validaciones
 		$this->email = $email;
 	}
 
+	public function setToken($token){
+		$this->token = $token;
+	}
+
 	publif function setFecha($fecha){
 		$this->fecha = $fecha;
 	}

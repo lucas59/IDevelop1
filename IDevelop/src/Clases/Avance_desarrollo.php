@@ -7,7 +7,7 @@ class Avance_desarrollo {
 	private $avance = '';
 	private $casodeuso = array();
 
-	function __construct($puntosTot = '', $avance = '', $casodeuso = '')
+	function __construct($puntosTot = '', $avance = '', $casodeuso = array())
 	{
 		$this->puntosTot = $puntosTot;
 		$this->avance = $avance;
@@ -27,11 +27,11 @@ class Avance_desarrollo {
 	}
 
 	public function setPuntosTot($puntosTot){
-		return $this->puntosTot;
+		$this->puntosTot = $puntosTot;
 	}
 
 	public function setAvance($avance){
-		return $this->avance;
+		$this->avance = $avance;
 	}
 
 	public function setCasodeuso($casodeuso){

@@ -7,15 +7,17 @@ class Proyecto {
 	private $avanceDesarrollo = '';
 	private $postulacion = '';
 	private $herramientas = array();
+	private $desarrolladores = array();
 
-	function __construct($nombre = '', $descripcion = '', $fechaEntrega = '', $estado = '',$avanceDesarrollo = '', $postulacion = '', $herramientas = array()){
+	function __construct($nombre = '', $descripcion = '', $fechaEntrega = '', $estado = array(),$avanceDesarrollo = '', $postulacion = '', $herramientas = array(), $desarrolladores = array()){
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
 		$this->fechaEntrega = $fechaEntrega;
 		$this->estado = $estado;
 		$this->avanceDesarrollo = $avanceDesarrollo;
 		$this->postulacion = $postulacion;
-		private $herramientas = array();
+		$this->$herramientas = array();
+		$this->desarrolladores = $desarrolladores;
 	}
 
 	public function getNombre(){
@@ -46,6 +48,10 @@ class Proyecto {
 		return $this->herramientas;
 	}
 
+	public function getDesarrolladores(){
+		return $this->desarrolladores;
+	}
+
 	public function setNombre($nombre){
 		$this->nombre = $nombre;
 	}
@@ -72,6 +78,10 @@ class Proyecto {
 
 	public function setHerramientas($herramientas){
 		array_push($this->herramientas,$herramientas);
+	}
+
+	public function setDesarrolladores($desarrolladores){
+		array_push($this->desarrolladores, $descripcion);
 	}
 
 

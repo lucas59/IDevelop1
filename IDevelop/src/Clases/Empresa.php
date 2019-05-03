@@ -8,9 +8,9 @@ class Empresa extend Usuario {
 	private $rubro = '';
 	private $mision = '';
 	private $vision = '';
-	private $proyecto = array();
+	private $proyectos = array();
 
-	function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision='', $proyecto = ''){
+	function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision='', $proyectos = ''){
 		$this->nombre = $nombre;
 		$this->fecha_Creacion = $fecha_Creacion;
 		$this->direccion = $direccion;
@@ -19,7 +19,7 @@ class Empresa extend Usuario {
 		$this->rubro = $rubro;
 		$this->mision = $mision;
 		$this->vision = $vision;
-		$this->proyecto = $proyecto;
+		$this->proyectos = $proyectos;
 	}
 
 	public function getNombre(){

@@ -9,8 +9,9 @@ class Desarrollador extend Usuario {
 	private $experienca_laboral = array();
 	private $postulacion = '';
 	private $herramientas = array();
+	private $proyectos = array();
 
-	function __construct($cedula='',$apellido='',$fecha_Nacimiento='',$pais ='',$ciudad_actual='',$desarrollo_preferido='',$experienca_laboral = '', $postulacion = '', $herramientas = array()){
+	function __construct($cedula='',$apellido='',$fecha_Nacimiento='',$pais ='',$ciudad_actual='',$desarrollo_preferido='',$experienca_laboral = array(), $postulacion = '', $herramientas = array(), $proyectos = array()){
 		$this->cedula = $cedula;
 		$this->apellido = $apellido;
 		$this->fecha_Nacimiento = $fecha_Nacimiento;
@@ -20,6 +21,7 @@ class Desarrollador extend Usuario {
 		$this->experienca_laboral = $experienca_laboral;
 		$this->postulacion = $postulacion;
 		$this->herramientas = $herramientas;
+		$this->proyectos = $proyectos;
 	}
 
 	public function getCedula(){
@@ -58,6 +60,10 @@ class Desarrollador extend Usuario {
 		return $this->herramientas;
 	}
 
+	public function getProyectos(){
+		return $this->proyectos;
+	}
+
 	public function setCedula($cedula){
 		$this->cedula = $cedula;
 	}
@@ -92,6 +98,10 @@ class Desarrollador extend Usuario {
 
 	public function setHerramientas($herramientas){
 		array_push($this->herramientas, $herramientas);
+	}
+
+	public function setProyectos($proyectos){
+		array_push($this->proyectos, $proyectos);
 	}
 
 }
