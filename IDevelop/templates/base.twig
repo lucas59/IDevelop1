@@ -2,21 +2,13 @@
 <html>
 <head>
     {% block head %}
-    <title>{% block title %}{% endblock %} - IDevelop</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
+    <title>{% block title %}{% endblock %} . IDevelop</title>
+    {% endblock %}
     <link rel="stylesheet" type="text/css" href="../vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
     <script type="text/javascript" src="../vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="../vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
 
 
-    {% endblock %}
 </head>
 <body>
     {% include("nav.twig") %}
