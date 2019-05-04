@@ -1,0 +1,28 @@
+{% extends "base.twig" %}
+{% block title %}Registrarse{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nuevoUser.css">
+{% endblock %}
+
+{% block content %}
+<form id="formAlta">
+	<h2>Crea una cuenta</h2>
+	<span>
+		<input type="text" id="txtNombre" name="nombre" placeholder="Nombre">
+		<input type="text" id="txtApellido" name="apellido" placeholder="Apellido">
+	</span>
+	<input type="text" id="txtID" name="identificador" placeholder="Número de celular o correo electónico">
+
+	<input type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva">
+	<br>
+	<h5>Fecha de nacimiento</h5>
+	<input type="date" name="fecha"><br>
+	
+	<form id="sexo">
+		<input type="radio" name="hombre" value="hombre" checked="">Hombre <br>
+		<input type="radio" name="mujer" value="mujer">Mujer<br>
+	</form>
+	<input type="submit" name="submit" value="Registrarme">
+</form>
+{% endblock %}
+
