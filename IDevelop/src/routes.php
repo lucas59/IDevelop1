@@ -15,7 +15,7 @@ return function (App $app) {
 
 	$app->get('/',function($request,$response,$args){
 		return $this->view->render($response,"index.twig");
-	});
+	})->setName("Inicio");
 
         // Render index view
         //return $container->get('renderer')->render($response, 'index.phtml', $args);
