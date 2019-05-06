@@ -5,24 +5,28 @@
 {% endblock %}
 
 {% block content %}
-<form id="formAlta">
+<form method="POST" id="formAlta">
 	<h2>Crea una cuenta</h2>
 	<span>
-		<input type="text" id="txtNombre" name="nombre" placeholder="Nombre">
-		<input type="text" id="txtApellido" name="apellido" placeholder="Apellido">
+		<input type="text" id="txtNombre" name="nombre" placeholder="Nombre" required>
+		<input type="text" id="txtApellido" name="apellido" placeholder="Apellido" required>
 	</span>
-	<input type="text" id="txtID" name="identificador" placeholder="Número de celular o correo electónico">
+	<input type="text" id="txtID" name="identificador" placeholder="Número de celular o correo electónico" required>
 
-	<input type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva">
+	<input type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva" required>
 	<br>
 	<h5>Fecha de nacimiento</h5>
-	<input type="date" name="fecha"><br>
+	<input type="date" id="fecha" name="fecha" required><br>
 	
-	<form id="sexo">
+	<!--<form id="sexo">
 		<input type="radio" name="hombre" value="hombre" checked="">Hombre <br>
 		<input type="radio" name="mujer" value="mujer">Mujer<br>
 	</form>
-	<input type="submit" name="submit" value="Registrarme">
+-->
+<input type="submit" name="submit" value="Registrarme"><br>
+<a href="{{ path_for('ingresar') }}">Ya tengo una cuenta</a>
 </form>
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/nuevoUsuario.js"></script>
+
 {% endblock %}
 
