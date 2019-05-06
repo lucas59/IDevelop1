@@ -50,6 +50,7 @@ $app->get('/login',function($request,$response,$args){
 });
 */
 $routes = require_once __DIR__ . '/../src/routes.php';
+
 $routes($app);
 
 // Run app
