@@ -1,0 +1,13 @@
+{% extends "base.twig" %}
+
+{% block title %}Iniciar sesión{% endblock %}
+
+{% block content %}
+<h1>Login</h1>
+<p>Correo:</p>
+<input type="text" name="Correo">
+<p>Contraseña:</p>
+<input type="password" name="Contrasena"><br>
+<input type="checkbox" name="Seguir"> Recordarme <br>
+<input type="submit" name="aceptar" value="Confirmar">
+{% endblock %}

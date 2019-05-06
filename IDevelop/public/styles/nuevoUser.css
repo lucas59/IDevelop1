@@ -1,0 +1,21 @@
+*{
+	box-sizing: border-box;
+}
+
+
+#formAlta{
+	width: 500px;
+}
+
+span > input  {
+	width: 248px
+}
+
+input{
+	margin: 4px 0px;
+	padding: 2px;
+}
+#txtID,#txtPass{
+	display: block;
+	width: 500px
+}
