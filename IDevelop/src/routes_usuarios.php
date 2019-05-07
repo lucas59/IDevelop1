@@ -19,10 +19,11 @@ return function (App $app){
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
-	
+
 		$email = $args['email'];
 		//return $email;
-		return $controladorUsuarios->validarEmail($email);		
+		$retorno = $controladorUsuarios->validarEmail($email);
+		return $retorno;	
 	});
 }
 

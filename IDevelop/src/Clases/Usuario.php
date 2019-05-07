@@ -1,4 +1,7 @@
 <?php 
+if(class_exists("Usuario"))
+	return;
+
 class Usuario 
 {
 	private $email = '';
@@ -46,7 +49,15 @@ class Usuario
 	}
 
 	public function verificarExistencia($email){
-		
+		$consulta = DB::conexion()->prepare('SELECT * FROM usuario WHERE email= ?');
+		$consulta->bind_param('s',$email);		
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if ($resultado->num_rows == 1) {
+			echo true;
+		} else if($resultado->num_rows==0) {
+			echo false;
+		}
 	}
 }
- ?>
+?>

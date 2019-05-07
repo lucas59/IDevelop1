@@ -1,5 +1,5 @@
 <?php 
-class Empresa extend Usuario 
+class Empresa extends Usuario 
 {
 	private $nombre = '';
 	private $fecha_Creacion = '';

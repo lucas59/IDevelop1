@@ -2,7 +2,8 @@
 /**
   * 
   */
-require_once '../Clases/Usuario.php';
+include_once '../src/Clases/Usuario.php';
+include_once '../src/conexion/abrir_conexion.php';
 class ctr_usuarios{
 
 	function __construct(){
@@ -10,7 +11,7 @@ class ctr_usuarios{
 
 	public function validarEmail($email){
 		$usuario=new Usuario();
-		$usuario->setEmail($email);
-		return $usuario->verificarExistencia;
+		$retorno = $usuario->verificarExistencia($email);
+		return $retorno;
 	}
 } ?>

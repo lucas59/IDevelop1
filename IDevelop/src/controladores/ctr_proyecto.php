@@ -2,9 +2,7 @@
 
 /**
  * 
- */
-
-class ctr_proyecto{
+ */class ctr_proyecto {
 	
 	function __construct(argument)
 	{
