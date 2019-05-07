@@ -18,13 +18,14 @@
 	<h5>Fecha de nacimiento</h5>
 	<input type="date" id="fecha" name="fecha" required><br>
 	
-	<!--<form id="sexo">
-		<input type="radio" name="hombre" value="hombre" checked="">Hombre <br>
-		<input type="radio" name="mujer" value="mujer">Mujer<br>
-	</form>
--->
-<input type="submit" name="submit" value="Registrarme"><br>
-<a href="{{ path_for('ingresar') }}">Ya tengo una cuenta</a>
+	<input type="radio" name="sexo" value="1" checked="">Hombre <br>
+	<input type="radio" name="sexo" value="0">Mujer<br>
+	
+	<input type="radio" name="tipo" value="e" checked="">Empresa <br>
+	<input type="radio" name="tipo" value="d">Desarrollador<br>
+	
+	<input type="submit" name="submit" value="Registrarme"><br>
+	<a href="{{ path_for('ingresar') }}">Ya tengo una cuenta</a>
 </form>
 <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/nuevoUsuario.js"></script>
 

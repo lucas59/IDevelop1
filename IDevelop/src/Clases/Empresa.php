@@ -11,8 +11,13 @@ class Empresa extends Usuario
 	private $vision = '';
 	private $proyectos = array();
 
-	function __construct($nombre='',$fecha_Creacion='',$direccion='',$telefono='',$reclutador='',$rubro='',$mision='',$vision='', $proyectos = '')
+	function __construct($email,$foto_perfil,$contrasena, $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision, $proyectos)
 	{
+		$this->email = $email;
+		$this->foto_perfil = $foto_perfil;
+		$this->contrasena = $contrasena;
+		$this->validaciones = $validaciones;
+
 		$this->nombre = $nombre;
 		$this->fecha_Creacion = $fecha_Creacion;
 		$this->direccion = $direccion;
@@ -22,6 +27,7 @@ class Empresa extends Usuario
 		$this->mision = $mision;
 		$this->vision = $vision;
 		$this->proyectos = $proyectos;
+
 	}
 
 	public function getNombre(){
@@ -77,12 +83,18 @@ class Empresa extends Usuario
 	}
 
 	public function setReclutador($reclutador){
-		$this->
+		$this->reclutador=$reclutador;
 	}
 
 	public function setProyecto($proyecto){
 		array_push($this->proyecto, $proyecto);
 	}
 
+	public function registrase(){
+		
+		$sql=DB::$conexion()->prepare("INSERT INTO `empresa` (`direccion`, `fechaCreacion`, `mision`, `nombre`, `reclutador`, `rubro`, `telefono`, `vision`, `id`) VALUES (?,?,?,?,?,?,?,?,?");
+		$sql->bind_param('sssssssss',$this->direccion,$this->fechaCreacion,$this->mision,$this->nombre,$this->reclutador,$this->rubro,$this->telefono,$this->vision,$this->email);
+		return $sql->execute();
+	}
 }
 ?>
