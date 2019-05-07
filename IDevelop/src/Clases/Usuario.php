@@ -44,5 +44,9 @@ class Usuario
 	public function setValidaciones($validaciones){
 		array_push($this->validaciones, $validaciones);
 	}
+
+	public function verificarExistencia($email){
+		
+	}
 }
  ?>

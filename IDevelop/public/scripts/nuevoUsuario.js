@@ -19,15 +19,17 @@ function validarEmail(email){
 	var retorno = false;
 	$.ajax({
 		url: '/IDevelop1/IDevelop/public/Usuario/validarCorreo/'+email,
+		//data:{"email":email},
 		success: function(response){
-			
-			return response;
+			console.log(response);			
+			retorno =  response;
 		},
 		error: function(response){
 			alert(response);
-			
+			console.log(response);
 		}
 	});
+	return retorno;
 
 }
 

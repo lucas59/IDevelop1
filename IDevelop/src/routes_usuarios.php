@@ -5,7 +5,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 
 require_once 'controladores/ctr_usuarios.php';
-$controladorUsuarios = new ctr_usuarios();
+
 
 return function (App $app){
 	$container = $app->getContainer();
@@ -18,8 +18,11 @@ return function (App $app){
 	})->setName("ingresar");
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+	
 		$email = $args['email'];
-	return $controladorUsuarios->validarEmail($email);
+		//return $email;
+		return $controladorUsuarios->validarEmail($email);		
 	});
 }
 
