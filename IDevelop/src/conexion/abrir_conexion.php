@@ -1,5 +1,5 @@
 <?php
-require_once ($_SERVER["DOCUMENT_ROOT"]) . '../config.php';
+include_once "../src/config.php";
 if(class_exists('DB'))
 	return;
 class DB {

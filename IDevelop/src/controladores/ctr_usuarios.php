@@ -2,7 +2,7 @@
 /**
   * 
   */
-require_once '../Clases/Usuario.php';
+require_once '../src/Clases/Usuario.php';
 class ctr_usuarios{
 
 	function __construct(){

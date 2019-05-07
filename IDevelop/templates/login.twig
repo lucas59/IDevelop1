@@ -1,13 +1,16 @@
-{% extends "base.twig" %}
-
-{% block title %}Iniciar sesión{% endblock %}
-
-{% block content %}
+<html>
+    <head>
+    <meta charset="UTF-8">
+    </head>
+    <body>
 <h1>Login</h1>
+<form action="../..\src/Login.php" method="POST">
 <p>Correo:</p>
 <input type="text" name="Correo">
 <p>Contraseña:</p>
 <input type="password" name="Contrasena"><br>
 <input type="checkbox" name="Seguir"> Recordarme <br>
 <input type="submit" name="aceptar" value="Confirmar">
-{% endblock %}
+</form>
+    </body>
+</html>
