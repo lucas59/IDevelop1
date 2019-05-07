@@ -1,19 +1,23 @@
 <?php 
 class Desarrollador extend Usuario 
 {
-	private $cedula = '';
-	private $apellido = '';
-	private $fecha_Nacimiento = '';
-	private $pais = '';
-	private $ciudad_actual = '';
-	private $desarrollo_preferido = '';
+	private $cedula;
+	private $apellido;
+	private $fecha_Nacimiento;
+	private $pais;
+	private $ciudad_actual;
+	private $desarrollo_preferido;
 	private $experienca_laboral = array();
-	private $postulacion = '';
+	private $postulacion;
 	private $herramientas = array();
 	private $proyectos = array();
 
-	function __construct($cedula='',$apellido='',$fecha_Nacimiento='',$pais ='',$ciudad_actual='',$desarrollo_preferido='',$experienca_laboral = array(), $postulacion = '', $herramientas = array(), $proyectos = array())
+	function __construct($email,$foto_perfil,$contrasena,$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), $postulacion, $herramientas = array(), $proyectos = array())
 	{
+		$this->email = $email;
+		$this->foto_perfil = $foto_perfil;
+		$this->contrasena = $contrasena;
+
 		$this->cedula = $cedula;
 		$this->apellido = $apellido;
 		$this->fecha_Nacimiento = $fecha_Nacimiento;
@@ -105,6 +109,15 @@ class Desarrollador extend Usuario
 	public function setProyectos($proyectos){
 		array_push($this->proyectos, $proyectos);
 	}
-
-}
- ?>
+	
+	public function registrase(){
+		$sql=DB::$conexion()->prepare("INSERT INTO `desarrollador` (`apellido`, `cedula`, `ciudad`, `desarrolloPreferido`, `fechaNacimiento`, `nombre`, `pais`, `id`) VALUES (?,?,?,?,?,?,?,?)";
+			$sql->bind_param('sssssssss',$this->apellido,$this->cedula,$this->ciudad_actual,$this->desarrollo_preferido,$this->fecha_Nacimiento,$this->nombre,$this->pais,$this->email);
+			if($sql->execute()){
+				echo true;
+			}else{
+				echo false;
+			}
+		}
+	}
+	?>

@@ -1,15 +1,18 @@
 <?php 
+if(class_exists("Usuario"))
+	return;
+
 class Usuario 
 {
 	private $email = '';
 	private $foto_perfil = '';
-	private $contrasena = '';
+	private $contrasenia = '';
 	private $validaciones = array();
-	function __construct($email='',$foto_perfil='',$contrasena='', $validaciones = array())
+	function __construct($email,$foto_perfil,$contrasenia, $validaciones)
 	{
 		$this->email = $email;
 		$this->foto_perfil = $foto_perfil;
-		$this->contrasena = $contrasena;
+		$this->contrasenia = $contrasenia;
 		$this->validaciones = $validaciones;
 	}
 
@@ -21,7 +24,7 @@ class Usuario
 		return $this->foto_perfil;
 	}
 
-	public function getContrasena(){
+	public function getContrasenia(){
 		return $this->contrasena;
 	}
 
@@ -37,7 +40,7 @@ class Usuario
 		$this->foto_perfil = $foto_perfil;
 	}
 
-	public function setContrasena($contrasena){
+	public function setContrasenia($contrasena){
 		$this->contrasena = $contrasena;
 	}
 
@@ -46,7 +49,26 @@ class Usuario
 	}
 
 	public function verificarExistencia($email){
-		
+		$consulta = DB::conexion()->prepare('SELECT * FROM usuario WHERE email= ?');
+		$consulta->bind_param('s',$email);		
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if ($resultado->num_rows == 1) {
+			echo true;
+		} else if($resultado->num_rows==0) {
+			echo false;
+		}
+	}
+
+
+	public function registrarse(){	
+		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `foto`) VALUES (?,?,?)");
+		$sql->bind_param('sss',$this->email,$this->contrasenia,$this->foto_perfil);
+		if ($sql->execute()) {
+			return "1";
+		}else{
+			return "0";
+		} 
 	}
 }
- ?>
+?>

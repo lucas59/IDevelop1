@@ -4,7 +4,7 @@ class Validaciones
 	public $email = '';
 	public $token = '';
 	public $fecha = '';
-	function __construct($email = '', $token = '', $fecha = '')
+	function __construct($email, $token, $fecha)
 	{
 		$this->email = $email;
 		$this->token = $token;
