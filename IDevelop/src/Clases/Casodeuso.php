@@ -1,15 +1,15 @@
 <?php 
 class Casodeuso 
 {
-	private $nombre = '';
-	private $descripcion = '';
-	private $puntos = '';
+	private $nombre;
+	private $descripcion;
+	private $puntosTot; // traduccion de tiempo en puntos de realizar el caso de uso
 	
-	function __construct($nombre = '', $descripcion = '', $puntos = '')
+	function __construct($nombre, $descripcion, $puntosTot)
 	{
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
-		$this->puntos = $puntos;
+		$this->puntosTot = $puntosTot;
 	}
 
 	public function getNombre(){
@@ -20,8 +20,8 @@ class Casodeuso
 		return $this->descripcion;
 	}
 
-	public function getPuntos(){
-		return $this->puntos;
+	public function getPuntosTot(){
+		return $this->puntosTot;
 	}
 
 	public function setNombre($nombre){
@@ -32,8 +32,8 @@ class Casodeuso
 		$this->descripcion = $descripcion;
 	}
 
-	public function setPuntos($puntos){
-		$this->puntos = $puntos;
+	public function setPuntosTot($puntos){
+		$this->puntosTot = $puntos;
 	}
 }
  ?>
