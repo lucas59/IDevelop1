@@ -1,14 +1,12 @@
 <?php 
 class Avance_desarrollo 
 {
-	private $puntosTot = '';
-	private $avance = '';
-	private $casodeuso = array();
+	private $puntosActuales; // progreso del caso de uso con respecto a los puntos que tiene C.U.
+	private $casodeuso;
 
-	function __construct($puntosTot = '', $avance = '', $casodeuso = array())
+	function __construct($puntosActuales,$casodeuso)
 	{
-		$this->puntosTot = $puntosTot;
-		$this->avance = $avance;
+		$this->puntosTot = $puntosActuales;
 		$this->casodeuso = $casodeuso;
 	}
 
@@ -24,8 +22,8 @@ class Avance_desarrollo
 		return $this->casodeuso;
 	}
 
-	public function setPuntosTot($puntosTot){
-		$this->puntosTot = $puntosTot;
+	public function setPuntosActuales($puntosActuales){
+		$this->puntosActuales = $puntosActuales;
 	}
 
 	public function setAvance($avance){
@@ -35,6 +33,10 @@ class Avance_desarrollo
 	public function setCasodeuso($casodeuso){
 		array_push($this->casodeuso, $casodeuso);
 	}
-}
+
+	public function getAvance(){
+		//return (($this->puntosActuales * '100') / $this->casodeuso->getPuntosTot());
+	}
+} 
 
  ?>

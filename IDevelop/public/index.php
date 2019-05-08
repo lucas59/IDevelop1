@@ -44,11 +44,7 @@ $container['view']= function($container){
 	return $view;
 
 };
-/*
-$app->get('/login',function($request,$response,$args){
-	return $this->view->render($response,"login.twig");
-});
-*/
+
 $routes = require_once __DIR__ . '/../src/routes.php';
 
 $routes($app);

@@ -23,8 +23,7 @@ class ctr_usuarios{
 		
 		$usuario = new Usuario($email,null,sha1($contrasenia),null);
 		$retorno =$usuario->registrarse(); 
-		$token = generarToken();
-		$validacion=new Validaciones($email,$token,$fecha);
+		$validacion=new Validaciones($email,"",date("Y-m-d"));
 		$validacion->registrarse();
 
 		return $retorno;
