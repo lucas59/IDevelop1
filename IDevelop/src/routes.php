@@ -14,7 +14,9 @@ return function (App $app) {
 	$routesProyectos($app);
 
 	$app->get('/',function($request,$response,$args){
-		return $this->view->render($response,"index.twig");
+        session_start();
+        $sesion=$_SESSION['admin']; 
+		return $this->view->render($response,"index.twig",compact('sesion'));
 	})->setName("Inicio");
 
         // Render index view

@@ -31,7 +31,7 @@ class Validaciones
 		$this->token = $token;
 	}
 
-	publif function setFecha($fecha){
+	public function setFecha($fecha){
 		$this->fecha = $fecha;
 	}
 }
