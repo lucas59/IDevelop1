@@ -1,5 +1,5 @@
 <?php 
-use PHPMailer\PHPMailer\PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
 require_once('../Vendor/phpmailer/phpmailer/src/PHPMailer.php');
 
 class Validaciones
@@ -86,10 +86,10 @@ $address = "email@destinatario.com";
 $mail­>AddAddress($address, "Nombre completo");
 
 //Añado un asunto al mensaje
-$mail­>Subject = "Envío de email con PHPMailer en PHP";
+$mail­>Subject("Envío de email con PHPMailer en PHP");
 
 //Puedo definir un cuerpo alternativo del mensaje, que contenga solo texto
-$mail­>AltBody = "Cuerpo alternativo del mensaje";
+$mail­>AltBody("Cuerpo alternativo del mensaje");
 
 //inserto el texto del mensaje en formato HTML
 $mail­>MsgHTML($body);

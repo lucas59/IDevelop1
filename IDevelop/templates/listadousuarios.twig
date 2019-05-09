@@ -8,14 +8,10 @@
     </head>
     <body>
     {% include("nav.twig") %}
-<h1>Login</h1>
-<form action="../../src/Login.php" method="POST">
-<p>Correo:</p>
-<input type="text" name="Correo">
-<p>Contraseña:</p>
-<input type="password" name="Contrasena"><br>
-<input type="checkbox" name="Seguir"> Recordarme <br>
-<input type="submit" name="aceptar" value="Confirmar">
-</form>
+<h1>Desarrolladores</h1>
+{% for user in usuarios %}
+<tr>
+  <td>{{ user.getEmail() }}</td>
+</tr>
+{% endfor %}
     </body>
-</html>

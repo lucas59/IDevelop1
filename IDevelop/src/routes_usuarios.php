@@ -14,12 +14,14 @@ return function (App $app){
 	})->setName("NuevoUsuario");
 
 	$app->get('/Usuario/login',function($request,$response,$args) use ($container){
-		$function = new \Twig\TwigFunction('function_name', function () {
-			echo hola;
-		});
-		$this->view->addFunction($function);
 		return $this->view->render($response,"login.twig");
 	})->setName("ingresar");
+
+	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
+		$controladorUsuarios = new ctr_usuarios();
+		$usuarios = $controladorUsuarios->obtenerUsuarios();
+		return $this->view->render($response,"listadousuarios.twig",compact($usuarios));
+	})->setName("listado");
 
 	$app->get('/Usuario/cerrar',function($request,$response,$args) use ($container){
 		$controladorUsuarios = new ctr_usuarios();
