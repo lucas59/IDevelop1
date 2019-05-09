@@ -8,25 +8,66 @@ function nuevoUsuario(){
 	var fecha = formulario['fecha'].value;
 	var sexo = document.querySelector('input[name="sexo"]:checked').value;
 	var tipo = document.querySelector('input[name="tipo"]:checked').value;
+
 	
-	//alert(email);
 	var existe = validarEmail(email);
-	if(existe == true){
+	if(existe == "1"){
 		console.log("El usuario ya existe");
 	}else{
-		intento=ingresarUsuario(email,nombre,apellido,contraseña,fecha,sexo,tipo);
-		console.log("intento : " + intento);
+		console.log("el usuario no existe");
+		var token = makeid(10);
+		intento=ingresarUsuario(email,nombre,apellido,contraseña,fecha,sexo,tipo,token);
+		console.log("intento:" +intento);
 		if(intento==true){
 			console.log("ingresado");
+			var intentoValidacion = enviarValidacion(email,nombre,apellido,token);
+			/*if(intentoValidacion=="1"){
+				console.log("se envio el mail");
+			}else{
+				console.log("no se envio el mail");
+			}*/
+			
 		}else{
 			console.log("No ingresado")
 		}
 	}
 	
 }
+function makeid(length) {
+	var result = '';
+	var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var charactersLength = characters.length;
+	for ( var i = 0; i < length; i++ ) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+}
+
+function enviarValidacion(email,nombre,apellido,token){
+	var retorno;
+	$.ajax({
+		async:false,
+		url: '/IDevelop1/IDevelop/public/Usuario/Validacion/Enviar',
+		type: 'POST',
+		data: {
+			"email": email,
+			"nombre": nombre,
+			"apellido": apellido,
+			"token": token,
+		},
+		success: function(response){
+			if(response=="1"){
+				retorno = "1";
+			}else{
+				retorno ="0";
+			}
+		}
+	});		
+	return retorno;
+}
 
 
-function ingresarUsuario(email,nombre,apellido,contraseña,fecha,sexo,tipo){
+function ingresarUsuario(email,nombre,apellido,contraseña,fecha,sexo,tipo,token){
 	var retorno;
 	$.ajax({
 		async:false,
@@ -40,17 +81,18 @@ function ingresarUsuario(email,nombre,apellido,contraseña,fecha,sexo,tipo){
 			"fecha": fecha,
 			"sexo": sexo,
 			"tipo": tipo,
+			"token": token,
 		},
 		success: function(response){
-			console.log("asd: "+response);
+			response=response.trim();
 			if(response=="1"){
 				retorno = true;
-			}else{
+			}else if(response == "0"){
 				retorno =false;
 			}
 		},
 		error: function(response){
-			console.log(response);
+			console.log("response:" + eval(response));
 		}
 	});		
 	return retorno;
@@ -61,18 +103,16 @@ function validarEmail(email){
 	$.ajax({
 		async:false,
 		url: '/IDevelop1/IDevelop/public/Usuario/validarCorreo/'+email,
+		//data:{"email":email},
 		success: function(response){
-			if(response == true){
-				console.log(":)");
-				retorno =true;
-			}else{
-				console.log(":(");			
-				retorno =false;
-			}		
+			console.log(response);
+			retorno = response;
+			
 		}
 	});
 	return retorno;
 }
+
 
 const form = document.getElementById('formAlta');
 form.addEventListener('submit', nuevoUsuario);

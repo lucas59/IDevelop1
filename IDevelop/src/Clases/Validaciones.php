@@ -1,17 +1,17 @@
 <?php 
-use PHPMailer\PHPMailer\PHPMailer
-require_once('../Vendor/phpmailer/phpmailer/src/PHPMailer.php');
+use PHPMailer\PHPMailer\PHPMailer;
+//require_once '../Vendor/phpmailer/phpmailer/src/PHPMailer.php';
 
 class Validaciones
 {
-	public $email = '';
-	public $token = '';
-	public $fecha = '';
+	public $email;
+	public $token;
+	public $fecha;
 	function __construct($email, $token, $fecha)
 	{
 		$this->email = $email;
 		$this->token = $token;
-		$this->fecha = $token;
+		$this->fecha = $fecha;
 	}
 
 	public function getEmail(){
@@ -38,72 +38,81 @@ class Validaciones
 		$this->fecha = $fecha;
 	}
 
-	public function generarToken($length = 10) {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-		$charactersLength = strlen($characters);
-		$randomString = '';
-		for ($i = 0; $i < $length; $i++) {
-			$randomString .= $characters[rand(0, $charactersLength - 1)];
-		}
-		return $randomString;
-	} 
+	
 
-	public function registrarse(){	
-		$this->token=generarToken(10);
-
+	public function registrar($email,$nombre,$apellido,$token){	
+		$id=null;
+		$fecha = date("y-m-d H:i:s");
 		$sql=DB::conexion()->prepare("INSERT INTO `validaciones` (`id`, `email`, `fecha`, `token`) VALUES (?,?,?,?)");
-		$sql->bind_param('isss',null,$this->email,$this->fecha,$this->token);
-		if ($sql->execute()) {
-			enviarMail();
+		$sql->bind_param('isss',$id,$email,$fecha,$token);
+		if ($sql->execute()){
+			return "1";	
 		}else{
 			return "0";
-		} 
+		}
 	}
 
-	public function enviarMail(){
-		//incluimos la clase PHPMailer
+	public function obtenerValidacion($token){
+		$sql = DB::conexion()->prepare("SELECT * FROM `validaciones` WHERE token = ?");
+		$sql->bind_param("s",$token);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$validacion=$resultado->fetch_object();
+		return $validacion;
 
-//instancio un objeto de la clase PHPMailer
-$mail = new PHPMailer(); 
+	}
+	function enviarMail($email,$nombre,$apellido,$token){
 
-//defino el cuerpo del mensaje en una variable $body
-//se trae el contenido de un archivo de texto
-//también podríamos hacer $body="contenido...";
-$body = file_get_contents('contenido.html');
-//Esta línea la he tenido que comentar
-//porque si la pongo me deja el $body vacío
-// $body = preg_replace('/[]/i','',$body);
+		$hash = "http://localhost/IDevelop1/IDevelop/public/Usuario/validar/";
+		$hash .= $token;
 
-//defino el email y nombre del remitente del mensaje
-$mail­>SetFrom('email@remitente.com', 'Nombre completo');
+//Create a new PHPMailer instance
+		$mail = new PHPMailer;
+//Tell PHPMailer to use SMTP
+		$mail->isSMTP();
+//Enable SMTP debugging
+// 0 = off (for production use)
+// 1 = client messages
+// 2 = client and server messages
+		$mail->SMTPDebug = 2;
+//Set the hostname of the mail server
+		$mail->Host = 'smtp.gmail.com';
+// use
+// $mail->Host = gethostbyname('smtp.gmail.com');
+// if your network does not support SMTP over IPv6
+//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
+		$mail->Port = 587;
+//Set the encryption system to use - ssl (deprecated) or tls
+		$mail->SMTPSecure = 'tls';
+//Whether to use SMTP authentication
+		$mail->SMTPAuth = true;
+//Username to use for SMTP authentication - use full email address for gmail
+		$mail->Username = "idevelopcomunidad@gmail.com";
+//Password to use for SMTP authentication
+		$mail->Password = "idevelop2019";
+//Set who the message is to be sent from
+		$mail->setFrom("idevelopcomunidad@gmail.com", 'IDevelop');
+//Set an alternative reply-to address
+//		$mail->addReplyTo('replyto@example.com', 'First Last');
+//Set who the message is to be sent to
+		$mail->addAddress($email, 'Nuevo Usuario');
+//Set the subject line
+		$mail->Subject = 'Validacion de nueva cuenta';
+//Read an HTML message body from an external file, convert referenced images to embedded,
+//convert HTML into a basic plain-text alternative body
+	//	$mail->msgHTML(file_get_contents('contents.html'), __DIR__);
+//Replace the plain text body with one created manually
+		$mail->Body = $hash;
+//Attach an image file
+		//$mail->addAttachment('images/phpmailer_mini.png');
+//send the message, check for errors
+		if ($mail->send()) {
+			return "1";
+		}else{
+			return "0";
+		}
+	}
 
-//defino la dirección de email de "reply", a la que responder los mensajes
-//Obs: es bueno dejar la misma dirección que el From, para no caer en spam
-$mail­>AddReplyTo("email@remitente.com","Nombre Completo");
-//Defino la dirección de correo a la que se envía el mensaje
-$address = "email@destinatario.com";
-//la añado a la clase, indicando el nombre de la persona destinatario
-$mail­>AddAddress($address, "Nombre completo");
-
-//Añado un asunto al mensaje
-$mail­>Subject = "Envío de email con PHPMailer en PHP";
-
-//Puedo definir un cuerpo alternativo del mensaje, que contenga solo texto
-$mail­>AltBody = "Cuerpo alternativo del mensaje";
-
-//inserto el texto del mensaje en formato HTML
-$mail­>MsgHTML($body);
-
-//asigno un archivo adjunto al mensaje
-$mail­>AddAttachment("ruta/archivo_adjunto.gif");
-
-//envío el mensaje, comprobando si se envió correctamente
-if(!$mail­>Send()) {
-	echo "Error al enviar el mensaje: " . $mail­>ErrorInfo;
-} else {
-	echo "Mensaje enviado!!";
-} 
-}
 }
 
 ?>

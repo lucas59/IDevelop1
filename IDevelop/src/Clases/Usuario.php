@@ -4,9 +4,9 @@ if(class_exists("Usuario"))
 
 class Usuario 
 {
-	private $email = '';
-	private $foto_perfil = '';
-	private $contrasenia = '';
+	private $email;
+	private $foto_perfil;
+	private $contrasenia ;
 	private $validaciones = array();
 	function __construct($email,$foto_perfil,$contrasenia, $validaciones)
 	{
@@ -49,21 +49,23 @@ class Usuario
 	}
 
 	public function verificarExistencia($email){
-		$consulta = DB::conexion()->prepare('SELECT * FROM usuario WHERE email= ?');
+		$retorno=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM usuario WHERE email= ?");
 		$consulta->bind_param('s',$email);		
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-		if ($resultado->num_rows == 1) {
-			echo true;
+		if (mysqli_num_rows($resultado) == 1) {
+			$retorno = "1";
 		} else if($resultado->num_rows==0) {
-			echo false;
+			$retorno = "0";
 		}
+		return $retorno;
 	}
 
 
-	public function registrarse(){	
+	public function registrarUsuario($email,$foto,$contrasenia){	
 		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `foto`) VALUES (?,?,?)");
-		$sql->bind_param('sss',$this->email,$this->contrasenia,$this->foto_perfil);
+		$sql->bind_param('sss',$email,$contrasenia,$foto);
 		if ($sql->execute()) {
 			return "1";
 		}else{
