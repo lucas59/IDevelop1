@@ -1,5 +1,5 @@
 <?php 
-class Desarrollador extend Usuario 
+class Desarrollador extends Usuario 
 {
 	private $cedula;
 	private $apellido;
@@ -110,14 +110,20 @@ class Desarrollador extend Usuario
 		array_push($this->proyectos, $proyectos);
 	}
 	
-	public function registrase(){
-		$sql=DB::$conexion()->prepare("INSERT INTO `desarrollador` (`apellido`, `cedula`, `ciudad`, `desarrolloPreferido`, `fechaNacimiento`, `nombre`, `pais`, `id`) VALUES (?,?,?,?,?,?,?,?)";
-			$sql->bind_param('sssssssss',$this->apellido,$this->cedula,$this->ciudad_actual,$this->desarrollo_preferido,$this->fecha_Nacimiento,$this->nombre,$this->pais,$this->email);
-			if($sql->execute()){
-				echo true;
-			}else{
-				echo false;
-			}
+	public function registrarDesarrollador($nombre,$apellido,$email,$fecha){
+		$cedula=null;
+		$ciudad=null;
+		$desarrolloPreferido=null;
+		$pais=null;
+		
+		$sql=DB::conexion()->prepare("INSERT INTO `desarrollador` (`apellido`, `cedula`, `ciudad`, `desarrolloPreferido`, `fechaNacimiento`, `nombre`, `pais`, `id`) VALUES (?,?,?,?,?,?,?,?)");
+		$sql->bind_param('ssssssss',$apellido,$cedula,$ciudad,$desarrolloPreferido,$fecha,$nombre,$pais,$email);
+		if($sql->execute()){
+			return "1";
+		}else{
+			return "0";
 		}
 	}
-	?>
+
+}
+?>

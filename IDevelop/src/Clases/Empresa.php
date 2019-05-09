@@ -90,11 +90,20 @@ class Empresa extends Usuario
 		array_push($this->proyecto, $proyecto);
 	}
 
-	public function registrase(){
-		
-		$sql=DB::$conexion()->prepare("INSERT INTO `empresa` (`direccion`, `fechaCreacion`, `mision`, `nombre`, `reclutador`, `rubro`, `telefono`, `vision`, `id`) VALUES (?,?,?,?,?,?,?,?,?");
-		$sql->bind_param('sssssssss',$this->direccion,$this->fechaCreacion,$this->mision,$this->nombre,$this->reclutador,$this->rubro,$this->telefono,$this->vision,$this->email);
-		return $sql->execute();
+	public function registrarEmpresa($nombre,$fecha,$email){
+		$direccion=null;
+		$mision=null;
+		$reclutador=null;
+		$rubro=null;
+		$telefono=null;
+		$vision=null;
+		$sql=DB::conexion()->prepare("INSERT INTO `empresa` (`direccion`, `fechaCreacion`, `mision`, `nombre`, `reclutador`, `rubro`, `telefono`, `vision`, `id`) VALUES (?,?,?,?,?,?,?,?,?)");
+		$sql->bind_param('sssssssss',$direccion,$fecha,$mision,$nombre,$reclutador,$rubro,$telefono,$vision,$email);
+		if($sql->execute()){
+			return "1";
+		}else{
+			return "0";
+		}
 	}
 }
 ?>
