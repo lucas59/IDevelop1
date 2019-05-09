@@ -14,8 +14,18 @@ return function (App $app){
 	})->setName("NuevoUsuario");
 
 	$app->get('/Usuario/login',function($request,$response,$args) use ($container){
+		$function = new \Twig\TwigFunction('function_name', function () {
+			echo hola;
+		});
+		$this->view->addFunction($function);
 		return $this->view->render($response,"login.twig");
 	})->setName("ingresar");
+
+	$app->get('/Usuario/cerrar',function($request,$response,$args) use ($container){
+		$controladorUsuarios = new ctr_usuarios();
+		$controladorUsuarios->cerrarsesion();
+		return $this->view->render($response,"index.twig");
+	})->setName("cerrar");
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
