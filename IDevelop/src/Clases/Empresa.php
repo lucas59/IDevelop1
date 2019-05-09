@@ -1,4 +1,5 @@
 <?php 
+require_once 'Usuario.php';
 class Empresa extends Usuario 
 {
 	private $nombre = '';

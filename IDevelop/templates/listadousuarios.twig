@@ -9,9 +9,20 @@
     <body>
     {% include("nav.twig") %}
 <h1>Desarrolladores</h1>
+<table>
+<tr>
+  <td>Email</td>
+  <td>Apellido</td>
+  <td>Pais</td>
+  <td>Accion</td>
+</tr>
 {% for user in usuarios %}
 <tr>
-  <td>{{ user.getEmail() }}</td>
+  <td>{{ user.email }}</td>
+  <td>{{ user.apellido }}</td>
+  <td>{{ user.pais }}</td>
+  <td><a>Ver Perfil</a></td>
 </tr>
 {% endfor %}
+</table>
     </body>
