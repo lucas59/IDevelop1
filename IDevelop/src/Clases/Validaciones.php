@@ -4,9 +4,10 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Validaciones
 {
-	public $email;
-	public $token;
-	public $fecha;
+	private $id;
+	private $email;
+	private $token;
+	private $fecha;
 	function __construct($email, $token, $fecha)
 	{
 		$this->email = $email;
@@ -20,6 +21,13 @@ class Validaciones
 
 	public function getToken(){
 		return $this->token;
+	}
+	public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id = $id;
 	}
 
 	public function getFecha(){
@@ -59,8 +67,8 @@ class Validaciones
 		$resultado = $sql->get_result();
 		$validacion=$resultado->fetch_object();
 		return $validacion;
-
 	}
+	
 	function enviarMail($email,$nombre,$apellido,$token){
 
 		$hash = "http://localhost/IDevelop1/IDevelop/public/Usuario/validar/";

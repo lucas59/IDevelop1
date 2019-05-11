@@ -23,3 +23,7 @@ input{
 #sexo{
 	display:inline 
 }
+
+span{
+	display: block;
+}

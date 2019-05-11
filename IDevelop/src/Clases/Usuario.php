@@ -7,7 +7,7 @@ class Usuario
 	private $email;
 	private $foto_perfil;
 	private $contrasenia ;
-	private $validaciones = array();
+	private $estado;
 	function __construct($email,$foto_perfil,$contrasenia, $validaciones)
 	{
 		$this->email = $email;
@@ -28,8 +28,9 @@ class Usuario
 		return $this->contrasena;
 	}
 
-	public function getValidaciones(){
-		return $this->validaciones;
+	
+	public function getEstado(){
+		return $this->estado;
 	}
 
 	public function setEmail($email){
@@ -44,9 +45,10 @@ class Usuario
 		$this->contrasena = $contrasena;
 	}
 
-	public function setValidaciones($validaciones){
-		array_push($this->validaciones, $validaciones);
+	public function setEstado($estado){
+		$this->estado = $estado;
 	}
+
 
 	public function verificarExistencia($email){
 		$retorno=null;
@@ -62,10 +64,47 @@ class Usuario
 		return $retorno;
 	}
 
+	public function obtenerUsuario($email){
+		$sql = DB::conexion()->prepare("SELECT * FROM usuario WHERE email = ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		return $resultado->fetch_object();
+	}
+	public function verEstadoDeUsuario($email){
+		$consulta = DB::conexion()->prepare("SELECT * FROM usuario WHERE email= ?");
+		$consulta->bind_param('s',$email);		
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		$usuario=$resultado->fetch_object();
+		if($usuario->estado==1){
+			return true;
+		} else{
+			return false;
+		}
+	}
 
-	public function registrarUsuario($email,$foto,$contrasenia){	
-		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `foto`) VALUES (?,?,?)");
-		$sql->bind_param('sss',$email,$contrasenia,$foto);
+	public function activarUsuario($email,$estado){
+
+		$sql=DB::conexion()->prepare("UPDATE `usuario` SET `estado` = ? WHERE `usuario`.`email` = ?");
+		$sql->bind_param('is',$estado,$email);
+		if ($sql->execute()) {
+			return true;
+		}else{
+			return false;
+		} 
+	}
+
+
+	public function registrarUsuario($email,$foto,$contrasenia,$estado,$tipo){
+		$tipousu=0;
+		if($tipo=="e"){
+			$tipousu=1;
+		}else{
+			$tipousu=0;
+		}
+		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `estado`, `foto`, `tipo`) VALUES (?,?,?,?,?)");
+		$sql->bind_param('ssisi',$email,$contrasenia,$estado,$foto,$tipousu);
 		if ($sql->execute()) {
 			return "1";
 		}else{

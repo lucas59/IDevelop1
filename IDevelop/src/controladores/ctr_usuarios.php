@@ -1,12 +1,16 @@
- <?php 
+  <?php 
 /**
   * 
   */
 require_once '../src/Clases/Usuario.php';
 require_once '../src/Clases/Empresa.php';
+require_once '../src/Clases/Pais.php';
+require_once '../src/Clases/Ciudad.php';
 require_once '../src/Clases/Desarrollador.php';
 require_once '../src/Clases/Validaciones.php';
 require_once '../src/conexion/abrir_conexion.php';
+require_once '../src/Clases/curriculum.php';
+require_once '../src/Clases/console.php';
 class ctr_usuarios{
 
 	function __construct(){
@@ -27,12 +31,13 @@ class ctr_usuarios{
 	} 
 
 	public function ingresarUsuario($email,$nombre,$apellido,$contrasenia,$fecha,$sexo,$tipo,$token){
-		$insertUsu=Usuario::registrarUsuario($email,null,sha1($contrasenia));
+		$insertUsu=Usuario::registrarUsuario($email,null,sha1($contrasenia),0,$tipo);
 		if ($insertUsu=="1") {
 			return Validaciones::registrar($email,$nombre,$apellido,$token);
 		}else{
 			return "0";
 		}
+		
 	}
 	public function ingresarUsuHijo($email,$nombre,$apellido,$fecha,$tipo){
 		if($tipo=="e"){
@@ -49,23 +54,73 @@ class ctr_usuarios{
 	}
 
 	public function validarCuenta($token){
-		$validacion= Validaciones::obtenerValidacion($token);
-		$fecha = $validacion->fecha;
-		$comprobarfecha=$this->comprobarfecha($fecha);
-		if($comprobarfecha){
-			return false;
+		$validacion= Validaciones::obtenerValidacion($token); //obtengo la validacion
+		if($validacion){
+			$fecha = $validacion->fecha;
+			$estado =Usuario::verEstadoDeUsuario($validacion->email); 
+			if($estado == true){
+				return false;
+			}else{
+				$fechavalida= $this->comprobarfecha($validacion->fecha);
+				if($fechavalida==true){
+					$activacion=Usuario::activarUsuario($validacion->email,1);		
+
+					if($activacion){
+						return true;
+					}
+				}else{
+					return false;
+				}	
+			}
 		}else{
-			return true;
+			return false;
 		}
 
-
-
 	}
+
+	public function listarPaises(){
+		return Pais::listarPaises();
+	}
+	public function listarCiudades($pais){
+		return Ciudad::listarCiudad($pais);
+	}
+
+	public function enviarDatosDesarrollador($email,$idPais,$idCiudad,$lenguajes,$file){
+		$subCurriculo = curriculum::subirCurriculum($file,$email);
+		if($subCurriculo){
+			$idCurriculum = curriculum::obtenerIDCurriculo($email);
+			//echo Console::log("asd", $idCurriculum);
+			$actualizacion= Desarrollador::actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes,$idCurriculum);	
+			return $actualizacion;
+		}else{
+			return false;
+		}
+	}
+
+	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
+		return Empresa::actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);	
+			
+	}
+
+
+	public function obtenerUsuarioPorToken($token){
+		$validacion= Validaciones::obtenerValidacion($token);
+		$email=$validacion->email;
+		$usuarioDesarrollador = Desarrollador::obtenerDesarrollador($email);
+		if($usuarioDesarrollador!=null){
+			return $usuarioDesarrollador;
+		}else{
+			$usuarioEmpresa = Empresa::obtenerEmpresa($email);
+			return $usuarioEmpresa;
+		}
+	}
+	
 	public function comprobarfecha($fecha){
-		$retorno = false;
-		$fechaActual = date("y-m-d H:i:s");
-		$nuevafecha = strtotime ( '-30 day' , strtotime ( $fechaActual ) );
-		if($nuevafecha<=$fecha){
+		$retorno=false;
+		$fechaActual = date("y-m-d");
+		$nuevafecha = strtotime ( '-60 day' , strtotime ( $fechaActual ) );
+		$fechaIni = strtotime ( '-30 day' , strtotime ( $fecha ) );
+		if($nuevafecha<$fechaIni){
 			$retorno = true;
 		}
 		return $retorno;
@@ -73,8 +128,8 @@ class ctr_usuarios{
 
 
 
-		public function iniciarsesion(){
-			require_once './conexion/abrir_conexion.php';
+	public function iniciarsesion(){
+		require_once './conexion/abrir_conexion.php';
 		session_start();
 		
 		$usuario_login = $_POST['Correo'];
@@ -99,20 +154,19 @@ class ctr_usuarios{
 		//$contaseñadesencriptada = sha1($fila['contrasenia'] );
 		if( $contrasena_login == $contaseñadesencriptada){
 			//las contraseñas son iguales
-			$_SESSION['admin'] = $usuario_login;
 			header('Location: ../public/');
-		
+
 		}else{
 			die();
 		}
-		}
-		public function cerrarsesion(){
-			session_start();
+	}
+	public function cerrarsesion(){
+		session_start();
           // Destruir todas las variables de sesión.
-          $_SESSION = array();
+		$_SESSION = array();
 
           // Finalmente, destruir la sesión.
-          session_destroy();
-		}
-	} ?>
+		session_destroy();
+	}
+} ?>
 
