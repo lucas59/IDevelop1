@@ -123,9 +123,7 @@ class ctr_usuarios{
 		if($nuevafecha<$fechaIni){
 			$retorno = true;
 		}
-		return $retorno;
 	}
-
 
 
 	public function iniciarsesion(){
@@ -162,11 +160,52 @@ class ctr_usuarios{
 	}
 	public function cerrarsesion(){
 		session_start();
-          // Destruir todas las variables de sesión.
 		$_SESSION = array();
 
           // Finalmente, destruir la sesión.
 		session_destroy();
 	}
-} ?>
-
+		
+		public function obtenerUsuarios(){
+          //TRAIGO TODOS LOS USUARIOS
+          $consulta = DB::conexion()->prepare('SELECT * FROM usuario');	
+          $consulta->execute();
+          $resultado = $consulta->get_result();
+          if(!$resultado){
+               header('Location: ../public/');
+               die();
+					 }
+					 $usuarios = array();
+					 for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+						$resultado->data_seek($num_fila);
+						$fila = $resultado->fetch_assoc();
+						$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
+						$email1 =$fila['email'];
+						$consulta2->bind_param('s',$email1);	
+						$consulta2->execute();
+						$resultado2 = $consulta2->get_result();
+						if($resultado2){
+        
+							for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+								$resultado2->data_seek($num_fila2);
+								$fila2 = $resultado2->fetch_assoc();
+							
+							$email = $fila2['id'];
+							$foto = $fila['foto'];
+							$cedula = $fila2['cedula'];
+							$apellido =  $fila2['apellido'];
+							$fecha_Nacimiento =$fila2['fechaNacimiento'];
+							$pais =$fila2['pais'];
+							$ciudad_actual =$fila2['ciudad'];
+							$desarrollo_preferido =$fila2['desarrolloPreferido'];
+							$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
+						array_push($usuarios,$desarrollador);
+							}
+						
+				}
+			}
+           return $usuarios;
+        
+	} 
+}
+	?>

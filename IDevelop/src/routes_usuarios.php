@@ -18,6 +18,14 @@ return function (App $app){
 		return $this->view->render($response,"login.twig");
 	})->setName("ingresar");
 
+	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
+		session_start();
+		$sesion=$_SESSION['admin']; 
+		$controladorUsuarios = new ctr_usuarios();
+		$usuarios = $controladorUsuarios->obtenerUsuarios();
+		return $this->view->render($response,"listadousuarios.twig",compact('usuarios','sesion'));
+	})->setName("listado");
+
 	$app->get('/Usuario/cerrar',function($request,$response,$args) use ($container){
 		$controladorUsuarios = new ctr_usuarios();
 		$controladorUsuarios->cerrarsesion();

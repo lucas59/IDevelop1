@@ -1,6 +1,6 @@
 <?php 
 use PHPMailer\PHPMailer\PHPMailer;
-//require_once '../Vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require_once '../Vendor/phpmailer/phpmailer/src/PHPMailer.php';
 
 class Validaciones
 {
