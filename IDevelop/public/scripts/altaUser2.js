@@ -48,13 +48,21 @@ function enviarDatos(){
 		contentType: false,
 		url: '/IDevelop1/IDevelop/public/Usuario/Desarrollador/Datos',
 		type: 'POST',
-		data: datos,
+		data: datos, 
 		success: function(response){
 			console.log(response);
 			response=response.trim();
 			if(response=="1"){
+				var mensaje = "Bienvenido a IDevelop";
+				$("#mensajeModal").html(mensaje);	
+				var link = document.getElementById("redirigir");
+				link.setAttribute("href"," /IDevelop1/IDevelop/public/");
 				console.log("llega ok");
+				$("#modalAviso").modal();
 			}else{
+				var mensaje = "A ocurrido un problema...Revisa tus datos.";
+				$("#mensajeModal").html(mensaje);	
+				$("#modalAviso").modal();
 				console.log("no llega ok");
 			}
 		},

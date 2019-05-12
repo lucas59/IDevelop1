@@ -1,7 +1,8 @@
 <?php 
 use PHPMailer\PHPMailer\PHPMailer;
-require_once '../Vendor/phpmailer/phpmailer/src/PHPMailer.php';
 
+if(class_exists("Validaciones"))
+	return;
 class Validaciones
 {
 	private $id;

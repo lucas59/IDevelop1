@@ -78,9 +78,9 @@ class Usuario
 		$resultado = $consulta->get_result();
 		$usuario=$resultado->fetch_object();
 		if($usuario->estado==1){
-			return true;
+			return "1";
 		} else{
-			return false;
+			return "0";
 		}
 	}
 

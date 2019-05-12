@@ -15,8 +15,9 @@ function nuevoUsuario(){
 	if(existe == "1"){
 		var mensaje = "Usuario ya registrado en IDevelop";
 		$("#mensajeModal").html(mensaje);				
+		var link = document.getElementById("redirigir");
+		link.setAttribute("href", " /IDevelop1/IDevelop/public/Usuario/login");
 		$("#modalAviso").modal();
-
 		console.log("El usuario ya existe");
 	}else{
 		console.log("el usuario no existe");
@@ -28,6 +29,8 @@ function nuevoUsuario(){
 			var intentoValidacion = enviarValidacion(email,nombre,apellido,token);
 			var mensaje = "Usuario registrado con exito, se a enviado el enlace activador a su correo electronico.";
 			$("#mensajeModal").html(mensaje);				
+			var link = document.getElementById("redirigir");
+			link.setAttribute("href", " /IDevelop1/IDevelop/public/Usuario/login");
 			$("#modalAviso").modal();
 			
 		}else{

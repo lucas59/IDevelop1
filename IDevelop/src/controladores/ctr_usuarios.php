@@ -55,14 +55,17 @@ class ctr_usuarios{
 
 	public function validarCuenta($token){
 		$validacion= Validaciones::obtenerValidacion($token); //obtengo la validacion
-		if($validacion){
+		//echo Console::log("asd",$validacion);
+		if($validacion!=null){
 			$fecha = $validacion->fecha;
 			$estado =Usuario::verEstadoDeUsuario($validacion->email); 
-			if($estado == true){
+			if($estado == "1"){
 				return false;
 			}else{
 				$fechavalida= $this->comprobarfecha($validacion->fecha);
-				if($fechavalida==true){
+				echo Console::log("asd",$fechavalida);
+			
+				if($fechavalida=="1"){
 					$activacion=Usuario::activarUsuario($validacion->email,1);		
 
 					if($activacion){
@@ -75,7 +78,6 @@ class ctr_usuarios{
 		}else{
 			return false;
 		}
-
 	}
 
 	public function listarPaises(){
@@ -99,7 +101,7 @@ class ctr_usuarios{
 
 	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
 		return Empresa::actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);	
-			
+
 	}
 
 
@@ -121,8 +123,9 @@ class ctr_usuarios{
 		$nuevafecha = strtotime ( '-60 day' , strtotime ( $fechaActual ) );
 		$fechaIni = strtotime ( '-30 day' , strtotime ( $fecha ) );
 		if($nuevafecha<$fechaIni){
-			$retorno = true;
+			$retorno = "1";
 		}
+		return $retorno;
 	}
 
 
@@ -165,47 +168,47 @@ class ctr_usuarios{
           // Finalmente, destruir la sesión.
 		session_destroy();
 	}
-		
-		public function obtenerUsuarios(){
+
+	public function obtenerUsuarios(){
           //TRAIGO TODOS LOS USUARIOS
-          $consulta = DB::conexion()->prepare('SELECT * FROM usuario');	
-          $consulta->execute();
-          $resultado = $consulta->get_result();
-          if(!$resultado){
-               header('Location: ../public/');
-               die();
-					 }
-					 $usuarios = array();
-					 for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
-						$resultado->data_seek($num_fila);
-						$fila = $resultado->fetch_assoc();
-						$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
-						$email1 =$fila['email'];
-						$consulta2->bind_param('s',$email1);	
-						$consulta2->execute();
-						$resultado2 = $consulta2->get_result();
-						if($resultado2){
-        
-							for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
-								$resultado2->data_seek($num_fila2);
-								$fila2 = $resultado2->fetch_assoc();
-							
-							$email = $fila2['id'];
-							$foto = $fila['foto'];
-							$cedula = $fila2['cedula'];
-							$apellido =  $fila2['apellido'];
-							$fecha_Nacimiento =$fila2['fechaNacimiento'];
-							$pais =$fila2['pais'];
-							$ciudad_actual =$fila2['ciudad'];
-							$desarrollo_preferido =$fila2['desarrolloPreferido'];
-							$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
-						array_push($usuarios,$desarrollador);
-							}
-						
+		$consulta = DB::conexion()->prepare('SELECT * FROM usuario');	
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if(!$resultado){
+			header('Location: ../public/');
+			die();
+		}
+		$usuarios = array();
+		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado->data_seek($num_fila);
+			$fila = $resultado->fetch_assoc();
+			$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
+			$email1 =$fila['email'];
+			$consulta2->bind_param('s',$email1);	
+			$consulta2->execute();
+			$resultado2 = $consulta2->get_result();
+			if($resultado2){
+
+				for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+					$resultado2->data_seek($num_fila2);
+					$fila2 = $resultado2->fetch_assoc();
+
+					$email = $fila2['id'];
+					$foto = $fila['foto'];
+					$cedula = $fila2['cedula'];
+					$apellido =  $fila2['apellido'];
+					$fecha_Nacimiento =$fila2['fechaNacimiento'];
+					$pais =$fila2['pais'];
+					$ciudad_actual =$fila2['ciudad'];
+					$desarrollo_preferido =$fila2['desarrolloPreferido'];
+					$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
+					array_push($usuarios,$desarrollador);
 				}
+
 			}
-           return $usuarios;
-        
+		}
+		return $usuarios;
+
 	} 
 }
-	?>
+?>

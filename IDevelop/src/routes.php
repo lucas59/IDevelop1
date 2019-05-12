@@ -14,8 +14,8 @@ return function (App $app) {
 	$routesProyectos($app);
 
 	$app->get('/',function($request,$response,$args){
-        session_start();
-        $sesion=$_SESSION['admin']; 
+        //session_start();
+       // $sesion=$_SESSION['admin']; 
 		return $this->view->render($response,"index.twig",compact('sesion'));
 	})->setName("Inicio");
 
