@@ -1,0 +1,96 @@
+{% extends "base.twig" %}
+{% block title %}Registrarse{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nuevoUser.css">
+{% endblock %}
+
+{% block content %}
+
+{% if usuario %}
+
+{% if usuario.tipo == false %}<!-- Usuario del tipo desarrollador -->
+<form id="formDatosDesarrollador">
+
+	<h1>Bienvenido {{usuario.nombre |upper }} {{usuario.apellido |upper }}</h1>
+	<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
+	<span>
+		<select id="idPaises" name="pais">
+			
+		</select>
+		<select id="idCiudad" name="ciudad">
+
+		</select>
+	</span>
+	<span>
+		<label for="lenguaFav">Lenguaje que usted conoce</label>
+		<ul id="lenguajes">
+			<li><input value="C" type="checkbox"> C </li>
+			<li><input value="Java" type="checkbox"> Java </li>
+			<li><input value="C++" type="checkbox"> C++</li>
+			<li><input value="C#" type="checkbox"> C# </li>
+			<li><input value="R" type="checkbox"> R </li>
+			<li><input value="PHP" type="checkbox"> PHP </li>
+			<li><input value="GO" type="checkbox"> GO </li>
+			<li><input value="Swift" type="checkbox"> Swift </li>
+			<li><input value="Otros" type="checkbox"> Otros </li>
+		</ul>
+	</span>
+	<span>
+		<label>Curriculum vitae: </label>
+		<input id="curriculum" type="file" name="file" required>
+	</span>
+	<span>
+		<input value="Finalizar" type="submit" id="btnenviar" placeholder="Finalizar" name="submit">
+	</span>
+
+</form>
+{% endif %}
+
+{% if usuario.tipo == true %}<!-- Usuario del tipo empresa -->
+<h1>Bienvenido {{usuario.nombre |upper }}</h1>
+<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
+<form id="formDatosEmpresa">
+	<span>
+		<select id="idPaises" name="pais">			
+		</select>
+		<select id="idCiudad" name="ciudad">
+		</select>
+	</span>
+	<span>
+		<textarea id="txtVision" placeholder="Visión"></textarea>
+		<textarea id="txtMision" placeholder="Misión"></textarea>
+		<input id="txtTel" type="text" placeholder="Teléfono">
+		<input id="txtRubro" type="text" placeholder="Rubro">
+		<input id="txtReclutador" type="text" placeholder="Nombre del reclutador">
+		<input id="txtDireccion" type="text" placeholder="Dirección">
+	</span>	
+	<span>
+		<input type="submit" id="btnEnviarEmpresa" value="Finalizar" name="submitEmpresa">
+	</span>
+</form>
+
+{% endif %}
+<div id="modalAviso" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="mensajeModal">Modal body text goes here.</p>
+			</div>
+			<div class="modal-footer">  <a type="button" id="redirigir" class="btn btn-default">Close</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/altaUser2.js"></script>
+{% endblock %}
+

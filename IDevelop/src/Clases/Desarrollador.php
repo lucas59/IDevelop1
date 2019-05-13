@@ -117,13 +117,31 @@ class Desarrollador extends Usuario
 		$desarrolloPreferido=null;
 		$pais=null;
 		
-		$sql=DB::conexion()->prepare("INSERT INTO `desarrollador` (`apellido`, `cedula`, `ciudad`, `desarrolloPreferido`, `fechaNacimiento`, `nombre`, `pais`, `id`) VALUES (?,?,?,?,?,?,?,?)");
-		$sql->bind_param('ssssssss',$apellido,$cedula,$ciudad,$desarrolloPreferido,$fecha,$nombre,$pais,$email);
+		$sql=DB::conexion()->prepare("INSERT INTO `desarrollador` (`apellido`, `cedula`, `ciudad_id`, `desarrolloPreferido`, `fechaNacimiento`, `nombre`, `pais_id`, `id`) VALUES (?,?,?,?,?,?,?,?)");
+		$sql->bind_param('ssisssis',$apellido,$cedula,$ciudad,$desarrolloPreferido,$fecha,$nombre,$pais,$email);
 		if($sql->execute()){
 			return "1";
 		}else{
 			return "0";
 		}
+	}
+
+	public function obtenerDesarrollador($email){
+		$sql = DB::conexion()->prepare("SELECT D.* , U.tipo FROM desarrollador AS D, usuario AS U WHERE D.id = ? AND D.id=U.email");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		return $resultado->fetch_object();
+	}
+
+	public function actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes=null,$idCurriculum){
+		$sql=DB::conexion()->prepare("UPDATE `desarrollador` SET `pais_id` = ?, `ciudad_id` = ?,`desarrolloPreferido`=?,`curriculum_id`=? WHERE `desarrollador`.`id` = ? ");
+		$sql->bind_param('iisis',$idPais,$idCiudad,$lenguajes,$idCurriculum,$email);
+		if ($sql->execute()){
+			return true;
+		} else{
+			return false;
+		}	
 	}
 
 }

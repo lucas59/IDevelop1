@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{% block title %}{% endblock %} - IDevelop</title>
-    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
-    {% block head %}{% endblock %}
+	<title>{% block title %}{% endblock %} - IDevelop</title>
+	<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+
+	{% block head %}{% endblock %}
 
 </head>
 <body>
-    {% include("nav.twig") %}
-    <div id="content">{% block content %}{% endblock %}</div>
-    {% include("footer.twig") %}
+	{% include("nav.twig") %}
+	<div id="content">{% block content %}{% endblock %}</div>
+	<script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
+	<script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+	{% block script %}{% endblock %}
+
 </body>
 </html>
