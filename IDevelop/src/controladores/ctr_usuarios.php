@@ -128,7 +128,6 @@ class ctr_usuarios{
 		return $retorno;
 	}
 	public function cerrarsesion(){
-		session_start();
 		$_SESSION = array();
 
           // Finalmente, destruir la sesión.
