@@ -9,13 +9,16 @@
     <body>
     {% include("nav.twig") %}
 <h1>Login</h1>
-<form action="../../src/Login.php" method="POST">
+<form id="formLogin" method="POST">
 <p>Correo:</p>
-<input type="text" name="Correo">
+<input type="text" id="Correo" name="Correo">
 <p>Contraseña:</p>
-<input type="password" name="Contrasena"><br>
-<input type="checkbox" name="Seguir"> Recordarme <br>
+<input type="password" id="Contrasena" name="Contrasena"><br>
+<input type="checkbox" id="Seguir "name="Seguir"> Recordarme <br>
 <input type="submit" name="aceptar" value="Confirmar">
 </form>
+{%block script%}
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/Loggin.js"></script>
+{% endblock %}
     </body>
 </html>

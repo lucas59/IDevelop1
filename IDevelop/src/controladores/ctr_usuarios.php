@@ -70,7 +70,7 @@ class ctr_usuarios{
 		}
 	}
 		public function cerrarsesion(){
-			session_start();
+					
           // Destruir todas las variables de sesión.
           $_SESSION = array();
 
@@ -118,6 +118,9 @@ class ctr_usuarios{
 			}
            return $usuarios;
         
-	} 
+	}
+	 public function Login($email,$pass){
+		return Usuario::Login($email,$pass);
+	}
 }
 	?>
