@@ -35,7 +35,6 @@ function enviarDatos(){
 	var email = $('#email').val();
 	var ciudad = $('#idCiudad').val();
 	var file = document.querySelector('input[type=file]').files[0];
-	console.log("data: " + lenguajes);
 	var datos = new FormData();
 	datos.append('email',email);
 	datos.append('file',file);
@@ -53,12 +52,8 @@ function enviarDatos(){
 			console.log(response);
 			response=response.trim();
 			if(response=="1"){
-				var mensaje = "Bienvenido a IDevelop";
-				$("#mensajeModal").html(mensaje);	
-				var link = document.getElementById("redirigir");
-				link.setAttribute("href"," /IDevelop1/IDevelop/public/");
 				console.log("llega ok");
-				$("#modalAviso").modal();
+				window.location.replace("/IDevelop1/IDevelop/public");
 			}else{
 				var mensaje = "A ocurrido un problema...Revisa tus datos.";
 				$("#mensajeModal").html(mensaje);	
@@ -74,6 +69,7 @@ function enviarDatos(){
 
 function enviarDatosEmpresa(){
 	event.preventDefault();
+	console.log("asdasd");
 	var pais = $('#idPaises').val();
 	var email = $('#email').val();
 	var ciudad = $('#idCiudad').val();
@@ -106,8 +102,8 @@ function enviarDatosEmpresa(){
 			console.log(response);
 			response=response.trim();
 			if(response=="1"){
-				location.href="ingresar";
 				console.log("llega ok");
+				window.location.replace("/IDevelop1/IDevelop/public");
 			}else{
 				var mensaje = "Revise nuevamente sus datos";
 				$("#mensajeModal").html(mensaje);				
@@ -120,6 +116,7 @@ function enviarDatosEmpresa(){
 		}
 	});
 }
+
 
 function rellenarSelect(arreglo){
 	var imprimir = "";

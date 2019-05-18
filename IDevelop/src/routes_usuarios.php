@@ -46,7 +46,6 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$token = $args['token'];
 		$validar = $controladorUsuarios->validarCuenta($token);
-		echo Console::log("asd",$validar);
 		if($validar){
 			$usuario=$controladorUsuarios->obtenerUsuarioPorToken($token);
 			$usuario = array ("usuario"  => $usuario);
@@ -135,6 +134,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguajes,$curriculo);
 		if($retorno==1){
+			ctr_usuarios::ponerSession($email,'d');
 			return "1";
 		}else{
 			return "0";
@@ -154,6 +154,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$retorno = $controladorUsuarios->enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);
 		if($retorno==1){
+			ctr_usuarios::ponerSession($email,'e');
 			return "1";
 		}else{
 			return "0";

@@ -64,7 +64,7 @@ class ctr_usuarios{
 			}else{
 				$fechavalida= $this->comprobarfecha($validacion->fecha);
 				echo Console::log("asd",$fechavalida);
-			
+
 				if($fechavalida=="1"){
 					$activacion=Usuario::activarUsuario($validacion->email,1);		
 
@@ -96,6 +96,23 @@ class ctr_usuarios{
 			return $actualizacion;
 		}else{
 			return false;
+		}
+	}
+
+	public function ponerSession($email,$tipoUsuario){
+		if(!isset($_SESSION)) 
+		{ 
+			session_start(); 
+		} 
+		if($tipoUsuario=='e'){
+			$empresa = Empresa::obtenerEmpresa($email);
+			$_SESSION['admin'] = $empresa;
+
+		}else{
+			$desarrollador = Desarrollador::obtenerDesarrollador($email);
+			$_SESSION['admin'] = $desarrollador;
+
+			echo Console::log("asd",$_SESSION['admin']);
 		}
 	}
 
@@ -171,13 +188,13 @@ class ctr_usuarios{
 				}
 
 			}
-           
-        
-	}
-	return $usuarios;
-}
 
-	 public function Login($email,$pass){
+
+		}
+		return $usuarios;
+	}
+
+	public function Login($email,$pass){
 		return Usuario::Login($email,$pass);
 	}
 }
