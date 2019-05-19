@@ -36,27 +36,5 @@ return function (App $app){
 		}
 
 	});
-
-	$app->post('/Usuario/Empresa/Datos',function (Request $request, Response $response){
-		$vision = $_POST['vision'];
-		$mision = $_POST['mision'];
-		$tel = $_POST['tel'];
-		$rubro = $_POST['rubro'];
-		$reclutador = $_POST['reclutador'];
-		$direccion = $_POST['direccion'];
-		$email = $_POST['email'];
-		$pais = $_POST['pais'];
-		$ciudad = $_POST['ciudad'];
-
-		$controladorUsuarios = new ctr_usuarios();
-		$retorno = $controladorUsuarios->enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);
-		if($retorno==1){
-			ctr_usuarios::ponerSession($email,'e');
-			return "1";
-		}else{
-			return "0";
-		}
-	});
-
 }
 ?>
