@@ -197,5 +197,10 @@ class ctr_usuarios{
 	public function Login($email,$pass){
 		return Usuario::Login($email,$pass);
 	}
+
+
+	public function desactivarUsuario($correo){
+		return Usuario::desactivarUsuario($correo);
+	}
 }
 ?>

@@ -190,5 +190,11 @@ class Usuario
 			return "0";
 		}
 	}
+
+	public function desactivarUsuario($correo){
+		$sql = DB::conexion()->prepare("UPDATE usuario SET estado = 0 WHERE email = ? ");
+		$sql->bind_param("s",$correo);
+		return $sql->execute();
+	}
 }
 ?>

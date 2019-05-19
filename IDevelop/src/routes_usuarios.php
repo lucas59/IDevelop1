@@ -70,6 +70,11 @@ return function (App $app){
 		return $response;
 	});
 
+	$app->get('/Usuario/Desactivar/{correo}',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+		$correo = $args['correo'];
+		return $controladorUsuarios->desactivarUsuario($correo);
+	});
 
 	$app->post('/Usuario/NuevoUsuario',function(Request $request, Response $response){
 		$data = $request->getParams();
