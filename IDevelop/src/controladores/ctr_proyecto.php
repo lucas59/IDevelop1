@@ -8,6 +8,11 @@
 	{
 		# code...
 	}
+
+	public function agregarProyecto($proyecto){
+
+	}
+
 }
 
  ?>
