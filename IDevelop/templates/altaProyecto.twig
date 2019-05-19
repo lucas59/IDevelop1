@@ -1,0 +1,55 @@
+{% extends "base.twig" %}
+{% block title %}Crear proyecto{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nuevoUser.css">
+{% endblock %}
+
+{% block content %}
+<main>
+	<form method="POST" id="formAltaProyecto">
+		<h2>Crea una cuenta</h2>
+		<span>
+			<label for="txtNombre"> Nombre Proyecto</label>
+			<input type="text" id="txtNombre" name="nombre" required>
+		</span>
+		<span>
+			<label for="txtDescripcion">Descripcion Proyecto</label>
+			<textarea name="txtDescripcion" id="txtDescripcion" rows="10" cols="50" placeholder="Descripción del proyecto..."> </textarea>
+		</span>
+		<span>
+			<label for="txtFecha"> Fecha Entrega proyecto</label>
+			<input type="date" id="txtFechaE" name="fechaEntrega" required>
+		</span>
+		<span>
+			<label for="txtFechaFP"> Fecha final de postulación</label>
+			<input type="date" id="txtFechaFP" name="fechaFP" required>
+		</span>
+		<input type="submit" name="submit" value="Crear proyecto"><br>
+	</form>
+</main>
+
+<!-- Modal  de mensajes -->
+<div id="modalAviso" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="mensajeModal">Modal body text goes here.</p>
+			</div>
+			<div class="modal-footer">	
+				<a type="button" class="btn" id="redirigir">Aceptar</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/altaProyecto.js"></script>
+{% endblock %}

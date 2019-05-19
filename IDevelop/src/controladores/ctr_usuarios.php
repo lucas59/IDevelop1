@@ -185,6 +185,7 @@ class ctr_usuarios{
 					$desarrollo_preferido =$fila2['desarrolloPreferido'];
 					$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 					array_push($usuarios,$desarrollador);
+					
 				}
 
 			}
