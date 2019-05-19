@@ -6,7 +6,7 @@ function nuevoUsuario(){
 	var apellido = formulario['txtApellido'].value;
 	var contraseña = formulario['txtPass'].value;
 	var fecha = formulario['fecha'].value;
-	var sexo = document.querySelector('input[name="sexo"]:checked').value;
+	var sexo = null;
 	var tipo = document.querySelector('input[name="tipo"]:checked').value;
 
 	console.log(tipo);

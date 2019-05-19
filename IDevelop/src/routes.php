@@ -14,9 +14,11 @@ return function (App $app) {
 	$routesProyectos($app);
 
 	$app->get('/',function($request,$response,$args){
-        //session_start();
-       // $sesion=$_SESSION['admin']; 
-		return $this->view->render($response,"index.twig",compact('sesion'));
+		echo Console::log('asd',$_SESSION);
+		if(isset($_SESSION['admin'])){
+			$args["session"]=$_SESSION['admin']; 
+		}
+		return $this->view->render($response,"index.twig",$args);
 	})->setName("Inicio");
 
 };

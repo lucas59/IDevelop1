@@ -64,7 +64,7 @@ class ctr_usuarios{
 			}else{
 				$fechavalida= $this->comprobarfecha($validacion->fecha);
 				echo Console::log("asd",$fechavalida);
-			
+
 				if($fechavalida=="1"){
 					$activacion=Usuario::activarUsuario($validacion->email,1);		
 
@@ -99,6 +99,23 @@ class ctr_usuarios{
 		}
 	}
 
+	public function ponerSession($email,$tipoUsuario){
+		if(!isset($_SESSION)) 
+		{ 
+			session_start(); 
+		} 
+		if($tipoUsuario=='e'){
+			$empresa = Empresa::obtenerEmpresa($email);
+			$_SESSION['admin'] = $empresa;
+
+		}else{
+			$desarrollador = Desarrollador::obtenerDesarrollador($email);
+			$_SESSION['admin'] = $desarrollador;
+
+			echo Console::log("asd",$_SESSION['admin']);
+		}
+	}
+
 	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
 		return Empresa::actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);	
 
@@ -127,42 +144,7 @@ class ctr_usuarios{
 		}
 		return $retorno;
 	}
-
-
-	public function iniciarsesion(){
-		require_once './conexion/abrir_conexion.php';
-		session_start();
-		
-		$usuario_login = $_POST['Correo'];
-		$contrasena_login = $_POST['Contrasena'];
-		
-		//VERIFICAR SI USUARIO EXISTE
-		
-		$consulta = DB::conexion()->prepare('SELECT * FROM usuario WHERE email= ?');
-		$consulta->bind_param('s',$usuario_login);		
-		$consulta->execute();
-		$resultado = $consulta->get_result();
-		if(!$resultado){
-			header('Location: ../public/Usuario/login');
-			die();
-			
-		}
-		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
-			$resultado->data_seek($num_fila);
-			$fila = $resultado->fetch_assoc();
-		}
-		$contaseñadesencriptada = $fila['contrasenia'];
-		//$contaseñadesencriptada = sha1($fila['contrasenia'] );
-		if( $contrasena_login == $contaseñadesencriptada){
-			//las contraseñas son iguales
-			header('Location: ../public/');
-
-		}else{
-			die();
-		}
-	}
 	public function cerrarsesion(){
-		session_start();
 		$_SESSION = array();
 
           // Finalmente, destruir la sesión.
@@ -206,9 +188,14 @@ class ctr_usuarios{
 				}
 
 			}
+
+
 		}
 		return $usuarios;
+	}
 
-	} 
+	public function Login($email,$pass){
+		return Usuario::Login($email,$pass);
+	}
 }
 ?>

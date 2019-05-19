@@ -19,8 +19,10 @@ return function (App $app){
 	})->setName("ingresar");
 
 	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
-		session_start();
+		$sesion = null;
+		if(isset($_SESSION['admin'])){
 		$sesion=$_SESSION['admin']; 
+		}
 		$controladorUsuarios = new ctr_usuarios();
 		$usuarios = $controladorUsuarios->obtenerUsuarios();
 		return $this->view->render($response,"listadousuarios.twig",compact('usuarios','sesion'));
@@ -29,7 +31,8 @@ return function (App $app){
 	$app->get('/Usuario/cerrar',function($request,$response,$args) use ($container){
 		$controladorUsuarios = new ctr_usuarios();
 		$controladorUsuarios->cerrarsesion();
-		return $this->view->render($response,"index.twig");
+		$sesion = null;
+		return $this->view->render($response,"index.twig",compact('sesion'));
 	})->setName("cerrar");
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
@@ -43,7 +46,6 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$token = $args['token'];
 		$validar = $controladorUsuarios->validarCuenta($token);
-		echo Console::log("asd",$validar);
 		if($validar){
 			$usuario=$controladorUsuarios->obtenerUsuarioPorToken($token);
 			$usuario = array ("usuario"  => $usuario);
@@ -100,6 +102,15 @@ return function (App $app){
 		$retorno = ctr_usuarios::enviarValidacion($email,$nombre,$apellido,$token);
 		return $retorno;
 	});
+	$app->post('/Usuario/Logearse',function(Request $request, Response $response){
+
+		$data = $request->getParams();
+		$email=$data['email'];
+		$pass=$data['pass'];
+		$controladorUsuarios = new ctr_usuarios();
+		$retorno = $controladorUsuarios->Login($email,$pass);
+		return $retorno;
+	});
 
 	$app->post('/Usuario/Desarrollador/Datos',function (Request $request, Response $response){
 		$file = $_FILES['file'];
@@ -123,6 +134,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguajes,$curriculo);
 		if($retorno==1){
+			ctr_usuarios::ponerSession($email,'d');
 			return "1";
 		}else{
 			return "0";
@@ -142,6 +154,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$retorno = $controladorUsuarios->enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);
 		if($retorno==1){
+			ctr_usuarios::ponerSession($email,'e');
 			return "1";
 		}else{
 			return "0";
