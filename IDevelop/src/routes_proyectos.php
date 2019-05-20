@@ -6,8 +6,7 @@ use Slim\Http\Response;
 
 require_once 'controladores/ctr_proyecto.php';
 require_once '../src/Clases/console.php';
-include 'Desarrollador.php';
-session_start();
+
 
 
 return function (App $app){
