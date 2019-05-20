@@ -103,18 +103,17 @@ class ctr_usuarios{
 		if(!isset($_SESSION)) 
 		{ 
 			session_start(); 
-			
-			if($tipoUsuario=='e'){
-				$empresa = Empresa::obtenerEmpresa($email);
-				$_SESSION['admin'] = $empresa;
-
-			}else{
-				$desarrollador = Desarrollador::obtenerDesarrollador($email);
-				$_SESSION['admin'] = $desarrollador;
-
-				echo Console::log("asd",$_SESSION['admin']);
-			}
 		}
+		if($tipoUsuario=='e'){
+			$empresa = Empresa::obtenerEmpresa($email);
+			$_SESSION['admin'] = $empresa;
+
+		}else{
+			$desarrollador = Desarrollador::obtenerDesarrollador($email);
+			$_SESSION['admin'] = $desarrollador;
+
+		}
+		
 	}
 
 	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
@@ -146,7 +145,7 @@ class ctr_usuarios{
 		return $retorno;
 	}
 	public function cerrarsesion(){
-		$_SESSION = array();
+		$_SESSION['admin'] = null;
 
           // Finalmente, destruir la sesión.
 		session_destroy();

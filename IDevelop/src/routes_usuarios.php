@@ -21,7 +21,7 @@ return function (App $app){
 	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
 		$sesion = null;
 		if(isset($_SESSION['admin'])){
-		$sesion=$_SESSION['admin']; 
+			$sesion=$_SESSION['admin']; 
 		}
 		$controladorUsuarios = new ctr_usuarios();
 		$usuarios = $controladorUsuarios->obtenerUsuarios();
@@ -186,7 +186,7 @@ return function (App $app){
 
 	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
-$Empresas = $controladorUsuarios->listarEmprezas();
+		$Empresas = $controladorUsuarios->listarEmprezas();
 		return $this->view->render($response,"listadoempreza.twig",compact('Empresas'));
 	})->setName("listadoE");
 
@@ -195,8 +195,8 @@ $Empresas = $controladorUsuarios->listarEmprezas();
 		$controladorUsuarios = new ctr_usuarios();
 		$Empresa = $controladorUsuarios->PerfilEmpresa($email);
 		if($Empresa){
-		$proyectos = $controladorUsuarios->proyectosEmpresa($email);
-	}
+			$proyectos = $controladorUsuarios->proyectosEmpresa($email);
+		}
 		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
 	})->setName("listadoE");
 }
