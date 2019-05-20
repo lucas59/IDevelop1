@@ -14,6 +14,12 @@ return function (App $app){
 		return $this->view->render($response,"altaProyecto.twig");
 	})->setName("NuevoProyecto");
 
+	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
+		$lista = Proyecto::Listar_proyectos();
+		return $this->view->render($response,"postularse.twig",array('proyectos' => $lista));
+	})->setName("Postularse");
+
+
 	$app->get('/Proyecto/validarNombreP/{nombre}',function($request,$response,$args){
 		$controladorProyecto = new ctr_proyecto();
 		$nombre = $args['nombre'];

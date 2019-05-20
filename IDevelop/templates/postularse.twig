@@ -1,0 +1,32 @@
+{% extends "base.twig" %}
+{% block title %}Postularse{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Descripción</th>
+			<th scope="col">Fecha de entrega</th>
+			<th scope="col">Acción</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for lista in proyectos %}
+		<tr>
+			<form method="POST" id="formPostularse">
+				<th scope="col">{{lista.id |upper }}</th>
+				<th scope="col">{{lista.nombre |upper }}</th>
+				<th scope="col"><p>{{lista.descripcion |upper }}</p></th>
+				<th scope="col">{{lista.fechaEntrega |upper }}</th>
+				<th><button type="button" class="btn btn-primary">Postularse</button></th>
+			</form>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endblock %}
