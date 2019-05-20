@@ -8,21 +8,22 @@
     </head>
     <body>
     {% include("nav.twig") %}
-<h1>Desarrolladores</h1>
+<h1>Empresas</h1>
 <table>
 <tr>
   <td>Email</td>
-  <td>Apellido</td>
-  <td>Pais</td>
+  <td>Nombre</td>
+  <td>Telefono</td>
   <td>Accion</td>
 </tr>
-{% for user in usuarios %}
+{% for emp in Empresas %}
 <tr>
-  <td>{{ user.email }}</td>
-  <td>{{ user.apellido }}</td>
-  <td>{{ user.pais }}</td>
-  <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/Perfil?email={{ user.email }}">Ver Perfil</a> <a>Puntuar</a></td>
+  <td>{{ emp.email }}</td>
+  <td>{{ emp.nombre }}</td>
+  <td>{{ emp.telefono }}</td>
+  <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/PerfilE?email={{ emp.email }}">Ver Perfil</a></td>
 </tr>
 {% endfor %}
 </table>
     </body>
+    </html>

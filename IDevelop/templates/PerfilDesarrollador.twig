@@ -1,0 +1,78 @@
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
+    {% block head %}{% endblock %}
+    </head>
+    <body>
+    {% include("nav.twig") %}
+<h1>Perfil Desarrollador</h1>
+<h3>Datos</h3>
+<div>
+<p>Email : {{Desarrollador.email}}</p>
+<p>Apellido : {{Desarrollador.apellido}}</p>
+<p>Cedula: {{Desarrollador.cedula}}</p>
+<p>Fecha de nacimiento : {{Desarrollador.fecha_Nacimiento}}</p>
+<p>Ciudad: {{Desarrollador.ciudad_actual}}</p>
+<p>Pais: {{Desarrollador.pais}}</p>
+</div>
+
+<div>
+<h3>Experiencia laboral</h3>
+<table>
+<tr>
+  <td>Empreza</td>
+  <td>Descripcion</td>
+  <td>Fecha Inicio</td>
+  <td>Fecha Fin</td>
+  <td>Contacto</td>
+</tr>
+{% for exp in experiencia %}
+<tr>
+  <td>{{ exp.empresa }}</td>
+  <td>{{ exp.descripcion }}</td>
+  <td>{{ exp.fechaini }}</td>
+  <td>{{ exp.fechafin }}</td>
+  <td>{{ exp.contacto }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+
+<div>
+<h3>Proyectos</h3>
+<table>
+<tr>
+  <td>Nombre</td>
+  <td>Descripcion</td>
+
+</tr>
+{% for proy in proyectos %}
+<tr>
+  <td>{{ proy.nombre }}</td>
+  <td>{{ proy.descripcion }}</td>
+  <td><a>Ver Mas..</a></td>
+</tr>
+{% endfor %}
+</table>
+</div>
+
+
+<div>
+<h3>Herramientas</h3>
+<table>
+<tr>
+  <td>Nombre</td>
+</tr>
+{% for her in herramientas %}
+<tr>
+  <td>{{ her.nombre }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+    </body>
+</html>

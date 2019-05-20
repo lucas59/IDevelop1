@@ -124,5 +124,89 @@ class Empresa extends Usuario
 		$resultado=$sql->get_result();
 		return $resultado->fetch_object();
 	}
+
+	public static function listarempresas(){
+		$sql = DB::conexion()->prepare("SELECT * FROM empresa");
+		$sql->execute();
+		$resultado=$sql->get_result();
+		if(!$resultado->num_rows > 0){
+			return false;	
+		}
+		$Empresas = array();
+		//$controlador = new ctr_usuarios();
+		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado->data_seek($num_fila);
+			$fila = $resultado->fetch_assoc();
+			
+			$nombre = $fila['nombre'];
+			//$ciudad = $controlador->obtenerCiudad($fila['ciudad_id']);
+			//$pais =  $controlador->obtenerPais($fila['pais_id']);
+			$telefono = $fila['telefono'];
+			$email = $fila['id'];
+			$emp = new Empresa($email,"","","",$nombre,"","",$telefono,"","","","", "");
+			array_push($Empresas,$emp);
+		}
+		return $Empresas;
+	}
+
+	public static function perfilEmpresa($email){
+		$sql = DB::conexion()->prepare("SELECT e.*,u.foto FROM empresa as e,usuario as u WHERE u.email = ? AND e.id= u.email");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		if(!$resultado->num_rows > 0){
+			return false;	
+		}
+		//$controlador = new ctr_usuarios();
+		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado->data_seek($num_fila);
+			$fila = $resultado->fetch_assoc();
+		}
+			$nombre = $fila['nombre'];
+			//$ciudad = $controlador->obtenerCiudad($fila['ciudad_id']);
+			//$pais =  $controlador->obtenerPais($fila['pais_id']);
+			$telefono = $fila['telefono'];
+			$email = $fila['id'];
+			$direccion =$fila['direccion'];
+			$fecha_Creacion = $fila['fechaCreacion'];
+			$mision = $fila['mision'];
+			$reclutador = $fila['reclutador'];
+			$rubro = $fila['rubro'];
+			$vision = $fila['vision'];
+			$foto_perfil = $fila['foto'];
+			$empresa = new Empresa($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision, $proyectos=array());
+	return $empresa;
+}
+
+public static function proyectosEmpresa($email){
+	$proyectos = array();
+	$sql = DB::conexion()->prepare("SELECT * FROM empresa_proyecto WHERE Empresa_id = ? ");
+	$sql->bind_param('s',$email);
+	$sql->execute();
+	$resultado=$sql->get_result();
+	if(!$resultado->num_rows > 0){
+		return $proyectos;	
+	}
+	//$controlador = new ctr_usuarios();
+	for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+		$resultado->data_seek($num_fila);
+		$fila = $resultado->fetch_assoc();
+		
+		$sql2 = DB::conexion()->prepare("SELECT * FROM proyecto WHERE id = ? ");
+		$sql2->bind_param('s',$fila['proyectos_id']);
+		$sql2->execute();
+		$resultado2=$sql2->get_result();
+
+	for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
+		$resultado2->data_seek($num_fila);
+		$fila2 = $resultado2->fetch_assoc();
+	}
+	$nombre = $fila2['nombre'];
+	$descripcion = $fila2['descripcion'];
+	$proy = new Proyecto($nombre, $descripcion,"","","","","", "");
+	array_push($proyectos,$proy);
+	}
+	return $proyectos;
+}
 }
 ?>

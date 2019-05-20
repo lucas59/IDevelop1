@@ -1,0 +1,42 @@
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
+    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
+    {% block head %}{% endblock %}
+    </head>
+    <body>
+    {% include("nav.twig") %}
+<h1>Perfil Empresa</h1>
+<h3>Datos</h3>
+<div>
+<p>Email : {{Empresa.email}}</p>
+<p>Nombre : {{Empresa.nombre}}</p>
+<p>Telefono: {{Empresa.telefono}}</p>
+<p>Fecha de creacion : {{Empresa.fecha_Creacion}}</p>
+<p>Rubro: {{Empresa.rubro}}</p>
+<p>Mision: {{Empresa.mision}}</p>
+<p>Vision: {{Empresa.vision}}</p>
+<p>Reclutador: {{Empresa.reclutador}}</p>
+<p>Direccion: {{Empresa.direccion}}</p>
+</div>
+
+
+<h3>Proyectos</h3>
+<div>
+<table>
+<tr>
+<td>Nombre</td>
+<td>Descripcion</td>
+<td>Accion</td>
+</tr>
+{% for proy in proyectos%}
+<tr>
+<td>{{proy.nombre}}</td>
+<td>{{proy.descripcion}}</td>
+<td><a>Ver mas..</a></td>
+</tr>
+{% endfor %}
+</table>
+</div>
