@@ -26,6 +26,7 @@ function loguearse(email,pass){
 		},
 		success: function(response){
 			response=response.trim();
+			console.log(response);
 			if(response=="1"){
 				retorno = true;
 			}else if(response == "0"){

@@ -26,17 +26,17 @@ $(document).ready(function(){
 
 function enviarDatos(){
 	event.preventDefault();
-	var elementsLI = document.getElementById('lenguajes').value;
-	var length = document.getElementById('lenguajes').length;
-	for(var i = 0; i <= length ; ++i){
-		var lenguajes = elementsLI[i].value;
-	}
+	
+	var e = document.getElementById("lenguaFav");
+	var lenguaje = e.options[e.selectedIndex].value;
+
 	var pais = $('#idPaises').val();
 	var email = $('#email').val();
 	var ciudad = $('#idCiudad').val();
 	var file = document.querySelector('input[type=file]').files[0];
 	var datos = new FormData();
 	datos.append('email',email);
+	datos.append('lenguaje',lenguaje);
 	datos.append('file',file);
 	datos.append('pais',pais);
 	datos.append('ciudad',ciudad);

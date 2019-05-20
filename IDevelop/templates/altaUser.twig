@@ -13,18 +13,22 @@
 			<input type="text" id="txtApellido" name="apellido" placeholder="Apellido" required>
 		</span>
 		<span>
-			<input type="text" id="txtID" name="identificador" placeholder="Número de celular o correo electónico" required>
+			<input type="email" id="txtID" name="identificador" placeholder="Correo electónico" required>
 		</span>
 		<span>
 			<input type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva" required>
 		</span>
 		<br>
-		<h5>Fecha de nacimiento</h5>
-		<input type="date" id="fecha" name="fecha" required><br>
-		
-		<input type="radio" name="tipo" value="e" checked="">Empresa <br>
-		<input type="radio" name="tipo" value="d">Desarrollador<br>
-		
+		<span>
+			<h5>Fecha de nacimiento</h5>
+			<input type="date" id="fecha" name="fecha" required>
+		</span>
+		<br>
+		<span>
+			<h5>Tipo de usuario</h5>
+			<input type="radio" name="tipo" value="e" checked="">Empresa <br>
+			<input type="radio" name="tipo" value="d">Desarrollador<br>
+		</span>
 		<input type="submit" name="submit" value="Registrarme"><br>
 		<a href="{{ path_for('ingresar') }}">Ya tengo una cuenta</a>
 	</form>
