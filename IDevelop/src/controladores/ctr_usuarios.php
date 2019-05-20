@@ -103,16 +103,17 @@ class ctr_usuarios{
 		if(!isset($_SESSION)) 
 		{ 
 			session_start(); 
-		} 
-		if($tipoUsuario=='e'){
-			$empresa = Empresa::obtenerEmpresa($email);
-			$_SESSION['admin'] = $empresa;
+			
+			if($tipoUsuario=='e'){
+				$empresa = Empresa::obtenerEmpresa($email);
+				$_SESSION['admin'] = $empresa;
 
-		}else{
-			$desarrollador = Desarrollador::obtenerDesarrollador($email);
-			$_SESSION['admin'] = $desarrollador;
+			}else{
+				$desarrollador = Desarrollador::obtenerDesarrollador($email);
+				$_SESSION['admin'] = $desarrollador;
 
-			echo Console::log("asd",$_SESSION['admin']);
+				echo Console::log("asd",$_SESSION['admin']);
+			}
 		}
 	}
 
