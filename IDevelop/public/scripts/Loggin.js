@@ -1,16 +1,16 @@
 function Login(){
 	event.preventDefault();
-    var formulario = document.forms['formLogin'];
-    var email = formulario['Correo'].value;
-    var pass = formulario['Contrasena'].value;
-    login = loguearse(email,pass);
-    console.log(login);
-    if(login == true){
+	var formulario = document.forms['formLogin'];
+	var email = formulario['Correo'].value;
+	var pass = formulario['Contrasena'].value;
+	login = loguearse(email,pass);
+	console.log(login);
+	if(login == true){
 		alert("Sesion iniciada");
-	window.location.replace("/IDevelop1/IDevelop/public");
-    }else{
-        alert("Error al intentar iniciar sesion");
-    }
+		window.location.replace("/IDevelop1/IDevelop/public");
+	}else{
+		alert("Error al intentar iniciar sesion");
+	}
 }
 
 function loguearse(email,pass){
@@ -25,7 +25,7 @@ function loguearse(email,pass){
 			"pass": pass,
 		},
 		success: function(response){
-            response=response.trim();
+			response=response.trim();
 			if(response=="1"){
 				retorno = true;
 			}else if(response == "0"){
@@ -35,8 +35,8 @@ function loguearse(email,pass){
 		error: function(response){
 			console.log("response:" + eval(response));
 		}
-    });	
-    console.log(retorno);	
+	});	
+	console.log(retorno);	
 	return retorno;
 }
 

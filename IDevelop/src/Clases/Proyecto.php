@@ -79,6 +79,33 @@ class Proyecto
 		array_push($this->desarrolladores, $descripcion);
 	}
 
+
+	public function subirProyecto(){
+
+		$estado = new Estado('publicado', new date(),null);
+		$sql=DB::conexion()->prepare("INSERT INTO `Proyecto` (`nombre`, `descripcion`, `fechaEntrega`, `fechaFinPostulacion`, `estado`) VALUES (?,?,?,?,?)");
+		$sql->bind_param('ssisi',$this->nombre,$this->descripcion,$this->fechaEntrega,$this->fechaFinPostulacion,$estado);
+		if ($sql->execute()) {
+			return "1";
+		}else{
+			return "0";
+		}  
+	}
+	
+	public function validarNombreProyecto($nombre){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
+		$consulta->bind_param('s',$nombre);		
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) == 1) {
+			$respuesta = "1";
+		} else if($resultado->num_rows==0) {
+			$respuesta = "0";
+		}
+		return $respuesta;
+	}
+	
 	public function obtenerAvanceProyecto(){
 
 
