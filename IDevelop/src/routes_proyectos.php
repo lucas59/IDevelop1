@@ -10,12 +10,14 @@ require_once '../src/Clases/console.php';
 
 return function (App $app){
 	$container = $app->getContainer(); 
+
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
 		return $this->view->render($response,"altaProyecto.twig");
 	})->setName("NuevoProyecto");
 
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
-		$lista = Proyecto::Listar_proyectos();
+		$controladorProyecto = new ctr_proyecto();
+		$lista = $controladorProyecto->Listar_Proyectos();
 		return $this->view->render($response,"postularse.twig",array('proyectos' => $lista));
 	})->setName("Postularse");
 
@@ -41,6 +43,13 @@ return function (App $app){
 			return "0";
 		}
 
+	});
+
+		$app->post('Proyecto/Nuevo/Postularse',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$id=$data['id'];
+		$retorno = ctr_proyecto::
+		return $retorno;
 	});
 }
 ?>

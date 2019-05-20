@@ -10,33 +10,47 @@ require_once '../src/Clases/Proyecto.php';
 
 /**
  */class ctr_proyecto {
+	
+	
 
-
-
-public function validarNombreProyecto($nombre){
-	$resultado = Proyecto::validarNombreProyecto($nombre);
-	return $resultado;
-}
-
-public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	if( isset($_SESSION['admin']) == true ){
+	public function validarNombreProyecto($nombre){
+		$resultado = Proyecto::validarNombreProyecto($nombre);
+		return $resultado;
+	}
+	public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
+		if( isset($_SESSION['admin']) == true ){
 			//chequear que sea empresa
-		$proyecto = new Proyecto($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion,NULL, NULL, NULL, $proponente);
+			$proyecto = new Proyecto($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion,NULL, NULL, NULL, $proponente);
 
-		$retorno = $proyecto->subirProyecto();
+			$retorno = $proyecto->subirProyecto();
 
-		if($retorno =="1"){
+			if($retorno =="1"){
 				//comportamiento correcto
-		}else{
+			}else{
 				//mal
+			}
 		}
 	}
-}
-public function Listar_proyectos(){
-	if( isset($_SESSION['admin']) == true ){
-		$lista = Proyecto::Listar_proyectos();
-	}
-}
-}
 
-?>
+	public function Listar_Proyectos(){
+		$resultado = Proyecto::Listar_proyectos();
+		return $resultado;
+	}
+
+	public function PostularseProyecto($id){
+		if( isset($_SESSION['admin']) == false ){
+			//chequear que sea empresa
+			$proyecto = new Proyecto($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion,NULL, NULL, NULL, $proponente);
+
+			$retorno = $proyecto->subirProyecto();
+
+			if($retorno =="1"){
+				//comportamiento correcto
+			}else{
+				//mal
+			}
+		}
+	}
+	}
+
+ ?>

@@ -16,17 +16,38 @@
 		</tr>
 	</thead>
 	<tbody>
+		
 		{% for lista in proyectos %}
 		<tr>
 			<form method="POST" id="formPostularse">
-				<th scope="col">{{lista.id |upper }}</th>
-				<th scope="col">{{lista.nombre |upper }}</th>
-				<th scope="col"><p>{{lista.descripcion |upper }}</p></th>
-				<th scope="col">{{lista.fechaEntrega |upper }}</th>
+				<th id="id" scope="col">{{lista.id |upper }}</th>
+				<th id="nombre" scope="col">{{lista.nombre |upper }}</th>
+				<th id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></th>
+				<th id="fecha" scope="col">{{lista.fechaEntrega |upper }}</th>
 				<th><button type="button" class="btn btn-primary">Postularse</button></th>
 			</form>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
+
+<!-- Modal  de mensajes -->
+<div id="modalAviso" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="mensajeModal">Modal body text goes here.</p>
+			</div>
+			<div class="modal-footer">	
+				<a type="button" class="btn" id="redirigir">Aceptar</a>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}

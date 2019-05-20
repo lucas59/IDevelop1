@@ -5,7 +5,7 @@ class Postulacion
 	private $desarrollador = '';
 	private $proyecto = '';
 
-	function __construct($fecha_postulacion = '', $desarrollador = '', $proyecto = '')
+	function __construct($fecha_postulacion, $desarrollador, $proyecto)
 	{
 		$this->fecha_postulacion = $fecha_postulacion;
 		$this->desarrollador = $desarrollador;
