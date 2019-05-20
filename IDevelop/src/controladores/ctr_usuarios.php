@@ -103,8 +103,6 @@ class ctr_usuarios{
 		if(!isset($_SESSION)) 
 		{ 
 			session_start(); 
-		}else{
-			session_destroy();
 		}
 		if($tipoUsuario=='e'){
 			$empresa = Empresa::obtenerEmpresa($email);

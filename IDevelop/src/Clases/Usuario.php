@@ -185,8 +185,8 @@ class Usuario
 						$empreza = new Empreza($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision,"");
 					/*session_start();
 					$_SESSION['admin'] = $empreza;*/
-					
-					ctr_usuarios::ponerSession($email,"d");
+
+					ctr_usuarios::ponerSession($email,"e");
 					return "1";
 				}else{
 					return "0";
