@@ -103,7 +103,7 @@ class ctr_usuarios{
 		if(!isset($_SESSION)) 
 		{ 
 			session_start(); 
-		} 
+		}
 		if($tipoUsuario=='e'){
 			$empresa = Empresa::obtenerEmpresa($email);
 			$_SESSION['admin'] = $empresa;
@@ -112,8 +112,8 @@ class ctr_usuarios{
 			$desarrollador = Desarrollador::obtenerDesarrollador($email);
 			$_SESSION['admin'] = $desarrollador;
 
-			echo Console::log("asd",$_SESSION['admin']);
 		}
+		
 	}
 
 	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
@@ -145,7 +145,7 @@ class ctr_usuarios{
 		return $retorno;
 	}
 	public function cerrarsesion(){
-		$_SESSION = array();
+		$_SESSION['admin'] = null;
 
           // Finalmente, destruir la sesión.
 		session_destroy();
@@ -164,24 +164,25 @@ class ctr_usuarios{
 		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
 			$resultado->data_seek($num_fila);
 			$fila = $resultado->fetch_assoc();
-			$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
+			//TRAIGO TODOS LOS DESARROLLADORES
 			$email1 =$fila['email'];
+			$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
 			$consulta2->bind_param('s',$email1);	
 			$consulta2->execute();
 			$resultado2 = $consulta2->get_result();
-			if($resultado2){
+			if($resultado2->num_rows >0 ){
 
 				for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
 					$resultado2->data_seek($num_fila2);
 					$fila2 = $resultado2->fetch_assoc();
 
+					$pais = $this->obtenerPais($fila2['pais_id']);
+					$ciudad_actual= $this->obtenerCiudad($fila2['ciudad_id']);
 					$email = $fila2['id'];
 					$foto = $fila['foto'];
 					$cedula = $fila2['cedula'];
 					$apellido =  $fila2['apellido'];
-					$fecha_Nacimiento =$fila2['fechaNacimiento'];
-					$pais =$fila2['pais'];
-					$ciudad_actual =$fila2['ciudad'];
+					$fecha_Nacimiento =$fila2['fechaNacimiento'];				
 					$desarrollo_preferido =$fila2['desarrolloPreferido'];
 					$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 					array_push($usuarios,$desarrollador);
@@ -197,6 +198,11 @@ class ctr_usuarios{
 
 	public function Login($email,$pass){
 		return Usuario::Login($email,$pass);
+	}
+
+
+	public function desactivarUsuario($correo){
+		return Usuario::desactivarUsuario($correo);
 	}
 }
 ?>

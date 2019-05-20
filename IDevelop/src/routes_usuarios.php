@@ -21,7 +21,7 @@ return function (App $app){
 	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
 		$sesion = null;
 		if(isset($_SESSION['admin'])){
-		$sesion=$_SESSION['admin']; 
+			$sesion=$_SESSION['admin']; 
 		}
 		$controladorUsuarios = new ctr_usuarios();
 		$usuarios = $controladorUsuarios->obtenerUsuarios();
@@ -70,6 +70,11 @@ return function (App $app){
 		return $response;
 	});
 
+	$app->get('/Usuario/Desactivar/{correo}',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+		$correo = $args['correo'];
+		return $controladorUsuarios->desactivarUsuario($correo);
+	});
 
 	$app->post('/Usuario/NuevoUsuario',function(Request $request, Response $response){
 		$data = $request->getParams();
@@ -117,7 +122,7 @@ return function (App $app){
 		$pais = $_POST['pais'];
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
-		$lenguajes = $_POST['lenguajes'];
+		$lenguaje = $_POST['lenguaje'];
 		//echo Console::log("lenguajes",$lenguajes);
 
 		$nombreArchivo = $_FILES['file']['name'];
@@ -132,7 +137,7 @@ return function (App $app){
 		$curriculo = json_encode($arrayCurriculo);
 
 		$controladorUsuarios = new ctr_usuarios();
-		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguajes,$curriculo);
+		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguaje,$curriculo);
 		if($retorno==1){
 			ctr_usuarios::ponerSession($email,'d');
 			return "1";
@@ -158,8 +163,41 @@ return function (App $app){
 			return "1";
 		}else{
 			return "0";
+		}	
+	});
+	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
+		$email=$request->getQueryParam("email");
+		$controladorUsuarios = new ctr_usuarios();
+		$Desarrollador = $controladorUsuarios->perfil($email);
+		$experiencia=null;
+		$herramientas=null;
+		$proyectos=null;
+		if($Desarrollador){
+			$herramientas=$controladorUsuarios->DesarrolladorHerramientas($email);
+			$proyectos=$controladorUsuarios->DesarrolladorProyectos($email);
+			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
 		}
+		$sesion = null;
+		if(isset($_SESSION['admin'])){
+			$sesion=$_SESSION['admin']; 
+		}
+		return $this->view->render($response,"PerfilDesarrollador.twig",compact('Desarrollador','sesion','experiencia','herramientas','proyectos'));
 	});
 
+	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+		$Empresas = $controladorUsuarios->listarEmprezas();
+		return $this->view->render($response,"listadoempreza.twig",compact('Empresas'));
+	})->setName("listadoE");
+
+	$app->get('/Usuario/PerfilE',function($request,$response,$args){
+		$email=$request->getQueryParam("email");
+		$controladorUsuarios = new ctr_usuarios();
+		$Empresa = $controladorUsuarios->PerfilEmpresa($email);
+		if($Empresa){
+			$proyectos = $controladorUsuarios->proyectosEmpresa($email);
+		}
+		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
+	})->setName("listadoE");
 }
 ?>

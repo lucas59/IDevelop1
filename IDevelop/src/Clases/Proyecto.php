@@ -110,5 +110,33 @@ class Proyecto
 
 
 	}
+
+	public function Listar_proyectos(){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto");
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+
+	public function Buscar_proyecto($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE id = " . $id);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+
+		
 }
- ?>
+?>

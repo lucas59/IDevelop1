@@ -12,16 +12,19 @@
       <li class="nav-item active">
         <a class="nav-link" href="{{ path_for('listado') }}">Ver Desarrolladores<span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="{{ path_for('listadoE') }}">Ver Empresas<span class="sr-only">(current)</span></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
     </ul>
-      <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Ingresar</a>
-      {% if not session%}
-      <a href="{{ path_for('ingresar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</a>
-      {%  endif %}
-      {% if session %}
-        <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
-        {%  endif %}
+    {% if not session%}
+    <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Registrarme</a>
+    <a href="{{ path_for('ingresar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</a>
+    {%  endif %}
+    {% if session %}
+    <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
+    {%  endif %}
   </div>
 </nav>

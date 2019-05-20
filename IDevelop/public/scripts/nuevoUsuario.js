@@ -79,6 +79,7 @@ function enviarValidacion(email,nombre,apellido,token){
 
 function ingresarUsuario(email,nombre,apellido,contraseña,fecha,sexo,tipo,token){
 	var retorno;
+	console.log(tipo);
 	$.ajax({
 		async:false,
 		url: '/IDevelop1/IDevelop/public/Usuario/NuevoUsuario',
