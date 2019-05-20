@@ -6,6 +6,8 @@ use Slim\Http\Response;
 
 require_once 'controladores/ctr_proyecto.php';
 require_once '../src/Clases/console.php';
+include 'Desarrollador.php';
+session_start();
 
 
 return function (App $app){
@@ -18,7 +20,10 @@ return function (App $app){
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
 		$controladorProyecto = new ctr_proyecto();
 		$lista = $controladorProyecto->Listar_Proyectos();
-		return $this->view->render($response,"postularse.twig",array('proyectos' => $lista));
+		$sesio = $_SESSION['admin'];
+		echo Console::log("prueba",$sesio);
+		$ses = array("listas" => $lista,"sesion" => $sesio);
+		return $this->view->render($response,"postularse.twig", $ses);
 	})->setName("Postularse");
 
 
@@ -45,10 +50,10 @@ return function (App $app){
 
 	});
 
-		$app->post('Proyecto/Nuevo/Postularse',function(Request $request, Response $response){
+	$app->post('Proyecto/Nuevo/Postularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
-		$retorno = ctr_proyecto::
+		$retorno = ctr_proyecto::PostularseProyecto($id);
 		return $retorno;
 	});
 }

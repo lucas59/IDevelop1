@@ -16,11 +16,11 @@
 		</tr>
 	</thead>
 	<tbody>
-		
-		{% for lista in proyectos %}
+	
+		{% for lista in listas %}
 		<tr>
 			<form method="POST" id="formPostularse">
-				<th id="id" scope="col">{{lista.id |upper }}</th>
+				<th id="id" scope="col">{{ sesion['email'] |upper }}</th>
 				<th id="nombre" scope="col">{{lista.nombre |upper }}</th>
 				<th id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></th>
 				<th id="fecha" scope="col">{{lista.fechaEntrega |upper }}</th>

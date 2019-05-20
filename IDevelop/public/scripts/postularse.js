@@ -2,23 +2,22 @@ function Postularse(){
 	event.preventDefault();
 	var formulario = document.forms['formPostular'];
 	var id = formulario['id'].value;
-
-
-
+	var retorno = Postularse_proyecto(id);
+	if(retorno == "1"){
+		var mensaje = "Usted se postulo correctamente";
+		$("#mensajeModal").html(mensaje);	
+	}
 }
 
 
-function Postularse_pryecto(id){
+function Postularse_proyecto(id){
 	var retorno;
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Usuario/Validacion/Enviar',
+		url: '/IDevelop1/IDevelop/public/Proyecto/Nuevo/Postularse',
 		type: 'POST',
 		data: {
-			"email": email,
-			"nombre": nombre,
-			"apellido": apellido,
-			"token": token,
+			"id": id,
 		},
 		success: function(response){
 			if(response=="1"){
