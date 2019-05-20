@@ -122,7 +122,7 @@ return function (App $app){
 		$pais = $_POST['pais'];
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
-		$lenguajes = $_POST['lenguajes'];
+		$lenguaje = $_POST['lenguaje'];
 		//echo Console::log("lenguajes",$lenguajes);
 
 		$nombreArchivo = $_FILES['file']['name'];
@@ -137,7 +137,7 @@ return function (App $app){
 		$curriculo = json_encode($arrayCurriculo);
 
 		$controladorUsuarios = new ctr_usuarios();
-		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguajes,$curriculo);
+		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguaje,$curriculo);
 		if($retorno==1){
 			ctr_usuarios::ponerSession($email,'d');
 			return "1";

@@ -146,11 +146,14 @@ class Usuario
 				$cedula = $fila2['cedula'];
 				$apellido =  $fila2['apellido'];
 				$fecha_Nacimiento =$fila2['fechaNacimiento'];
-				$pais =$fila2['pais'];
-				$ciudad_actual =$fila2['ciudad'];
+				$pais =$fila2['pais_id'];
+				$ciudad_actual =$fila2['ciudad_id'];
 				$desarrollo_preferido =$fila2['desarrolloPreferido'];
-				$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());	
-				session_start();
+				$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
+
+				if (!$_SESSION) {
+					session_start();
+					}	
 				$_SESSION['admin'] = $desarrollador;
 				return "1";
 
