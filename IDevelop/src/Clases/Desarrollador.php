@@ -1,5 +1,8 @@
 <?php 
 require_once 'Usuario.php';
+require_once 'Experiencia_laboral.php';
+require_once 'Herramienta.php';
+require_once 'Proyecto.php';
 class Desarrollador extends Usuario 
 {
 	private $cedula;
@@ -143,6 +146,143 @@ class Desarrollador extends Usuario
 			return false;
 		}	
 	}
+
+	public static function perfil($email){
+		$sql=DB::conexion()->prepare("SELECT * FROM desarrollador WHERE id= ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		if(!$resultado){
+			return null;
+		}
+		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado->data_seek($num_fila);
+			$fila = $resultado->fetch_assoc();
+		}
+		$controlador =new ctr_usuarios();
+		$apellido=$fila['apellido'];
+		$cedula=$fila['cedula'];
+		$ciudad =$controlador->obtenerCiudad($fila['ciudad_id']);
+		$fecha_Nacimiento=$fila['fechaNacimiento'];
+		$desarrolloPreferido=$fila['desarrolloPreferido'];
+		$nombre=$fila['nombre'];
+		$pais ="";
+		$pais=$controlador->obtenerPais($fila['pais_id']);
+
+		$sql2=DB::conexion()->prepare("SELECT * FROM usuario WHERE email= ?");
+		$sql2->bind_param('s',$email);
+		$sql2->execute();
+		$resultado2=$sql2->get_result();
+		for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado2->data_seek($num_fila);
+			$fila2 = $resultado2->fetch_assoc();
+		}
+		$foto=$fila2['foto'];
+		$desarrollador =$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad,$desarrolloPreferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
+		return $desarrollador;
+	}
+
+	public static function ObtenerExperiencia($email){
+		$experiencia = array();
+		$sql=DB::conexion()->prepare("SELECT * FROM desarrollador_experiencialaboral WHERE Desarrollador_id = ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		if(!$resultado){
+			return $experiencia;
+		}
+		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado->data_seek($num_fila);
+			$fila = $resultado->fetch_assoc();
+
+			$expid = $fila['experiencias_id'];
+			$sql2=DB::conexion()->prepare("SELECT * FROM experiencialaboral WHERE id = ?");
+		$sql2->bind_param('i',$expid);
+		$sql2->execute();
+		$resultado2=$sql2->get_result();
+
+		for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado2->data_seek($num_fila);
+			$fila2 = $resultado2->fetch_assoc();
+		}
+
+$empresa=$fila2['empresa'];
+$fechaini=$fila2['fechaInicio'];
+$fechafin=$fila2['fechaFin'];
+$descripcion=$fila2['descripcion'];
+$contacto=$fila2['contacto'];
+		$exp = new Experiencia_laboral($empresa, $descripcion, $fechaini, $fechafin, $contacto);
+		array_push($experiencia,$exp);
+	}
+	return $experiencia;
+}
+
+public static function ObtenerHerramientas($email){
+$herramientas = array();
+$sql=DB::conexion()->prepare("SELECT * FROM desarrollador_herramienta WHERE Desarrollador_id = ?");
+$sql->bind_param('s',$email);
+$sql->execute();
+$resultado=$sql->get_result();
+if(!$resultado){
+	return $herramientas;
+}
+for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+	$resultado->data_seek($num_fila);
+	$fila = $resultado->fetch_assoc();
+
+	$herid = $fila['herramientas_id'];
+	$sql2=DB::conexion()->prepare("SELECT * FROM herramienta WHERE id = ?");
+	$sql2->bind_param('i',$herid);
+	$sql2->execute();
+	$resultado2=$sql2->get_result();
+	
+for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
+	$resultado2->data_seek($num_fila);
+	$fila2 = $resultado2->fetch_assoc();
+}
+
+$nombre=$fila2['nombre'];
+
+$her = new Herramienta($nombre);
+array_push($herramientas,$her);
+}
+return $herramientas;
+}
+
+public static function ObtenerProyectos($email){
+	$proyectos = array();
+$sql=DB::conexion()->prepare("SELECT * FROM desarrollador_proyecto WHERE Desarrollador_id = ?");
+$sql->bind_param('s',$email);
+$sql->execute();
+$resultado=$sql->get_result();
+if(!$resultado){
+	return $herramientas;
+}
+for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+	$resultado->data_seek($num_fila);
+	$fila = $resultado->fetch_assoc();
+
+	$proyid = $fila['proyectos_id'];
+	$sql2=DB::conexion()->prepare("SELECT * FROM proyecto WHERE id = ?");
+	$sql2->bind_param('i',$proyid);
+	$sql2->execute();
+	$resultado2=$sql2->get_result();
+	
+for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
+	$resultado2->data_seek($num_fila);
+	$fila2 = $resultado2->fetch_assoc();
+}
+
+$nombre=$fila2['nombre'];
+$descripcion=$fila2['descripcion'];
+$fechaEntrega=$fila2['fechaEntrega'];
+
+
+$proy = new Proyecto($nombre, $descripcion, $fechaEntrega,"","","", "", "");
+array_push($proyectos,$proy);
+}
+return $proyectos;
+}
 
 }
 ?>

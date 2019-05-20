@@ -38,10 +38,10 @@ require_once '../src/Clases/Proyecto.php';
 	}
 
 	public function PostularseProyecto($id){
-		if( isset($_SESSION['admin']) == false ){
+		if( isset($_SESSION['admin']) == true ){
 			//chequear que sea empresa
-			$proyecto = new Proyecto($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion,NULL, NULL, NULL, $proponente);
-
+			
+			$Postulacion = new Postulacion(getdate(), isset($_SESSION['admin']), );
 			$retorno = $proyecto->subirProyecto();
 
 			if($retorno =="1"){

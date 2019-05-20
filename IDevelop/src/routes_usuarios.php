@@ -163,8 +163,41 @@ return function (App $app){
 			return "1";
 		}else{
 			return "0";
+		}	
+	});
+	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
+		$email=$request->getQueryParam("email");
+		$controladorUsuarios = new ctr_usuarios();
+		$Desarrollador = $controladorUsuarios->perfil($email);
+		$experiencia=null;
+		$herramientas=null;
+		$proyectos=null;
+		if($Desarrollador){
+			$herramientas=$controladorUsuarios->DesarrolladorHerramientas($email);
+			$proyectos=$controladorUsuarios->DesarrolladorProyectos($email);
+			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
 		}
+		$sesion = null;
+		if(isset($_SESSION['admin'])){
+			$sesion=$_SESSION['admin']; 
+		}
+		return $this->view->render($response,"PerfilDesarrollador.twig",compact('Desarrollador','sesion','experiencia','herramientas','proyectos'));
 	});
 
+	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+$Empresas = $controladorUsuarios->listarEmprezas();
+		return $this->view->render($response,"listadoempreza.twig",compact('Empresas'));
+	})->setName("listadoE");
+
+	$app->get('/Usuario/PerfilE',function($request,$response,$args){
+		$email=$request->getQueryParam("email");
+		$controladorUsuarios = new ctr_usuarios();
+		$Empresa = $controladorUsuarios->PerfilEmpresa($email);
+		if($Empresa){
+		$proyectos = $controladorUsuarios->proyectosEmpresa($email);
+	}
+		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
+	})->setName("listadoE");
 }
 ?>
