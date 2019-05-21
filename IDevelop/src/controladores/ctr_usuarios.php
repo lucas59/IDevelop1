@@ -99,22 +99,6 @@ class ctr_usuarios{
 		}
 	}
 
-	public function ponerSession($email,$tipoUsuario){
-		if(!isset($_SESSION)) 
-		{ 
-			session_start(); 
-		}
-		if($tipoUsuario=='e'){
-			$empresa = Empresa::obtenerEmpresa($email);
-			$_SESSION['admin'] = $empresa;
-
-		}else{
-			$desarrollador = Desarrollador::obtenerDesarrollador($email);
-			$_SESSION['admin'] = $desarrollador;
-
-		}
-		
-	}
 
 	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
 		return Empresa::actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);	
@@ -146,8 +130,6 @@ class ctr_usuarios{
 	}
 	public function cerrarsesion(){
 		$_SESSION['admin'] = null;
-
-          // Finalmente, destruir la sesión.
 		session_destroy();
 	}
 
@@ -196,13 +178,44 @@ class ctr_usuarios{
 		return $usuarios;
 	}
 
-	public function Login($email,$pass){
+	/*public function Login($email,$pass){
 		return Usuario::Login($email,$pass);
-	}
+	}*/
 
+	public function loginNuevo($email,$pass){
+		$usuario = Usuario::obtenerUsuario($email);
+		if($usuario && $usuario->estado == true){
+
+			if($usuario->email == $email && sha1($pass)==$usuario->contrasenia){
+				if ($usuario->tipo == 1) {
+					ctr_usuarios::ponerSession($email,'e');
+					return true;
+				}else{
+					ctr_usuarios::ponerSession($email,'d');
+					return true;
+				}
+			}else{
+				return false;
+			}
+		}
+	}
 
 	public function desactivarUsuario($correo){
 		return Usuario::desactivarUsuario($correo);
+	}
+
+	public function ponerSession($email,$tipoUsuario){
+		if(!isset($_SESSION)){ 
+			session_start(); 
+		}
+		if($tipoUsuario=='e'){
+			$empresa = Empresa::obtenerEmpresa($email);
+			$_SESSION['admin'] = $empresa;
+		}else{
+			$desarrollador = Desarrollador::obtenerDesarrollador($email);
+			$_SESSION['admin'] = $desarrollador;
+		}
+		
 	}
 }
 ?>

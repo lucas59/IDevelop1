@@ -37,7 +37,6 @@ function loguearse(email,pass){
 			console.log("response:" + eval(response));
 		}
 	});	
-	console.log(retorno);	
 	return retorno;
 }
 
