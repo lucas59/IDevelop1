@@ -137,7 +137,7 @@ class Desarrollador extends Usuario
 		return $resultado->fetch_object();
 	}
 
-	public function actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes=null,$idCurriculum){
+	public function actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes,$idCurriculum){
 		$sql=DB::conexion()->prepare("UPDATE `desarrollador` SET `pais_id` = ?, `ciudad_id` = ?,`desarrolloPreferido`=?,`curriculum_id`=? WHERE `desarrollador`.`id` = ? ");
 		$sql->bind_param('iisis',$idPais,$idCiudad,$lenguajes,$idCurriculum,$email);
 		if ($sql->execute()){

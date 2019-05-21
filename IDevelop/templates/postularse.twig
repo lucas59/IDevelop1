@@ -1,0 +1,54 @@
+{% extends "base.twig" %}
+{% block title %}Postularse{% endblock %}
+{% block head %}
+
+{% endblock %}
+
+{% block content %}
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">ID</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Descripción</th>
+			<th scope="col">Fecha de entrega</th>
+			<th scope="col">Acción</th>
+		</tr>
+	</thead>
+	<tbody>
+	<h1>{{ sesion.id }}</h1>
+	
+		{% for lista in listas %}
+		<tr>
+			<form method="POST" id="formPostularse">
+				<th id="id" scope="col">{{ sesion.id |upper }}</th>
+				<th id="nombre" scope="col">{{lista.nombre |upper }}</th>
+				<th id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></th>
+				<th id="fecha" scope="col">{{lista.fechaEntrega |upper }}</th>
+				<th><button type="button" class="btn btn-primary">Postularse</button></th>
+			</form>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<!-- Modal  de mensajes -->
+<div id="modalAviso" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="mensajeModal">Modal body text goes here.</p>
+			</div>
+			<div class="modal-footer">	
+				<a type="button" class="btn" id="redirigir">Aceptar</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

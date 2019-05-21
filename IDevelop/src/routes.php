@@ -14,7 +14,6 @@ return function (App $app) {
 	$routesProyectos($app);
 
 	$app->get('/',function($request,$response,$args){
-		echo Console::log('asd',$_SESSION);
 		if(isset($_SESSION['admin'])){
 			 $args["session"]=$_SESSION['admin']; 
 		}
