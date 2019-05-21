@@ -16,12 +16,10 @@
 		</tr>
 	</thead>
 	<tbody>
-	<h1>{{ sesion.id }}</h1>
-	
 		{% for lista in listas %}
 		<tr>
 			<form method="POST" id="formPostularse">
-				<th id="id" scope="col">{{ sesion.id |upper }}</th>
+				<th id="id" scope="col">{{ lista.id |upper }}</th>
 				<th id="nombre" scope="col">{{lista.nombre |upper }}</th>
 				<th id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></th>
 				<th id="fecha" scope="col">{{lista.fechaEntrega |upper }}</th>
