@@ -129,11 +129,10 @@ class Proyecto
 		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE id = " . $id);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-
 		if (mysqli_num_rows($resultado) >= 1) {
-			return $resultado;
+			return $resultado->fetch_object()->nombre;
 		} else {
-			return $resultado;
+			return false;
 		}
 	}
 

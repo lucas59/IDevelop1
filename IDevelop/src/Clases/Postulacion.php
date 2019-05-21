@@ -1,6 +1,7 @@
 <?php 
 class Postulacion 
 {
+	private $id = '';
 	private $fecha_postulacion = '';
 	private $desarrollador = '';
 	private $proyecto = '';
@@ -10,6 +11,9 @@ class Postulacion
 		$this->fecha_postulacion = $fecha_postulacion;
 		$this->desarrollador = $desarrollador;
 		$this->proyecto = $proyecto;
+	}
+	public function getID(){
+		return $this->id;
 	}
 
 	public function getFechapostulacion(){
@@ -22,6 +26,9 @@ class Postulacion
 
 	public function getProyecto(){
 		return $this->proyecto;
+	}
+	public function setID($id){
+		$this->id = $id;
 	}
 
 	public function setFechapostulacion($fecha_postulacion){
@@ -36,15 +43,31 @@ class Postulacion
 		$this->proyecto = $proyecto;
 	}
 
-	public function AltaPostulacion(){
-		$sql=DB::conexion()->prepare("INSERT INTO `postulacion` (`fechaPostulacion`, `proyecto_id`) VALUES (?,?)");
-		$sql->bind_param('si',$this->getFechapostulacion(),$this->getProyecto());
-		if ($sql->execute()) {
-			return "1";
-		}else{
-			return "0";
-		}  
+	public function AltaPostulacion($usuario,$proyecto){
+		$sql=DB::conexion()->prepare("INSERT INTO `postulacion` (`fechaPostulacion`, `desarrollador_id`, `proyecto_id`) VALUES (?,?,?)");
+		if($sql){
+			//echo Console::log("prueba",$proyecto);
+			$date = date("Y-m-d H:i:s");
+			$sql->bind_param('sss',$date,$usuario,$proyecto);
+			if ($sql->execute()) {
+				return "1";
+			}else{
+				return "0";
+			} 
+		} 
+	}
+
+	public function Buscar_postulacion($id,$correo){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM postulacion WHERE desarrollador_id = '" . $correo . "' AND proyecto_id = '" . $id . "'");
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado->fetch_object()->id;
+		} else {
+			return false;
+		}
 	}
 }
 
- ?>
+?>

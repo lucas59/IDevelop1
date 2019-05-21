@@ -18,8 +18,8 @@ return function (App $app){
 		$controladorProyecto = new ctr_proyecto();
 		$lista = $controladorProyecto->Listar_Proyectos();
 		$sesio = $_SESSION['admin'];
-		$ses = array("listas" => $lista,"session" => $sesio);
-		return $this->view->render($response,"postularse.twig", $ses);
+		$sesion = array("listas" => $lista,"session" => $sesio);
+		return $this->view->render($response,"postularse.twig", $sesion);
 	})->setName("Postularse");
 
 
@@ -46,11 +46,17 @@ return function (App $app){
 
 	});
 
-	$app->post('Proyecto/Nuevo/Postularse',function(Request $request, Response $response){
+	$app->post('/Proyecto/Nuevo/Postularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
-		$retorno = ctr_proyecto::PostularseProyecto($id);
-		return $retorno;
+		$usuario=$data['usuario'];
+		$retorno = ctr_proyecto::PostularseProyecto($id,$usuario);
+		if($retorno){
+			return "1";
+		}
+		else{
+			return "0";
+		}
 	});
 }
 ?>
