@@ -11,11 +11,11 @@ require_once '../src/Clases/Proyecto.php';
 /**
  */class ctr_proyecto {
 	
-	function __construct(argument)
+	/*function __construct(argument)
 	{
 		# code...
 	}
-
+*/
 	public function validarNombreProyecto($nombre){
 		$resultado = Proyecto::validarNombreProyecto($nombre);
 		return $resultado;
@@ -34,5 +34,5 @@ require_once '../src/Clases/Proyecto.php';
 			}
 		}
 	}
-
+ }
  ?>

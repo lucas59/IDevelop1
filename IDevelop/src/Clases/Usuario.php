@@ -112,7 +112,7 @@ class Usuario
 		} 
 	}
 
-	public function Login($email,$pass){
+	public static function Login($email,$pass){
 
 		$consulta = DB::conexion()->prepare('SELECT * FROM usuario WHERE email= ?');
 		$consulta->bind_param('s',$email);		
@@ -121,7 +121,7 @@ class Usuario
 		if(!$resultado){
 			return "0";	
 		}
-
+		$controlador = new ctr_usuarios();
 		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
 			$resultado->data_seek($num_fila);
 			$fila = $resultado->fetch_assoc();
@@ -140,14 +140,14 @@ class Usuario
 					$resultado2->data_seek($num_fila2);
 					$fila2 = $resultado2->fetch_assoc();
 				}
-
+                
 				$email = $fila2['id'];
 				$foto = $fila['foto'];
 				$cedula = $fila2['cedula'];
 				$apellido =  $fila2['apellido'];
 				$fecha_Nacimiento =$fila2['fechaNacimiento'];
-				$pais =$fila2['pais'];
-				$ciudad_actual =$fila2['ciudad'];
+				$pais =$controlador->obtenerPais($fila2['pais_id']);
+				$ciudad_actual =$controlador->obtenerCiudad($fila2['ciudad_id']);
 				$desarrollo_preferido =$fila2['desarrolloPreferido'];
 				$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());	
 				session_start();

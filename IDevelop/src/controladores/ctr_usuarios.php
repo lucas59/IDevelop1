@@ -150,51 +150,10 @@ class ctr_usuarios{
           // Finalmente, destruir la sesión.
 		session_destroy();
 	}
-
 	public function obtenerUsuarios(){
-          //TRAIGO TODOS LOS USUARIOS
-		$consulta = DB::conexion()->prepare('SELECT * FROM usuario');	
-		$consulta->execute();
-		$resultado = $consulta->get_result();
-		if(!$resultado){
-			header('Location: ../public/');
-			die();
-		}
-		$usuarios = array();
-		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
-			$resultado->data_seek($num_fila);
-			$fila = $resultado->fetch_assoc();
-			//TRAIGO TODOS LOS DESARROLLADORES
-			$email1 =$fila['email'];
-			$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
-			$consulta2->bind_param('s',$email1);	
-			$consulta2->execute();
-			$resultado2 = $consulta2->get_result();
-			if($resultado2->num_rows >0 ){
-
-				for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
-					$resultado2->data_seek($num_fila2);
-					$fila2 = $resultado2->fetch_assoc();
-
-					$pais = $this->obtenerPais($fila2['pais_id']);
-					$ciudad_actual= $this->obtenerCiudad($fila2['ciudad_id']);
-					$email = $fila2['id'];
-					$foto = $fila['foto'];
-					$cedula = $fila2['cedula'];
-					$apellido =  $fila2['apellido'];
-					$fecha_Nacimiento =$fila2['fechaNacimiento'];				
-					$desarrollo_preferido =$fila2['desarrolloPreferido'];
-					$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
-					array_push($usuarios,$desarrollador);
-					
-				}
-
-			}
-
-
-		}
-		return $usuarios;
+		return Desarrollador::obtenerDesarrolladores();
 	}
+	
 
 	public function Login($email,$pass){
 		return Usuario::Login($email,$pass);
@@ -203,6 +162,36 @@ class ctr_usuarios{
 
 	public function desactivarUsuario($correo){
 		return Usuario::desactivarUsuario($correo);
+	}
+
+	public function obtenerPais($id){
+		return Pais::obtenerPais($id);
+	}
+
+	public function obtenerCiudad($id){
+		return Ciudad::obtenerCiudad($id);
+	}
+
+	public function PerfilDesarrollador($email){
+		return Desarrollador::perfil($email);
+	}
+	public function DesarrolladorHerramientas($email){
+		return Desarrollador::ObtenerHerramientas($email);
+	}
+	public function DesarrolladorProyectos($email){
+		return Desarrollador::ObtenerProyectos($email);
+	}
+	public function DesarrolladorExperiencia($email){
+		return Desarrollador::ObtenerExperiencia($email);
+	}
+	public function listarEmprezas(){
+		return Empresa::listarempresas();
+	}
+	public function PerfilEmpresa($email){
+		return Empresa::perfilEmpresa($email);
+	}
+	public function proyectosEmpresa($email){
+		return Empresa::proyectosEmpresa($email);
 	}
 }
 ?>

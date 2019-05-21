@@ -57,4 +57,20 @@ class Ciudad {
 		}
 		return $rows;
 	}
+
+	public static function obtenerCiudad($id){
+		$consulta = DB::conexion()->prepare('SELECT * FROM ciudad WHERE id=? ');
+		$consulta->bind_param('i',$id);	
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if(!$resultado){
+			return "";
+		}
+		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado->data_seek($num_fila);
+			$fila = $resultado->fetch_assoc();
+		}
+
+		return $fila['nombre'];
+	}
 } ?>

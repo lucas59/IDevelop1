@@ -284,5 +284,52 @@ array_push($proyectos,$proy);
 return $proyectos;
 }
 
+public static function obtenerDesarrolladores(){
+	//TRAIGO TODOS LOS USUARIOS
+  $consulta = DB::conexion()->prepare('SELECT * FROM usuario');	
+  $consulta->execute();
+  $resultado = $consulta->get_result();
+  if(!$resultado){
+	  header('Location: ../public/');
+	  die();
+  }
+  $usuarios = array();
+  $controlador = new ctr_usuarios();
+  for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+	  $resultado->data_seek($num_fila);
+	  $fila = $resultado->fetch_assoc();
+	  //TRAIGO TODOS LOS DESARROLLADORES
+	  $email1 =$fila['email'];
+	  $consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
+	  $consulta2->bind_param('s',$email1);	
+	  $consulta2->execute();
+	  $resultado2 = $consulta2->get_result();
+	  if($resultado2->num_rows >0 ){
+
+		  for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+			  $resultado2->data_seek($num_fila2);
+			  $fila2 = $resultado2->fetch_assoc();
+
+			  $pais = $controlador->obtenerPais($fila2['pais_id']);
+			  $ciudad_actual= $controlador->obtenerCiudad($fila2['ciudad_id']);
+			  $email = $fila2['id'];
+			  $foto = $fila['foto'];
+			  $cedula = $fila2['cedula'];
+			  $apellido =  $fila2['apellido'];
+			  $fecha_Nacimiento =$fila2['fechaNacimiento'];				
+			  $desarrollo_preferido =$fila2['desarrolloPreferido'];
+			  $desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
+			  array_push($usuarios,$desarrollador);
+			  
+		  }
+
+	  }
+
+
+  }
+  return $usuarios;
+}
+
+
 }
 ?>
