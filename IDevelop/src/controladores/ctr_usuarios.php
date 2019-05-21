@@ -100,6 +100,7 @@ class ctr_usuarios{
 	}
 
 	public function ponerSession($email,$tipoUsuario){
+		
 		if(!isset($_SESSION)) 
 		{ 
 			session_start(); 

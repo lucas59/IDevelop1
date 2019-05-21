@@ -10,7 +10,15 @@ function nuevoUsuario(){
 	var tipo = document.querySelector('input[name="tipo"]:checked').value;
 
 	console.log(tipo);
-	
+
+	if(tipo=='d'){
+		var edad = calcularEdad(fecha);
+		if(edad<18){
+			document.getElementById("fecha").focus();
+			return;
+		}
+
+	}	
 	var existe = validarEmail(email);
 	if(existe == "1"){
 		var mensaje = "Usuario ya registrado en IDevelop";
@@ -42,6 +50,19 @@ function nuevoUsuario(){
 		}
 	}
 	
+}
+
+function calcularEdad(fecha) {
+	var hoy = new Date();
+	var cumpleanos = new Date(fecha);
+	var edad = hoy.getFullYear() - cumpleanos.getFullYear();
+	var m = hoy.getMonth() - cumpleanos.getMonth();
+
+	if (m < 0 || (m === 0 && hoy.getDate() < cumpleanos.getDate())) {
+		edad--;
+	}
+
+	return edad;
 }
 function makeid(length) {
 	var result = '';

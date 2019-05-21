@@ -123,7 +123,7 @@ return function (App $app){
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
 		$lenguaje = $_POST['lenguaje'];
-		//echo Console::log("lenguajes",$lenguajes);
+
 
 		$nombreArchivo = $_FILES['file']['name'];
 		$base64 = base64_encode(file_get_contents($_FILES["file"]["tmp_name"]));
@@ -167,6 +167,7 @@ return function (App $app){
 	});
 	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
 		$email=$request->getQueryParam("email");
+		echo Console::log('prueba',$email);
 		$controladorUsuarios = new ctr_usuarios();
 		$Desarrollador = $controladorUsuarios->PerfilDesarrollador($email);
 		$experiencia=null;
