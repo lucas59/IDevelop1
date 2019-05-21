@@ -135,7 +135,7 @@ class Usuario
 			$consulta2->bind_param('s',$email);		
 			$consulta2->execute();
 			$resultado2 = $consulta2->get_result();
-			if($resultado2){
+			if($resultado2->num_rows > 0){
 				for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
 					$resultado2->data_seek($num_fila2);
 					$fila2 = $resultado2->fetch_assoc();
@@ -143,12 +143,24 @@ class Usuario
                 
 				$email = $fila2['id'];
 				$foto = $fila['foto'];
+				$cedula ="";
+				if(isset($fila2['cedula'])){
 				$cedula = $fila2['cedula'];
+				}
 				$apellido =  $fila2['apellido'];
 				$fecha_Nacimiento =$fila2['fechaNacimiento'];
+				$pais="";
+				if(isset($fila2['pais_id'])){
 				$pais =$controlador->obtenerPais($fila2['pais_id']);
+				}
+				$ciudad_actual ="";
+				if(isset($fila2['ciudad_id'])){
 				$ciudad_actual =$controlador->obtenerCiudad($fila2['ciudad_id']);
+				}
+				$desarrollo_preferido ="";
+				if(isset($fila2['desarrolloPreferido'])){
 				$desarrollo_preferido =$fila2['desarrolloPreferido'];
+				}
 				$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 
 				/*if (!$_SESSION) {
@@ -159,12 +171,12 @@ class Usuario
 					return "1";
 
 				}else{
-					$consulta3 = DB::conexion()->prepare('SELECT * FROM empreza WHERE id= ?');
+					$consulta3 = DB::conexion()->prepare('SELECT * FROM empresa WHERE id= ?');
 					$consulta3->bind_param('s',$email);		
 					$consulta3->execute();
 					$resultado3 = $consulta3->get_result();
 
-					if($resultado2){
+					if($resultado3->num_rows){
 
 						for ($num_fila3 = $resultado3->num_rows - 1; $num_fila3 >= 0; $num_fila3--) {
 							$resultado3->data_seek($num_fila3);
@@ -173,20 +185,40 @@ class Usuario
 
 						$email = $fila3['id'];
 						$foto_perfil = $fila['foto'];
+						$cedula="";
+						if(isset($fila3['cedula'])){
 						$cedula = $fila3['cedula'];
+						}
 						$nombre =  $fila3['nombre'];
 						$fecha_Creacion =$fila3['fechaCreacion'];
+						$direccion="";
+						if(isset($fila3['direccion'])){
 						$direccion  =$fila3['direccion'];
+						}
+						$telefono="";
+						if(isset($fila3['telefono'])){
 						$telefono =$fila3['telefono'];
+						}
+						$reclutador="";
+						if(isset($fila3['reclutador'])){
 						$reclutador =$fila3['reclutador'];
+						}
+						$vision="";
+						if(isset($fila3['vision'])){
 						$vision =$fila3['vision'];
+						}
+						$mision="";
+						if(isset($fila3['mision'])){
 						$mision =$fila3['mision'];
+						}
+						$rubro="";
+						if(isset($fila3['rubro'])){
 						$rubro =$fila3['rubro'];
-						$empreza = new Empreza($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision,"");
-					/*session_start();
-					$_SESSION['admin'] = $empreza;*/
+						}
+						$empreza = new Empresa($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision,"");
 
-					ctr_usuarios::ponerSession($email,"e");
+					$_SESSION['admin'] = $empreza;
+
 					return "1";
 				}else{
 					return "0";
