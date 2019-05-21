@@ -1,5 +1,4 @@
 function Postularse(id,usuario){
-	console.log("prueba");
 	var retorno = Postularse_proyecto(id,usuario);
 	if(retorno == "1"){
 		var mensaje = "Acción correcta";

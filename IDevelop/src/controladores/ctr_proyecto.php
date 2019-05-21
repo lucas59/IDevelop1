@@ -36,8 +36,8 @@ public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	}
 }
 
-public function Listar_Proyectos(){
-	$resultado = Proyecto::Listar_proyectos();
+public function Listar_Proyectos($id){
+	$resultado = Proyecto::Listar_proyectos($id);
 	return $resultado;
 }
 

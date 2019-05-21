@@ -111,12 +111,11 @@ class Proyecto
 
 	}
 
-	public function Listar_proyectos(){
+	public function Listar_proyectos($id){
 		$respuesta=null;
-		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto");
+		$consulta = DB::conexion()->prepare("SELECT * FROM proyecto WHERE id NOT IN(SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-
 		if (mysqli_num_rows($resultado) >= 1) {
 			return $resultado;
 		} else {

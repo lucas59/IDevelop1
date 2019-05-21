@@ -16,8 +16,9 @@ return function (App $app){
 
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
 		$controladorProyecto = new ctr_proyecto();
-		$lista = $controladorProyecto->Listar_Proyectos();
 		$sesio = $_SESSION['admin'];
+		$id_usuario = $sesio->id;
+		$lista = $controladorProyecto->Listar_Proyectos($id_usuario);
 		$sesion = array("listas" => $lista,"session" => $sesio);
 		return $this->view->render($response,"postularse.twig", $sesion);
 	})->setName("Postularse");
