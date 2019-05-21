@@ -174,7 +174,8 @@ class ctr_usuarios{
 			$desarrollador = Desarrollador::obtenerDesarrollador($email);
 			$_SESSION['admin'] = $desarrollador;
 		}
-		
+	}
+	
 
 	public function obtenerPais($id){
 		return Pais::obtenerPais($id);
