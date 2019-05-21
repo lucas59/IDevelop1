@@ -29,9 +29,9 @@ class proyecto_postulacion
 		$this->postulaciones_id = $postulacion;
 	}
 
-	public function Altaproyecto_postulacion(){
+	public function Altaproyecto_postulacion($id_proyecto,$id){
 		$sql=DB::conexion()->prepare("INSERT INTO `proyecto_postulacion` (`Proyecto_id`, `postulaciones_id`) VALUES (?,?)");
-		$sql->bind_param('si',$this->getProyecto(),$this->getPostulacion());
+		$sql->bind_param('si',$id_proyecto,$id);
 		if ($sql->execute()) {
 			return "1";
 		}else{

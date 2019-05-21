@@ -1,16 +1,20 @@
-function Postularse(){
-	event.preventDefault();
-	var formulario = document.forms['formPostular'];
-	var id = formulario['id'].value;
-	var retorno = Postularse_proyecto(id);
+function Postularse(id,usuario){
+	console.log("prueba");
+	var retorno = Postularse_proyecto(id,usuario);
 	if(retorno == "1"){
-		var mensaje = "Usted se postulo correctamente";
+		var mensaje = "Acción correcta";
 		$("#mensajeModal").html(mensaje);	
+		$("#modalAviso").modal();
+	}
+	else{
+		var mensaje = "Acción incorrecta";
+		$("#mensajeModal").html(mensaje);	
+		$("#modalAviso").modal();
 	}
 }
 
 
-function Postularse_proyecto(id){
+function Postularse_proyecto(id,usuario){
 	var retorno;
 	$.ajax({
 		async:false,
@@ -18,17 +22,16 @@ function Postularse_proyecto(id){
 		type: 'POST',
 		data: {
 			"id": id,
+			"usuario": usuario
 		},
 		success: function(response){
+			response = response.trim();
 			if(response=="1"){
 				retorno = "1";
 			}else{
-				retorno ="0";
+				retorno = "0";
 			}
 		}
 	});		
 	return retorno;
 }
-
-const form = document.getElementById('formPostular');
-form.addEventListener('submit', Postularse);
