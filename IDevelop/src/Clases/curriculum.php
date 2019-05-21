@@ -14,6 +14,7 @@ class curriculum {
 	}
 
 	public function subirCurriculum($curriculum,$email){
+
 		$curriculum=json_decode($curriculum);
 		$sql = DB::conexion()->prepare("INSERT INTO `curriculum` (`id`, `datos`, `extension`, `nombreCurriculum`) VALUES (NULL, ?, ?,?)");
 		$sql->bind_param('sss',$curriculum->base64,$curriculum->extension,$email);

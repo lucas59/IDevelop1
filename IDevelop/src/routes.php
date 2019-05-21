@@ -17,6 +17,7 @@ return function (App $app) {
 		if(isset($_SESSION['admin'])){
 			 $args["session"]=$_SESSION['admin']; 
 		}
+//		echo Console::log('asd',$_SESSION['admin']);
 		return $this->view->render($response,"index.twig",$args);
 	})->setName("Inicio");
 
