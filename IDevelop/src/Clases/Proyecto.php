@@ -92,7 +92,7 @@ class Proyecto
 		}  
 	}
 	
-	public function validarNombreProyecto($nombre){
+	public function nombreProyectoDisponible($nombre){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
 		$consulta->bind_param('s',$nombre);		

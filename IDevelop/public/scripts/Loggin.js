@@ -4,7 +4,6 @@ function Login(){
 	var email = formulario['Correo'].value;
 	var pass = formulario['Contrasena'].value;
 	login = loguearse(email,pass);
-	console.log(login);
 	if(login == true){
 		alert("Sesion iniciada");
 		window.location.replace("/IDevelop1/IDevelop/public");
@@ -37,7 +36,6 @@ function loguearse(email,pass){
 			console.log("response:" + eval(response));
 		}
 	});	
-	console.log(retorno);	
 	return retorno;
 }
 

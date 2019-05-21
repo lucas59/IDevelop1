@@ -11,7 +11,18 @@ return function (App $app){
 	$container = $app->getContainer(); 
 
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
-		return $this->view->render($response,"altaProyecto.twig");
+		if($_SESSION){
+			$usuarioActual = $_SESSION['admin'];
+			echo Console::log('prueba',$usuarioActual);
+			if($usuarioActual->tipo == 1){
+				$args['session'] = $_SESSION['admin'];
+				return $this->view->render($response,"altaProyecto.twig",$args);	
+			}else{
+				return $this->view->render($response,"index.twig",$args);	
+			}
+		}else{
+			return $this->view->render($response,"index.twig",$args);
+		}
 	})->setName("NuevoProyecto");
 
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){

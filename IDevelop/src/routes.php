@@ -15,6 +15,7 @@ return function (App $app) {
 
 	$app->get('/',function($request,$response,$args){
 		if(isset($_SESSION['admin'])){
+			echo Console::log('session',$_SESSION['admin']);
 			 $args["session"]=$_SESSION['admin']; 
 		}
 		return $this->view->render($response,"index.twig",$args);

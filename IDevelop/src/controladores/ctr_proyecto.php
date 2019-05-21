@@ -13,10 +13,12 @@ require_once '../src/Clases/Proyecto.php';
 	
 	
 
+
 	public function validarNombreProyecto($nombre){
-		$resultado = Proyecto::validarNombreProyecto($nombre);
+		$resultado = Proyecto::nombreProyectoDisponible($nombre);
 		return $resultado;
 	}
+	
 	public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 		if( isset($_SESSION['admin']) == true ){
 			//chequear que sea empresa
