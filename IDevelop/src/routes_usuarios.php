@@ -11,39 +11,31 @@ require_once '../src/Clases/console.php';
 return function (App $app){
 	$container = $app->getContainer(); 
 	$app->get('/Usuario/nuevo',function($request,$response,$args) use ($container){
-		if($_SESSION){
-			return $response->withRedirect("/IDevelop1/IDevelop/public/");
-		}
 		return $this->view->render($response,"altaUser.twig");
 	})->setName("NuevoUsuario");
 
 	$app->get('/Usuario/login',function($request,$response,$args) use ($container){
-		if($_SESSION){
-			return $response->withRedirect("/IDevelop1/IDevelop/public/");
-		}
 		return $this->view->render($response,"login.twig");
 	})->setName("ingresar");
 
 	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
 		$sesion = null;
 		if(isset($_SESSION['admin'])){
-			$args['session']=$_SESSION['admin']; 
+			$sesion=$_SESSION['admin']; 
 		}
 		$controladorUsuarios = new ctr_usuarios();
 		$usuarios = $controladorUsuarios->obtenerUsuarios();
-		return $this->view->render($response,"listadousuarios.twig",$args);
+		return $this->view->render($response,"listadousuarios.twig",compact('usuarios','sesion'));
 	})->setName("listado");
 
 	$app->get('/Usuario/cerrar',function($request,$response,$args) use ($container){
-		ctr_usuarios::cerrarsesion();
+		$controladorUsuarios = new ctr_usuarios();
+		$controladorUsuarios->cerrarsesion();
 		$sesion = null;
 		return $this->view->render($response,"index.twig",compact('sesion'));
 	})->setName("cerrar");
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
-		if($_SESSION){
-			return $response->withRedirect("/IDevelop1/IDevelop/public/");
-		}
 		$controladorUsuarios = new ctr_usuarios();
 		$email = $args['email'];
 		$retorno = $controladorUsuarios->validarEmail($email);
@@ -116,18 +108,13 @@ return function (App $app){
 		return $retorno;
 	});
 	$app->post('/Usuario/Logearse',function(Request $request, Response $response){
-		if($_SESSION){
-			session_destroy();
-		}
+
 		$data = $request->getParams();
 		$email=$data['email'];
 		$pass=$data['pass'];
-		$retorno = ctr_usuarios::loginNuevo($email,$pass);
-		if($retorno==true){
-			return "1";
-		}else{
-			return "0";
-		}
+		$controladorUsuarios = new ctr_usuarios();
+		$retorno = $controladorUsuarios->Login($email,$pass);
+		return $retorno;
 	});
 
 	$app->post('/Usuario/Desarrollador/Datos',function (Request $request, Response $response){
