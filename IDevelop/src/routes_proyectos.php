@@ -18,8 +18,7 @@ return function (App $app){
 		$controladorProyecto = new ctr_proyecto();
 		$lista = $controladorProyecto->Listar_Proyectos();
 		$sesio = $_SESSION['admin'];
-		echo Console::log("prueba",$sesio);
-		$ses = array("listas" => $lista,"sesion" => $sesio);
+		$ses = array("listas" => $lista,"session" => $sesio);
 		return $this->view->render($response,"postularse.twig", $ses);
 	})->setName("Postularse");
 
