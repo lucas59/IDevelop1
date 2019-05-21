@@ -181,7 +181,7 @@ return function (App $app){
 	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
 		$email=$request->getQueryParam("email");
 		$controladorUsuarios = new ctr_usuarios();
-		$Desarrollador = $controladorUsuarios->perfil($email);
+		$Desarrollador = $controladorUsuarios->PerfilDesarrollador($email);
 		$experiencia=null;
 		$herramientas=null;
 		$proyectos=null;
@@ -211,6 +211,6 @@ return function (App $app){
 			$proyectos = $controladorUsuarios->proyectosEmpresa($email);
 		}
 		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
-	})->setName("listadoE");
+	});
 }
 ?>
