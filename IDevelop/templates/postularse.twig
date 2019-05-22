@@ -1,13 +1,17 @@
 {% extends "base.twig" %}
 {% block title %}Postularse{% endblock %}
 {% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Postularse.css">
 {% endblock %}
 {% block content %}
+<H1>Postularse a un proyecto</H1>
+<div id="tabla_id">
 <table class="table">
-	<thead>
-		<tr>
+	<thead >
+		<tr id="tabla_titulo" class="bg-info">
 			<th scope="col">ID</th>
-			<th scope="col">Nombre</th>
+			<th scope="col">Empresa</th>
+			<th scope="col">Nombre del proyecto</th>
 			<th scope="col">Descripción</th>
 			<th scope="col">Fecha de entrega</th>
 			<th scope="col">Acción</th>
@@ -17,18 +21,16 @@
 		{% for lista in listas %}
 		<tr>
 			<th id="txtid" scope="col">{{ lista.id |upper }}</th>
+			<th id="txtempresa" scope="col">{{ lista.nombre_empresa |upper }}</th>
 			<th id="nombre" scope="col">{{lista.nombre |upper }}</th>
 			<th id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></th>
 			<th id="fecha" scope="col">{{lista.fechaEntrega |upper }}</th>
-			<th><input type="button" name="aceptar" value="Postularse" onclick="javascript:Postularse({{lista.id |upper}},'{{session.id |upper}}');"></th>
-			<th><input style="display: none" type="text" id="id" name="id" value="{{ lista.id }}"></th>
-			<th><input style="display: none" type="text" id="usuario" name="usuario" value="{{ session.id }}"></th>
-			
+			<th><input type="button" class="btn btn-info" name="aceptar" value="Postularse" onclick="javascript:Postularse({{lista.id |upper}},'{{session.id |upper}}');"></th>
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
-
+</div>
 <!-- Modal  de mensajes -->
 <div id="modalAviso" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">

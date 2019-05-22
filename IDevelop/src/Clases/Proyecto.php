@@ -113,7 +113,7 @@ class Proyecto
 
 	public function Listar_proyectos($id){
 		$respuesta=null;
-		$consulta = DB::conexion()->prepare("SELECT * FROM proyecto WHERE id NOT IN(SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
+		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa,proyecto INNER JOIN empresa_proyecto ON empresa_proyecto.proyectos_id = proyecto.id WHERE proyecto.id NOT IN(SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "') AND empresa.id = empresa_proyecto.Empresa_id ORDER BY proyecto.id");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
 		if (mysqli_num_rows($resultado) >= 1) {
@@ -135,6 +135,6 @@ class Proyecto
 		}
 	}
 
-		
+
 }
 ?>

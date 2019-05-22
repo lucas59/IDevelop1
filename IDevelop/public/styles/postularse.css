@@ -1,0 +1,12 @@
+h1 {
+	text-align: center;	
+}
+
+#tabla_titulo{
+	color:white;
+}
+
+#tabla_id{
+	max-width: 960px;
+	margin:30px auto 0px auto ;
+}
