@@ -73,7 +73,12 @@ return function (App $app){
 	$app->get('/Usuario/Desactivar/{correo}',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
 		$correo = $args['correo'];
-		return $controladorUsuarios->desactivarUsuario($correo);
+		if($controladorUsuarios->desactivarUsuario($correo)){
+			
+			return "1";
+		}else{
+			return "0";
+		}
 	});
 
 	$app->post('/Usuario/NuevoUsuario',function(Request $request, Response $response){
@@ -123,8 +128,6 @@ return function (App $app){
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
 		$lenguaje = $_POST['lenguaje'];
-
-
 		$nombreArchivo = $_FILES['file']['name'];
 		$base64 = base64_encode(file_get_contents($_FILES["file"]["tmp_name"]));
 		$tamañoArchivo = $_FILES['file']['size'];
@@ -167,6 +170,13 @@ return function (App $app){
 	});
 	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
 		$email=$request->getQueryParam("email");
+		if($email==null){
+			if(isset($_SESSION['admin'])){
+				$email=$_SESSION['admin']->id; 			
+			}else{
+				return $this->view->render($response,"index.twig",$args);
+			}
+		}
 		echo Console::log('prueba',$email);
 		$controladorUsuarios = new ctr_usuarios();
 		$Desarrollador = $controladorUsuarios->PerfilDesarrollador($email);
@@ -174,16 +184,24 @@ return function (App $app){
 		$herramientas=null;
 		$proyectos=null;
 		if($Desarrollador){
-			$herramientas=$controladorUsuarios->DesarrolladorHerramientas($email);
-			$proyectos=$controladorUsuarios->DesarrolladorProyectos($email);
-			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
-		}
-		$sesion = null;
-		if(isset($_SESSION['admin'])){
-			$sesion=$_SESSION['admin']; 
-		}
-		return $this->view->render($response,"PerfilDesarrollador.twig",compact('Desarrollador','sesion','experiencia','herramientas','proyectos'));
-	});
+			$args['Desarrollador']=$Desarrollador;
+//			$herramientas=$controladorUsuarios->DesarrolladorHerramientas($email);
+			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
+			//$proyectos=$controladorUsuarios->DesarrolladorProyectos($email);
+			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
+
+//			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
+			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
+
+			$sesion = null;
+			if(isset($_SESSION['admin'])){
+				$sesion=$_SESSION['admin']; 
+				$args['session']=$_SESSION['admin'];
+			}
+		return $this->view->render($response,"PerfilDesarrollador.twig",$args/*compact('Desarrollador','session','experiencia','herramientas','proyectos')*/);
+
+	}
+})->setName('perfil');
 
 	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
