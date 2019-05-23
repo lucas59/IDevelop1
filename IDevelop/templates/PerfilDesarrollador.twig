@@ -1,78 +1,102 @@
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
-    {% block head %}{% endblock %}
-    </head>
-    <body>
-    {% include("nav.twig") %}
-<h1>Perfil Desarrollador</h1>
-<h3>Datos</h3>
-<div>
-<p>Email : {{Desarrollador.email}}</p>
-<p>Apellido : {{Desarrollador.apellido}}</p>
-<p>Cedula: {{Desarrollador.cedula}}</p>
-<p>Fecha de nacimiento : {{Desarrollador.fecha_Nacimiento}}</p>
-<p>Ciudad: {{Desarrollador.ciudad_actual}}</p>
-<p>Pais: {{Desarrollador.pais}}</p>
+{% extends "base.twig" %}
+{% block title %}Desarrollador{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+{% endblock %}
+{% block content %}
+<div id="tabla_id">
+  <h1>Perfil Desarrollador</h1>
+  <ul class="nav nav-tabs" id="myTab" role="tablist" >
+    <li class="nav-item" >
+      <a class="nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="home" aria-selected="true">Datos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Experiencia" role="tab" aria-controls="profile" aria-selected="false">Experiencia laboral</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="profile" aria-selected="false">Proyectos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Herramientas" role="tab" aria-controls="profile" aria-selected="false">Herramientas</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="Datos" role="tabpanel" aria-labelledby="home-tab">
+     <dl class="dl-horizontal">
+      <dt>Email:</dt>
+      <dd>{{Desarrollador.email}}</dd>
+      <dt>Apellido:</dt>
+      <dd>{{Desarrollador.apellido}}</dd>
+      <dt>Cedula:</dt>
+      <dd>{{Desarrollador.cedula}}</dd>
+      <dt>Fecha de nacimiento:</dt>
+      <dd>{{Desarrollador.fecha_Nacimiento}}</dd>
+      <dt>Ciudad:</dt>
+      <dd>{{Desarrollador.ciudad_actual}}</dd>
+      <dt>Pais:</dt>
+      <dd>{{Desarrollador.pais}}</dd>
+    </dl>
+  </div>
+  <div class="tab-pane fade" id="Experiencia" role="tabpanel" aria-labelledby="profile-tab">
+    <table class="table">
+      <thead>
+        <tr id="tabla_titulo" class="bg-info">
+          <td>Empreza</td>
+          <td>Descripcion</td>
+          <td>Fecha Inicio</td>
+          <td>Fecha Fin</td>
+          <td>Contacto</td>
+        </tr>
+      </thead>
+      <tbody>
+      {% for exp in experiencia %}
+      <tr>
+        <td>{{ exp.empresa }}</td>
+        <td>{{ exp.descripcion }}</td>
+        <td>{{ exp.fechaini }}</td>
+        <td>{{ exp.fechafin }}</td>
+        <td>{{ exp.contacto }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-
-<div>
-<h3>Experiencia laboral</h3>
-<table>
-<tr>
-  <td>Empreza</td>
-  <td>Descripcion</td>
-  <td>Fecha Inicio</td>
-  <td>Fecha Fin</td>
-  <td>Contacto</td>
-</tr>
-{% for exp in experiencia %}
-<tr>
-  <td>{{ exp.empresa }}</td>
-  <td>{{ exp.descripcion }}</td>
-  <td>{{ exp.fechaini }}</td>
-  <td>{{ exp.fechafin }}</td>
-  <td>{{ exp.contacto }}</td>
-</tr>
-{% endfor %}
-</table>
+<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="profile-tab">
+  <table class="table">
+    <thead>
+      <tr id="tabla_titulo" class="bg-info">
+        <td>Nombre</td>
+        <td>Descripcion</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for proy in proyectos %}
+      <tr>
+        <td>{{ proy.nombre }}</td>
+        <td>{{ proy.descripcion }}</td>
+        <td><a>Ver Mas..</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-
-
-<div>
-<h3>Proyectos</h3>
-<table>
-<tr>
-  <td>Nombre</td>
-  <td>Descripcion</td>
-
-</tr>
-{% for proy in proyectos %}
-<tr>
-  <td>{{ proy.nombre }}</td>
-  <td>{{ proy.descripcion }}</td>
-  <td><a>Ver Mas..</a></td>
-</tr>
-{% endfor %}
-</table>
+<div class="tab-pane fade" id="Herramientas" role="tabpanel" aria-labelledby="profile-tab">
+  <table class="table">
+    <thead>
+      <tr id="tabla_titulo" class="bg-info">
+        <td>Nombre</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for her in herramientas %}
+      <tr>
+        <td>{{ her.nombre }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
-
-
-<div>
-<h3>Herramientas</h3>
-<table>
-<tr>
-  <td>Nombre</td>
-</tr>
-{% for her in herramientas %}
-<tr>
-  <td>{{ her.nombre }}</td>
-</tr>
-{% endfor %}
-</table>
 </div>
-    </body>
-</html>
+</div>
+</div>
+{% endblock %}

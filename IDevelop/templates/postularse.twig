@@ -1,35 +1,41 @@
 {% extends "base.twig" %}
 {% block title %}Postularse{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Postularse.css">
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
 <H1>Postularse a un proyecto</H1>
 <div id="tabla_id">
-<table class="table">
-	<thead >
-		<tr id="tabla_titulo" class="bg-info">
-			<th scope="col">ID</th>
-			<th scope="col">Empresa</th>
-			<th scope="col">Nombre del proyecto</th>
-			<th scope="col">Descripción</th>
-			<th scope="col">Fecha de entrega</th>
-			<th scope="col">Acción</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for lista in listas %}
-		<tr>
-			<th id="txtid" scope="col">{{ lista.id |upper }}</th>
-			<th id="txtempresa" scope="col">{{ lista.nombre_empresa |upper }}</th>
-			<th id="nombre" scope="col">{{lista.nombre |upper }}</th>
-			<th id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></th>
-			<th id="fecha" scope="col">{{lista.fechaEntrega |upper }}</th>
-			<th><input type="button" class="btn btn-info" name="aceptar" value="Postularse" onclick="javascript:Postularse({{lista.id |upper}},'{{session.id |upper}}');"></th>
-		</tr>
-		{% endfor %}
-	</tbody>
-</table>
+	{% if not listas.id != null %}
+	<table class="table">
+		<thead >
+			<tr id="tabla_titulo" class="bg-info">
+				<th scope="col">ID</th>
+				<th scope="col">Empresa</th>
+				<th scope="col">Nombre del proyecto</th>
+				<th scope="col">Descripción</th>
+				<th scope="col">Fecha de entrega</th>
+				<th scope="col">Acción</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			{% for lista in listas %}
+			<tr>
+				<td id="txtid" scope="col">{{ lista.id |upper }}</td>
+				<td id="txtempresa" scope="col">{{ lista.nombre_empresa |upper }}</td>
+				<td id="nombre" scope="col">{{lista.nombre |upper }}</td>
+				<td id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></td>
+				<td id="fecha" scope="col">{{lista.fechaEntrega |upper }}</td>
+				<td><input type="button" class="btn btn-info" name="aceptar" value="Postularse" onclick="javascript:Postularse({{lista.id |upper}},'{{session.id |upper}}');"></td>
+			</tr>
+			{% endfor %}
+
+		</tbody>
+	</table>
+	{% else %}
+	<h3>No existen proyectos en la base de datos o el usuario no puede postularse a mas proyectos</h3>
+	{% endif %}
 </div>
 <!-- Modal  de mensajes -->
 <div id="modalAviso" class="modal" tabindex="-1" role="dialog">

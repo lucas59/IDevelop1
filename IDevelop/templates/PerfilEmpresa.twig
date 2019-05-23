@@ -1,42 +1,64 @@
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
-    {% block head %}{% endblock %}
-    </head>
-    <body>
-    {% include("nav.twig") %}
+{% extends "base.twig" %}
+{% block title %}Empresa{% endblock %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+{% endblock %}
+{% block content %}
+<div id="tabla_id">
 <h1>Perfil Empresa</h1>
-<h3>Datos</h3>
-<div>
-<p>Email : {{Empresa.email}}</p>
-<p>Nombre : {{Empresa.nombre}}</p>
-<p>Telefono: {{Empresa.telefono}}</p>
-<p>Fecha de creacion : {{Empresa.fecha_Creacion}}</p>
-<p>Rubro: {{Empresa.rubro}}</p>
-<p>Mision: {{Empresa.mision}}</p>
-<p>Vision: {{Empresa.vision}}</p>
-<p>Reclutador: {{Empresa.reclutador}}</p>
-<p>Direccion: {{Empresa.direccion}}</p>
+<nav>
+	<div class="nav nav-tabs" id="nav-tab" role="tablist">
+		<a class="nav-item nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="nav-home" aria-selected="true">Datos</a>
+		<a class="nav-item nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="nav-profile" aria-selected="false">Proyectos</a>
+	</div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+	<div class="tab-pane fade show active" id="Datos" role="tabpanel" aria-labelledby="nav-home-tab">
+		 <dl class="dl-horizontal">
+      <dt>Email:</dt>
+       <dd> {{Empresa.email}}</dd>
+       <dt>Nombre:</dt>
+       <dd> {{Empresa.nombre}}</dd>
+         <dt>Telefono:</dt>
+       <dd> {{Empresa.telefono}}</dd>
+       <dt>Fecha de creacion:</dt>
+       <dd> {{Empresa.fecha_Creacion}}</dd>
+       <dt>Rubro:</dt>
+       <dd> {{Empresa.rubro}}</dd>
+        <dt>Mision:</dt>
+       <dd> {{Empresa.mision}}</dd>
+        <dt>Vision:</dt>
+       <dd> {{Empresa.vision}}</dd>
+        <dt>Reclutador:</dt>
+       <dd> {{Empresa.reclutador}}</dd>
+        <dt>Direccion:</dt>
+       <dd> {{Empresa.direccion}}</dd>
+ </dl>
+	</div>
+	<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="nav-profile-tab">
+		<div id="tabla_id">
+  <table class="table">
+    <thead>
+    	 <tr id="tabla_titulo" class="bg-info">
+				<td>Nombre</td>
+				<td>Descripcion</td>
+				<td>Accion</td>
+			</tr>
+			</thead>
+    <tbody>
+			{% for proy in proyectos%}
+			<tr>
+				<td>{{proy.nombre}}</td>
+				<td>{{proy.descripcion}}</td>
+				<td><a>Ver mas..</a></td>
+			</tr>
+			{% endfor %}
+		   </tbody>
+  </table>
+	</div>
 </div>
 
 
-<h3>Proyectos</h3>
-<div>
-<table>
-<tr>
-<td>Nombre</td>
-<td>Descripcion</td>
-<td>Accion</td>
-</tr>
-{% for proy in proyectos%}
-<tr>
-<td>{{proy.nombre}}</td>
-<td>{{proy.descripcion}}</td>
-<td><a>Ver mas..</a></td>
-</tr>
-{% endfor %}
-</table>
-</div>
+<div id="tabla_id">
+
+{% endblock %}

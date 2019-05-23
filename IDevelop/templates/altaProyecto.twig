@@ -6,26 +6,30 @@
 
 {% block content %}
 <main>
+<div id="tabla_id" class="card">
+		<div class="card card-body border-info">
 	<form method="POST" id="formAltaProyecto">
 		<h2>Crea una cuenta</h2>
 		<span>
-			<label for="txtNombre"> Nombre Proyecto</label>
-			<input type="text" id="txtNombre" name="nombre" required>
+			<label for="txtNombre"> Nombre Proyecto:</label>
+			<input class="form-control" type="text" id="txtNombre" name="nombre" required>
 		</span>
 		<span>
-			<label for="txtDescripcion">Descripcion Proyecto</label>
-			<textarea name="txtDescripcion" id="txtDescripcion" rows="10" cols="50" placeholder="Descripción del proyecto..."> </textarea>
+			<label for="txtDescripcion">Descripcion Proyecto:</label>
+			<textarea class="form-control" name="txtDescripcion" id="txtDescripcion" rows="10" cols="50" placeholder="Descripción del proyecto..."> </textarea>
 		</span>
 		<span>
-			<label for="txtFecha"> Fecha Entrega proyecto</label>
-			<input type="date" id="txtFechaE" name="fechaEntrega" required>
+			<label for="txtFecha"> Fecha Entrega proyecto:</label>
+			<input class="form-control" type="date" id="txtFechaE" name="fechaEntrega" required>
 		</span>
 		<span>
-			<label for="txtFechaFP"> Fecha final de postulación</label>
-			<input type="date" id="txtFechaFP" name="fechaFP" required>
-		</span>
-		<input type="submit" name="submit" value="Crear proyecto"><br>
+			<label for="txtFechaFP"> Fecha final de postulación:</label>
+			<input class="form-control" type="date" id="txtFechaFP" name="fechaFP" required>
+		</span><br>
+		<input class="btn btn-info" type="submit" name="submit" value="Crear proyecto"><br>
 	</form>
+	</div>
+	</div>
 </main>
 
 <!-- Modal  de mensajes -->

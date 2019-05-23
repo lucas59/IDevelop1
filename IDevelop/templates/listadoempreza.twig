@@ -1,29 +1,29 @@
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
-    {% block head %}{% endblock %}
-    </head>
-    <body>
-    {% include("nav.twig") %}
+{% block title %}Desarrolladores{% endblock %}
+{% extends "base.twig" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+{% endblock %}
+{% block content %}
 <h1>Empresas</h1>
-<table>
-<tr>
-  <td>Email</td>
-  <td>Nombre</td>
-  <td>Telefono</td>
-  <td>Accion</td>
-</tr>
-{% for emp in Empresas %}
-<tr>
-  <td>{{ emp.email }}</td>
-  <td>{{ emp.nombre }}</td>
-  <td>{{ emp.telefono }}</td>
-  <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/PerfilE?email={{ emp.email }}">Ver Perfil</a></td>
-</tr>
-{% endfor %}
+<div id="tabla_id">
+  <table class="table">
+    <thead>
+  <tr id="tabla_titulo" class="bg-info">
+    <td>Email</td>
+    <td>Nombre</td>
+    <td>Telefono</td>
+    <td>Accion</td>
+  </tr>
+    </thead>
+    <tbody>
+  {% for emp in Empresas %}
+  <tr>
+    <td>{{ emp.email }}</td>
+    <td>{{ emp.nombre }}</td>
+    <td>{{ emp.telefono }}</td>
+    <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/PerfilE?email={{ emp.email }}">Ver Perfil</a></td>
+  </tr>
+  {% endfor %}
+</tbody>
 </table>
-    </body>
-    </html>
+{% endblock %}

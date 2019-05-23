@@ -1,30 +1,33 @@
-<html>
-    <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
-    {% block head %}{% endblock %}
-    </head>
-    <body>
-    {% include("nav.twig") %}
+{% block title %}Desarrolladores{% endblock %}
+{% extends "base.twig" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+{% endblock %}
+{% block content %}
+<div id="tabla_id">
 <h1>Desarrolladores</h1>
-<div>
-<table>
-<tr>
-  <td>Email</td>
-  <td>Apellido</td>
-  <td>Pais</td>
-  <td>Accion</td>
-</tr>
-{% for user in usuarios %}
-<tr>
-  <td>{{ user.email }}</td>
-  <td>{{ user.apellido }}</td>
-  <td>{{ user.pais }}</td>
-  <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/Perfil?email={{ user.email }}">Ver Perfil</a> <a>Puntuar</a></td>
-</tr>
-{% endfor %}
-</table>
+  <table class="table">
+    <thead>
+      <tr id="tabla_titulo" class="bg-info">
+        <td>Email</td>
+        <td>Apellido</td>
+        <td>Pais</td>
+        <td>Accion</td>
+        <td>Accion 2</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in usuarios %}
+      <tr>
+        <td>{{ user.email }}</td>
+        <td>{{ user.apellido }}</td>
+        <td>{{ user.pais }}</td>
+        <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/Perfil?email={{ user.email }}">Ver Perfil</a> 
+          <td><a>Puntuar</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
-    </body>
+</body>
+{% endblock %}

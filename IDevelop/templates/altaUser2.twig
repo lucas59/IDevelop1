@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 {% block title %}Registrarse{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nuevoUser.css">
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nuevoUser_2.css">
 {% endblock %}
 
 {% block content %}
@@ -9,66 +9,83 @@
 {% if usuario %}
 
 {% if usuario.tipo == false %}<!-- Usuario del tipo desarrollador -->
-<form id="formDatosDesarrollador">
+<div id="tabla_id" class="card">
+	<div class="card card-body border-info">
+		<form id="formDatosDesarrollador">
 
-	<h1>Bienvenido {{usuario.nombre |upper }} {{usuario.apellido |upper }}</h1>
-	<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
-	<span>
-		<select id="idPaises" name="pais">
-			
-		</select>
-		<select id="idCiudad" name="ciudad">
+			<h1>Bienvenido {{usuario.nombre |upper }} {{usuario.apellido |upper }}</h1>
+			<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
+			<span>
+				<select class="form-control" id="idPaises" name="pais">
 
-		</select>
-	</span>
-	<span>
-		<label for="lenguaFav">Tu lenguaje favorito</label>
-		<select id="lenguaFav">
-			<option value="C">C</option>
-			<option value="Java">Java</option>
-			<option value="C++">C++</option>
-			<option value="C#">C#</option>
-			<option value="R">R</option>
-			<option value="PHP">PHP</option>
-			<option value="GO">GO</option>
-			<option value="Swift">Swift</option>
-		</select>
-	</span>
-	<span>
-		<label>Curriculum vitae: </label>
-		<input id="curriculum" type="file" name="file" required>
-	</span>
-	<span>
-		<input value="Finalizar" type="submit" id="btnenviar" placeholder="Finalizar" name="submit">
-	</span>
+				</select>
+				<select class="form-control" id="idCiudad" name="ciudad">
 
-</form>
+				</select>
+			</span>
+			<span>
+				<label for="lenguaFav">Tu lenguaje favorito</label>
+				<select id="lenguaFav" class="form-control">
+					<option value="C">C</option>
+					<option value="Java">Java</option>
+					<option value="C++">C++</option>
+					<option value="C#">C#</option>
+					<option value="R">R</option>
+					<option value="PHP">PHP</option>
+					<option value="GO">GO</option>
+					<option value="Swift">Swift</option>
+				</select>
+			</span>
+			<span>
+				<label>Curriculum vitae: </label>
+				<input class="form-control" id="curriculum" type="file" name="file" required>
+			</span>
+			<span><br>
+				<input class="btn btn-info" value="Finalizar" type="submit" id="btnenviar" placeholder="Finalizar" name="submit">
+			</span>
+
+		</form>
+	</div>
+</div>
 {% endif %}
 
 {% if usuario.tipo == true %}<!-- Usuario del tipo empresa -->
-<h1>Bienvenido {{usuario.nombre |upper }}</h1>
-<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
-<form id="formDatosEmpresa">
-	<span>
-		<select id="idPaises" name="pais">			
-		</select>
-		<select id="idCiudad" name="ciudad">
-		</select>
-	</span>
-	<span>
-		<textarea id="txtVision" placeholder="Visión"></textarea>
-		<textarea id="txtMision" placeholder="Misión"></textarea>
-		<input id="txtTel" type="text" placeholder="Teléfono">
-		<input id="txtRubro" type="text" placeholder="Rubro">
-		<input id="txtReclutador" type="text" placeholder="Nombre del reclutador">
-		<input id="txtDireccion" type="text" placeholder="Dirección">
-	</span>	
-	<span>
-		<input type="submit" id="btnEnviarEmpresa" value="Finalizar" name="submitEmpresa">
-	</span>
-</form>
 
+<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
+<div id="tabla_id" class="card">
+	<div class="card card-body border-info">
+		<h1>Bienvenido {{usuario.nombre |upper }}</h1>
+		<form id="formDatosEmpresa">
+			<span>
+				<label for="inputEmail">Pais:</label>
+				<select class="form-control" id="idPaises" name="pais">			
+				</select>
+				<label for="inputEmail">Ciudad:</label>
+				<select class="form-control" id="idCiudad" name="ciudad">
+				</select>
+			</span>
+			<span>
+				<label for="inputEmail">Visión:</label>
+				<textarea class="form-control" id="txtVision" placeholder="Visión"></textarea>
+				<label for="inputEmail">Misión:</label>
+				<textarea class="form-control" id="txtMision" placeholder="Misión"></textarea>
+				<label for="inputEmail">Teléfono:</label>
+				<input class="form-control" id="txtTel" type="text" placeholder="Teléfono">
+				<label for="inputEmail">Rubro:</label>
+				<input class="form-control" id="txtRubro" type="text" placeholder="Rubro">
+				<label for="inputEmail">Nombre del Reclutador:</label>
+				<input class="form-control" id="txtReclutador" type="text" placeholder="Nombre del reclutador">
+				<label for="inputEmail">Dirección:</label>	
+				<input class="form-control" id="txtDireccion" type="text" placeholder="Dirección">
+			</span><br>	
+			<span>
+				<input class="btn btn-info" type="submit" id="btnEnviarEmpresa" value="Finalizar" name="submitEmpresa">
+			</span>
+		</form>
+	</div>
+</div>
 {% endif %}
+
 <div id="modalAviso" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">

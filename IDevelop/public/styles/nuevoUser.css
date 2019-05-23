@@ -1,35 +1,11 @@
-*{
-	box-sizing: border-box;
-}
-
-span{
-	display: block;
-}
-
-main form{
-  margin: 0 auto;
-  padding: 10px 2em;
-  width: 500px 
-}
-
-main form input[type="text"]{
-  width: 216px;   
-}
-
-main form input{
-  width: 100%;
-}
-main form input[type="radio"]{
-  width: 10%;
-}
-
-
 main{
-  width: 100%;
   max-width: 960px;
-  margin: 0 auto;
-  border: 3px solid white;
-  padding: 10px 2em;
-  box-shadow: 0px 0px 600px #ddd;
-  border-radius: 30px 30px;
+  margin:30px auto 0px auto ;
 }
+
+#tabla_id{
+	max-width: 560px;
+	margin:10px auto 30px auto;
+	text-align: center;
+}
+

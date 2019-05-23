@@ -15,12 +15,19 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
-		$controladorProyecto = new ctr_proyecto();
-		$sesio = $_SESSION['admin'];
-		$id_usuario = $sesio->id;
-		$lista = $controladorProyecto->Listar_Proyectos($id_usuario);
-		$sesion = array("listas" => $lista,"session" => $sesio);
-		return $this->view->render($response,"postularse.twig", $sesion);
+		if($_SESSION){
+			$controladorProyecto = new ctr_proyecto();
+			$sesio = $_SESSION['admin'];
+			$id_usuario = $sesio->id;
+			$lista = $controladorProyecto->Listar_Proyectos($id_usuario);
+			$sesion = array("listas" => $lista,"session" => $sesio);
+			return $this->view->render($response,"postularse.twig", $sesion);
+		}
+		else{
+			$mensaje = "No existe un usuario en la sesión";
+			$mensaje_sesion = array("mensaje" => $mensaje);
+			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
+		}
 	})->setName("Postularse");
 
 
