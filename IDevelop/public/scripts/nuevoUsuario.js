@@ -1,5 +1,6 @@
 function nuevoUsuario(){
 	event.preventDefault();
+	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var formulario = document.forms['formAlta'];
 	var email = formulario['txtID'].value;
 	var nombre = formulario['txtNombre'].value;
@@ -49,7 +50,9 @@ function nuevoUsuario(){
 			console.log("No ingresado")
 		}
 	}
-	
+	var contenedor = document.getElementById('contenedor_carga');
+	contenedor.style.visibility = 'hidden';
+	contenedor.style.opacity = '0';
 }
 
 function calcularEdad(fecha) {

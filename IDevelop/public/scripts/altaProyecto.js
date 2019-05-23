@@ -1,5 +1,6 @@
 function nuevoProyecto(){
 	event.preventDefault();
+	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var formulario = document.forms['formAltaProyecto'];
 	var nombre = formulario['txtNombre'].value;
 	var descripcion = formulario['txtDescripcion'].value;
@@ -29,6 +30,10 @@ function nuevoProyecto(){
 			console.log("No ingresado")
 		}
 	}
+
+	var contenedor = document.getElementById('contenedor_carga');
+	contenedor.style.visibility = 'hidden';
+	contenedor.style.opacity = '0';
 	
 }
 

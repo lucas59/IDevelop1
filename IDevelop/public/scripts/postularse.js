@@ -1,5 +1,9 @@
 function Postularse(id,usuario){
+	 $('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var retorno = Postularse_proyecto(id,usuario);
+	var contenedor = document.getElementById('contenedor_carga');
+	contenedor.style.visibility = 'hidden';
+	contenedor.style.opacity = '0';
 	if(retorno == "1"){
 		var mensaje = "Acción correcta";
 		$("#mensajeModal").html(mensaje);	
