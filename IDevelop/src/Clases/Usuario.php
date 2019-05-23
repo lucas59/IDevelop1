@@ -127,8 +127,8 @@ class Usuario
 			$fila = $resultado->fetch_assoc();
 		}
 		$contaseñaencriptada = $fila['contrasenia'];
-
-		if( sha1($pass) == $contaseñaencriptada){
+		$estado = $fila['estado'];
+		if( sha1($pass) == $contaseñaencriptada && $estado == 1 ){
 
 		//las contraseñas son iguales
 			$consulta2 = DB::conexion()->prepare('SELECT * FROM desarrollador WHERE id= ?');
