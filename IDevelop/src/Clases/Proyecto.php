@@ -113,7 +113,19 @@ class Proyecto
 
 	public function Listar_proyectos($id){
 		$respuesta=null;
-		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa,proyecto INNER JOIN empresa_proyecto ON empresa_proyecto.proyectos_id = proyecto.id WHERE proyecto.id NOT IN(SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "') AND empresa.id = empresa_proyecto.Empresa_id ORDER BY proyecto.id");
+		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id NOT IN (SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+
+		public function Listar_proyectos_usuario($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id IN (SELECT proyectos_id FROM desarrollador_proyecto WHERE desarrollador_proyecto.Desarrollador_id = '" . $id . "')");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
 		if (mysqli_num_rows($resultado) >= 1) {

@@ -7,39 +7,41 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Proyectos
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="nav-link" href="{{ path_for('NuevoProyecto') }}">Crear proyecto<span class="sr-only">(current)</span></a>
-        <a class="nav-link" href="{{ path_for('Postularse') }}">Postularse<span class="sr-only">(current)</span></a>
-      </div>
-    </li>
-     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Listas
-      </a>
-      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="nav-link" href="{{ path_for('listado') }}">Ver Desarrolladores<span class="sr-only">(current)</span></a>
-        <a class="nav-link" href="{{ path_for('listadoE') }}">Ver Empresas<span class="sr-only">(current)</span></a>
-      </div>
-    </li>
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Proyectos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link" href="{{ path_for('NuevoProyecto') }}">Crear proyecto<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ path_for('Postularse') }}">Postularse<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ path_for('BajarseProyecto') }}">Bajarse de un proyecto<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#">Proyectos recomendados<span class="sr-only">(current)</span></a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Listas
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="nav-link" href="{{ path_for('listado') }}">Ver Desarrolladores<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="{{ path_for('listadoE') }}">Ver Empresas<span class="sr-only">(current)</span></a>
+        </div>
+      </li>
 
-    
-  </ul>
-  {% if not session%}
-  <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
-  <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
-  {%  endif %}
-  {% if session %}
-  <div class="dropdown ">
-    <button onclick="opcionesUsuario()" class="dropbtn user"></button>
-    <div id="myDropdown" class="dropdown-content ">
-      <a class="pull-left" href="">Mi perfil</a>
-      <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
+
+    </ul>
+    {% if not session%}
+    <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
+    <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
+    {%  endif %}
+    {% if session %}
+    <div class="dropdown ">
+      <button onclick="opcionesUsuario()" class="dropbtn user"></button>
+      <div id="myDropdown" class="dropdown-content ">
+        <a class="pull-left" href="">Mi perfil</a>
+        <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
+      </div>
     </div>
+    <h4>{{session.nombre}}</h4>
+    {%  endif %}
   </div>
-  <h4>{{session.nombre}}</h4>
-  {%  endif %}
-</div>
 </nav>

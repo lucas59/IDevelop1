@@ -1,7 +1,8 @@
-function Postularse(id,usuario){
+
+function Baja_postulacion(id,usuario){
 
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
-	var retorno = Postularse_proyecto(id,usuario);
+	var retorno = Baja_postulacion(id,usuario);
 	if(retorno == "1"){
 		var mensaje = "Acción correcta";
 		$("#mensajeModal").html(mensaje);	
@@ -17,11 +18,11 @@ function Postularse(id,usuario){
 	contenedor.style.opacity = '0';
 }
 
-function Postularse_proyecto(id,usuario){
+function Baja_postulacion(id,usuario){
 	var retorno;
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Proyecto/Postularse',
+		url: '/IDevelop1/IDevelop/public/Proyecto/Despostularse',
 		type: 'POST',
 		data: {
 			"id": id,
@@ -38,5 +39,3 @@ function Postularse_proyecto(id,usuario){
 	});		
 	return retorno;
 }
-
-
