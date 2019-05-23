@@ -1,6 +1,6 @@
 
-function Baja_postulacion(id,usuario){
-
+function Baja(id,usuario){
+	console.log("prueba");
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var retorno = Baja_postulacion(id,usuario);
 	if(retorno == "1"){

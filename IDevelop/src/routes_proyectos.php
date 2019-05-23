@@ -87,7 +87,7 @@ return function (App $app){
 		$data = $request->getParams();
 		$id=$data['id'];
 		$usuario=$data['usuario'];
-		$retorno = ctr_proyecto::DespostularseProyecto($id,$usuario);
+		$retorno = ctr_proyecto::DespostularseProyecto($usuario,$id);
 		if($retorno){
 			return "1";
 		}

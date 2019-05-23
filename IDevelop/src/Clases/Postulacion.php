@@ -70,9 +70,9 @@ class Postulacion
 	}
 
 public function Despostularse_postulacion($usuario,$proyecto){
-		$sql=DB::conexion()->prepare("UPDATE `desarrollador_proyecto` SET Estado = ? WHERE Desarrollador_id = ? AND proyectos_id = ?");
+		$sql=DB::conexion()->prepare("UPDATE `desarrollador_proyecto` SET Estado = 0 WHERE Desarrollador_id = ? AND proyectos_id = ?");
 		if($sql){
-			$sql->bind_param('iss',0,$usuario,$proyecto_id);
+			$sql->bind_param('ss',$usuario,$proyecto);
 			if ($sql->execute()) {
 				return "1";
 			}else{

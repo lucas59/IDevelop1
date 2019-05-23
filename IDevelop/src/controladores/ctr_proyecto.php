@@ -37,12 +37,12 @@ public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 }
 
 public function Listar_Proyectos($id){
-	$resultado = Proyecto::Listar_proyectos($id);
+	$resultado = Proyecto::Listar_proyectos_postularse($id);
 	return $resultado;
 }
 
 public function Listar_Proyectos_usuario($id){
-	$resultado = Proyecto::Listar_proyectos_usuario($id);
+	$resultado = Proyecto::Listar_proyectos_despostularse($id);
 	return $resultado;
 }
 
@@ -59,7 +59,7 @@ public function PostularseProyecto($id,$usuario){
 
 public function DespostularseProyecto($id,$usuario){
 	$id_postulacion = Postulacion::Despostularse_postulacion($id,$usuario);	
-	if($retorno_1 == "1" && $retorno_2 == "1"){
+	if($id_postulacion == "1"){
 		return "1";
 	}else{
 		return "0";

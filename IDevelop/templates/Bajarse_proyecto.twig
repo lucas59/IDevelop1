@@ -27,7 +27,7 @@
 				<td id="nombre" scope="col">{{lista.nombre |upper }}</td>
 				<td id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></td>
 				<td id="fecha" scope="col">{{lista.fechaEntrega |upper }}</td>
-				<td><input type="button" class="btn btn-info" name="aceptar" value="Darse de baja" onclick="javascript:Baja_postulacion({{lista.id |upper}},'{{session.id |upper}}');"></td>
+				<td><input type="button" class="btn btn-info" name="aceptar" value="Darse de baja" onclick="javascript:Baja({{lista.id |upper}},'{{session.id |upper}}');"></td>
 			</tr>
 			{% endfor %}
 
