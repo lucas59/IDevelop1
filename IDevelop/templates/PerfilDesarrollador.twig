@@ -36,6 +36,8 @@
       <dd>{{Desarrollador.ciudad_actual}}</dd>
       <dt>Pais:</dt>
       <dd>{{Desarrollador.pais}}</dd>
+      <dt>Imagen:</dt>
+      <dd><img src="{{ asset('images/perro.png') }}" alt="Symfony!" /></dd> 
       {% if Desarrollador.email == session.id %}
       <button id="btn_desactivar" type="button" class="btn btn-outline-primary">Desactivar cuenta</button>
       {%endif%}

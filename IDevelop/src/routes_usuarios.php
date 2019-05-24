@@ -189,18 +189,16 @@ return function (App $app){
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			//$proyectos=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
-
 //			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
-
 			$sesion = null;
 			if(isset($_SESSION['admin'])){
 				$sesion=$_SESSION['admin']; 
 				$args['session']=$_SESSION['admin'];
 			}
 		return $this->view->render($response,"PerfilDesarrollador.twig",$args/*compact('Desarrollador','session','experiencia','herramientas','proyectos')*/);
-
 	}
+	return $this->view->render($response,"index.twig",$args);
 })->setName('perfil');
 
 	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){

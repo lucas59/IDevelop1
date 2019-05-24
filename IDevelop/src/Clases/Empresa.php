@@ -126,12 +126,22 @@ class Empresa extends Usuario
 	}
 
 	public static function listarempresas(){
-		$sql = DB::conexion()->prepare("SELECT * FROM empresa");
-		$sql->execute();
-		$resultado=$sql->get_result();
-		if(!$resultado->num_rows > 0){
+		$sql2 = DB::conexion()->prepare("SELECT * FROM usuario");
+		$sql2->execute();
+		$resultado2=$sql2->get_result();
+		if(!$resultado2->num_rows > 0){
 			return false;	
 		}
+		for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
+			$resultado2->data_seek($num_fila);
+			$fila2 = $resultado2->fetch_assoc();
+			if($fila2['estado'] == 1){
+
+		$sql = DB::conexion()->prepare("SELECT * FROM empresa WHERE id= ?");
+		$sql->bind_param('s',$fila2['email']);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		if($resultado->num_rows > 0){
 		$Empresas = array();
 		//$controlador = new ctr_usuarios();
 		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
@@ -146,6 +156,9 @@ class Empresa extends Usuario
 			$emp = new Empresa($email,"","","",$nombre,"","",$telefono,"","","","", "");
 			array_push($Empresas,$emp);
 		}
+	}
+	}
+	}
 		return $Empresas;
 	}
 
@@ -203,7 +216,9 @@ public static function proyectosEmpresa($email){
 	}
 	$nombre = $fila2['nombre'];
 	$descripcion = $fila2['descripcion'];
+	$id = $fila2['id'];
 	$proy = new Proyecto($nombre, $descripcion,"","","","","", "");
+	$proy->setId($id);
 	array_push($proyectos,$proy);
 	}
 	return $proyectos;
