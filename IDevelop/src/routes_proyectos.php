@@ -95,5 +95,13 @@ return function (App $app){
 			return "0";
 		}
 	});
+
+	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
+		$id=$request->getQueryParam("proy");
+		$controladorProyecto = new ctr_proyecto();
+		$postulantes=$controladorProyecto->PostulantesDeProyecto($id);
+		return $this->view->render($response,"PostulantesProyecto.twig",compact('postulantes'));
+		
+	});
 }
 ?>

@@ -162,12 +162,17 @@ class Desarrollador extends Usuario
 		$controlador =new ctr_usuarios();
 		$apellido=$fila['apellido'];
 		$cedula=$fila['cedula'];
+		$ciudad="";
+		if(isset($fila['ciudad_id'])){
 		$ciudad =$controlador->obtenerCiudad($fila['ciudad_id']);
+		}
 		$fecha_Nacimiento=$fila['fechaNacimiento'];
 		$desarrolloPreferido=$fila['desarrolloPreferido'];
 		$nombre=$fila['nombre'];
 		$pais ="";
+		if(isset($fila['pais_id'])){
 		$pais=$controlador->obtenerPais($fila['pais_id']);
+		}
 
 		$sql2=DB::conexion()->prepare("SELECT * FROM usuario WHERE email= ?");
 		$sql2->bind_param('s',$email);
@@ -309,9 +314,15 @@ public static function obtenerDesarrolladores(){
 		  for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
 			  $resultado2->data_seek($num_fila2);
 			  $fila2 = $resultado2->fetch_assoc();
-
+			  if($fila['estado'] == 1){
+			  $pais="";
+if(isset($fila2['pais_id'])){
 			  $pais = $controlador->obtenerPais($fila2['pais_id']);
+}
+$ciudad_actual="";
+if(isset($fila2['ciudad_id'])){
 			  $ciudad_actual= $controlador->obtenerCiudad($fila2['ciudad_id']);
+}
 			  $email = $fila2['id'];
 			  $foto = $fila['foto'];
 			  $cedula = $fila2['cedula'];
@@ -320,7 +331,7 @@ public static function obtenerDesarrolladores(){
 			  $desarrollo_preferido =$fila2['desarrolloPreferido'];
 			  $desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 			  array_push($usuarios,$desarrollador);
-			  
+}  
 		  }
 
 	  }

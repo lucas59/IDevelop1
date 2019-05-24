@@ -72,5 +72,6 @@ class Ciudad {
 		}
 
 		return $fila['nombre'];
+
 	}
 } ?>
