@@ -46,7 +46,6 @@ class Postulacion
 	public function AltaPostulacion($usuario,$proyecto){
 		$sql=DB::conexion()->prepare("INSERT INTO `postulacion` (`fechaPostulacion`, `desarrollador_id`, `proyecto_id`) VALUES (?,?,?)");
 		if($sql){
-			//echo Console::log("prueba",$proyecto);
 			$date = date("Y-m-d H:i:s");
 			$sql->bind_param('sss',$date,$usuario,$proyecto);
 			if ($sql->execute()) {
