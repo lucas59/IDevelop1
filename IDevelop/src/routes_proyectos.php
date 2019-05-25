@@ -30,6 +30,22 @@ return function (App $app){
 		}
 	})->setName("Postularse");
 
+	$app->get('/Proyecto/BajarseProyecto',function($request,$response,$args) use ($container){
+		if($_SESSION){
+			$controladorProyecto = new ctr_proyecto();
+			$sesio = $_SESSION['admin'];
+			$id_usuario = $sesio->id;
+			$lista = $controladorProyecto->Listar_Proyectos_usuario($id_usuario);
+			$sesion = array("listas" => $lista,"session" => $sesio);
+			return $this->view->render($response,"Bajarse_proyecto.twig", $sesion);
+		}
+		else{
+			$mensaje = "No existe un usuario en la sesión";
+			$mensaje_sesion = array("mensaje" => $mensaje);
+			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
+		}
+	})->setName("BajarseProyecto");
+
 
 	$app->get('/Proyecto/validarNombreP/{nombre}',function($request,$response,$args){
 		$controladorProyecto = new ctr_proyecto();
@@ -54,7 +70,7 @@ return function (App $app){
 
 	});
 
-	$app->post('/Proyecto/Nuevo/Postularse',function(Request $request, Response $response){
+	$app->post('/Proyecto/Postularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
 		$usuario=$data['usuario'];
@@ -65,6 +81,27 @@ return function (App $app){
 		else{
 			return "0";
 		}
+	});
+
+	$app->post('/Proyecto/Despostularse',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$id=$data['id'];
+		$usuario=$data['usuario'];
+		$retorno = ctr_proyecto::DespostularseProyecto($usuario,$id);
+		if($retorno){
+			return "1";
+		}
+		else{
+			return "0";
+		}
+	});
+
+	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
+		$id=$request->getQueryParam("proy");
+		$controladorProyecto = new ctr_proyecto();
+		$postulantes=$controladorProyecto->PostulantesDeProyecto($id);
+		return $this->view->render($response,"PostulantesProyecto.twig",compact('postulantes'));
+		
 	});
 }
 ?>

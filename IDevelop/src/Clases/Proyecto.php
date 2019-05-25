@@ -10,6 +10,7 @@ class Proyecto
 	private $avanceDesarrollo;
 	private $postulacion;
 	private $proponente;
+	private $id;
 
 	function __construct($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion, $estado,$avanceDesarrollo, $postulacion, $proponente)
 	{
@@ -25,6 +26,10 @@ class Proyecto
 
 	public function getNombre(){
 		return $this->nombre;
+	}
+
+	public function getId(){
+		return $this->id;
 	}
 
 	public function getDescripcion(){
@@ -53,6 +58,10 @@ class Proyecto
 
 	public function setNombre($nombre){
 		$this->nombre = $nombre;
+	}
+	
+	public function setId($id2){
+		$this->id=$id2;
 	}
 
 	public function setDescripcion($descripcion){
@@ -111,9 +120,21 @@ class Proyecto
 
 	}
 
-	public function Listar_proyectos($id){
+	public function Listar_proyectos_postularse($id){
 		$respuesta=null;
-		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa,proyecto INNER JOIN empresa_proyecto ON empresa_proyecto.proyectos_id = proyecto.id WHERE proyecto.id NOT IN(SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "') AND empresa.id = empresa_proyecto.Empresa_id ORDER BY proyecto.id");
+		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id NOT IN (SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+
+		public function Listar_proyectos_despostularse($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id IN (SELECT proyectos_id FROM desarrollador_proyecto WHERE desarrollador_proyecto.Desarrollador_id = '" . $id . "' AND desarrollador_proyecto.Estado IS NULL)");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
 		if (mysqli_num_rows($resultado) >= 1) {

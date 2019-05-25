@@ -1,12 +1,12 @@
 {% extends "base.twig" %}
-{% block title %}Postularse{% endblock %}
+{% block title %}Bajarse de un proyecto{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
-<H1>Postularse a un proyecto</H1>
+<H1>Bajarse de un proyecto</H1>
 <div id="tabla_id">
-	{% if listas %}
+	{% if not listas.id != null %}
 	<table class="table">
 		<thead >
 			<tr id="tabla_titulo" class="bg-info">
@@ -27,7 +27,7 @@
 				<td id="nombre" scope="col">{{lista.nombre |upper }}</td>
 				<td id="descripcion" scope="col"><p>{{lista.descripcion |upper }}</p></td>
 				<td id="fecha" scope="col">{{lista.fechaEntrega |upper }}</td>
-				<td><input type="button" class="btn btn-info" name="aceptar" value="Postularse" onclick="javascript:Postularse({{lista.id |upper}},'{{session.id |upper}}');"></td>
+				<td><input type="button" class="btn btn-info" name="aceptar" value="Darse de baja" onclick="javascript:Baja({{lista.id |upper}},'{{session.id |upper}}');"></td>
 			</tr>
 			{% endfor %}
 
@@ -51,7 +51,7 @@
 				<p id="mensajeModal">Modal body text goes here.</p>
 			</div>
 			<div class="modal-footer">	
-				<a href="javascript:location.reload()" type="button" class="btn" id="redirigir">Aceptar</a>
+				<a type="button" href="javascript:location.reload()" class="btn" id="redirigir">Aceptar</a>
 			</div>
 		</div>
 	</div>
