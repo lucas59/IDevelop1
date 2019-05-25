@@ -87,10 +87,13 @@ class ctr_usuarios{
 		return Ciudad::listarCiudad($pais);
 	}
 
-	public function enviarDatosDesarrollador($email,$idPais,$idCiudad,$lenguajes,$file){
+	public function enviarDatosDesarrollador($email,$idPais,$idCiudad,$lenguajes,$file,$foto){
 		$subCurriculo = curriculum::subirCurriculum($file,$email);
-		if($subCurriculo){
+		$subida= Usuario::subirFotoPerfil($foto,$email);
+		if($subCurriculo && $subida){
 			$idCurriculum = curriculum::obtenerIDCurriculo($email);
+			$idFoto = Usuario::obtenerIDFoto($email);
+			$actualizar=Usuario::actalizarIDFoto($idFoto,$email);
 			//echo Console::log("asd", $idCurriculum);
 			$actualizacion= Desarrollador::actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes,$idCurriculum);	
 			return $actualizacion;

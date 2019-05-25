@@ -74,7 +74,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$correo = $args['correo'];
 		if($controladorUsuarios->desactivarUsuario($correo)){
-			
+
 			return "1";
 		}else{
 			return "0";
@@ -124,10 +124,12 @@ return function (App $app){
 
 	$app->post('/Usuario/Desarrollador/Datos',function (Request $request, Response $response){
 		$file = $_FILES['file'];
+		$foto = $_FILES['fotoPerfil'];		
 		$pais = $_POST['pais'];
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
 		$lenguaje = $_POST['lenguaje'];
+		//obtengo el curriculo
 		$nombreArchivo = $_FILES['file']['name'];
 		$base64 = base64_encode(file_get_contents($_FILES["file"]["tmp_name"]));
 		$tamañoArchivo = $_FILES['file']['size'];
@@ -139,8 +141,22 @@ return function (App $app){
 
 		$curriculo = json_encode($arrayCurriculo);
 
+//obtengo la foto de perfil
+
+		$nombreArchivo = $_FILES['fotoPerfil']['name'];
+		$base64 = base64_encode(file_get_contents($_FILES["fotoPerfil"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['fotoPerfil']['size'];
+		$extension = explode('.', $nombreArchivo);
+		$extension = end($extension);
+		$extension = strtolower($extension);
+
+		$arrayFoto = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
+
+		$foto = json_encode($arrayFoto);
+
+
 		$controladorUsuarios = new ctr_usuarios();
-		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguaje,$curriculo);
+		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguaje,$curriculo,$foto);
 		if($retorno==1){
 			ctr_usuarios::ponerSession($email,'d');
 			return "1";
@@ -148,6 +164,8 @@ return function (App $app){
 			return "0";
 		}
 	});
+
+
 	$app->post('/Usuario/Empresa/Datos',function (Request $request, Response $response){
 		$vision = $_POST['vision'];
 		$mision = $_POST['mision'];

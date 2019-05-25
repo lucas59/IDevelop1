@@ -64,6 +64,17 @@ class Usuario
 		return $retorno;
 	}
 
+	public function subirFotoPerfil($foto,$email){
+		$foto=json_decode($foto);
+		$sql = DB::conexion()->prepare("INSERT INTO `fotos_perfiles` (`id`, `contenido`, `extension`, `nombre`) VALUES (NULL, ?, ?,?)");
+		$sql->bind_param('sss',$foto->base64,$curriculum->extension,$email);
+		if ($sql->execute()) {
+			return true;
+		} else{
+			return false;
+		}
+	}
+
 	public function obtenerUsuario($email){
 		$sql = DB::conexion()->prepare("SELECT * FROM usuario WHERE email = ?");
 		$sql->bind_param('s',$email);
@@ -82,6 +93,26 @@ class Usuario
 		} else{
 			return "0";
 		}
+	}
+
+	public function obtenerIDFoto($email){
+		$sql = DB::conexion()->prepare("SELECT * FROM fotos_perfiles WHERE nombre = ?");
+		$sql->bind_param("s",$email);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$foto=$resultado->fetch_object();
+		return $foto->id;
+
+	}
+	public function actalizarIDFoto($idFoto,$email){
+		$sql=DB::conexion()->prepare("UPDATE `usuario` SET foto_id = ? WHERE email =?");
+		$sql->bind_param('is',$idFoto,$email);
+		if ($sql->execute()){
+			return true;
+		} else{
+			return false;
+		}	
+
 	}
 
 	public function activarUsuario($email,$estado){
@@ -103,8 +134,8 @@ class Usuario
 		}else{
 			$tipousu=0;
 		}
-		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `estado`, `foto`, `tipo`) VALUES (?,?,?,?,?)");
-		$sql->bind_param('ssisi',$email,$contrasenia,$estado,$foto,$tipousu);
+		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `estado`, `tipo`) VALUES (?,?,?,?)");
+		$sql->bind_param('ssii',$email,$contrasenia,$estado,$tipousu);
 		if ($sql->execute()) {
 			return "1";
 		}else{
@@ -140,26 +171,26 @@ class Usuario
 					$resultado2->data_seek($num_fila2);
 					$fila2 = $resultado2->fetch_assoc();
 				}
-                
+
 				$email = $fila2['id'];
 				$foto = $fila['foto'];
 				$cedula ="";
 				if(isset($fila2['cedula'])){
-				$cedula = $fila2['cedula'];
+					$cedula = $fila2['cedula'];
 				}
 				$apellido =  $fila2['apellido'];
 				$fecha_Nacimiento =$fila2['fechaNacimiento'];
 				$pais="";
 				if(isset($fila2['pais_id'])){
-				$pais =$controlador->obtenerPais($fila2['pais_id']);
+					$pais =$controlador->obtenerPais($fila2['pais_id']);
 				}
 				$ciudad_actual ="";
 				if(isset($fila2['ciudad_id'])){
-				$ciudad_actual =$controlador->obtenerCiudad($fila2['ciudad_id']);
+					$ciudad_actual =$controlador->obtenerCiudad($fila2['ciudad_id']);
 				}
 				$desarrollo_preferido ="";
 				if(isset($fila2['desarrolloPreferido'])){
-				$desarrollo_preferido =$fila2['desarrolloPreferido'];
+					$desarrollo_preferido =$fila2['desarrolloPreferido'];
 				}
 				$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 
@@ -187,51 +218,51 @@ class Usuario
 						$foto_perfil = $fila['foto'];
 						$cedula="";
 						if(isset($fila3['cedula'])){
-						$cedula = $fila3['cedula'];
+							$cedula = $fila3['cedula'];
 						}
 						$nombre =  $fila3['nombre'];
 						$fecha_Creacion =$fila3['fechaCreacion'];
 						$direccion="";
 						if(isset($fila3['direccion'])){
-						$direccion  =$fila3['direccion'];
+							$direccion  =$fila3['direccion'];
 						}
 						$telefono="";
 						if(isset($fila3['telefono'])){
-						$telefono =$fila3['telefono'];
+							$telefono =$fila3['telefono'];
 						}
 						$reclutador="";
 						if(isset($fila3['reclutador'])){
-						$reclutador =$fila3['reclutador'];
+							$reclutador =$fila3['reclutador'];
 						}
 						$vision="";
 						if(isset($fila3['vision'])){
-						$vision =$fila3['vision'];
+							$vision =$fila3['vision'];
 						}
 						$mision="";
 						if(isset($fila3['mision'])){
-						$mision =$fila3['mision'];
+							$mision =$fila3['mision'];
 						}
 						$rubro="";
 						if(isset($fila3['rubro'])){
-						$rubro =$fila3['rubro'];
+							$rubro =$fila3['rubro'];
 						}
 						$empreza = new Empresa($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision,"");
 
 						ctr_usuarios::ponerSession($email,"e");
-					return "1";
-				}else{
-					return "0";
+						return "1";
+					}else{
+						return "0";
+					}
 				}
+			}else{
+				return "0";
 			}
-		}else{
-			return "0";
+		}
+
+		public function desactivarUsuario($correo){
+			$sql = DB::conexion()->prepare("UPDATE usuario SET estado = 0 WHERE email = ? ");
+			$sql->bind_param("s",$correo);
+			return $sql->execute();
 		}
 	}
-
-	public function desactivarUsuario($correo){
-		$sql = DB::conexion()->prepare("UPDATE usuario SET estado = 0 WHERE email = ? ");
-		$sql->bind_param("s",$correo);
-		return $sql->execute();
-	}
-}
-?>
+	?>

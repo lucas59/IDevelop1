@@ -36,7 +36,7 @@
   <div class="dropdown ">
     <button onclick="opcionesUsuario()" class="dropbtn user"></button>
     <div id="myDropdown" class="dropdown-content ">
-      <a class="pull-left" href="">Mi perfil</a>
+      <a href="{{ path_for('perfil') }}" class="pull-left" href="">Mi perfil</a>
       <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
     </div>
   </div>

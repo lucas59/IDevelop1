@@ -34,7 +34,9 @@ function enviarDatos(){
 	var email = $('#email').val();
 	var ciudad = $('#idCiudad').val();
 	var file = document.querySelector('input[type=file]').files[0];
+	var fotoPerfil = document.getElementById("fotoPerfil").files[0];
 	var datos = new FormData();
+	datos.append('fotoPerfil',fotoPerfil);
 	datos.append('email',email);
 	datos.append('lenguaje',lenguaje);
 	datos.append('file',file);
@@ -132,6 +134,21 @@ function rellenarSelectCiudad(arreglo){
 		imprimir += "<option value='"+arreglo[i].id+"'>"+arreglo[i].nombre+"</option>";
 	}
 	$("#idCiudad").html(imprimir);
+}
+
+$("#fotoPerfil").change(function () {
+    filePreview(this);
+});
+
+function filePreview(input) {
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			$('#fotoDef').remove();
+			$('#foto').after('<img class="img-circle" alt="Cinque Terre" src="'+e.target.result+'" width="120" height="120"/>');
+		}
+		reader.readAsDataURL(input.files[0]);
+	}
 }
 
 

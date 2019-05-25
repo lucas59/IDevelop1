@@ -11,3 +11,8 @@ main{
   max-width: 960px;
   margin:0px auto 0px auto ;
 }
+
+#fotoDef{
+	margin-right: auto;
+	margin-left: auto;
+}

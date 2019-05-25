@@ -15,6 +15,13 @@
 
 			<h1>Bienvenido {{usuario.nombre |upper }} {{usuario.apellido |upper }}</h1>
 			<input style="visibility: hidden" id="email" type="text" value="{{usuario.id}}" name="">
+			<img id="fotoDef" src="/IDevelop1/IDevelop/public/img/user.png" class="img-circle" alt="Cinque Terre" width="120" height="120">
+			
+
+			<input style="display: none;" id="foto" type="text"/>
+
+			<input type="file" name="filePerfil" id="fotoPerfil" />
+
 			<span>
 				<select class="form-control" id="idPaises" name="pais">
 
