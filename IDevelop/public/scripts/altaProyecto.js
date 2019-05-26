@@ -13,15 +13,19 @@ function nuevoProyecto(){
 		var mensaje = "ya existe un proyecto bajo ese nombre en IDevelop";
 		$("#mensajeModal").html(mensaje);				
 		var link = document.getElementById("redirigir");
-		link.setAttribute("href", " /IDevelop1/IDevelop/public/Usuario/login");
 		$("#modalAviso").modal();
 		console.log("El proyecto ya existe");
 	}else{
 		console.log("el proyecto no existe");
-		intento=ingresarUsuario(nombre,descripcion,fechaE,fechaFP);
+		intento=ingresarProyecto(nombre,descripcion,fechaE,fechaFP);
 		console.log("intento:" +intento);
 		if(intento==true){
 			console.log("ingresado");
+			var mensaje = "Proyecto ingresado con exito";
+			$("#mensajeModal").html(mensaje);				
+			var link = document.getElementById("redirigir");
+			link.setAttribute("href", " /IDevelop1/IDevelop/public");
+			$("#modalAviso").modal();
 		}else{
 			var mensaje = "Hubo un problema al registrar del proyecto";
 			$("#mensajeModal").html(mensaje);				
@@ -45,14 +49,10 @@ function ingresarProyecto(nombre,descripcion,fechaE,fechaFP){
 		url: '/IDevelop1/IDevelop/public/Proyecto/NuevoProyecto',
 		type: 'POST',
 		data: {
-			"email": email,
 			"nombre": nombre,
-			"apellido": apellido,
-			"contraseña": contraseña,
-			"fecha": fecha,
-			"sexo": sexo,
-			"tipo": tipo,
-			"token": token,
+			"descripcion": descripcion,
+			"fechaE": fechaE,
+			"fechaFP": fechaFP,
 		},
 		success: function(response){
 			console.log("coso : " +response);
@@ -78,7 +78,7 @@ function nombreProyectoDisponible(nombre){
 		
 		success: function(response){
 			response = response.trim();
-			console.log("Nombre:" + response);
+			console.log("nombre:" + response);
 			retorno = response;
 			
 		}

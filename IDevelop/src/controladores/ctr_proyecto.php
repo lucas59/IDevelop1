@@ -22,18 +22,11 @@ public function validarNombreProyecto($nombre){
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	if( isset($_SESSION['admin']) == true ){
+	//if( isset($_SESSION['admin']) == true ){
 			//chequear que sea empresa
-		$proyecto = new Proyecto($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion,NULL, NULL, NULL, $proponente);
-
-		$retorno = $proyecto->subirProyecto();
-
-		if($retorno =="1"){
-				//comportamiento correcto
-		}else{
-				//mal
-		}
-	}
+		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
+		return $insertado;
+	//}
 }
 
 public function Listar_Proyectos($id){

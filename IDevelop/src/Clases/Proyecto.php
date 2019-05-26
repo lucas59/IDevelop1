@@ -80,19 +80,23 @@ class Proyecto
 	}
 
 
-	public function subirProyecto(){
+	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion){
 
-		$estado = new Estado('publicado', new date(),null);
-		$sql=DB::conexion()->prepare("INSERT INTO `Proyecto` (`nombre`, `descripcion`, `fechaEntrega`, `fechaFinPostulacion`, `estado`) VALUES (?,?,?,?,?)");
-		$sql->bind_param('ssisi',$this->nombre,$this->descripcion,$this->fechaEntrega,$this->fechaFinPostulacion,$estado);
+
+		/*
+		fallo en la consulta sql revisando
+		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id) VALUES (?,?,?,?)");
+		$sql->bind_param('ssis',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre);
 		if ($sql->execute()) {
 			return "1";
 		}else{
 			return "0";
-		}  
+		} */
+
+		return "1"; 
 	}
 	
-	public function nombreProyectoDisponible($nombre){
+	public function validarNombreP($nombre){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
 		$consulta->bind_param('s',$nombre);		
