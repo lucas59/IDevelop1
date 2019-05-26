@@ -10,6 +10,7 @@ class Proyecto
 	private $avanceDesarrollo;
 	private $postulacion;
 	private $proponente;
+	private $id;
 
 	function __construct($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion, $estado,$avanceDesarrollo, $postulacion, $proponente)
 	{
@@ -25,6 +26,10 @@ class Proyecto
 
 	public function getNombre(){
 		return $this->nombre;
+	}
+
+	public function getId(){
+		return $this->id;
 	}
 
 	public function getDescripcion(){
@@ -53,6 +58,10 @@ class Proyecto
 
 	public function setNombre($nombre){
 		$this->nombre = $nombre;
+	}
+	
+	public function setId($id2){
+		$this->id=$id2;
 	}
 
 	public function setDescripcion($descripcion){

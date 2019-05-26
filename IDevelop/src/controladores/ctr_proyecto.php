@@ -58,7 +58,9 @@ public function DespostularseProyecto($id,$usuario){
 		return "0";
 	}
 }
-
+public function PostulantesDeProyecto($idProyecto){
+return Postulacion::PostulantesDeProyecto($idProyecto);
+}
 }
 
 ?>
