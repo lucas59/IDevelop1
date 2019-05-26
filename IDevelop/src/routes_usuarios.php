@@ -63,6 +63,15 @@ return function (App $app){
 		return $response;
 	});
 
+	$app->get('/Usuario/buscar',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+		$arreglo = $controladorUsuarios->obtenerDesarrolladoresParaFiltrar();
+			$arreglo1 = $controladorUsuarios->obtenerEmpresasParaFiltrar();
+			$retorno = array_merge($arreglo,$arreglo1);
+		//	$response->getBody()->write($retorno);
+		return json_encode($retorno);
+	});
+
 	$app->get('/Usuario/Ciudad/{pais}',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
 		$pais = $args['pais'];

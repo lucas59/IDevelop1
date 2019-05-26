@@ -182,7 +182,7 @@ class Desarrollador extends Usuario
 			$resultado2->data_seek($num_fila);
 			$fila2 = $resultado2->fetch_assoc();
 		}
-		$foto=$fila2['foto'];
+		$foto=null;
 		$desarrollador =$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad,$desarrolloPreferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 		return $desarrollador;
 	}
@@ -324,7 +324,7 @@ if(isset($fila2['ciudad_id'])){
 			  $ciudad_actual= $controlador->obtenerCiudad($fila2['ciudad_id']);
 }
 			  $email = $fila2['id'];
-			  $foto = $fila['foto'];
+			  $foto = null;
 			  $cedula = $fila2['cedula'];
 			  $apellido =  $fila2['apellido'];
 			  $fecha_Nacimiento =$fila2['fechaNacimiento'];				

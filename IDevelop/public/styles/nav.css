@@ -42,3 +42,15 @@
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+#formBuscar tbody{
+  background: white;
+  position: absolute;
+  z-index: 5;
+}
+#formBuscar tbody td{
+  width: 220px;
+} 
+
+
+

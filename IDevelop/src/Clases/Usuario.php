@@ -134,8 +134,9 @@ class Usuario
 		}else{
 			$tipousu=0;
 		}
-		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `estado`, `tipo`) VALUES (?,?,?,?)");
-		$sql->bind_param('ssii',$email,$contrasenia,$estado,$tipousu);
+		$sql=DB::conexion()->prepare("INSERT INTO `usuario` (`email`, `contrasenia`, `estado`, `tipo`, `foto_id`) VALUES (?,?,?,?,?)");
+		$fotoid=null;
+		$sql->bind_param('ssiii',$email,$contrasenia,$estado,$tipousu,$fotoid);
 		if ($sql->execute()) {
 			return "1";
 		}else{
@@ -173,7 +174,7 @@ class Usuario
 				}
 
 				$email = $fila2['id'];
-				$foto = $fila['foto'];
+				$foto =null;
 				$cedula ="";
 				if(isset($fila2['cedula'])){
 					$cedula = $fila2['cedula'];
@@ -264,5 +265,42 @@ class Usuario
 			$sql->bind_param("s",$correo);
 			return $sql->execute();
 		}
+
+		public function obtenerDesarrolladoresParaFiltrar(){
+			$sql=DB::conexion()->prepare("SELECT U.email,U.estado,U.tipo,U.foto_id, D.nombre, D.apellido, F.contenido, P.nombre as pais FROM desarrollador AS D, usuario AS U, fotos_perfiles AS F, pais AS p WHERE U.email=D.id AND F.id=U.foto_id AND p.id=D.pais_id");
+			//SELECT * FROM desarrollador AS D, Empresa AS E, usuario AS U WHERE U.email=D.id AND U.email=E.id 
+			$sql->execute();
+			$resultado =  $sql->get_result();
+
+			$myArray = array();
+
+			while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				$myArray[] = $row;
+			}
+			return $myArray;
+		}
+
+		public function obtenerEmpresasParaFiltrar(){
+			$sql=DB::conexion()->prepare("SELECT U.email,U.estado,U.tipo,U.foto_id, E.nombre, F.contenido, P.nombre as pais FROM empresa AS E, usuario AS U, fotos_perfiles AS F, pais AS p WHERE U.email=E.id AND F.id=U.foto_id AND p.id=E.pais_id");
+			//SELECT * FROM desarrollador AS D, Empresa AS E, usuario AS U WHERE U.email=D.id AND U.email=E.id 
+			$sql->execute();
+			$resultado =  $sql->get_result();
+
+			$myArray = array();
+
+			while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				$myArray[] = $row;
+			}
+			return $myArray;
+		}
+
+
+		public function obtenerEmpresas(){
+			$sql=DB::conexion()->prepare("SELECT * FROM empresa AS E, usuario AS U WHERE U.email=E.id ");
+			$sql->execute();
+			return $sql->get_result()->fetch_array();
+		}
+
+
 	}
 	?>

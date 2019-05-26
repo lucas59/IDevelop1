@@ -157,7 +157,14 @@ class ctr_usuarios{
 	public function obtenerUsuarios(){
 		return Desarrollador::obtenerDesarrolladores();
 	}
+
+	public function obtenerDesarrolladoresParaFiltrar(){
+		return Usuario::obtenerDesarrolladoresParaFiltrar();
+	}
 	
+	public function obtenerEmpresasParaFiltrar(){
+		return Usuario::obtenerEmpresasParaFiltrar();
+	}
 
 	public function Login($email,$pass){
 		return Usuario::Login($email,$pass);

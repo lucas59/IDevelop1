@@ -26,7 +26,21 @@
           <a class="nav-link" href="{{ path_for('listadoE') }}">Ver Empresas<span class="sr-only">(current)</span></a>
         </div>
       </li>
-  </ul>
+    </ul>
+    <form autocomplete="off" id="formBuscar">
+      <input onkeyup ="filtrarBuscador()" type="search" name="buscador" id="buscador" placeholder="Buscar"  target="_blank">
+      <div class="search" id="search">
+        <table class="search-table table" id="searchTable">
+          <thead>
+            <tr>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody id="tBody">
+        </tbody>
+      </table>
+    </div>
+  </form>
   {% if not session%}
   <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
   <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
