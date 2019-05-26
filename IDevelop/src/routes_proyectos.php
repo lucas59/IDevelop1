@@ -62,11 +62,7 @@ return function (App $app){
 		$fechaFP=$data['fechaFP'];
 		ob_clean();
 		$retorno = ctr_proyecto::agregarProyecto($nombre,$descripcion,$fechaE,$fechaFP);
-		if($retorno == "1"){
-			ob_clean();
-		}else{
-			return "0";
-		}
+		return $retorno;
 
 	});
 
