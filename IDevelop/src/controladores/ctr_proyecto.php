@@ -24,6 +24,8 @@ public function validarNombreProyecto($nombre){
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	//if( isset($_SESSION['admin']) == true ){
 			//chequear que sea empresa
+		
+
 		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
 		return $insertado;
 	//}
