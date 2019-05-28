@@ -19,13 +19,13 @@ return function (App $app){
 	})->setName("ingresar");
 
 	$app->get('/Usuario/VerDesarrolladores',function($request,$response,$args) use ($container){
-		$sesion = null;
+		$session = null;
 		if(isset($_SESSION['admin'])){
-			$sesion=$_SESSION['admin']; 
+			$session=$_SESSION['admin']; 
 		}
 		$controladorUsuarios = new ctr_usuarios();
 		$usuarios = $controladorUsuarios->obtenerUsuarios();
-		return $this->view->render($response,"listadousuarios.twig",compact('usuarios','sesion'));
+		return $this->view->render($response,"listadousuarios.twig",compact('usuarios','session'));
 	})->setName("listado");
 
 	$app->get('/Usuario/cerrar',function($request,$response,$args) use ($container){
@@ -204,7 +204,6 @@ return function (App $app){
 				return $this->view->render($response,"index.twig",$args);
 			}
 		}
-		echo Console::log('prueba',$email);
 		$controladorUsuarios = new ctr_usuarios();
 		$Desarrollador = $controladorUsuarios->PerfilDesarrollador($email);
 		$experiencia=null;
@@ -218,12 +217,14 @@ return function (App $app){
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 //			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
-			$sesion = null;
 			if(isset($_SESSION['admin'])){
-				$sesion=$_SESSION['admin']; 
-				$args['session']=$_SESSION['admin'];
-			}
-		return $this->view->render($response,"PerfilDesarrollador.twig",$args/*compact('Desarrollador','session','experiencia','herramientas','proyectos')*/);
+				if($_SESSION['admin']->tipo == 0){
+					$args['session']=$_SESSION['admin'];	
+				}else if($_SESSION['admin']->tipo == 1){
+					$args['sesion']=$_SESSION['admin']; 
+				}
+			}		
+		return $this->view->render($response,"PerfilDesarrollador.twig",$args);
 	}
 	return $this->view->render($response,"index.twig",$args);
 })->setName('perfil');
@@ -231,17 +232,43 @@ return function (App $app){
 	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
 		$Empresas = $controladorUsuarios->listarEmprezas();
+		if(isset($_SESSION['admin'])){
+			if($_SESSION['admin']->tipo == 0){
+				$session=$_SESSION['admin'];
+				return $this->view->render($response,"listadoempreza.twig",compact('Empresas','session'));
+			}else if($_SESSION['admin']->tipo == 1){
+				$sesion=$_SESSION['admin']; 
+				return $this->view->render($response,"listadoempreza.twig",compact('Empresas','sesion'));
+			}
+		}
 		return $this->view->render($response,"listadoempreza.twig",compact('Empresas'));
 	})->setName("listadoE");
 
 	$app->get('/Usuario/PerfilE',function($request,$response,$args){
 		$email=$request->getQueryParam("email");
+		if($email==null){
+			if(isset($_SESSION['admin'])){
+				$email=$_SESSION['admin']->id; 			
+			}else{
+				return $this->view->render($response,"index.twig",$args);
+			}
+		}
 		$controladorUsuarios = new ctr_usuarios();
 		$Empresa = $controladorUsuarios->PerfilEmpresa($email);
+		$proyectos= array();
 		if($Empresa){
 			$proyectos = $controladorUsuarios->proyectosEmpresa($email);
 		}
+		if(isset($_SESSION['admin'])){
+			if($_SESSION['admin']->tipo == 0){
+				$session=$_SESSION['admin'];
+				return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos','session')); 
+			}else if($_SESSION['admin']->tipo == 1){
+				$sesion=$_SESSION['admin']; 
+				return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos','sesion')); 
+			}
+		}
 		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
-	});
+	})->setName("PerfilE");
 }
 ?>

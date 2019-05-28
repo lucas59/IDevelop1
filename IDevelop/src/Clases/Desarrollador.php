@@ -182,7 +182,21 @@ class Desarrollador extends Usuario
 			$resultado2->data_seek($num_fila);
 			$fila2 = $resultado2->fetch_assoc();
 		}
-		$foto=null;
+		$foto="";
+		if(isset($fila['foto_id'])){
+			if($fila['foto_id']){
+				$sql3=DB::conexion()->prepare("SELECT * FROM usuario WHERE id= ?");
+		$sql3->bind_param('i',$fila['foto_id']);
+		$sql3->execute();
+		$resultado3=$sql3->get_result();
+		for ($num_fila3 = $resultado2->num_rows - 1; $num_fila3 >= 0; $num_fila3--) {
+			$resultado3->data_seek($num_fila3);
+			$fila3 = $resultado3->fetch_assoc();
+		}
+		$foto=$fila3['contenido'];
+			}
+		}
+		
 		$desarrollador =$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad,$desarrolloPreferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 		return $desarrollador;
 	}
