@@ -1,3 +1,4 @@
+
 function nuevoProyecto(){
 	event.preventDefault();
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
