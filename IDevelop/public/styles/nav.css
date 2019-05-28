@@ -52,5 +52,9 @@
   width: 220px;
 } 
 
+#searchTable {
+  position: relative;
+}
+
 
 
