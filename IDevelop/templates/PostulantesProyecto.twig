@@ -1,0 +1,31 @@
+{% block title %}Postulantes{% endblock %}
+{% extends "base.twig" %}
+{% block head %}
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+{% endblock %}
+{% block content %}
+<div id="tabla_id">
+<h1>Postulantes</h1>
+  <table class="table">
+    <thead>
+      <tr id="tabla_titulo" class="bg-info">
+        <td>Email</td>
+        <td>Cedula</td>
+        <td>Desarrollo Preferido</td>
+        <td>Accion</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for pos in postulantes %}
+      <tr>
+        <td>{{ pos.email }}</td>
+        <td>{{ pos.Cedula }}</td>
+        <td>{{ pos.desarrollo_preferido }}</td>
+        <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/Perfil?email={{ pos.email }}">Ver Perfil</a> 
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+</body>
+{% endblock %}

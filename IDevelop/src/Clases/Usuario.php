@@ -216,7 +216,10 @@ class Usuario
 						}
 
 						$email = $fila3['id'];
-						$foto_perfil = $fila['foto'];
+						$foto_perfil ="";
+						if(isset($fila['foto_id'])){
+						$foto_perfil = $fila['foto_id'];
+						}
 						$cedula="";
 						if(isset($fila3['cedula'])){
 							$cedula = $fila3['cedula'];
