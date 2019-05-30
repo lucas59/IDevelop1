@@ -41,7 +41,7 @@
       </table>
     </div>
   </form>
-  {% if not session%}
+  {% if not session and not sesion%}
   <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
   <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
   {%  endif %}
@@ -53,6 +53,16 @@
       <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
     </div>
     <h4>{{session.nombre}}</h4>
+    {%  endif %}
+
+    {% if sesion %}
+  <div class="dropdown ">
+    <button onclick="opcionesUsuario()" class="dropbtn user"></button>
+    <div id="myDropdown" class="dropdown-content ">
+      <a href="{{ path_for('PerfilE') }}" class="pull-left" href="">Mi perfil</a>
+      <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
+    </div>
+    <h4>{{sesion.nombre}}</h4>
     {%  endif %}
   </div>
 </nav>
