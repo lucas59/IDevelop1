@@ -1,0 +1,75 @@
+{% extends "base.twig" %}
+{% block title %}Proyectos{% endblock %}
+{% block head %}
+<!--head-->
+<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/proyecto.css">
+{% endblock %}
+
+{% block content %}
+
+{% if session %}
+
+{% if session.tipo == false %}<!-- Usuario del tipo desarrollador -->
+
+<h1>Mis proyectos</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Nombre</th>
+			<th scope="col">Descripción</th>
+			<th scope="col">Entrega</th>
+			<th scope="col">Empresa</th>
+			<th scope="col">Estado</th>
+			<th scope="col">Visualizar</th>
+					
+		</tr>
+	</thead>
+	<tbody>
+		{% for proyecto in proyectos %}
+			<tr class="fila" onclick="mostrarProyecto({{proyecto.id}})" id="{{proyecto.id}}">
+			<td>{{ proyecto.nombre }}</td>
+			<td>{{ proyecto.descripcion }}</td>
+			<td>{{ proyecto.fechaEntrega }}</td>
+			<td>{{ proyecto.empresa }}</td>
+			<td>{{ proyecto.estado }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+{% endif %}
+
+{% if session.tipo == true %}<!-- Usuario del tipo empresa -->
+
+<h1>Mis proyectos</h1>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Nombre</th>
+			<th scope="col">Descripción</th>
+			<th scope="col">Entrega</th>
+			<th scope="col">Empresa</th>
+			<th scope="col">Estado</th>			
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			{% for proyecto in proyectos %}
+			<td>{{ proyecto.nombre }}</td>
+			<td>{{ proyecto.descripcion }}</td>
+			<td>{{ proyecto.fechaEntrega }}</td>
+			<td>{{ proyecto.empresa }}</td>
+			<td>{{ proyecto.estado }}</td>
+			{% endfor %}
+		</tr>
+	</tbody>
+</table>
+{% endif %}
+
+{% endif %}
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/proyecto.js"></script>
+{% endblock %}
+

@@ -14,6 +14,9 @@ require_once '../src/Clases/console.php';
  */class ctr_proyecto {
 
 
+function __construct(){
+}
+
 
 
 public function validarNombreProyecto($nombre){
@@ -62,7 +65,22 @@ public function DespostularseProyecto($id,$usuario){
 	}
 }
 public function PostulantesDeProyecto($idProyecto){
-return Postulacion::PostulantesDeProyecto($idProyecto);
+	return Postulacion::PostulantesDeProyecto($idProyecto);
+}
+
+public function ListarProyectosDeDesarrolladores($email){
+	return Proyecto::ListarProyectosDeDesarrolladores($email);
+}
+public function ListarProyectosDeEmpresa($email){
+	return Proyecto::ListarProyectosDeEmpresa($email);
+}
+
+public function verificarReferencia($session, $idProyecto){
+	return Usuario::verificarReferencia($session,$idProyecto);
+}
+
+public function obtenerProyecto($idProyecto){
+	return Proyecto::obtenerProyecto($idProyecto);
 }
 }
 
