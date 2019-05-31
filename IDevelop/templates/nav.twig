@@ -1,47 +1,47 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="{{ path_for('Inicio') }}">I Develop</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">IDevelop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Proyectos
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="nav-link" href="{{ path_for('NuevoProyecto') }}">Crear proyecto<span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="{{ path_for('Postularse') }}">Postularse<span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="{{ path_for('BajarseProyecto') }}">Bajarse de un proyecto<span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="#">Proyectos recomendados<span class="sr-only">(current)</span></a>
-        </div>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Listas
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="nav-link" href="{{ path_for('listado') }}">Ver Desarrolladores<span class="sr-only">(current)</span></a>
-          <a class="nav-link" href="{{ path_for('listadoE') }}">Ver Empresas<span class="sr-only">(current)</span></a>
-        </div>
-      </li>
-    </ul>
-    <form autocomplete="off" id="formBuscar">
-      <input class="form-control mr-sm-2" onkeyup ="filtrarBuscador()" type="search" name="buscador" id="buscador" placeholder="Buscar"  target="_blank">
-      <div class="search" id="search">
-        <table class="search-table table" id="searchTable">
-          <thead>
-            <tr>
-              <td></td>
-            </tr>
-          </thead>
-          <tbody id="tBody">
-        </tbody>
-      </table>
-    </div>
-  </form>
-  {% if not session and not sesion%}
+      <div class="collapse navbar-collapse" id="navbarsExample04">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Proyecto</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown04">
+              <a class="dropdown-item" href="{{ path_for('NuevoProyecto') }}">Crear proyecto<span class="sr-only">(current)</span></a>
+              <a class="dropdown-item" href="{{ path_for('Postularse') }}">Postularse<span class="sr-only">(current)</span></a>
+              <a class="dropdown-item" href="{{ path_for('BajarseProyecto') }}">Bajarse de un proyecto<span class="sr-only">(current)</span></a>  
+              <a class="dropdown-item" href="#">Proyectos recomendados<span class="sr-only">(current)</span></a>            
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Listas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="{{ path_for('listado') }}">Ver Desarrolladores<span class="sr-only">(current)</span></a>
+              <a class="dropdown-item" href="{{ path_for('listadoE') }}">Ver Empresas<span class="sr-only">(current)</span></a>
+            </div>
+          </li>
+
+        </ul>
+        <form id="formBuscar">
+          <input class="form-control " onkeyup ="filtrarBuscador()" type="search" name="buscador" id="buscador" placeholder="Buscar"  target="_blank">
+          <div class="search" id="search">
+            <table class="search-table table" id="searchTable">
+              <thead>
+                <tr>
+                </tr>
+              </thead>
+              <tbody id="tBody">
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </div>
+
+{% if not session and not sesion%}
   <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
   <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
   {%  endif %}
@@ -56,7 +56,9 @@
     {%  endif %}
 
     {% if sesion %}
-  <div class="dropdown ">
+
+
+<div id="usuario" class="dropdown">
     <button onclick="opcionesUsuario()" class="dropbtn user"></button>
     <div id="myDropdown" class="dropdown-content ">
       <a href="{{ path_for('PerfilE') }}" class="pull-left" href="">Mi perfil</a>
@@ -65,4 +67,4 @@
     <h4>{{sesion.nombre}}</h4>
     {%  endif %}
   </div>
-</nav>
+    </nav>
