@@ -199,7 +199,7 @@ return function (App $app){
 		$email=$request->getQueryParam("email");
 		if($email==null){
 			if(isset($_SESSION['admin'])){
-				$email=$_SESSION['admin']->id; 			
+				$email=$_SESSION['admin']->id; 		
 			}else{
 				return $this->view->render($response,"index.twig",$args);
 			}

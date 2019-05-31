@@ -14,6 +14,9 @@ require_once '../src/Clases/proyecto_postulacion.php';
  */class ctr_proyecto {
 
 
+function __construct(){
+}
+
 
 
 public function validarNombreProyecto($nombre){
@@ -22,11 +25,8 @@ public function validarNombreProyecto($nombre){
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	//if( isset($_SESSION['admin']) == true ){
-			//chequear que sea empresa
-		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
-		return $insertado;
-	//}
+	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
+	return $insertado;
 }
 
 public function Listar_Proyectos($id){
@@ -59,7 +59,22 @@ public function DespostularseProyecto($id,$usuario){
 	}
 }
 public function PostulantesDeProyecto($idProyecto){
-return Postulacion::PostulantesDeProyecto($idProyecto);
+	return Postulacion::PostulantesDeProyecto($idProyecto);
+}
+
+public function ListarProyectosDeDesarrolladores($email){
+	return Proyecto::ListarProyectosDeDesarrolladores($email);
+}
+public function ListarProyectosDeEmpresa($email){
+	return Proyecto::ListarProyectosDeEmpresa($email);
+}
+
+public function verificarReferencia($session, $idProyecto){
+	return Usuario::verificarReferencia($session,$idProyecto);
+}
+
+public function obtenerProyecto($idProyecto){
+	return Proyecto::obtenerProyecto($idProyecto);
 }
 }
 

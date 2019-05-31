@@ -99,5 +99,44 @@ return function (App $app){
 		return $this->view->render($response,"PostulantesProyecto.twig",compact('postulantes'));
 		
 	});
+
+	$app->get('/Proyecto/Proyectos',function($request,$response,$args){
+		$controladorP = new  ctr_proyecto();
+		if (!$_SESSION) {
+			return $this->view->render($response,"index.twig",$args);
+		}else{
+			$session = $_SESSION['admin'];
+			$args['session']=$_SESSION['admin'];
+			if($session->tipo == 0){
+				$proyectos = $controladorP->ListarProyectosDeDesarrolladores($session->id);
+				$args['proyectos']=$proyectos; 
+
+				echo Console::log('asd',$proyectos);
+			}else{
+				$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
+				$args['proyectos']=$proyectos; 
+			}
+
+			return $this->view->render($response,"proyectos.twig",$args);
+		}
+	})->setName('proyectos');
+
+	$app->get('/Proyecto/{id}', function($request,$response,$args){
+		if(!$_SESSION){
+			return $this->view->render($response,"index.twig",$args);
+		}else{
+			$controladorP = new ctr_proyecto();
+			$idProyecto = $args['id'];
+			$session = $_SESSION['admin'];
+			$referencia =  $controladorP->verificarReferencia($session->id ,$idProyecto);
+			if($referencia['cantidad']==0){
+				return $this->view->render($response,"index.twig",$args);		
+			}else{
+				$proyecto = $controladorP::obtenerProyecto($idProyecto);
+				$args['proyecto']=$proyecto;
+				return $this->view->render($response,"perfilProyecto.twig",$args);
+			}
+		}
+	});
 }
 ?>
