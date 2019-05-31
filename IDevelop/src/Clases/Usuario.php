@@ -216,10 +216,7 @@ class Usuario
 						}
 
 						$email = $fila3['id'];
-						$foto_perfil ="";
-						if(isset($fila['foto_id'])){
-						$foto_perfil = $fila['foto_id'];
-						}
+						$foto_perfil =null;
 						$cedula="";
 						if(isset($fila3['cedula'])){
 							$cedula = $fila3['cedula'];
@@ -302,6 +299,15 @@ class Usuario
 			$sql=DB::conexion()->prepare("SELECT * FROM empresa AS E, usuario AS U WHERE U.email=E.id ");
 			$sql->execute();
 			return $sql->get_result()->fetch_array();
+		}
+
+		public function verificarReferencia($session,$idProyecto){
+
+			$sql=DB::conexion()->prepare("SELECT COUNT(U.email) as cantidad FROM usuario AS U, desarrollador_proyecto AS DP, empresa_proyecto AS EP,proyecto AS P  WHERE U.email= ? AND P.id=? AND (U.email=DP.Desarrollador_id OR U.email=EP.Empresa_id)");
+			$sql->bind_param('si',$session,$idProyecto);
+			$sql->execute();
+			$resultado=$sql->get_result()->fetch_assoc();
+			return $resultado;
 		}
 
 
