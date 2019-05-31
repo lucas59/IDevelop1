@@ -126,14 +126,15 @@ class Empresa extends Usuario
 	}
 
 	public static function listarempresas(){
+		$Empresas = array();
 		$sql2 = DB::conexion()->prepare("SELECT * FROM usuario");
 		$sql2->execute();
 		$resultado2=$sql2->get_result();
 		if(!$resultado2->num_rows > 0){
 			return false;	
 		}
-		for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
-			$resultado2->data_seek($num_fila);
+		for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+			$resultado2->data_seek($num_fila2);
 			$fila2 = $resultado2->fetch_assoc();
 			if($fila2['estado'] == 1){
 
@@ -142,7 +143,7 @@ class Empresa extends Usuario
 		$sql->execute();
 		$resultado=$sql->get_result();
 		if($resultado->num_rows > 0){
-		$Empresas = array();
+		
 		//$controlador = new ctr_usuarios();
 		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
 			$resultado->data_seek($num_fila);
@@ -163,7 +164,7 @@ class Empresa extends Usuario
 	}
 
 	public static function perfilEmpresa($email){
-		$sql = DB::conexion()->prepare("SELECT e.*,u.foto FROM empresa as e,usuario as u WHERE u.email = ? AND e.id= u.email");
+		$sql = DB::conexion()->prepare("SELECT e.*,u.foto_id FROM empresa as e,usuario as u WHERE u.email = ? AND e.id= u.email");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado=$sql->get_result();
@@ -186,7 +187,10 @@ class Empresa extends Usuario
 			$reclutador = $fila['reclutador'];
 			$rubro = $fila['rubro'];
 			$vision = $fila['vision'];
-			$foto_perfil = $fila['foto'];
+			$foto_perfil = "";
+			if(isset($fila['foto_id'])){
+			$foto_perfil = $fila['foto_id'];
+			}
 			$empresa = new Empresa($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision, $proyectos=array());
 	return $empresa;
 }

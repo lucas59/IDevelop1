@@ -25,8 +25,13 @@ public function validarNombreProyecto($nombre){
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
-	return $insertado;
+	//if( isset($_SESSION['admin']) == true ){
+			//chequear que sea empresa
+		
+
+		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
+		return $insertado;
+	//}
 }
 
 public function Listar_Proyectos($id){

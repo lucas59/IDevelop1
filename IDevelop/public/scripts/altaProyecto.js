@@ -1,3 +1,4 @@
+
 function nuevoProyecto(){
 	event.preventDefault();
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
@@ -24,11 +25,13 @@ function nuevoProyecto(){
 			var mensaje = "Proyecto ingresado con exito";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", " /IDevelop1/IDevelop/public");
+			link.setAttribute("href", " /IDevelop1/IDevelop/public/");
 			$("#modalAviso").modal();
 		}else{
 			var mensaje = "Hubo un problema al registrar del proyecto";
 			$("#mensajeModal").html(mensaje);				
+			var link = document.getElementById("redirigir");
+			link.setAttribute("href", " /IDevelop1/IDevelop/public/Proyecto/nuevo");
 			$("#modalAviso").modal();
 
 			console.log("No ingresado")

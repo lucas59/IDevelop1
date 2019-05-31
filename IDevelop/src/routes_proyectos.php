@@ -11,7 +11,8 @@ return function (App $app){
 	$container = $app->getContainer(); 
 
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
-		return $this->view->render($response,"altaProyecto.twig");
+		$session=$_SESSION['admin'];
+		return $this->view->render($response,"altaProyecto.twig",compact('session'));
 	})->setName("NuevoProyecto");
 
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
@@ -95,8 +96,15 @@ return function (App $app){
 	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
 		$id=$request->getQueryParam("proy");
 		$controladorProyecto = new ctr_proyecto();
-		$postulantes=$controladorProyecto->PostulantesDeProyecto($id);
-		return $this->view->render($response,"PostulantesProyecto.twig",compact('postulantes'));
+		$args['postulantes']=$controladorProyecto->PostulantesDeProyecto($id);
+		if(isset($_SESSION['admin'])){
+			if($_SESSION['admin']->tipo == 0){
+				$args['session']=$_SESSION['admin'];	
+			}else if($_SESSION['admin']->tipo == 1){
+				$args['sesion']=$_SESSION['admin']; 
+			}
+		}
+		return $this->view->render($response,"PostulantesProyecto.twig",$args);
 		
 	});
 

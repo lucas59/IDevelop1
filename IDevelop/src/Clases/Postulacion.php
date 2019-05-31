@@ -91,7 +91,7 @@ public function Despostularse_postulacion($usuario,$proyecto){
 			$resultado->data_seek($num_fila);
 			$fila = $resultado->fetch_assoc();
 			
-			$sql2=DB::conexion()->prepare("SELECT d.*,u.estado FROM desarrollador as d,usuario as u WHERE id = ? GROUP BY d.id");
+			$sql2=DB::conexion()->prepare("SELECT d.*,u.estado FROM desarrollador as d,usuario as u WHERE u.email = ? AND u.email=d.id");
 		$sql2->bind_param('s',$fila['desarrollador_id']);
 		$sql2->execute();
 		$resultado2=$sql2->get_result();

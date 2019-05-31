@@ -52,5 +52,16 @@
   width: 220px;
 } 
 
+#searchTable {
+  position: relative;
+}
+
+h4{
+  color: white;
+}
+
+#usuario{
+  left: 7px;
+}
 
 

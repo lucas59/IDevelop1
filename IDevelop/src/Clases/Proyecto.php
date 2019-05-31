@@ -91,16 +91,14 @@ class Proyecto
 
 	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion){
 
-
-		/*
-		fallo en la consulta sql revisando
-		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id) VALUES (?,?,?,?)");
-		$sql->bind_param('ssis',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre);
+		$avance=null;
+		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id) VALUES (?,?,?,?,?)");
+		$sql->bind_param('ssssi',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$avance);
 		if ($sql->execute()) {
 			return "1";
 		}else{
 			return "0";
-		} */
+		} 
 
 		return "1"; 
 	}

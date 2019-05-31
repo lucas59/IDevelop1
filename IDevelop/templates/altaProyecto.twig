@@ -19,14 +19,15 @@
 			<textarea class="form-control" name="txtDescripcion" id="txtDescripcion" rows="10" cols="50" placeholder="Descripción del proyecto..."> </textarea>
 		</span>
 		<span>
-			<label for="txtFecha"> Fecha Entrega proyecto:</label>
-			<input class="form-control" type="date" id="txtFechaE" name="fechaEntrega" required>
-		</span>
-		<span>
 			<label for="txtFechaFP"> Fecha final de postulación:</label>
-			<input class="form-control" type="date" id="txtFechaFP" name="fechaFP" required>
-		</span><br>
+			<input class="form-control" type="date" id="txtFechaFP" onchange="cambiarFecha(this.value)" name="txtFechaFP" required>
+		<span>
+			<label for="txtFecha"> Fecha Entrega proyecto:</label>
+			<input class="form-control" type="date" id="txtFechaE"  name="txtFechaE" required>
+		</span>
+		<br>
 		<input class="btn btn-info" type="submit" name="submit" value="Crear proyecto"><br>
+		
 	</form>
 	</div>
 	</div>
@@ -56,4 +57,45 @@
 
 {% block script %}
 <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/altaProyecto.js"></script>
+
+ <script>
+    var today = new Date();
+    var dd = today.getDate() + 1;
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("txtFechaFP").setAttribute("min", today);
+</script>
+
+
+<script type="text/javascript">
+function cambiarFecha(val){
+    var today = new Date(val);
+    
+    today.setDate(today.getDate() + 30);
+
+    var dd = today.getDate() + 1;
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+
+
+	if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("txtFechaE").setAttribute("value",today);
+    document.getElementById("txtFechaE").setAttribute("min", today);
+}
+</script>
+
+
 {% endblock %}
