@@ -9,7 +9,7 @@ require_once '../src/Clases/Proyecto.php';
 require_once '../src/Clases/Postulacion.php';
 require_once '../src/Clases/proyecto_postulacion.php';
 
-
+require_once '../src/Clases/console.php';
 /**
  */class ctr_proyecto {
 
@@ -24,7 +24,8 @@ public function validarNombreProyecto($nombre){
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	//if( isset($_SESSION['admin']) == true ){
 			//chequear que sea empresa
-		
+	
+	$usuario = $_SESSION['admin']; 
 
 		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
 		return $insertado;
