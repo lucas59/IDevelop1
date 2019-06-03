@@ -8,7 +8,6 @@ require_once '../src/Clases/console.php';
 require_once '../src/Clases/Proyecto.php';
 require_once '../src/Clases/Postulacion.php';
 require_once '../src/Clases/proyecto_postulacion.php';
-
 require_once '../src/Clases/console.php';
 /**
  */class ctr_proyecto {
@@ -19,16 +18,15 @@ function __construct(){
 
 
 
-public function validarNombreP($nombre){
+public function validarNombreProyecto($nombre){
 	$resultado = Proyecto::validarNombreP($nombre);
 	return $resultado;
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	$usuario = $_SESSION['admin']; 
-
-	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
-	return $insertado;
+		$usuario = $_SESSION['admin']->id;
+		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
+		return $insertado;
 }
 
 public function Listar_Proyectos($id){

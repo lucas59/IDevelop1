@@ -1,0 +1,9 @@
+#footer_div{
+	position: absolute;
+	width: 100%;
+	top: 100%;
+}
+
+#footer_footer{
+	bottom: 0;width: 100%;
+}
