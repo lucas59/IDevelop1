@@ -16,6 +16,7 @@ class ctr_usuarios{
 	function __construct(){
 	}
 
+
 	public function validarEmail($email){
 		$retorno = Usuario::verificarExistencia($email);
 		return $retorno;

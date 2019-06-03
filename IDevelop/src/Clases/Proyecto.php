@@ -100,7 +100,7 @@ class Proyecto
 			}
 		}else{
 			return "0";
-		} 
+		}
 	}
 	
 	public function obtenerProyecto2($nombre){
@@ -168,7 +168,7 @@ class Proyecto
 	}
 
 	public function ListarProyectosDeDesarrolladores($email){
-		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, E.nombre AS estado, EMP.nombre AS empresa FROM `proyecto` AS P, estado AS E,empresa_proyecto AS EMPP, empresa AS EMP , desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND DP.Estado = E.id  AND EMP.id= EMPP.Empresa_id AND D.id= ?");
+		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND D.id= ?");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado = $sql->get_result();
@@ -180,7 +180,7 @@ class Proyecto
 		return $myArray;
 	}
 	public function ListarProyectosDeEmpresa($email){
-		$sql=DB::conexion()->prepare("SELECT P.nombre,P.fechaEntrega,P.descripcion, E.nombre AS estado, EMP.nombre AS empresa FROM `proyecto` AS P, estado AS E,empresa_proyecto AS EMPP, empresa AS EMP WHERE EMP.id=EMPP.Empresa_id AND P.id=EMPP.proyectos_id AND EMP.id= EMPP.Empresa_id AND EMP.id= ?");
+		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, empresa_proyecto AS EP , empresa AS EMP WHERE EMP.id=EP.Empresa_id AND P.id=EP.proyectos_id  AND EMP.id= ?");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado = $sql->get_result();

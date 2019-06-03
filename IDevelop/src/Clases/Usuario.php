@@ -250,6 +250,7 @@ class Usuario
 						$empreza = new Empresa($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision,"");
 
 						ctr_usuarios::ponerSession($email,"e");
+						
 						return "1";
 					}else{
 						return "0";

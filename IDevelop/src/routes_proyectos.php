@@ -90,15 +90,18 @@ return function (App $app){
 	});
 
 	$app->post('/Proyecto/NuevoProyecto',function(Request $request, Response $response){
-		$data = $request->getParams();
-		$nombre=$data['nombre'];
-		$descripcion=$data['descripcion'];
-		$fechaE=$data['fechaE'];
-		$fechaFP=$data['fechaFP'];
-		ob_clean();
-		$retorno = ctr_proyecto::agregarProyecto($nombre,$descripcion,$fechaE,$fechaFP);
-		return $retorno;
-
+		if(!$_SESSION){
+			return $this->view->render($response,"index.twig",$args);
+		}else{
+			$data = $request->getParams();
+			$nombre=$data['nombre'];
+			$descripcion=$data['descripcion'];
+			$fechaE=$data['fechaE'];
+			$fechaFP=$data['fechaFP'];
+			ob_clean();
+			$retorno = ctr_proyecto::agregarProyecto($nombre,$descripcion,$fechaE,$fechaFP);
+			return $retorno;
+		}
 	});
 
 	$app->post('/Proyecto/Postularse',function(Request $request, Response $response){
@@ -149,11 +152,11 @@ return function (App $app){
 		}else{
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
+			echo Console::log('asd',$session);
 			if($session->tipo == 0){
 				$proyectos = $controladorP->ListarProyectosDeDesarrolladores($session->id);
 				$args['proyectos']=$proyectos; 
 
-				echo Console::log('asd',$proyectos);
 			}else{
 				$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
 				$args['proyectos']=$proyectos; 
@@ -167,7 +170,9 @@ return function (App $app){
 		if(!$_SESSION){
 			return $this->view->render($response,"index.twig",$args);
 		}else{
+			$args['session']=$_SESSION['admin'];
 			$controladorP = new ctr_proyecto();
+			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
 			$session = $_SESSION['admin'];
 			$referencia =  $controladorP->verificarReferencia($session->id ,$idProyecto);
