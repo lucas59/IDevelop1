@@ -14,53 +14,57 @@
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="Datos" role="tabpanel" aria-labelledby="nav-home-tab">
-			<dl class="dl-horizontal">
-				<dt>Email:</dt>
-				<dd> {{Empresa.email}}</dd>
-				<dt>Nombre:</dt>
-				<dd> {{Empresa.nombre}}</dd>
-				<dt>Telefono:</dt>
-				<dd> {{Empresa.telefono}}</dd>
-				<dt>Fecha de creacion:</dt>
-				<dd> {{Empresa.fecha_Creacion}}</dd>
-				<dt>Rubro:</dt>
-				<dd> {{Empresa.rubro}}</dd>
-				<dt>Mision:</dt>
-				<dd> {{Empresa.mision}}</dd>
-				<dt>Vision:</dt>
-				<dd> {{Empresa.vision}}</dd>
-				<dt>Reclutador:</dt>
-				<dd> {{Empresa.reclutador}}</dd>
-				<dt>Direccion:</dt>
-				<dd> {{Empresa.direccion}}</dd>
-			</dl>
-		</div>
-		<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="nav-profile-tab">
-			<div id="tabla_id">
-				<table class="table">
-					<thead>
-						<tr id="tabla_titulo" class="bg-info">
-							<td>Nombre</td>
-							<td>Descripcion</td>
-							<td>Accion</td>
-							<td>Accion2</td>
-						</tr>
-					</thead>
-					<tbody>
-						{% for proy in proyectos%}
-						<tr>
-							<td>{{proy.nombre}}</td>
-							<td>{{proy.descripcion}}</td>
-							<td><a href="http://localhost/IDevelop1/IDevelop/public/Proyecto/VerPostulantes?proy={{proy.id}}">Ver postulantes</a></td>
-							<td><a>Ver mas..</a></td>
-						</tr>
-						{% endfor %}
-					</tbody>
-				</table>
+			<div class="row">
+				<div class="col-lg-6">Column 1</div>
+				<dl class="dl-horizontal">
+					<dt>Email:</dt>
+					<dd> {{Empresa.email}}</dd>
+					<dt>Nombre:</dt>
+					<dd> {{Empresa.nombre}}</dd>
+					<dt>Telefono:</dt>
+					<dd> {{Empresa.telefono}}</dd>
+					<dt>Fecha de creacion:</dt>
+					<dd> {{Empresa.fecha_Creacion}}</dd>
+					<dt>Rubro:</dt>
+					<dd> {{Empresa.rubro}}</dd>
+					<dt>Mision:</dt>
+					<dd> {{Empresa.mision}}</dd>
+					<dt>Vision:</dt>
+					<dd> {{Empresa.vision}}</dd>
+					<dt>Reclutador:</dt>
+					<dd> {{Empresa.reclutador}}</dd>
+					<dt>Direccion:</dt>
+					<dd> {{Empresa.direccion}}</dd>
+				</dl>
 			</div>
 		</div>
+	</div>
+	<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="nav-profile-tab">
+		<div id="tabla_id">
+			<table class="table">
+				<thead>
+					<tr id="tabla_titulo" class="bg-info">
+						<td>Nombre</td>
+						<td>Descripcion</td>
+						<td>Accion</td>
+						<td>Accion2</td>
+					</tr>
+				</thead>
+				<tbody>
+					{% for proy in proyectos%}
+					<tr>
+						<td>{{proy.nombre}}</td>
+						<td>{{proy.descripcion}}</td>
+						<td><a href="http://localhost/IDevelop1/IDevelop/public/Proyecto/VerPostulantes?proy={{proy.id}}">Ver postulantes</a></td>
+						<td><a>Ver mas..</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 </div>
 
 
-		{% endblock %}
+{% endblock %}
