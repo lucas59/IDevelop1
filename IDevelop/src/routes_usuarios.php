@@ -203,6 +203,8 @@ return function (App $app){
 					$args['session']=$_SESSION['admin'];
 					return $this->view->render($response,"index.twig",$args);					
 				}else{
+					
+					echo Console::log('asd',$_SESSION['admin']); 
 					$email=$_SESSION['admin']->id; 	
 				}
 			}else{
