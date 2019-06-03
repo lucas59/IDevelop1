@@ -216,6 +216,7 @@ return function (App $app){
 		$proyectos=null;
 		if($Desarrollador){
 			$args['Desarrollador']=$Desarrollador;
+			echo Console::log('asd',$Desarrollador);
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);

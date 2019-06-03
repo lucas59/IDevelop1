@@ -22,7 +22,7 @@ return function (App $app) {
 
 			echo Console::log('asd',$_SESSION['admin']);
 		}
-	}
+		
 		return $this->view->render($response,"index.twig",$args);
 	})->setName("Inicio");
 
