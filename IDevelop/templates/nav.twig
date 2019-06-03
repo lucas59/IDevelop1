@@ -1,5 +1,5 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">IDevelop</a>
+      <a class="navbar-brand" href="{{ path_for('Inicio') }}">IDevelop</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,10 +9,14 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Proyecto</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
+               {% if session.tipo == 1 %}
               <a class="dropdown-item" href="{{ path_for('NuevoProyecto') }}">Crear proyecto<span class="sr-only">(current)</span></a>
+                 {%  endif %}
+               {% if session.tipo == 0 %}
               <a class="dropdown-item" href="{{ path_for('Postularse') }}">Postularse<span class="sr-only">(current)</span></a>
               <a class="dropdown-item" href="{{ path_for('BajarseProyecto') }}">Bajarse de un proyecto<span class="sr-only">(current)</span></a>  
               <a class="dropdown-item" href="#">Proyectos recomendados<span class="sr-only">(current)</span></a>            
+                 {%  endif %}
             </div>
           </li>
           <li class="nav-item dropdown">
@@ -26,8 +30,10 @@
           </li>
 
         </ul>
-        <form id="formBuscar">
-          <input class="form-control " onkeyup ="filtrarBuscador()" type="search" name="buscador" id="buscador" placeholder="Buscar"  target="_blank">
+        <form class="form-inline" id="formBuscar">
+          <div id="buscador_div">
+            <input class="form-control" onkeyup ="filtrarBuscador()" type="search" name="buscador" id="buscador" placeholder="Buscar"  target="_blank">
+          </div>
           <div class="search" id="search">
             <table class="search-table table" id="searchTable">
               <thead>
@@ -40,31 +46,26 @@
           </div>
         </form>
       </div>
-
-{% if not session and not sesion%}
-  <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
-  <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
-  {%  endif %}
-  {% if session %}
-  <div class="dropdown ">
-    <button onclick="opcionesUsuario()" class="dropbtn user"></button>
-    <div id="myDropdown" class="dropdown-content ">
-      <a href="{{ path_for('perfil') }}" class="pull-left" href="">Mi perfil</a>
-      <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
-    </div>
-    <h4>{{session.nombre}}</h4>
+      <div>
+        {% if not session%}
+        <a href="{{ path_for('NuevoUsuario') }}" class="btn btn-info my-2 my-sm-0" type="submit">Registrarme</a>
+        <a href="{{ path_for('ingresar') }}" class="btn btn-info my-2 my-sm-0" type="submit">Login</a>
+        {%  endif %}
+      </div>
+      {% if session %}
+      <div class="btn-group">
+        <button id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          {% if session.tipo == 0 %}
+          <a href="{{ path_for('perfil') }}" class="dropdown-item" type="button">Perfil del desarrollador {{session.nombre}}</a>
+          {% elseif session.tipo == 1 %}
+          <a href="{{ path_for('perfil') }}" class="dropdown-item" type="button">Perfil del Empresa {{session.nombre}}</a>
+          {%  endif %}
+          <a href="{{ path_for('cerrar') }}" class="dropdown-item" type="button">Cerrar sesión</a>
+        </div>
+      </div>
+    </nav>  
     {%  endif %}
+  </nav>
 
-    {% if sesion %}
-
-
-<div id="usuario" class="dropdown">
-    <button onclick="opcionesUsuario()" class="dropbtn user"></button>
-    <div id="myDropdown" class="dropdown-content ">
-      <a href="{{ path_for('PerfilE') }}" class="pull-left" href="">Mi perfil</a>
-      <a href="{{ path_for('cerrar') }}" class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</a>
-    </div>
-    <h4>{{sesion.nombre}}</h4>
-    {%  endif %}
-  </div>
-    </nav>
