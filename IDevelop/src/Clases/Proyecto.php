@@ -93,35 +93,32 @@ class Proyecto
 	}
 
 
-	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion){
+	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion, $usuario){
 
 		$avance=null;
 		$estado= 0;
 		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id, estado) VALUES (?,?,?,?,?,?)");
 		$sql->bind_param('ssssii',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$avance,$estado);
 		if ($sql->execute()) {
-			$usuario= $_SESSION['admin'];
-
-			echo Console::log("sesion", $usuario->id);
-			$consulta= DB::conexion()->prepare("SELECT id FROM proyecto WHERE nombre= ?");
-			$consulta->bind_param('s',$nombre);
-			$consulta->execute();
-			
-			$resultado = $consulta->get_result();
-
-			if(mysql_num_rows($resultado) == 1){
-				
+			$proy = Proyecto::obtenerProyecto2($nombre);
+			$sql2 =DB::conexion()->prepare("INSERT INTO empresa_proyecto(Empresa_id, proyectos_id) VALUES (?,?)");			
+			$sql2->bind_param('si',$usuario,$proy->id);
+			if($sql2->execute()){
+				return "1";
 			}
-			$sql2=DB::conexion()->prepare("INSERT INTO empresa_proyecto(Empresa_id, proyectos_id) VALUES(?,?)");
-				$sql2->bind_param('si',$usuario->id,$resultado);
-				if($sql2->execute()){
-					return "1";
-				}
 		}else{
 			return "0";
 		} 
 	}
 	
+	public function obtenerProyecto2($nombre){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
+		$consulta->bind_param('s',$nombre);		
+		$consulta->execute();
+		$resultado=$consulta->get_result();
+		return $resultado->fetch_object();
+	}
 	public function validarNombreP($nombre){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
