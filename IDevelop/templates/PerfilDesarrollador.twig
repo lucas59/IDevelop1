@@ -23,11 +23,7 @@
   <div class="tab-content" id="myTabContent">
    <div role="tabpanel" class="tab-pane active" id="Datos">
     <div class="row">
-      <div class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64, {{Desarrollador.foto_perfil}}"/>
-       <dl class="dl-horizontal">
-        <dt>Nombre:</dt>
-        <dd>{{Desarrollador.nombre}}</dd>
-      </dl>
+      <div class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Desarrollador.foto_perfil}}"/><h3>{{Desarrollador.nombre}}</h3>
     </div>
     <div class="col-lg-6">
       <dl class="dl-horizontal">
@@ -43,8 +39,6 @@
         <dd>{{Desarrollador.ciudad_actual}}</dd>
         <dt>Pais:</dt>
         <dd>{{Desarrollador.pais}}, {{Desarrollador.estado}}</dd>
-        <dt>Imagen:</dt>
-        <dd><img id="fotoDef" src="{{Desarrollador.foto_perfil}}" alt="Cinque Terre" width="120" height="120"></dd>
         {% if Desarrollador.email == session.id %}
         <button id="btn_desactivar" type="button" class="btn btn-outline-primary">Desactivar cuenta</button>
         {%endif%}

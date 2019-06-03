@@ -54,7 +54,7 @@
       </div>
       {% if session %}
       <div class="btn-group">
-        <button id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+        <button id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false"><img id="imagen_perfil" src="data:image/png;base64,{{Desarrollador.foto_perfil}}"/>
         </button>
         <div class="dropdown-menu dropdown-menu-right">
           {% if session.tipo == 0 %}
