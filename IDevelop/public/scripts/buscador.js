@@ -42,7 +42,6 @@
 					tipo="Empresa";
 				}
 			if (nombreYapellido.includes(element.toLowerCase()) ||tipo.toLowerCase().includes(element.toLowerCase()) || pais.includes(element.toLowerCase()) ) {
-
 				var row = tabla.insertRow();
 				row.id= usuarios[i]['id'];
 				var cell1 = row.insertCell(0);
