@@ -73,4 +73,9 @@ h4{
   left: 7px;
 }
 
+body{
+  position: relative;
+  min-height: 100vh;
+}
+
 

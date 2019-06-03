@@ -16,7 +16,6 @@ return function (App $app) {
 
 	$app->get('/',function($request,$response,$args){
 		if(isset($_SESSION['admin'])){
-			if($_SESSION['admin']->tipo == 0){
 			$args["session"]=$_SESSION['admin']; 
 		}else if($_SESSION['admin']->tipo == 1){
 			$args["session"]=$_SESSION['admin']; 

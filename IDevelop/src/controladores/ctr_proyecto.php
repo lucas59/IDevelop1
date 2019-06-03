@@ -7,6 +7,7 @@ require_once '../src/conexion/abrir_conexion.php';
 require_once '../src/Clases/console.php';
 require_once '../src/Clases/Proyecto.php';
 require_once '../src/Clases/Postulacion.php';
+require_once '../src/Clases/Casodeuso.php';
 require_once '../src/Clases/proyecto_postulacion.php';
 require_once '../src/Clases/console.php';
 /**
@@ -21,6 +22,16 @@ function __construct(){
 public function validarNombreProyecto($nombre){
 	$resultado = Proyecto::validarNombreP($nombre);
 	return $resultado;
+}
+
+public function validarNombreCasoDeUso($nombre){
+	$resultado = Casodeuso::validarNombreCU($nombre);
+	return $resultado;
+}
+
+public function agregarCasoDeUso($nombre, $descripcion, $impacto){
+	$insetado = Casodeuso::subirCasoDeUso($nombre,$descripcion,$impacto);
+	return $insertado;
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){

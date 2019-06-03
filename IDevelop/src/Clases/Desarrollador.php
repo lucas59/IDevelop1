@@ -148,7 +148,7 @@ class Desarrollador extends Usuario
 	}
 
 	public static function perfil($email){
-		$sql=DB::conexion()->prepare("SELECT * FROM desarrollador WHERE id= ?");
+		$sql=DB::conexion()->prepare("SELECT D.*,F.contenido FROM desarrollador AS D,fotos_perfiles AS F WHERE D.id = ? AND D.id = F.nombre");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado=$sql->get_result();
@@ -160,6 +160,7 @@ class Desarrollador extends Usuario
 			$fila = $resultado->fetch_assoc();
 		}
 		$controlador =new ctr_usuarios();
+		$foto = $fila['contenido'];
 		$apellido=$fila['apellido'];
 		$cedula=$fila['cedula'];
 		$ciudad="";
@@ -182,7 +183,6 @@ class Desarrollador extends Usuario
 			$resultado2->data_seek($num_fila);
 			$fila2 = $resultado2->fetch_assoc();
 		}
-		$foto="";
 		if(isset($fila['foto_id'])){
 			if($fila['foto_id']){
 				$sql3=DB::conexion()->prepare("SELECT * FROM usuario WHERE id= ?");
@@ -193,7 +193,6 @@ class Desarrollador extends Usuario
 			$resultado3->data_seek($num_fila3);
 			$fila3 = $resultado3->fetch_assoc();
 		}
-		$foto=$fila3['contenido'];
 			}
 		}
 		
