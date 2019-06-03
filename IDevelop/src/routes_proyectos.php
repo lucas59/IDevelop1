@@ -152,7 +152,6 @@ return function (App $app){
 		}else{
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
-			echo Console::log('asd',$session);
 			if($session->tipo == 0){
 				$proyectos = $controladorP->ListarProyectosDeDesarrolladores($session->id);
 				$args['proyectos']=$proyectos; 
