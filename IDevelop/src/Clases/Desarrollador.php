@@ -15,13 +15,14 @@ class Desarrollador extends Usuario
 	private $postulacion;
 	private $herramientas = array();
 	private $proyectos = array();
+	private $nombre;
 
-	function __construct($email,$foto_perfil,$contrasena,$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), $postulacion, $herramientas = array(), $proyectos = array())
+	function __construct($email,$nombre,$foto_perfil,$contrasena,$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad_actual,$desarrollo_preferido,$experienca_laboral = array(), $postulacion, $herramientas = array(), $proyectos = array())
 	{
 		$this->email = $email;
 		$this->foto_perfil = $foto_perfil;
 		$this->contrasena = $contrasena;
-
+$this->nombre= $nombre;
 		$this->cedula = $cedula;
 		$this->apellido = $apellido;
 		$this->fecha_Nacimiento = $fecha_Nacimiento;
@@ -36,6 +37,9 @@ class Desarrollador extends Usuario
 
 	public function getCedula(){
 		return $this->cedula;
+	}
+	public function getnombre(){
+		return $this->nombre;
 	}
 
 	public function getApellido(){
@@ -76,6 +80,9 @@ class Desarrollador extends Usuario
 
 	public function setCedula($cedula){
 		$this->cedula = $cedula;
+	}
+	public function setnombre($nom){
+		$this->nombre = $nom;
 	}
 
 	public function setApellido($apellido){
@@ -196,7 +203,7 @@ class Desarrollador extends Usuario
 			}
 		}
 		
-		$desarrollador =$desarrollador = new Desarrollador($email,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad,$desarrolloPreferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
+		$desarrollador =$desarrollador = new Desarrollador($email,$nombre,$foto,"",$cedula,$apellido,$fecha_Nacimiento,$pais,$ciudad,$desarrolloPreferido,$experienca_laboral = array(), "", $herramientas = array(), $proyectos = array());
 		return $desarrollador;
 	}
 
