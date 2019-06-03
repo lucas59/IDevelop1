@@ -17,7 +17,7 @@ return function (App $app){
 	$app->get('/Usuario/login',function($request,$response,$args) use ($container){
 		if($_SESSION){
 			$args['session']=$_SESSION['admin'];
-		return $this->view->render($response,"index.twig",$args);	
+			return $this->view->render($response,"index.twig",$args);	
 		}
 		return $this->view->render($response,"login.twig");
 	})->setName("ingresar");
@@ -70,8 +70,8 @@ return function (App $app){
 	$app->get('/Usuario/buscar',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
 		$arreglo = $controladorUsuarios->obtenerDesarrolladoresParaFiltrar();
-			$arreglo1 = $controladorUsuarios->obtenerEmpresasParaFiltrar();
-			$retorno = array_merge($arreglo,$arreglo1);
+		$arreglo1 = $controladorUsuarios->obtenerEmpresasParaFiltrar();
+		$retorno = array_merge($arreglo,$arreglo1);
 		//	$response->getBody()->write($retorno);
 		return json_encode($retorno);
 	});
@@ -203,7 +203,14 @@ return function (App $app){
 		$email=$request->getQueryParam("email");
 		if($email==null){
 			if(isset($_SESSION['admin'])){
-				$email=$_SESSION['admin']->id; 		
+				
+				echo Console::log('asd',$_SESSION['admin']);
+				if($_SESSION['admin']->tipo==1){
+					echo Console::log('asd',$_SESSION['admin']);
+					return $this->view->render($response,"index.twig",$args);					
+				}else{
+					$email=$_SESSION['admin']->id; 	
+				}
 			}else{
 				return $this->view->render($response,"index.twig",$args);
 			}
@@ -228,10 +235,10 @@ return function (App $app){
 					$args['sesion']=$_SESSION['admin']; 
 				}
 			}		
-		return $this->view->render($response,"PerfilDesarrollador.twig",$args);
-	}
-	return $this->view->render($response,"index.twig",$args);
-})->setName('perfil');
+			return $this->view->render($response,"PerfilDesarrollador.twig",$args);
+		}
+		return $this->view->render($response,"index.twig",$args);
+	})->setName('perfil');
 
 	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
