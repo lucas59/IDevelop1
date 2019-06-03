@@ -62,7 +62,6 @@ return function (App $app){
 
 	$app->get('/Usuario/Paises',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
-		//echo json_encode($controladorUsuarios->listarPaises());
 		$response->getBody()->write(json_encode($controladorUsuarios->listarPaises()));
 		return $response;
 	});
@@ -72,7 +71,6 @@ return function (App $app){
 		$arreglo = $controladorUsuarios->obtenerDesarrolladoresParaFiltrar();
 		$arreglo1 = $controladorUsuarios->obtenerEmpresasParaFiltrar();
 		$retorno = array_merge($arreglo,$arreglo1);
-		//	$response->getBody()->write($retorno);
 		return json_encode($retorno);
 	});
 
@@ -87,7 +85,6 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$correo = $args['correo'];
 		if($controladorUsuarios->desactivarUsuario($correo)){
-
 			return "1";
 		}else{
 			return "0";
@@ -126,7 +123,6 @@ return function (App $app){
 		return $retorno;
 	});
 	$app->post('/Usuario/Logearse',function(Request $request, Response $response){
-
 		$data = $request->getParams();
 		$email=$data['email'];
 		$pass=$data['pass'];
@@ -203,10 +199,8 @@ return function (App $app){
 		$email=$request->getQueryParam("email");
 		if($email==null){
 			if(isset($_SESSION['admin'])){
-				
-				echo Console::log('asd',$_SESSION['admin']);
 				if($_SESSION['admin']->tipo==1){
-					echo Console::log('asd',$_SESSION['admin']);
+					$args['session']=$_SESSION['admin'];
 					return $this->view->render($response,"index.twig",$args);					
 				}else{
 					$email=$_SESSION['admin']->id; 	
@@ -222,11 +216,8 @@ return function (App $app){
 		$proyectos=null;
 		if($Desarrollador){
 			$args['Desarrollador']=$Desarrollador;
-//			$herramientas=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
-			//$proyectos=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
-//			$experiencia=$controladorUsuarios->DesarrolladorExperiencia($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
 			if(isset($_SESSION['admin'])){
 				if($_SESSION['admin']->tipo == 0){
