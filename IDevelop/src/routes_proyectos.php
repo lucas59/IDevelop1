@@ -11,14 +11,15 @@ return function (App $app){
 	$container = $app->getContainer(); 
 
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
-		/*if(isset($_SESSION['admin'])){
-			*/$session=$_SESSION['admin'];
-			return $this->view->render($response,"altaProyecto.twig",$session);
-		/*}else{
+		if(isset($_SESSION['admin'])){
+			$session=$_SESSION['admin'];
+			$sesion = array("session" => $session);
+			return $this->view->render($response,"altaProyecto.twig",$sesion);
+		}else{
 			$mensaje = "Debe iniciar sesion como Empresa para poder crear proyectos";
 			$mensaje_sesion = array("mensaje" => $mensaje);
 			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
-		}*/
+		}
 	})->setName("NuevoProyecto");
 
 	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
