@@ -11,7 +11,7 @@ return function (App $app){
 	$container = $app->getContainer(); 
 
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
-		if(isset($_SESSION['admin'])){
+		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 1){
 			$session=$_SESSION['admin'];
 			$sesion = array("session" => $session);
 			return $this->view->render($response,"altaProyecto.twig",$sesion);
