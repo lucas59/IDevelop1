@@ -37,18 +37,9 @@ class Ciudad {
 	public function setNombre($nombre){
 		$this->nombre=$nombre;
 	}
-	/*
-	$sql=DB::conexion()->prepare("SELECT * FROM pais");
-		$sql->execute();
-		$resultado = $sql->get_result();
-		while ($fila=$resultado->fetch_array()){
-			$rows[] = $fila;
-		}
-		return $rows;
-		*/
 
 	public function listarCiudad($pais){
-		$sql=DB::conexion()->prepare("SELECT * FROM ciudad where idPais=?");
+		$sql=DB::conexion()->prepare("SELECT * FROM ciudad where idPais=? ORDER BY nombre ASC");
 		$sql->bind_param("i",$pais);
 		$sql->execute();
 		$resultado = $sql->get_result();

@@ -31,7 +31,7 @@ class Pais {
 	}
 
 	public function listarPaises(){
-		$sql=DB::conexion()->prepare("SELECT * FROM pais");
+		$sql=DB::conexion()->prepare("SELECT * FROM pais ORDER BY nombre ASC ");
 		$sql->execute();
 		$resultado = $sql->get_result();
 		while ($fila=$resultado->fetch_array()){
