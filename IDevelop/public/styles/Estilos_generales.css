@@ -30,4 +30,9 @@ h1 {
 	background-position: center center;
 	background-size: cover;
 	margin-left: 100px;
+	margin-top: 65px;
+}
+
+h3{
+	margin-left: 150px;
 }
