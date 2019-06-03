@@ -11,9 +11,26 @@ return function (App $app){
 	$container = $app->getContainer(); 
 
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
-		$session=$_SESSION['admin'];
-		return $this->view->render($response,"altaProyecto.twig",compact('session'));
+		/*if(isset($_SESSION['admin'])){
+			*/$session=$_SESSION['admin'];
+			return $this->view->render($response,"altaProyecto.twig");
+		/*}else{
+			$mensaje = "Debe iniciar sesion como Empresa para poder crear proyectos";
+			$mensaje_sesion = array("mensaje" => $mensaje);
+			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
+		}*/
 	})->setName("NuevoProyecto");
+
+	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
+		if(isset($_SESSION['admin'])){
+			$session = $_SESSION['admin'];
+			return $this->view->render($response,"casodeuso.twig",compact('sesion'));
+		}else{
+			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
+			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
+			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
+		}
+	})->setName("NuevoCasoDeUso");
 
 	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
 		if($_SESSION){
@@ -52,6 +69,23 @@ return function (App $app){
 		$controladorProyecto = new ctr_proyecto();
 		$nombre = $args['nombre'];
 		$retorno = $controladorProyecto->validarNombreP($nombre);
+		return $retorno;
+	});
+
+	$app->get('/Proyecto/validarNombreCU/{nombre}',function($request,$response,$args){
+		$controladorProyecto = new ctr_proyecto();
+		$nombre = $args['nombre'];
+		$retorno = $controladorProyecto->validarNombreCasoDeUso($nombre);
+		return $retorno;
+	});
+
+	$app->post('/Proyecto/NuevoCasoDeUso',function(Request $request, Response $response ){
+		$data = $request->getParams();
+		$nombre = $data['nombre'];
+		$descripcion = $data['descripcion'];
+		$impacto = $data['impacto'];
+		ob_clean();
+		$retorno = ctr_proyecto::agregarCasoDeUso($nombre, $descripcion, $impacto);
 		return $retorno;
 	});
 

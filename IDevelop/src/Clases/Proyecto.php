@@ -10,22 +10,15 @@ class Proyecto
 	private $fechaEntrega;
 	private $fechaFinPostulacion;
 	private $estado;
-	private $valoracionPuntos; //total de puntos de todos los casos de usos
-	private $avanceDesarrollo;
-	private $postulacion;
-	private $proponente;
 	private $id;
 
-	function __construct($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion, $estado,$avanceDesarrollo, $postulacion, $proponente)
+	function __construct($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion, $estado)
 	{
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
 		$this->fechaEntrega = $fechaEntrega;
 		$this->fechaFinPostulacion = $fechaFinPostulacion;
 		$this->estado = $estado;
-		$this->avanceDesarrollo = $avanceDesarrollo;
-		$this->postulacion = $postulacion;
-		$this->proponente = $proponente;
 	}
 
 	public function getNombre(){
@@ -95,10 +88,9 @@ class Proyecto
 
 	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion, $usuario){
 
-		$avance=null;
 		$estado= 0;
-		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id, estado) VALUES (?,?,?,?,?,?)");
-		$sql->bind_param('ssssii',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$avance,$estado);
+		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, estado) VALUES (?,?,?,?,?)");
+		$sql->bind_param('ssssi',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$estado);
 		if ($sql->execute()) {
 			$proy = Proyecto::obtenerProyecto2($nombre);
 			$sql2 =DB::conexion()->prepare("INSERT INTO empresa_proyecto(Empresa_id, proyectos_id) VALUES (?,?)");			
@@ -119,6 +111,7 @@ class Proyecto
 		$resultado=$consulta->get_result();
 		return $resultado->fetch_object();
 	}
+
 	public function validarNombreP($nombre){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
