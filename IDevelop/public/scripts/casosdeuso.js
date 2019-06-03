@@ -3,9 +3,13 @@ function nuevoCasoDeUso(){
 	event.preventDefault();
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var formulario = document.forms['formCasosDeUso'];
+	var proyecto = "1";
 	var nombre = formulario['txtNombreCU'].value;
 	var descripcion = formulario['txtDescripcion'].value;
-	var impacto = formulario['Impacto'].value;
+	var combo = document.getElementById("Impacto");
+	var impacto = combo.options[combo.selectedIndex].value;
+
+	console.log(impacto);
 
 	var disponible = nombreCdUDisponible(nombre);
 	
@@ -17,7 +21,7 @@ function nuevoCasoDeUso(){
 		console.log("Existe caso 1");
 	}else{
 		console.log("No existe caso 1");
-		intento=ingresarCasoDeUso(nombre,descripcion,impacto);
+		intento=ingresarCasoDeUso(nombre,descripcion,impacto,proyecto);
 		console.log("intento:" +intento);
 		if(intento==true){
 			console.log("ingresado");
@@ -44,7 +48,7 @@ function nuevoCasoDeUso(){
 }
 
 
-function ingresarCasoDeUso(nombre,descripcion,impacto){
+function ingresarCasoDeUso(nombre,descripcion,impacto,proyecto){
 	var retorno;
 	$.ajax({
 		async:false,
@@ -53,8 +57,8 @@ function ingresarCasoDeUso(nombre,descripcion,impacto){
 		data: {
 			"nombre": nombre,
 			"descripcion": descripcion,
-			"fechaE": fechaE,
-			"fechaFP": fechaFP,
+			"impacto": impacto,
+			"proyecto": proyecto,
 		},
 		success: function(response){
 			console.log("coso : " +response);
