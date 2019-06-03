@@ -15,6 +15,10 @@ return function (App $app){
 	})->setName("NuevoUsuario");
 
 	$app->get('/Usuario/login',function($request,$response,$args) use ($container){
+		if($_SESSION){
+			$args['session']=$_SESSION['admin'];
+		return $this->view->render($response,"index.twig",$args);	
+		}
 		return $this->view->render($response,"login.twig");
 	})->setName("ingresar");
 

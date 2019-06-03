@@ -19,20 +19,16 @@ function __construct(){
 
 
 
-public function validarNombreProyecto($nombre){
-	$resultado = Proyecto::nombreProyectoDisponible($nombre);
+public function validarNombreP($nombre){
+	$resultado = Proyecto::validarNombreP($nombre);
 	return $resultado;
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	//if( isset($_SESSION['admin']) == true ){
-			//chequear que sea empresa
-	
 	$usuario = $_SESSION['admin']; 
 
-		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
-		return $insertado;
-	//}
+	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
+	return $insertado;
 }
 
 public function Listar_Proyectos($id){
