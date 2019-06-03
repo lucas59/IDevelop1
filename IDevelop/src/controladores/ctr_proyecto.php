@@ -7,28 +7,37 @@ require_once '../src/conexion/abrir_conexion.php';
 require_once '../src/Clases/console.php';
 require_once '../src/Clases/Proyecto.php';
 require_once '../src/Clases/Postulacion.php';
+require_once '../src/Clases/Casodeuso.php';
 require_once '../src/Clases/proyecto_postulacion.php';
-
-
+require_once '../src/Clases/console.php';
 /**
  */class ctr_proyecto {
 
 
+function __construct(){
+}
+
 
 
 public function validarNombreProyecto($nombre){
-	$resultado = Proyecto::nombreProyectoDisponible($nombre);
+	$resultado = Proyecto::validarNombreP($nombre);
 	return $resultado;
 }
 
-public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-	//if( isset($_SESSION['admin']) == true ){
-			//chequear que sea empresa
-		
+public function validarNombreCasoDeUso($nombre){
+	$resultado = Casodeuso::validarNombreCU($nombre);
+	return $resultado;
+}
 
-		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP);
+public function agregarCasoDeUso($nombre, $descripcion, $impacto){
+	$insetado = Casodeuso::subirCasoDeUso($nombre,$descripcion,$impacto);
+	return $insertado;
+}
+
+public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
+		$usuario = $_SESSION['admin']->id;
+		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
 		return $insertado;
-	//}
 }
 
 public function Listar_Proyectos($id){
@@ -61,7 +70,22 @@ public function DespostularseProyecto($id,$usuario){
 	}
 }
 public function PostulantesDeProyecto($idProyecto){
-return Postulacion::PostulantesDeProyecto($idProyecto);
+	return Postulacion::PostulantesDeProyecto($idProyecto);
+}
+
+public function ListarProyectosDeDesarrolladores($email){
+	return Proyecto::ListarProyectosDeDesarrolladores($email);
+}
+public function ListarProyectosDeEmpresa($email){
+	return Proyecto::ListarProyectosDeEmpresa($email);
+}
+
+public function verificarReferencia($session, $idProyecto){
+	return Usuario::verificarReferencia($session,$idProyecto);
+}
+
+public function obtenerProyecto($idProyecto){
+	return Proyecto::obtenerProyecto($idProyecto);
 }
 }
 

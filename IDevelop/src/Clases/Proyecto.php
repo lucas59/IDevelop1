@@ -1,4 +1,8 @@
 <?php 
+
+require_once '../src/Clases/console.php';
+require_once '../src/Clases/Usuario.php';
+
 class Proyecto 
 {
 	private $nombre;
@@ -6,22 +10,15 @@ class Proyecto
 	private $fechaEntrega;
 	private $fechaFinPostulacion;
 	private $estado;
-	private $valoracionPuntos; //total de puntos de todos los casos de usos
-	private $avanceDesarrollo;
-	private $postulacion;
-	private $proponente;
 	private $id;
 
-	function __construct($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion, $estado,$avanceDesarrollo, $postulacion, $proponente)
+	function __construct($nombre, $descripcion, $fechaEntrega,$fechaFinPostulacion, $estado)
 	{
 		$this->nombre = $nombre;
 		$this->descripcion = $descripcion;
 		$this->fechaEntrega = $fechaEntrega;
 		$this->fechaFinPostulacion = $fechaFinPostulacion;
 		$this->estado = $estado;
-		$this->avanceDesarrollo = $avanceDesarrollo;
-		$this->postulacion = $postulacion;
-		$this->proponente = $proponente;
 	}
 
 	public function getNombre(){
@@ -89,20 +86,32 @@ class Proyecto
 	}
 
 
-	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion){
+	public function subirProyecto($nombre, $descripcion, $fechaEntrega, $fechaFinPostulacion, $usuario){
 
-		$avance=null;
-		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id) VALUES (?,?,?,?,?)");
-		$sql->bind_param('ssssi',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$avance);
+		$estado= 0;
+		$sql=DB::conexion()->prepare("INSERT INTO proyecto(descripcion, fechaEntrega, fechaFinPostulacion, nombre, estado) VALUES (?,?,?,?,?)");
+		$sql->bind_param('ssssi',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$estado);
 		if ($sql->execute()) {
-			return "1";
+			$proy = Proyecto::obtenerProyecto2($nombre);
+			$sql2 =DB::conexion()->prepare("INSERT INTO empresa_proyecto(Empresa_id, proyectos_id) VALUES (?,?)");			
+			$sql2->bind_param('si',$usuario,$proy->id);
+			if($sql2->execute()){
+				return "1";
+			}
 		}else{
 			return "0";
 		} 
-
-		return "1"; 
 	}
 	
+	public function obtenerProyecto2($nombre){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
+		$consulta->bind_param('s',$nombre);		
+		$consulta->execute();
+		$resultado=$consulta->get_result();
+		return $resultado->fetch_object();
+	}
+
 	public function validarNombreP($nombre){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT * FROM Proyecto WHERE nombre= ?");
@@ -134,7 +143,7 @@ class Proyecto
 		}
 	}
 
-		public function Listar_proyectos_despostularse($id){
+	public function Listar_proyectos_despostularse($id){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id IN (SELECT proyectos_id FROM desarrollador_proyecto WHERE desarrollador_proyecto.Desarrollador_id = '" . $id . "' AND desarrollador_proyecto.Estado IS NULL)");
 		$consulta->execute();
@@ -157,6 +166,40 @@ class Proyecto
 			return false;
 		}
 	}
+
+	public function ListarProyectosDeDesarrolladores($email){
+		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, E.nombre AS estado, EMP.nombre AS empresa FROM `proyecto` AS P, estado AS E,empresa_proyecto AS EMPP, empresa AS EMP , desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND DP.Estado = E.id  AND EMP.id= EMPP.Empresa_id AND D.id= ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$myArray = array();
+
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$myArray[] = $row;
+		}
+		return $myArray;
+	}
+	public function ListarProyectosDeEmpresa($email){
+		$sql=DB::conexion()->prepare("SELECT P.nombre,P.fechaEntrega,P.descripcion, E.nombre AS estado, EMP.nombre AS empresa FROM `proyecto` AS P, estado AS E,empresa_proyecto AS EMPP, empresa AS EMP WHERE EMP.id=EMPP.Empresa_id AND P.id=EMPP.proyectos_id AND EMP.id= EMPP.Empresa_id AND EMP.id= ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$myArray = array();
+
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$myArray[] = $row;
+		}
+		return $myArray;
+	}
+
+	public function obtenerProyecto($idProyecto){
+		$sql=DB::conexion()->prepare("SELECT * FROM proyecto AS P WHERE P.id=?");
+		$sql->bind_param("s",$idProyecto);
+		$sql->execute();
+		return $sql->get_result()->fetch_assoc();
+	}
+	
+
 
 
 }

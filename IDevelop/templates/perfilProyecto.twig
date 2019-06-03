@@ -22,30 +22,25 @@
   </ul>
   <div class="tab-content" id="myTabContent">
     <div class="tab-pane fade show active" id="Datos" role="tabpanel" aria-labelledby="home-tab">
-      <div class="row">
-        <div class="col-lg-6"><img src="data:image/jpeg;base64,'.base64_encode( {{Desarrollador.contenido}} ).'"/></div>
-        <dl class="dl-horizontal">
-         <img src="data:image/jpeg;base64,'.{{Desarrollador.foto}} .'" />
-          <dt>Email:</dt>
-          <dd>{{Desarrollador.email}}</dd>
-          <dt>Apellido:</dt>
-          <dd>{{Desarrollador.apellido}}</dd>
-          <dt>Cedula:</dt>
-          <dd>{{Desarrollador.cedula}}</dd>
-          <dt>Fecha de nacimiento:</dt>
-          <dd>{{Desarrollador.fecha_Nacimiento}}</dd>
-          <dt>Ciudad:</dt>
-          <dd>{{Desarrollador.ciudad_actual}}</dd>
-          <dt>Pais:</dt>
-          <dd>{{Desarrollador.pais}}, {{Desarrollador.estado}}</dd>
-          <dt>Imagen:</dt>
-          <dd><img id="fotoDef" src="{{Desarrollador.foto_perfil}}" alt="Cinque Terre" width="120" height="120"></dd>
-          {% if Desarrollador.email == session.id %}
-          <button id="btn_desactivar" type="button" class="btn btn-outline-primary">Desactivar cuenta</button>
-          {%endif%}
-        </dl>
-      </div>
-    </div>
+     <dl class="dl-horizontal">
+      <input style="display: none;" id="emailDesarrollador" type="text" value="{{Desarrollador.email}}">
+      <dt>Email:</dt>
+      <dd>{{Desarrollador.email}}</dd>
+      <dt>Apellido:</dt>
+      <dd>{{Desarrollador.apellido}}</dd>
+      <dt>Cedula:</dt>
+      <dd>{{Desarrollador.cedula}}</dd>
+      <dt>Fecha de nacimiento:</dt>
+      <dd>{{Desarrollador.fecha_Nacimiento}}</dd>
+      <dt>Ciudad:</dt>
+      <dd>{{Desarrollador.ciudad_actual}}</dd>
+      <dt>Pais:</dt>
+      <dd>{{Desarrollador.pais}}, {{Desarrollador.estado}}</dd>
+      <dt>Imagen:</dt>
+     {% if Desarrollador.email == session.id %}
+      <button id="btn_desactivar" type="button" class="btn btn-outline-primary">Desactivar cuenta</button>
+      {%endif%}
+    </dl>
   </div>
   <div class="tab-pane fade" id="Experiencia" role="tabpanel" aria-labelledby="profile-tab">
     <table class="table">
