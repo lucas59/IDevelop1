@@ -13,7 +13,7 @@ return function (App $app){
 	$app->get('/Proyecto/nuevo',function($request,$response,$args) use ($container){
 		/*if(isset($_SESSION['admin'])){
 			*/$session=$_SESSION['admin'];
-			return $this->view->render($response,"altaProyecto.twig");
+			return $this->view->render($response,"altaProyecto.twig",$session);
 		/*}else{
 			$mensaje = "Debe iniciar sesion como Empresa para poder crear proyectos";
 			$mensaje_sesion = array("mensaje" => $mensaje);
