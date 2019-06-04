@@ -40,3 +40,7 @@ h3{
 .fila:hover{
   background-color: #D7D9DE;
 }
+
+#accion{
+	cursor: pointer;
+}
