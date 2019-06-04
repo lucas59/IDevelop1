@@ -40,21 +40,10 @@ public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	return $insertado;
 }
 
-public function Listar_Proyectos($id){
-	$resultado = Proyecto::Listar_proyectos_postularse($id);
-	return $resultado;
-}
-
-public function Listar_Proyectos_usuario($id){
-	$resultado = Proyecto::Listar_proyectos_despostularse($id);
-	return $resultado;
-}
 
 public function PostularseProyecto($id,$usuario){
-	$retorno_1 = Postulacion::AltaPostulacion($usuario,$id);
-	$id_postulacion = Postulacion::Buscar_postulacion($id,$usuario);
-	$retorno_2 = proyecto_postulacion::Altaproyecto_postulacion($id,$id_postulacion);	
-	if($retorno_1 == "1" && $retorno_2 == "1"){
+	$retorno_1 = Postulacion::AltaPostulacion($usuario,$id);	
+	if($retorno_1 == "1"){
 		return "1";
 	}else{
 		return "0";
@@ -63,12 +52,14 @@ public function PostularseProyecto($id,$usuario){
 
 public function DespostularseProyecto($id,$usuario){
 	$id_postulacion = Postulacion::Despostularse_postulacion($id,$usuario);	
+	echo Console::log("ew","prueba_clase");
 	if($id_postulacion == "1"){
 		return "1";
 	}else{
 		return "0";
 	}
 }
+
 public function PostulantesDeProyecto($idProyecto){
 	return Postulacion::PostulantesDeProyecto($idProyecto);
 }
@@ -93,6 +84,18 @@ public function verificarReferencia($session, $idProyecto,$tipo){
 		return Empresa::verificarReferencia($session,$idProyecto);
 	}else{
 		return Desarrollador::verificarReferencia($session,$idProyecto); 
+	}
+}
+
+public function verificarPostulacion($session, $idProyecto){
+	if(Proyecto::usuario_postualarse_validacion($idProyecto,$session) == "1"){
+		return "1";
+	}
+}
+
+public function verificarTrabajo_proyecto($session, $idProyecto){
+	if(Proyecto::verificar_Trabajo_proyecto_validacion($idProyecto,$session) == "1"){
+		return "1";
 	}
 }
 
