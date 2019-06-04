@@ -8,7 +8,7 @@
 
 {% if session %}
 <div id="tabla_id">
-<h1>Empresas</h1> 
+<h1>Proyectos </h1> 
   <table class="table">
     <thead>
 		<tr id="tabla_titulo" class="bg-info">
@@ -23,7 +23,7 @@
 	</thead>
 	<tbody>
 		{% for proyecto in proyectos %}
-		<tr class="fila"  id="{{proyecto.id}}">
+		<tr class="fila" id="{{proyecto.id}}">
 			<td>{{ proyecto.nombre }}</td>
 			<td>{{ proyecto.descripcion }}</td>
 			<td>{{ proyecto.fechaEntrega }}</td>

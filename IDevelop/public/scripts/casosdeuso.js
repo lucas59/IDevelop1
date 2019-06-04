@@ -1,4 +1,14 @@
-	const urlBase = "/IDevelop1/IDevelop/public";
+const urlBase = "/IDevelop1/IDevelop/public";
+
+function nuevoCasoDeUso(){
+	event.preventDefault();
+	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
+	var formulario = document.forms['formCasosDeUso'];
+	var proyecto = "1";  //cambiar por parametro
+	var nombre = formulario['txtNombreCU'].value;
+	var descripcion = formulario['txtDescripcion'].value;
+	var combo = document.getElementById("Impacto");
+	var impacto = combo.options[combo.selectedIndex].value;
 
 	function nuevoCasoDeUso(){
 		event.preventDefault();
@@ -18,6 +28,7 @@
 			var mensaje = "Ya creo un caso de uso bajo este nombre para esta planificacion";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
+			link.setAttribute("href", " /IDevelop1/IDevelop/public/Proyecto/casodeusos/"+proyecto);
 			$("#modalAviso").modal();
 			console.log("Existe caso 1");
 		}else{
