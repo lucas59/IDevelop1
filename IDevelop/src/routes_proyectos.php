@@ -22,6 +22,14 @@ return function (App $app){
 		}
 	})->setName("NuevoProyecto");
 
+
+	$app->get('/Proyecto/casodeusos',function($request,$response,$args) use ($container){
+		$controladorProyecto = new ctr_proyecto();
+		$args['casosdeuso'] = $controladorProyecto->Listarcasosdeuso();
+		echo Console::log("we",$args);
+		return $this->view->render($response,"casodeuso_vista.twig",$args);
+	})->setName("casodeusos");
+
 	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
 			$session = $_SESSION['admin'];
@@ -192,5 +200,6 @@ return function (App $app){
 			}
 		}
 	});
+
 }
 ?>
