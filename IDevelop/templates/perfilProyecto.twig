@@ -19,9 +19,32 @@
   <dd>{{proyecto.descripcion}}</dd>
   <dt>Fecha de finalización</dt>
   <dd>{{proyecto.fechaEntrega}}</dd>
-  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Primary link</a></div>
+
+  {% if referencia == 1 %}
+  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Administrar</a></div>
   {% endif %}
 
+  {% endif %}
+
+  {% if session.tipo == 1 %}
+  <h1>{{proyecto.nombre | upper}}</h1>
+
+  <dt>Estado</dt>
+  {% if proyecto.estado == 0 %}
+  <h6>En espera</h6>
+  {% endif %}
+  
+  <dt>Descripción</dt>
+  <dd>{{proyecto.descripcion}}</dd>
+  <dt>Fecha de finalización</dt>
+  <dd>{{proyecto.fechaEntrega}}</dd>
+
+  {% if referencia == 1 %}
+  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Gestionar</a></div>
+  {% endif %}
+  
+  {% endif %}
+  
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
   <div class="modal-dialog modal-sm">

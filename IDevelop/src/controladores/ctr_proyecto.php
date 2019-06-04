@@ -35,9 +35,9 @@ public function agregarCasoDeUso($nombre, $descripcion, $impacto){
 }
 
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
-		$usuario = $_SESSION['admin']->id;
-		$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
-		return $insertado;
+	$usuario = $_SESSION['admin']->id;
+	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
+	return $insertado;
 }
 
 public function Listar_Proyectos($id){
@@ -80,8 +80,12 @@ public function ListarProyectosDeEmpresa($email){
 	return Proyecto::ListarProyectosDeEmpresa($email);
 }
 
-public function verificarReferencia($session, $idProyecto){
-	return Usuario::verificarReferencia($session,$idProyecto);
+public function verificarReferencia($session, $idProyecto,$tipo){
+	if ($tipo==1) {
+		return Empresa::verificarReferencia($session,$idProyecto);
+	}else{
+		return Desarrollador::verificarReferencia($session,$idProyecto); 
+	}
 }
 
 public function obtenerProyecto($idProyecto){

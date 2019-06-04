@@ -204,7 +204,6 @@ return function (App $app){
 					return $this->view->render($response,"index.twig",$args);					
 				}else{
 					
-					echo Console::log('asd',$_SESSION['admin']); 
 					$email=$_SESSION['admin']->id; 	
 				}
 			}else{
@@ -218,6 +217,7 @@ return function (App $app){
 		$proyectos=null;
 		if($Desarrollador){
 			$args['Desarrollador']=$Desarrollador;
+			echo Console::log('asd',$Desarrollador);
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);

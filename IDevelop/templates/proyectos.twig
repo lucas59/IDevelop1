@@ -20,18 +20,18 @@
 			<th scope="col">Entrega</th>
 			<th scope="col">Empresa</th>
 			<th scope="col">Estado</th>
-					
+
 		</tr>
 	</thead>
 	<tbody>
 		{% for proyecto in proyectos %}
-			<tr class="fila" onclick="mostrarProyecto({{proyecto.id}})" id="{{proyecto.id}}">
+		<tr class="fila" onclick="mostrarProyecto({{proyecto.id}})" id="{{proyecto.id}}">
 			<td>{{ proyecto.nombre }}</td>
 			<td>{{ proyecto.descripcion }}</td>
 			<td>{{ proyecto.fechaEntrega }}</td>
 			<td>{{ proyecto.empresa }}</td>
 			<td>{{ proyecto.estado }}</td>
-			</tr>
+		</tr>
 		{% endfor %}
 	</tbody>
 </table>
@@ -51,9 +51,8 @@
 			<th scope="col">Estado</th>			
 		</tr>
 	</thead>
-	<tbody>
-		<tr>
-			{% for proyecto in proyectos %}
+	<tbody>{% for proyecto in proyectos %}
+		<tr class="fila" onclick="mostrarProyecto({{proyecto.id}})" id="{{proyecto.id}}" >	
 			<td>{{ proyecto.nombre }}</td>
 			<td>{{ proyecto.descripcion }}</td>
 			<td>{{ proyecto.fechaEntrega }}</td>

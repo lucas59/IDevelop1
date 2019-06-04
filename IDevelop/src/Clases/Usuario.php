@@ -302,14 +302,7 @@ class Usuario
 			return $sql->get_result()->fetch_array();
 		}
 
-		public function verificarReferencia($session,$idProyecto){
-
-			$sql=DB::conexion()->prepare("SELECT COUNT(U.email) as cantidad FROM usuario AS U, desarrollador_proyecto AS DP, empresa_proyecto AS EP,proyecto AS P  WHERE U.email= ? AND P.id=? AND (U.email=DP.Desarrollador_id OR U.email=EP.Empresa_id)");
-			$sql->bind_param('si',$session,$idProyecto);
-			$sql->execute();
-			$resultado=$sql->get_result()->fetch_assoc();
-			return $resultado;
-		}
+		
 
 
 	}

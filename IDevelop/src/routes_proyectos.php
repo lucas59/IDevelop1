@@ -153,11 +153,9 @@ return function (App $app){
 		}else{
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
-			echo Console::log('asd',$_SESSION['admin']);
 			if($session->tipo == 0){
 				$proyectos = $controladorP->ListarProyectosDeDesarrolladores($session->id);
-				$args['proyectos']=$proyectos; 
-
+				$args['proyectos']=$proyectos;
 			}else{
 				$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
 				$args['proyectos']=$proyectos; 
@@ -176,12 +174,18 @@ return function (App $app){
 			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
 			$session = $_SESSION['admin'];
-			$referencia =  $controladorP->verificarReferencia($session->id ,$idProyecto);
-			if($referencia['cantidad']==0){
-				return $this->view->render($response,"index.twig",$args);		
+			$proyecto = $controladorP::obtenerProyecto($idProyecto);
+			if($proyecto["id"] == null ){
+				return $this->view->render($response,"index.twig",$args);
 			}else{
-				$proyecto = $controladorP::obtenerProyecto($idProyecto);
 				$args['proyecto']=$proyecto;
+				if($session->tipo==0){
+					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,0);
+					$args['referencia']=$referencia;
+				}else{
+					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
+					$args['referencia']=$referencia;
+				}
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}
 		}
