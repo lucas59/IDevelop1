@@ -1,5 +1,5 @@
-const urlBase = "/IDevelop1/IDevelop/public";
 $(document).ready(function(){
+const urlBase = "/IDevelop1/IDevelop/public";
 
 	$.ajax({
 		async:false,
