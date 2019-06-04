@@ -73,6 +73,10 @@ public function PostulantesDeProyecto($idProyecto){
 	return Postulacion::PostulantesDeProyecto($idProyecto);
 }
 
+public function Listarcasosdeuso(){
+	return Casodeuso::listacasodeuso();
+}
+
 public function ListarProyectosDeDesarrolladores($email){
 	return Proyecto::ListarProyectosDeDesarrolladores($email);
 }

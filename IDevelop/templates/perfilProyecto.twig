@@ -1,51 +1,11 @@
 {% extends "base.twig" %}
-{% block title %}Desarrollador{% endblock %}
+{% block title %}Proyecto: {{proyecto.nombre}}{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
 
-{% if session.tipo == 0 %}
 
-<div id="tabla_id">
-  <h1>{{proyecto.nombre | upper}}</h1>
-
-  <dt>Estado</dt>
-  {% if proyecto.estado == 0 %}
-  <h6>En espera</h6>
-  {% endif %}
-  
-  <dt>Descripción</dt>
-  <dd>{{proyecto.descripcion}}</dd>
-  <dt>Fecha de finalización</dt>
-  <dd>{{proyecto.fechaEntrega}}</dd>
-
-  {% if referencia == 1 %}
-  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Administrar</a></div>
-  {% endif %}
-
-  {% endif %}
-
-  {% if session.tipo == 1 %}
-  <h1>{{proyecto.nombre | upper}}</h1>
-
-  <dt>Estado</dt>
-  {% if proyecto.estado == 0 %}
-  <h6>En espera</h6>
-  {% endif %}
-  
-  <dt>Descripción</dt>
-  <dd>{{proyecto.descripcion}}</dd>
-  <dt>Fecha de finalización</dt>
-  <dd>{{proyecto.fechaEntrega}}</dd>
-
-  {% if referencia == 1 %}
-  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Gestionar</a></div>
-  {% endif %}
-  
-  {% endif %}
-  
-</div>
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
@@ -61,7 +21,93 @@
   </div>
 </div>
 
+<main class="container">
+
+
+  <div style="background-color: #17A2B8" class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+    <img class="mr-3" src="/IDevelop1/IDevelop/public/img/proyecto.png" alt="" width="48" height="48">
+    <div class="lh-100">
+      <h6 class="mb-0 text-white lh-100">{{proyecto.nombre | upper}}</h6>
+    </div>
+    <div class="col-md-10 col-md-offset-2">
+      {% if session.tipo == 0 %}
+      {% if referencia == 1 %}
+      <a href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Administrar</a>
+      {% endif %}
+      <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Postularse" onclick="javascript:Postularse({{proyecto.id |upper}},'{{session.id |upper}}');">
+      {% endif %}
+
+      {% if session.tipo == 1 %}
+      {% if referencia == 1 %}
+      <a style="margin-right: 5px" href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Gestionar</a>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+
+    <dt>Estado</dt>
+    {% if proyecto.estado == 0 %}
+    <h6>En espera</h6>
+    {% elseif proyecto.estado == 1 %}
+    <h6>Fin de la fecha de reclutamiento</h6>
+    {% elseif proyecto.estado == 2 %}
+    <h6>Iniciado</h6>
+    {% elseif proyecto.estado == 3 %}
+    <h6>Finalizado</h6>
+    {% elseif proyecto.estado == 4 %}
+    <h6>Desactivado</h6>
+    {% endif %}
+
+    <dt>Descripción</dt>
+    <dd>{{proyecto.descripcion}}</dd>
+    <dt>Fecha de finalización</dt>
+    <dd>{{proyecto.fechaEntrega}}</dd>
+
+    {% if referencia == 1 %}
+    <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Administrar</a>
+    {% endif %}
+
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <h6 class="border-bottom border-gray pb-2 mb-0">Postulantes</h6>
+
+    <!-- for -->
+    <div class="media text-muted pt-3">
+     <img class="mr-3" src="/IDevelop1/IDevelop/public/img/user.png" alt="" width="30" height="30">
+     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <strong class="text-gray-dark">Nombre del postulante</strong>
+        <a href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Contratar</a>
+      </div>
+    </div>
+  </div>
+  <!-- termina for -->
+
+</div>
+</main>
+<!-- Modal  de mensajes -->
+<div id="modalAviso" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="mensajeModal">Modal body text goes here.</p>
+      </div>
+      <div class="modal-footer">  
+        <a href="javascript:location.reload()" type="button" class="btn" id="redirigir">Aceptar</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 {% block script %}
 <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/desactivarUsuario.js"></script>
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/postularse.js"></script>
 {% endblock %}
