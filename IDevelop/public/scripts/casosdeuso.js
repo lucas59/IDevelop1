@@ -3,7 +3,7 @@ function nuevoCasoDeUso(){
 	event.preventDefault();
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var formulario = document.forms['formCasosDeUso'];
-	var proyecto = "1";
+	var proyecto = "1";  //cambiar por parametro
 	var nombre = formulario['txtNombreCU'].value;
 	var descripcion = formulario['txtDescripcion'].value;
 	var combo = document.getElementById("Impacto");

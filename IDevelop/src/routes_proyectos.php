@@ -148,6 +148,21 @@ return function (App $app){
 		
 	});
 
+	$app->get('/Proyecto/modificarCU',function($request, $response, $args){
+		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
+			$session = $_SESSION['admin'];
+			$id = $request->getQueryParam("proy");
+			$controlador = new ctr_proyecto();
+			$listaCU = $controlador->listarCasosDeUso($id);
+			$sesion = array('casosdeuso' => $listaCU, "session" => $session);
+			return $this->view->render($response,"modificarcasodeuso.twig",$sesion);
+		}else{
+			$mensaje = "Debe iniciar sesion como Desarrolador para poder planificar un proyecto";
+			$mensaje_sesion = array("mensaje" => $mensaje);
+			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
+		}
+	});
+
 	$app->get('/Proyecto/Proyectos',function($request,$response,$args){
 		$controladorP = new  ctr_proyecto();
 		if (!$_SESSION) {
