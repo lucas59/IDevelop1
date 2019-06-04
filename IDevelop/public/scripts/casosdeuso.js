@@ -28,7 +28,7 @@ function nuevoCasoDeUso(){
 			var mensaje = "Caso de uso ingresado con exito";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", " /IDevelop1/IDevelop/public/");
+			link.setAttribute("href", " /IDevelop1/IDevelop/public/Proyecto/casodeusos/"+proyecto);
 			$("#modalAviso").modal();
 		}else{
 			var mensaje = "Hubo un problema al registrar el nuevo caso de uso";

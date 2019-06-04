@@ -27,7 +27,14 @@
 					<td>{{ cu.nombre }}</td>
 					<td>{{ cu.descripcion }}</td>
 					<td>{{ cu.impacto }}</td>
-					
+					<td>
+						<select id="Progreso">
+							<option value="0">No iniciado</option>
+							<option value="25">Comenzado</option>
+							<option value="50">En progreso</option>
+							<option value="100">Finalizado</option>
+						</select>
+					</td>
 				</tr>
 			{% endfor %}
 			</tbody>
