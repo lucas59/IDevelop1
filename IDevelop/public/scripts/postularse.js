@@ -39,4 +39,3 @@ function Postularse_proyecto(id,usuario){
 	return retorno;
 }
 
-

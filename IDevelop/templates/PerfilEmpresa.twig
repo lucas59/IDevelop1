@@ -12,11 +12,13 @@
 			<a class="nav-item nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="nav-profile" aria-selected="false">Proyectos</a>
 		</div>
 	</nav>
-	<div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade show active" id="Datos" role="tabpanel" aria-labelledby="nav-home-tab">
-			<div class="row">
-				<div class="col-lg-6">Column 1</div>
-				<dl class="dl-horizontal">
+	 <div class="tab-content" id="myTabContent">
+   <div role="tabpanel" class="tab-pane active" id="Datos">
+    <div class="row">
+      <div class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Desarrollador.foto_perfil}}"/><h3>{{Desarrollador.nombre}}</h3>
+    </div>
+				<div class="col-lg-6">
+      <dl class="dl-horizontal">
 					<dt>Email:</dt>
 					<dd> {{Empresa.email}}</dd>
 					<dt>Nombre:</dt>
@@ -35,10 +37,10 @@
 					<dd> {{Empresa.reclutador}}</dd>
 					<dt>Direccion:</dt>
 					<dd> {{Empresa.direccion}}</dd>
-				</dl>
-			</div>
-		</div>
-	</div>
+			  </dl>
+    </div>
+  </div>
+</div>
 	<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="nav-profile-tab">
 		<div id="tabla_id">
 			<table class="table">

@@ -15,15 +15,13 @@
              {%  endif %}
              {% if session.tipo == 0 %}
              <a class="dropdown-item" href="{{ path_for('proyectos') }}">Proyectos<span class="sr-only">(current)</span></a>
-             <a class="dropdown-item" href="{{ path_for('Postularse') }}">Postularse<span class="sr-only">(current)</span></a>
-             <a class="dropdown-item" href="{{ path_for('BajarseProyecto') }}">Bajarse de un proyecto<span class="sr-only">(current)</span></a>  
              <a class="dropdown-item" href="#">Proyectos recomendados<span class="sr-only">(current)</span></a>            
              {%  endif %}
            </div>
          </li>
          <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Listas
+            Usuarios
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{{ path_for('listado') }}">Ver Desarrolladores<span class="sr-only">(current)</span></a>

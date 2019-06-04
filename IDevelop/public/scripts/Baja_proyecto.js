@@ -1,8 +1,8 @@
 
 function Baja(id,usuario){
-	console.log("prueba");
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var retorno = Baja_postulacion(id,usuario);
+	console.log("js:" + retorno);
 	if(retorno == "1"){
 		var mensaje = "Acción correcta";
 		$("#mensajeModal").html(mensaje);	
