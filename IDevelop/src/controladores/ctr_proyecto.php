@@ -75,6 +75,10 @@ public function ListarProyectosDeEmpresa($email){
 	return Proyecto::ListarProyectosDeEmpresa($email);
 }
 
+public function listarProyectos(){
+	return Proyecto::ListarProyectos();
+}
+
 public function verificarReferencia($session, $idProyecto,$tipo){
 	if ($tipo==1) {
 		return Empresa::verificarReferencia($session,$idProyecto);

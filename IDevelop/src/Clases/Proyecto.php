@@ -192,6 +192,19 @@ class Proyecto
 		return $myArray;
 	}
 
+	public function ListarProyectos(){
+		$sql=DB::conexion()->prepare("SELECT * FROM `proyecto`");
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$myArray = array();
+
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$myArray[] = $row;
+		}
+		return $myArray;
+
+	}
+
 	public function obtenerProyecto($idProyecto){
 		$sql=DB::conexion()->prepare("SELECT * FROM proyecto AS P WHERE P.id=?");
 		$sql->bind_param("s",$idProyecto);

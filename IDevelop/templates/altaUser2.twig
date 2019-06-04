@@ -63,6 +63,13 @@
 	<div class="card card-body border-info">
 		<h1>Bienvenido {{usuario.nombre |upper }}</h1>
 		<form id="formDatosEmpresa">
+			<img id="fotoDef" src="/IDevelop1/IDevelop/public/img/user.png" class="img-circle" alt="Cinque Terre" width="120" height="120">
+			
+
+			<input style="display: none;" id="fotoEmpresa" type="text"/>
+
+			<input type="file" name="filePerfilEmpresa" id="fotoPerfilEmpresa" />
+
 			<span>
 				<label for="inputEmail">Pais:</label>
 				<select class="form-control" id="idPaises" name="pais">			
