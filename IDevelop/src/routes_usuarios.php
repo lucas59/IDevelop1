@@ -186,8 +186,22 @@ return function (App $app){
 		$pais = $_POST['pais'];
 		$ciudad = $_POST['ciudad'];
 
+//
+		$nombreArchivo = $_FILES['fotoPerfil']['name'];
+		$base64 = base64_encode(file_get_contents($_FILES["fotoPerfil"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['fotoPerfil']['size'];
+		$extension = explode('.', $nombreArchivo);
+		$extension = end($extension);
+		$extension = strtolower($extension);
+
+		$arrayFoto = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
+
+		$foto = json_encode($arrayFoto);
+
+
+
 		$controladorUsuarios = new ctr_usuarios();
-		$retorno = $controladorUsuarios->enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);
+		$retorno = $controladorUsuarios->enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion,$foto);
 		if($retorno==1){
 			ctr_usuarios::ponerSession($email,'e');
 			return "1";

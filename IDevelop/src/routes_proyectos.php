@@ -155,13 +155,13 @@ return function (App $app){
 		}else{
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
-			if($session->tipo == 0){
-				$proyectos = $controladorP->ListarProyectosDeDesarrolladores($session->id);
+			//if($session->tipo == 0){
+				$proyectos = $controladorP->listarProyectos($session->id);
 				$args['proyectos']=$proyectos;
-			}else{
-				$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
-				$args['proyectos']=$proyectos; 
-			}
+			//}else{
+				//$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
+				//$args['proyectos']=$proyectos; 
+			//}
 
 			return $this->view->render($response,"proyectos.twig",$args);
 		}
