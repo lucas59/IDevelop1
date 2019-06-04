@@ -29,8 +29,8 @@ public function validarNombreCasoDeUso($nombre){
 	return $resultado;
 }
 
-public function agregarCasoDeUso($nombre, $descripcion, $impacto){
-	$insetado = Casodeuso::subirCasoDeUso($nombre,$descripcion,$impacto);
+public function agregarCasoDeUso($nombre, $descripcion, $impacto, $proy){
+	$insertado = Casodeuso::subirCasoDeUso($nombre,$descripcion,$impacto, $proy);
 	return $insertado;
 }
 

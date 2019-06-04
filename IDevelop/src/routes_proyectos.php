@@ -23,9 +23,10 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
-		if(isset($_SESSION['admin'])){
+		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
 			$session = $_SESSION['admin'];
-			return $this->view->render($response,"casodeuso.twig",compact('sesion'));
+			$sesion = array("session" => $session);
+			return $this->view->render($response,"casosdeuso.twig",$sesion);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
 			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
@@ -82,11 +83,12 @@ return function (App $app){
 
 	$app->post('/Proyecto/NuevoCasoDeUso',function(Request $request, Response $response ){
 		$data = $request->getParams();
+		$proy = $data['proyecto'];
 		$nombre = $data['nombre'];
 		$descripcion = $data['descripcion'];
 		$impacto = $data['impacto'];
 		ob_clean();
-		$retorno = ctr_proyecto::agregarCasoDeUso($nombre, $descripcion, $impacto);
+		$retorno = ctr_proyecto::agregarCasoDeUso($nombre, $descripcion, $impacto, $proy);
 		return $retorno;
 	});
 

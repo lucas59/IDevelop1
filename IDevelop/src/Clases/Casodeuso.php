@@ -1,4 +1,6 @@
 <?php 
+require_once '../src/Clases/console.php';
+
 class Casodeuso 
 {
 	private $nombre;
@@ -50,21 +52,17 @@ class Casodeuso
 		return $respuesta;
 	}
 
-	public function subirCasoDeUso($nombre, $descripcion, $impacto){
-
-		$sql=DB::conexion()->prepare("INSERT INTO (descripcion, fechaEntrega, fechaFinPostulacion, nombre, avance_id, estado) VALUES (?,?,?,?,?,?)");
-		$sql->bind_param('ssssii',$descripcion,$fechaEntrega,$fechaFinPostulacion,$nombre,$avance,$estado);
+	public function subirCasoDeUso($nombre, $descripcion, $impacto,$proy){
+		$puntosA = "0";
+		$sql=DB::conexion()->prepare("INSERT INTO casodeuso ( descripcion, nombre, puntosActuales, puntosTot, proyecto_id) VALUES (?,?,?,?,?)");
+		$sql->bind_param('ssiii',$descripcion,$nombre,$puntosA,$impacto,$proy);
+		$respuesta = null;
 		if ($sql->execute()) {
-			$proy = Proyecto::obtenerProyecto2($nombre);
-			$sql2 =DB::conexion()->prepare("INSERT INTO empresa_proyecto(Empresa_id, proyectos_id) VALUES (?,?)");			
-			$sql2->bind_param('si',$usuario,$proy->id);
-			if($sql2->execute()){
-				return "1";
-			}
+			$respuesta = "1";
 		}else{
-			return "0";
+			$respuesta = "0";
 		} 
-
+		return $respuesta;
 	}
 }
  ?>
