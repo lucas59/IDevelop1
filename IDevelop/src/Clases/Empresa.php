@@ -220,5 +220,15 @@ class Empresa extends Usuario
 		}
 		return $proyectos;
 	}
+
+	public function ElejirPostulante($email,$idProyecto){
+		$sql = DB::conexion()->prepare("INSERT INTO desarrollador_proyecto (Desarrollador_id,proyectos_id) VALUES (?,?)");
+		$sql->bind_param('si',$email,$idProyecto);
+		$sql->execute();
+		$sql2 = DB::conexion()->prepare("INSERT INTO proyecto_desarrollador (Proyecto_id,desarrolladores_id) VALUES (?,?)");
+		$sql2->bind_param('is',$idProyecto,$email);
+		$sql2->execute();
+		return true;
+	}
 }
 ?>
