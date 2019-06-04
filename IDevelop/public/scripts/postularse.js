@@ -3,7 +3,7 @@ function Postularse(id,usuario){
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var retorno = Postularse_proyecto(id,usuario);
 	if(retorno == "1"){
-		var mensaje = "Acción correcta";
+		var mensaje = "Usted se postulo correctamente";
 		$("#mensajeModal").html(mensaje);	
 		$("#modalAviso").modal();
 	}
@@ -38,5 +38,4 @@ function Postularse_proyecto(id,usuario){
 	});		
 	return retorno;
 }
-
 

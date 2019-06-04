@@ -95,7 +95,6 @@ class ctr_usuarios{
 			$idCurriculum = curriculum::obtenerIDCurriculo($email);
 			$idFoto = Usuario::obtenerIDFoto($email);
 			$actualizar=Usuario::actalizarIDFoto($idFoto,$email);
-			//echo Console::log("asd", $idCurriculum);
 			$actualizacion= Desarrollador::actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes,$idCurriculum);	
 			return $actualizacion;
 		}else{
@@ -121,9 +120,15 @@ class ctr_usuarios{
 		
 	}
 
-	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
-		return Empresa::actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);	
+	public function enviarDatosEmpresa($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion,$foto){
+		
+		$subida= Usuario::subirFotoPerfil($foto,$email);
+		if($subida){
+			$idFoto = Usuario::obtenerIDFoto($email);
+			$actualizar=Usuario::actalizarIDFoto($idFoto,$email);
+			return Empresa::actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion);	
 
+		}
 	}
 
 

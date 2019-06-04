@@ -81,8 +81,10 @@ function enviarDatosEmpresa(){
 	var rubro = $('#txtRubro').val();
 	var reclutador = $('#txtReclutador').val();
 	var direccion = $('#txtDireccion').val();
-	
+	var fotoPerfil = document.getElementById("fotoPerfilEmpresa").files[0];
 	var datos = new FormData();
+
+	datos.append('fotoPerfil',fotoPerfil);
 	datos.append('email',email);
 	datos.append('vision',vision);
 	datos.append('mision',mision);
@@ -137,7 +139,7 @@ function rellenarSelectCiudad(arreglo){
 }
 
 $("#fotoPerfil").change(function () {
-    filePreview(this);
+	filePreview(this);
 });
 
 function filePreview(input) {

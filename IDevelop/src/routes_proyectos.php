@@ -22,49 +22,25 @@ return function (App $app){
 		}
 	})->setName("NuevoProyecto");
 
+
+	$app->get('/Proyecto/casodeusos',function($request,$response,$args) use ($container){
+		$controladorProyecto = new ctr_proyecto();
+		$args['casosdeuso'] = $controladorProyecto->Listarcasosdeuso();
+		echo Console::log("we",$args);
+		return $this->view->render($response,"casodeuso_vista.twig",$args);
+	})->setName("casodeusos");
+
 	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
-		if(isset($_SESSION['admin'])){
+		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
 			$session = $_SESSION['admin'];
-			return $this->view->render($response,"casodeuso.twig",compact('sesion'));
+			$sesion = array("session" => $session);
+			return $this->view->render($response,"casosdeuso.twig",$sesion);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
 			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
 			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
 		}
 	})->setName("NuevoCasoDeUso");
-
-	$app->get('/Proyecto/PostularseProyecto',function($request,$response,$args) use ($container){
-		if($_SESSION){
-			$controladorProyecto = new ctr_proyecto();
-			$sesio = $_SESSION['admin'];
-			$id_usuario = $sesio->id;
-			$lista = $controladorProyecto->Listar_Proyectos($id_usuario);
-			$sesion = array("listas" => $lista,"session" => $sesio);
-			return $this->view->render($response,"postularse.twig", $sesion);
-		}
-		else{
-			$mensaje = "No existe un usuario en la sesión";
-			$mensaje_sesion = array("mensaje" => $mensaje);
-			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
-		}
-	})->setName("Postularse");
-
-	$app->get('/Proyecto/BajarseProyecto',function($request,$response,$args) use ($container){
-		if($_SESSION){
-			$controladorProyecto = new ctr_proyecto();
-			$sesio = $_SESSION['admin'];
-			$id_usuario = $sesio->id;
-			$lista = $controladorProyecto->Listar_Proyectos_usuario($id_usuario);
-			$sesion = array("listas" => $lista,"session" => $sesio);
-			return $this->view->render($response,"Bajarse_proyecto.twig", $sesion);
-		}
-		else{
-			$mensaje = "No existe un usuario en la sesión";
-			$mensaje_sesion = array("mensaje" => $mensaje);
-			return $this->view->render($response,"mensaje.twig", $mensaje_sesion);
-		}
-	})->setName("BajarseProyecto");
-
 
 	$app->get('/Proyecto/validarNombreP/{nombre}',function($request,$response,$args){
 		$controladorProyecto = new ctr_proyecto();
@@ -82,11 +58,12 @@ return function (App $app){
 
 	$app->post('/Proyecto/NuevoCasoDeUso',function(Request $request, Response $response ){
 		$data = $request->getParams();
+		$proy = $data['proyecto'];
 		$nombre = $data['nombre'];
 		$descripcion = $data['descripcion'];
 		$impacto = $data['impacto'];
 		ob_clean();
-		$retorno = ctr_proyecto::agregarCasoDeUso($nombre, $descripcion, $impacto);
+		$retorno = ctr_proyecto::agregarCasoDeUso($nombre, $descripcion, $impacto, $proy);
 		return $retorno;
 	});
 
@@ -123,6 +100,7 @@ return function (App $app){
 		$id=$data['id'];
 		$usuario=$data['usuario'];
 		$retorno = ctr_proyecto::DespostularseProyecto($usuario,$id);
+		echo Console::log("erw",$retorno);
 		if($retorno){
 			return "1";
 		}
@@ -152,14 +130,14 @@ return function (App $app){
 		}else{
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
-			echo Console::log('asd',$session);
-			if($session->tipo == 0){
-				$proyectos = $controladorP->ListarProyectosDeDesarrolladores($session->id);
-				$args['proyectos']=$proyectos; 
-			}else{
-				$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
-				$args['proyectos']=$proyectos; 
-			}
+			//if($session->tipo == 0){
+				$proyectos = $controladorP->listarProyectos($session->id);
+				$args['proyectos']=$proyectos;
+			//}else{
+				//$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
+				//$args['proyectos']=$proyectos; 
+			//}
+
 			return $this->view->render($response,"proyectos.twig",$args);
 		}
 	})->setName('proyectos');
@@ -173,15 +151,27 @@ return function (App $app){
 			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
 			$session = $_SESSION['admin'];
-			$referencia =  $controladorP->verificarReferencia($session->id ,$idProyecto);
-			if($referencia['cantidad']==0){
-				return $this->view->render($response,"index.twig",$args);		
+			$proyecto = $controladorP::obtenerProyecto($idProyecto);
+			if($proyecto["id"] == null ){
+				return $this->view->render($response,"index.twig",$args);
 			}else{
-				$proyecto = $controladorP::obtenerProyecto($idProyecto);
 				$args['proyecto']=$proyecto;
+				if($session->tipo==0){
+					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,0);
+					$args['referencia']=$referencia;
+					$referencia = $controladorP->verificarPostulacion($session->id,$idProyecto);
+					$args['postulacion']=$referencia;
+					$referencia = $controladorP->verificarTrabajo_proyecto($session->id,$idProyecto);
+					$args['trabajando_proyecto']=$referencia;
+					echo Console::log("ew",$referencia);
+				}else{
+					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
+					$args['referencia']=$referencia;
+				}
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}
 		}
 	});
+
 }
 ?>

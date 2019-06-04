@@ -25,6 +25,6 @@ function verDatosdeProyecto(){
 }
 
 function mostrarProyecto(id){
-	window.location.replace("/IDevelop1/IDevelop/public/Proyecto/"+id);
+	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/"+id;
 	
 }
