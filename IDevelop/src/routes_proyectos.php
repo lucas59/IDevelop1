@@ -23,14 +23,21 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 
-	$app->get('/Proyecto/casodeusos',function($request,$response,$args) use ($container){
-		$controladorProyecto = new ctr_proyecto();
-		$args['casosdeuso'] = $controladorProyecto->Listarcasosdeuso();
-		echo Console::log("we",$args);
-		return $this->view->render($response,"casodeuso_vista.twig",$args);
+	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
+		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){	
+			$session = $_SESSION['admin'];
+			$idProyecto = $args['id'];
+			$controlador = new ctr_proyecto();
+			$listaCU = $controlador->listarCasosDeUso($idProyecto);
+			return $this->view->render($response,"VerCasosDeUso.twig",$args);
+		}else{
+			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
+			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
+			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
+		}
 	})->setName("casodeusos");
 
-	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
+	$app->get('/Proyecto/nuevoCU/',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
 			$session = $_SESSION['admin'];
 			$sesion = array("session" => $session);

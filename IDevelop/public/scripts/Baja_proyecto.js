@@ -1,3 +1,4 @@
+const urlBase = "/IDevelop1/IDevelop/public";
 
 function Baja(id,usuario){
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
@@ -22,7 +23,7 @@ function Baja_postulacion(id,usuario){
 	var retorno;
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Proyecto/Despostularse',
+		url: urlBase+'/Proyecto/Despostularse',
 		type: 'POST',
 		data: {
 			"id": id,
