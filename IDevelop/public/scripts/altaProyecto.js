@@ -1,3 +1,4 @@
+const urlBase = "/IDevelop1/IDevelop/public";
 
 function nuevoProyecto(){
 	event.preventDefault();
@@ -25,13 +26,13 @@ function nuevoProyecto(){
 			var mensaje = "Proyecto ingresado con exito";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", " /IDevelop1/IDevelop/public/");
+			link.setAttribute("href", urlBase);
 			$("#modalAviso").modal();
 		}else{
 			var mensaje = "Hubo un problema al registrar del proyecto";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", " /IDevelop1/IDevelop/public/Proyecto/nuevo");
+			link.setAttribute("href", urlBase+"/Proyecto/nuevo");
 			$("#modalAviso").modal();
 
 			console.log("No ingresado")
@@ -49,7 +50,7 @@ function ingresarProyecto(nombre,descripcion,fechaE,fechaFP){
 	var retorno;
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Proyecto/NuevoProyecto',
+		url: urlBase+'/Proyecto/NuevoProyecto',
 		type: 'POST',
 		data: {
 			"nombre": nombre,
@@ -77,7 +78,7 @@ function nombreProyectoDisponible(nombre){
 	var retorno;
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Proyecto/validarNombreP/'+nombre,
+		url: urlBase+'/Proyecto/validarNombreP/'+nombre,
 		
 		success: function(response){
 			response = response.trim();

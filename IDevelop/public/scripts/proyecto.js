@@ -1,7 +1,9 @@
+	const urlBase = "/IDevelop1/IDevelop/public";
+
 function verDatosdeProyecto(){
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Proyecto/NuevoProyecto',
+		url: urlBase+'/Proyecto/NuevoProyecto',
 		type: 'POST',
 		data: {
 			"nombre": nombre,
@@ -25,6 +27,6 @@ function verDatosdeProyecto(){
 }
 
 function mostrarProyecto(id){
-	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/"+id;
+	window.location.href = urlBase+"/Proyecto/"+id;
 	
 }

@@ -133,7 +133,7 @@ class Proyecto
 
 	public function Listar_proyectos_postularse($id){
 		$respuesta=null;
-		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id NOT IN (SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
+		$consulta = DB::conexion()->prepare("SELECT * FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id NOT IN (SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
 		if (mysqli_num_rows($resultado) >= 1) {
@@ -214,6 +214,32 @@ class Proyecto
 	
 
 
+public function usuario_postualarse_validacion($id,$usuario){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM proyecto WHERE proyecto.id IN (SELECT postulacion.proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $usuario . "' AND postulacion.proyecto_id = '". $id ."')");
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) == 0) {
+			echo Console::log("ew","2");
+			return "1";
+		} else {
+			return "0";
+		}
+	}
 
+
+public function verificar_Trabajo_proyecto_validacion($id,$usuario){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM proyecto WHERE proyecto.id IN (SELECT desarrollador_proyecto.proyectos_id FROM desarrollador_proyecto WHERE desarrollador_proyecto.proyectos_id = '". $id ."' AND desarrollador_proyecto.Desarrollador_id = '" . $usuario . "')");
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) == 0) {
+			echo Console::log("ew","2");
+			return "1";
+		} else {
+			return "0";
+		}
+	}
 }
+
 ?>

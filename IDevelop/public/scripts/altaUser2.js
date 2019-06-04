@@ -1,8 +1,9 @@
+const urlBase = "/IDevelop1/IDevelop/public";
 $(document).ready(function(){
 
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Usuario/Paises',
+		url: urlBase+'/Usuario/Paises',
 		type: 'GET',
 		dataType: "json",
 		success: function(response){
@@ -15,7 +16,7 @@ $(document).ready(function(){
 		console.log("pais: ", pais);
 		$.ajax({
 			async:false,
-			url: '/IDevelop1/IDevelop/public/Usuario/Ciudad/'+pais,
+			url: urlBase+'/Usuario/Ciudad/'+pais,
 			dataType: "json",
 			success: function(response){
 				rellenarSelectCiudad(response);
@@ -47,7 +48,7 @@ function enviarDatos(){
 		async:false,
 		processData: false,
 		contentType: false,
-		url: '/IDevelop1/IDevelop/public/Usuario/Desarrollador/Datos',
+		url: urlBase+'/Usuario/Desarrollador/Datos',
 		type: 'POST',
 		data: datos, 
 		success: function(response){
@@ -99,7 +100,7 @@ function enviarDatosEmpresa(){
 		async:false,
 		processData: false,
 		contentType: false,
-		url: '/IDevelop1/IDevelop/public/Usuario/Empresa/Datos',
+		url: urlBase+'/Usuario/Empresa/Datos',
 		type: 'POST',
 		data: datos,
 		success: function(response){
@@ -107,7 +108,7 @@ function enviarDatosEmpresa(){
 			response=response.trim();
 			if(response=="1"){
 				console.log("llega ok");
-				window.location.replace("/IDevelop1/IDevelop/public");
+				window.location.replace(urlBase);
 			}else{
 				var mensaje = "Revise nuevamente sus datos";
 				$("#mensajeModal").html(mensaje);				
