@@ -64,5 +64,11 @@ class Casodeuso
 		} 
 		return $respuesta;
 	}
+
+	public function listacasodeuso(){
+		$sql=DB::conexion()->prepare("SELECT * FROM casodeuso");
+		$sql->execute();
+		return $sql->get_result();
+	}
 }
  ?>

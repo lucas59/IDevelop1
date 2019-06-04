@@ -220,5 +220,17 @@ class Empresa extends Usuario
 		}
 		return $proyectos;
 	}
+
+	public function verificarReferencia($session,$idProyecto){
+		$sql=DB::conexion()->prepare("SELECT * FROM empresa_proyecto WHERE Empresa_id=? AND proyectos_id=?");
+		$sql->bind_param('si',$session,$idProyecto);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		if ($resultado->num_rows>0) {
+			return true;
+		}else{
+			return false;
+		}
+	}
 }
 ?>
