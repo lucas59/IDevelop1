@@ -56,21 +56,8 @@ class Postulacion
 		} 
 	}
 
-	public function Buscar_postulacion($id,$correo){
-		$respuesta=null;
-		$consulta = DB::conexion()->prepare("SELECT * FROM postulacion WHERE desarrollador_id = '" . $correo . "' AND proyecto_id = '" . $id . "'");
-		$consulta->execute();
-		$resultado = $consulta->get_result();
-		if (mysqli_num_rows($resultado) >= 1) {
-			return $resultado->fetch_object()->id;
-		} else {
-			return false;
-		}
-	}
-
 	public function Despostularse_postulacion($usuario,$proyecto){
 		$sql=DB::conexion()->prepare("DELETE FROM `postulacion` WHERE desarrollador_id = ? AND proyecto_id = ?");
-
 		if($sql){
 			$sql->bind_param('ss',$usuario,$proyecto);
 			if ($sql->execute()) {
@@ -81,6 +68,8 @@ class Postulacion
 			} 
 		} 
 	}
+
+	
 
 	public static function PostulantesDeProyecto($id){
 		$postulantes=array();
