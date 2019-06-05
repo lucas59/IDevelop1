@@ -118,7 +118,7 @@ class Empresa extends Usuario
 	}
 
 	public function obtenerEmpresa($email){
-		$sql = DB::conexion()->prepare("SELECT E.*, U.tipo FROM empresa AS E , usuario AS U WHERE U.email = ? AND E.id=U.email");
+		$sql = DB::conexion()->prepare("SELECT E.*, U.tipo, F.contenido FROM empresa AS E , usuario AS U, fotos_perfiles AS F WHERE U.email = ? AND E.id = U.email AND F.nombre = U.email");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado=$sql->get_result();

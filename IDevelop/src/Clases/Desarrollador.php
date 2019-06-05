@@ -137,7 +137,7 @@ $this->nombre= $nombre;
 	}
 
 	public function obtenerDesarrollador($email){
-		$sql = DB::conexion()->prepare("SELECT D.* , U.tipo FROM desarrollador AS D, usuario AS U WHERE D.id = ? AND D.id=U.email");
+		$sql = DB::conexion()->prepare("SELECT D.* , U.tipo, F.contenido FROM desarrollador AS D, usuario AS U, fotos_perfiles AS F WHERE D.id = ? AND D.id=U.email AND F.nombre = U.email");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado=$sql->get_result();
