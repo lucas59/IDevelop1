@@ -26,7 +26,11 @@
 				</thead>
 			<tbody>
 			{% for cu in casosdeuso %}
-				<tr class="fila" onclick="actualizarCasoDeUso({{cu.nombre}})" id="{{cu.nombre}}">
+				
+				{% if session.tipo == 0%}
+				<tr class="fila" onclick="actualizarCasoDeUso1({{cu.nombre}})" id="{{cu.nombre}}">				
+				{% endif %}
+
 					<td>{{ cu.nombre }}</td>
 					<td>{{ cu.descripcion }}</td>
 					<td>{{ cu.impacto }}</td>

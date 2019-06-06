@@ -24,7 +24,7 @@ return function (App $app){
 
 
 	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
-		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){	
+		if(isset($_SESSION['admin'])){	
 			$session = $_SESSION['admin'];
 			$idproyecto = $args['id'];
 			$controlador = new ctr_proyecto();
@@ -113,6 +113,19 @@ return function (App $app){
 		else{
 			return "0";
 		}
+	});
+
+	$app->post('/Proyecto/actualizarCasoDeUso', function(Request $request, Response $response){
+		$data = $request->getParams();
+		$nombre= $data['nombre'];
+		$progreso = $data['progreso'];
+		$retorno = ctr_proyecto::actualizarCU($nombre,$progreso);
+
+		if($retorno){
+			return "1";
+		}else{
+			return "0";
+		}	
 	});
 
 	$app->post('/Proyecto/activar_desactivar',function(Request $request, Response $response){

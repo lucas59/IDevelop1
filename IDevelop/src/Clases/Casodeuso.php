@@ -79,6 +79,18 @@ class Casodeuso
 		return $respuesta;
 	}
 
+	public function actualizarCU($nombre, $progreso){
+		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE ?");
+		$sql->bind_param('is',$progreso,$nombre);
+		$respuesta = null;
+		if($sql->execute()){
+			$respuesta="1;"
+		}else{
+			$respuesta = "0";
+		}	
+		return $respuesta;
+	}
+	
 	public function listacasodeuso($idProyecto){
 		$sql=DB::conexion()->prepare("SELECT * FROM casodeuso WHERE proyecto_id = ?");
 		$sql->bind_param('i',$idProyecto);
