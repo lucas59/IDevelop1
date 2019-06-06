@@ -84,13 +84,13 @@ class Casodeuso
 		$sql->bind_param('is',$progreso,$nombre);
 		$respuesta = null;
 		if($sql->execute()){
-			$respuesta="1;"
-		}else{
+			$respuesta = "1";
+		} else {
 			$respuesta = "0";
 		}	
 		return $respuesta;
 	}
-	
+
 	public function listacasodeuso($idProyecto){
 		$sql=DB::conexion()->prepare("SELECT * FROM casodeuso WHERE proyecto_id = ?");
 		$sql->bind_param('i',$idProyecto);
