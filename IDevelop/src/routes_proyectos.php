@@ -23,12 +23,13 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 
-	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
+	$app->get('/Proyecto/casodeusos/{nombre}',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){	
 			$session = $_SESSION['admin'];
-			$idProyecto = $args['id'];
+			$nomProyecto = $args['nombre'];
 			$controlador = new ctr_proyecto();
 			$listaCU = $controlador->listarCasosDeUso($idProyecto);
+			$sesion = array("nombreProy" => $nomProyecto, "casosdeuso" => $listaCU, "session" => $session);
 			return $this->view->render($response,"VerCasosDeUso.twig",$args);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";

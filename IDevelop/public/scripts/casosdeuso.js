@@ -28,7 +28,7 @@ function nuevoCasoDeUso(){
 			var mensaje = "Ya creo un caso de uso bajo este nombre para esta planificacion";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", " /IDevelop1/IDevelop/public/Proyecto/casodeusos/"+proyecto);
+			link.setAttribute("href",  urlBase+"/Proyecto/casodeusos/"+proyecto);
 			$("#modalAviso").modal();
 			console.log("Existe caso 1");
 		}else{
@@ -40,7 +40,7 @@ function nuevoCasoDeUso(){
 				var mensaje = "Caso de uso ingresado con exito";
 				$("#mensajeModal").html(mensaje);				
 				var link = document.getElementById("redirigir");
-				link.setAttribute("href", " /IDevelop1/IDevelop/public/");
+				link.setAttribute("href", urlBase);
 				$("#modalAviso").modal();
 			}else{
 				var mensaje = "Hubo un problema al registrar el nuevo caso de uso";
@@ -101,6 +101,12 @@ function nuevoCasoDeUso(){
 			}
 		});
 		return retorno;
+	}
+
+	function actualizarCasoDeUso(nombre){
+		var combo = document.getElementById("cmb"+nombre);
+		var progreso = combo.options[combo.selectedIndex].value;
+
 	}
 
 	const form = document.getElementById('formCasosDeUso');

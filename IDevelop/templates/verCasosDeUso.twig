@@ -11,7 +11,10 @@
 		<form method="POST" id="formModificarCU">
 			<h2>Actualizar progreso de proyecto</h2>
 			<br>
-
+			<label for="nombreP"> Nombre del Proyecto:</label>
+			<input type="text" name="nombreP" value="{{nombreProy}}">
+			<br>
+			<br>
 			<table class="table table-striped">
 				<thead>
 					<tr>
@@ -23,12 +26,12 @@
 				</thead>
 			<tbody>
 			{% for cu in casosdeuso %}
-				<tr class="fila" onclick="mostrarProyecto({{proyecto.id}})" id="{{proyecto.id}}">
+				<tr class="fila" onclick="actualizarCasoDeUso({{cu.nombre}})" id="{{cu.nombre}}">
 					<td>{{ cu.nombre }}</td>
 					<td>{{ cu.descripcion }}</td>
 					<td>{{ cu.impacto }}</td>
 					<td>
-						<select id="Progreso">
+						<select id="cmb{{cu.nombre}}">
 							<option value="0">No iniciado</option>
 							<option value="25">Comenzado</option>
 							<option value="50">En progreso</option>
