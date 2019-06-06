@@ -103,6 +103,18 @@ return function (App $app){
 		}
 	});
 
+	$app->post('/Proyecto/activar_desactivar',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$id = $data['proyecto'];
+		$estado = $data['estado'];
+		$retorno = ctr_proyecto::Activar_desactivar_proyecto($id,$estado);
+		if($retorno){
+			return "1";
+		} else{
+			return "0";
+		}
+	});
+
 	$app->post('/Proyecto/Despostularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
@@ -140,8 +152,8 @@ return function (App $app){
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
 			//if($session->tipo == 0){
-				$proyectos = $controladorP->listarProyectos($session->id);
-				$args['proyectos']=$proyectos;
+			$proyectos = $controladorP->listarProyectos($session->id);
+			$args['proyectos']=$proyectos;
 			//}else{
 				//$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
 				//$args['proyectos']=$proyectos; 
@@ -168,11 +180,10 @@ return function (App $app){
 				if($session->tipo==0){
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,0);
 					$args['referencia']=$referencia;
-					$referencia = $controladorP->verificarPostulacion($session->id,$idProyecto);
-					$args['postulacion']=$referencia;
-					$referencia = $controladorP->verificarTrabajo_proyecto($session->id,$idProyecto);
-					$args['trabajando_proyecto']=$referencia;
-					echo Console::log("ew",$referencia);
+					$referencia_2 = $controladorP->verificarPostulacion($session->id,$idProyecto);
+					$args['postulacion']=$referencia_2;
+					$referencia_3 = $controladorP->verificarTrabajo_proyecto($session->id,$idProyecto);
+					$args['trabajando_proyecto']=$referencia_3;
 				}else{
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
 					$args['referencia']=$referencia;

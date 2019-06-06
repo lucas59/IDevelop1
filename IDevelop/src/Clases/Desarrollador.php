@@ -144,6 +144,14 @@ $this->nombre= $nombre;
 		return $resultado->fetch_object();
 	}
 
+	public function obtenerDesarrollador_login($email){
+		$sql = DB::conexion()->prepare("SELECT D.* , U.tipo, F.contenido FROM desarrollador AS D, usuario AS U, fotos_perfiles AS F WHERE D.id = ? AND D.id=U.email AND F.nombre = U.email");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		return $resultado->fetch_object();
+	}
+
 	public function actualizarAltaUser($email,$idPais,$idCiudad,$lenguajes,$idCurriculum){
 		$sql=DB::conexion()->prepare("UPDATE `desarrollador` SET `pais_id` = ?, `ciudad_id` = ?,`desarrolloPreferido`=?,`curriculum_id`=? WHERE `desarrollador`.`id` = ? ");
 		$sql->bind_param('iisis',$idPais,$idCiudad,$lenguajes,$idCurriculum,$email);

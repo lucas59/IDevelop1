@@ -109,11 +109,11 @@ class ctr_usuarios{
 			session_start(); 
 		}
 		if($tipoUsuario=='e'){
-			$empresa = Empresa::obtenerEmpresa($email);
+			$empresa = Empresa::obtenerEmpresa_login($email);
 			$_SESSION['admin'] = $empresa;
 
 		}else{
-			$desarrollador = Desarrollador::obtenerDesarrollador($email);
+			$desarrollador = Desarrollador::obtenerDesarrollador_login($email);
 			$_SESSION['admin'] = $desarrollador;
 
 		}
@@ -135,6 +135,7 @@ class ctr_usuarios{
 	public function obtenerUsuarioPorToken($token){
 		$validacion= Validaciones::obtenerValidacion($token);
 		$email=$validacion->email;
+		echo Console::log("er",$email);
 		$usuarioDesarrollador = Desarrollador::obtenerDesarrollador($email);
 		if($usuarioDesarrollador!=null){
 			return $usuarioDesarrollador;

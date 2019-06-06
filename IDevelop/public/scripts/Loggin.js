@@ -8,10 +8,10 @@
 		login = loguearse(email,pass);
 		console.log(login);
 		if(login == true){
-			alert("Sesion iniciada");
 			window.location.replace(urlBase);
 		}else{
-			alert("Error al intentar iniciar sesion");
+			$('#modalLogin').modal();//
+			document.getElementById('textoModal').innerHTML = "Error al intentar iniciar sesión"
 		}
 	}
 

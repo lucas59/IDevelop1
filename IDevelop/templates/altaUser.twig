@@ -8,7 +8,7 @@
 	<div id="tabla_id" class="card">
 		<div class="card card-body border-info">
 		<main>
-			<form method="POST" id="formAlta" >
+			<form id="formAlta" >
 				<h1>Crea una cuenta</h1>
 				<span>
 					<label for="inputEmail">Nombre:</label>
@@ -24,7 +24,7 @@
 				</span>
 				<span>
 					<label for="inputEmail">Contraseña:</label>
-					<input type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva" class="form-control" required>
+					<input minlength=10 type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva" class="form-control" required>
 				</span>
 				<br>
 				<span>
@@ -50,7 +50,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Modal title</h5>
+				<h5 class="modal-title">Resultado</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>

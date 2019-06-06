@@ -99,6 +99,10 @@ public function verificarTrabajo_proyecto($session, $idProyecto){
 	}
 }
 
+public function Activar_desactivar_proyecto($proyecto,$estado){
+	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado);
+}
+
 public function obtenerProyecto($idProyecto){
 	return Proyecto::obtenerProyecto($idProyecto);
 }
