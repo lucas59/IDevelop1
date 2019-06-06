@@ -109,5 +109,45 @@ function nuevoCasoDeUso(){
 
 	}
 
+	function verPlanificacion(id){
+		$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
+
+		var retorno = existePlanificacion(id);
+		if(retorno == "1"){
+			
+		}
+		else{
+			var mensaje = "El desarrollador todavia no realizado la planificacion del proyecto";
+			$("#mensajeModal").html(mensaje);	
+			$("#modalAviso").modal();
+		}
+	}
+
+	function visualizarPlanificacion(id){
+		window.location.href = "/IDevelop1/IDevelop/public/Proyecto/casodeusos/"+id;
+	}
+
+	function existePlanificacion(id){
+		var retorno;
+		$.ajax({
+			async:false,
+			url: urlBase+'/Proyecto/existeCasoDeUso',
+			type: 'POST',
+			data: {
+				"id": id,
+			},
+			success: function(response){
+				response = response.trim();
+				if(response=="1"){
+					retorno = "1";
+				}else{
+					retorno = "0";
+				}
+			}
+		});		
+		return retorno;
+	}
+	
+
 	const form = document.getElementById('formCasosDeUso');
 	form.addEventListener('submit', nuevoCasoDeUso);

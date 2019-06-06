@@ -40,6 +40,15 @@ public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	return $insertado;
 }
 
+public function hayPlanificacion($id){
+	$retorno = Casodeuso::ExistePlafinicacion($id);
+
+	if($retorno == "1"){
+		return "1";
+	}else{
+		return "0";
+	}
+}
 
 public function PostularseProyecto($id,$usuario){
 	$retorno_1 = Postulacion::AltaPostulacion($usuario,$id);	
@@ -64,8 +73,8 @@ public function PostulantesDeProyecto($idProyecto){
 	return Postulacion::PostulantesDeProyecto($idProyecto);
 }
 
-public function Listarcasosdeuso(){
-	return Casodeuso::listacasodeuso();
+public function Listarcasosdeuso($idProyecto){
+	return Casodeuso::listacasodeuso($idProyecto);
 }
 
 public function ListarProyectosDeDesarrolladores($email){
