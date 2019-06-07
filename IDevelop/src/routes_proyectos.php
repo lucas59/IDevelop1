@@ -93,8 +93,12 @@ return function (App $app){
 		$data = $request->getParams();
 		$id=$data['id'];
 		$usuario=$data['usuario'];
+		$destino = $data['destino'];
 		$retorno = ctr_proyecto::PostularseProyecto($id,$usuario);
-		if($retorno){
+		$titulo = "Postulaciones";
+		$mensaje = "Un usuario acaba de postularse a un proyecto";
+		$retorno_2 = ctr_proyecto::enviarCorreo($id,$destino,$titulo,$mensaje);
+		if($retorno && $retorno_2){
 			return "1";
 		}
 		else{
@@ -119,7 +123,6 @@ return function (App $app){
 		$id=$data['id'];
 		$usuario=$data['usuario'];
 		$retorno = ctr_proyecto::DespostularseProyecto($usuario,$id);
-		echo Console::log("erw",$retorno);
 		if($retorno){
 			return "1";
 		}
