@@ -24,11 +24,12 @@ return function (App $app){
 
 
 	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
-		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){	
+		if(isset($_SESSION['admin'])){	
 			$session = $_SESSION['admin'];
-			$idProyecto = $args['id'];
+			$idproyecto = $args['id'];
 			$controlador = new ctr_proyecto();
-			$listaCU = $controlador->listarCasosDeUso($idProyecto);
+			$listaCU = $controlador->Listarcasosdeuso($idProyecto);
+			$sesion = array("nombreProy" => $nomProyecto, "casosdeuso" => $listaCU, "session" => $session);
 			return $this->view->render($response,"VerCasosDeUso.twig",$args);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
@@ -89,6 +90,18 @@ return function (App $app){
 		}
 	});
 
+	$app->post('/Proyecto/existeCasoDeUso',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$idproyecto = $data['id'];
+		$retorno = ctr_proyecto::hayPlanificacion($id);
+
+		if($retorno){
+			return "1";
+		}else{
+			return "0";
+		}
+	});
+
 	$app->post('/Proyecto/Postularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
@@ -104,6 +117,19 @@ return function (App $app){
 		else{
 			return "0";
 		}
+	});
+
+	$app->post('/Proyecto/actualizarCasoDeUso', function(Request $request, Response $response){
+		$data = $request->getParams();
+		$nombre= $data['nombre'];
+		$progreso = $data['progreso'];
+		$retorno = ctr_proyecto::actualizarCU($nombre,$progreso);
+
+		if($retorno){
+			return "1";
+		}else{
+			return "0";
+		}	
 	});
 
 	$app->post('/Proyecto/activar_desactivar',function(Request $request, Response $response){
@@ -130,6 +156,8 @@ return function (App $app){
 			return "0";
 		}
 	});
+
+
 
 	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
 		$id=$request->getQueryParam("proy");
