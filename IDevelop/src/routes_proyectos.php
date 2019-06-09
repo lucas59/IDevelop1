@@ -23,14 +23,22 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 
-	$app->get('/Proyecto/casodeusos',function($request,$response,$args) use ($container){
-		$controladorProyecto = new ctr_proyecto();
-		$args['casosdeuso'] = $controladorProyecto->Listarcasosdeuso();
-		echo Console::log("we",$args);
-		return $this->view->render($response,"casodeuso_vista.twig",$args);
+	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
+		if(isset($_SESSION['admin'])){	
+			$session = $_SESSION['admin'];
+			$idproyecto = $args['id'];
+			$controlador = new ctr_proyecto();
+			$listaCU = $controlador->Listarcasosdeuso($idProyecto);
+			$sesion = array("nombreProy" => $nomProyecto, "casosdeuso" => $listaCU, "session" => $session);
+			return $this->view->render($response,"VerCasosDeUso.twig",$args);
+		}else{
+			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
+			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
+			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
+		}
 	})->setName("casodeusos");
 
-	$app->get('/Proyecto/nuevoCU',function($request,$response,$args) use ($container){
+	$app->get('/Proyecto/nuevoCU/',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
 			$session = $_SESSION['admin'];
 			$sesion = array("session" => $session);
@@ -82,15 +90,56 @@ return function (App $app){
 		}
 	});
 
+	$app->post('/Proyecto/existeCasoDeUso',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$idproyecto = $data['id'];
+		$retorno = ctr_proyecto::hayPlanificacion($id);
+
+		if($retorno){
+			return "1";
+		}else{
+			return "0";
+		}
+	});
+
 	$app->post('/Proyecto/Postularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
 		$usuario=$data['usuario'];
+		$destino = $data['destino'];
 		$retorno = ctr_proyecto::PostularseProyecto($id,$usuario);
-		if($retorno){
+		$titulo = "Postulaciones";
+		$mensaje = "Un usuario acaba de postularse a un proyecto";
+		$retorno_2 = ctr_proyecto::enviarCorreo($id,$destino,$titulo,$mensaje);
+		if($retorno && $retorno_2){
 			return "1";
 		}
 		else{
+			return "0";
+		}
+	});
+
+	$app->post('/Proyecto/actualizarCasoDeUso', function(Request $request, Response $response){
+		$data = $request->getParams();
+		$nombre= $data['nombre'];
+		$progreso = $data['progreso'];
+		$retorno = ctr_proyecto::actualizarCU($nombre,$progreso);
+
+		if($retorno){
+			return "1";
+		}else{
+			return "0";
+		}	
+	});
+
+	$app->post('/Proyecto/activar_desactivar',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$id = $data['proyecto'];
+		$estado = $data['estado'];
+		$retorno = ctr_proyecto::Activar_desactivar_proyecto($id,$estado);
+		if($retorno){
+			return "1";
+		} else{
 			return "0";
 		}
 	});
@@ -100,7 +149,6 @@ return function (App $app){
 		$id=$data['id'];
 		$usuario=$data['usuario'];
 		$retorno = ctr_proyecto::DespostularseProyecto($usuario,$id);
-		echo Console::log("erw",$retorno);
 		if($retorno){
 			return "1";
 		}
@@ -108,6 +156,8 @@ return function (App $app){
 			return "0";
 		}
 	});
+
+
 
 	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 1){
@@ -134,8 +184,8 @@ $args['idEmpresa']=$request->getQueryParam("IdEmpresa");
 			$session = $_SESSION['admin'];
 			$args['session']=$_SESSION['admin'];
 			//if($session->tipo == 0){
-				$proyectos = $controladorP->listarProyectos($session->id);
-				$args['proyectos']=$proyectos;
+			$proyectos = $controladorP->listarProyectos($session->id);
+			$args['proyectos']=$proyectos;
 			//}else{
 				//$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
 				//$args['proyectos']=$proyectos; 
@@ -162,11 +212,10 @@ $args['idEmpresa']=$request->getQueryParam("IdEmpresa");
 				if($session->tipo==0){
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,0);
 					$args['referencia']=$referencia;
-					$referencia = $controladorP->verificarPostulacion($session->id,$idProyecto);
-					$args['postulacion']=$referencia;
-					$referencia = $controladorP->verificarTrabajo_proyecto($session->id,$idProyecto);
-					$args['trabajando_proyecto']=$referencia;
-					echo Console::log("ew",$referencia);
+					$referencia_2 = $controladorP->verificarPostulacion($session->id,$idProyecto);
+					$args['postulacion']=$referencia_2;
+					$referencia_3 = $controladorP->verificarTrabajo_proyecto($session->id,$idProyecto);
+					$args['trabajando_proyecto']=$referencia_3;
 				}else{
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
 					$args['referencia']=$referencia;

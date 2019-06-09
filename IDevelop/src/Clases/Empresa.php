@@ -125,6 +125,14 @@ class Empresa extends Usuario
 		return $resultado->fetch_object();
 	}
 
+	public function obtenerEmpresa_login($email){
+		$sql = DB::conexion()->prepare("SELECT E.*, U.tipo, F.contenido FROM empresa AS E , usuario AS U, fotos_perfiles AS F WHERE U.email = ? AND E.id = U.email AND F.nombre = U.email");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado=$sql->get_result();
+		return $resultado->fetch_object();
+	}
+
 	public static function listarempresas(){
 		$Empresas = array();
 		$sql2 = DB::conexion()->prepare("SELECT * FROM usuario");
@@ -160,7 +168,7 @@ class Empresa extends Usuario
 	}
 
 	public static function perfilEmpresa($email){
-		$sql = DB::conexion()->prepare("SELECT e.*,u.foto_id FROM empresa as e,usuario as u WHERE u.email = ? AND e.id= u.email");
+		$sql = DB::conexion()->prepare("SELECT e.*,u.contenido FROM empresa as e,fotos_perfiles as u WHERE u.nombre = ? AND e.id= u.nombre");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado=$sql->get_result();
@@ -182,8 +190,8 @@ class Empresa extends Usuario
 		$rubro = $fila['rubro'];
 		$vision = $fila['vision'];
 		$foto_perfil = "";
-		if(isset($fila['foto_id'])){
-			$foto_perfil = $fila['foto_id'];
+		if(isset($fila['contenido'])){
+			$foto_perfil = $fila['contenido'];
 		}
 		$empresa = new Empresa($email,$foto_perfil,"", $validaciones = array(),$nombre,$fecha_Creacion,$direccion,$telefono,$reclutador,$rubro,$mision,$vision, $proyectos=array());
 		return $empresa;

@@ -20,4 +20,4 @@ $("#btn_desactivar").on("click", function(){
 
  $("#btn_cerrar").on("click", function(){
     $("#mi-modal").modal('hide');
-  });
+});

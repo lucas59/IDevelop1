@@ -9,6 +9,7 @@ require_once '../src/Clases/Proyecto.php';
 require_once '../src/Clases/Postulacion.php';
 require_once '../src/Clases/Casodeuso.php';
 require_once '../src/Clases/proyecto_postulacion.php';
+require_once '../src/Clases/Correos.php';
 require_once '../src/Clases/console.php';
 /**
  */class ctr_proyecto {
@@ -34,12 +35,24 @@ public function agregarCasoDeUso($nombre, $descripcion, $impacto, $proy){
 	return $insertado;
 }
 
+public function actualizarCU($nombre,$progreso){
+	$actualizado = Casodeuso::actualizarCU($nombre,$progreso);
+}
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	$usuario = $_SESSION['admin']->id;
 	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
 	return $insertado;
 }
 
+public function hayPlanificacion($id){
+	$retorno = Casodeuso::ExistePlafinicacion($id);
+
+	if($retorno == "1"){
+		return "1";
+	}else{
+		return "0";
+	}
+}
 
 public function PostularseProyecto($id,$usuario){
 	$retorno_1 = Postulacion::AltaPostulacion($usuario,$id);	
@@ -52,7 +65,6 @@ public function PostularseProyecto($id,$usuario){
 
 public function DespostularseProyecto($id,$usuario){
 	$id_postulacion = Postulacion::Despostularse_postulacion($id,$usuario);	
-	echo Console::log("ew","prueba_clase");
 	if($id_postulacion == "1"){
 		return "1";
 	}else{
@@ -64,8 +76,8 @@ public function PostulantesDeProyecto($idProyecto){
 	return Postulacion::PostulantesDeProyecto($idProyecto);
 }
 
-public function Listarcasosdeuso(){
-	return Casodeuso::listacasodeuso();
+public function Listarcasosdeuso($idProyecto){
+	return Casodeuso::listacasodeuso($idProyecto);
 }
 
 public function ListarProyectosDeDesarrolladores($email){
@@ -99,8 +111,16 @@ public function verificarTrabajo_proyecto($session, $idProyecto){
 	}
 }
 
+public function Activar_desactivar_proyecto($proyecto,$estado){
+	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado);
+}
+
 public function obtenerProyecto($idProyecto){
 	return Proyecto::obtenerProyecto($idProyecto);
+}
+
+public function enviarCorreo($id_proyecto,$email,$titulo,$mensaje){
+	return Correos::enviarMail($id_proyecto, $email, $titulo, $mensaje);
 }
 }
 

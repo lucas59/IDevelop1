@@ -50,9 +50,11 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$token = $args['token'];
 		$validar = $controladorUsuarios->validarCuenta($token);
+
 		if($validar){
 			$usuario=$controladorUsuarios->obtenerUsuarioPorToken($token);
 			$usuario = array ("usuario"  => $usuario);
+			echo Console::log("er",$usuario);
 			return $this->view->render($response,"altaUser2.twig",$usuario);	
 		}else{
 			return $this->view->render($response,"index.twig");
@@ -281,6 +283,7 @@ return function (App $app){
 		if($Empresa){
 			$proyectos = $controladorUsuarios->proyectosEmpresa($email);
 		}
+		echo Console::log("we",$Empresa);
 		if(isset($_SESSION['admin'])){
 			if($_SESSION['admin']->tipo == 0){
 				$session=$_SESSION['admin'];

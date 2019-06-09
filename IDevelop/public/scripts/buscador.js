@@ -1,9 +1,11 @@
 	var usuarios = null;
+	const urlBase = "/IDevelop1/IDevelop/public";
+
 
 	$(document).ready(function() {
 		$.ajax({
 			async:false,
-			url: '/IDevelop1/IDevelop/public/Usuario/buscar',
+			url: urlBase+'/Usuario/buscar',
 			type: 'GET',
 			dataType: "json",
 			success: function(response){
@@ -34,17 +36,17 @@
 			}
 			var pais=usuarios[i]['pais'].toLowerCase();
 			var tabla = document.getElementById('searchTable');
-				var tipo;
-				if(usuarios[i]['tipo']==0){
-					tipo="Desarrollador";
-				}else{
-					tipo="Empresa";
-				}
+			var tipo;
+			if(usuarios[i]['tipo']==0){
+				tipo="Desarrollador";
+			}else{
+				tipo="Empresa";
+			}
 			if (nombreYapellido.includes(element.toLowerCase()) ||tipo.toLowerCase().includes(element.toLowerCase()) || pais.includes(element.toLowerCase()) ) {
 				var row = tabla.insertRow();
 				row.id= usuarios[i]['id'];
 				var cell1 = row.insertCell(0);
-				var nuevaFila = "<a href=/IDevelop1/IDevelop/public/Usuario/Perfil?email="+usuarios[i]['email']+">";
+				var nuevaFila = "<a href="+urlBase+"/Usuario/Perfil?email="+usuarios[i]['email']+">";
 				nuevaFila += mayuscula(nombre) + " " + mayuscula(apellido);
 				nuevaFila +=  "</a>";
 				nuevaFila += "<br><small>" + tipo + "-" + mayuscula(pais) + "</small><br>";
@@ -55,5 +57,5 @@
 	}
 
 	function mayuscula(string){//le convierte la primera letra a mayuscula a una cadena
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}

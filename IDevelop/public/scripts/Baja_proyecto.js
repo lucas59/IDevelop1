@@ -1,10 +1,8 @@
-
 function Baja(id,usuario){
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var retorno = Baja_postulacion(id,usuario);
-	console.log("js:" + retorno);
 	if(retorno == "1"){
-		var mensaje = "Acción correcta";
+		var mensaje = "Usted se despostuló correctamente";
 		$("#mensajeModal").html(mensaje);	
 		$("#modalAviso").modal();
 	}
@@ -22,7 +20,7 @@ function Baja_postulacion(id,usuario){
 	var retorno;
 	$.ajax({
 		async:false,
-		url: '/IDevelop1/IDevelop/public/Proyecto/Despostularse',
+		url: urlBase+'/Proyecto/Despostularse',
 		type: 'POST',
 		data: {
 			"id": id,

@@ -206,8 +206,8 @@ class Proyecto
 	}
 
 	public function obtenerProyecto($idProyecto){
-		$sql=DB::conexion()->prepare("SELECT * FROM proyecto AS P WHERE P.id=?");
-		$sql->bind_param("s",$idProyecto);
+		$sql=DB::conexion()->prepare("SELECT P.*,D.Empresa_id FROM proyecto AS P ,empresa_proyecto AS D WHERE P.id=? AND D.proyectos_id = ?");
+		$sql->bind_param("ss",$idProyecto,$idProyecto);
 		$sql->execute();
 		return $sql->get_result()->fetch_assoc();
 	}
@@ -226,7 +226,18 @@ public function usuario_postualarse_validacion($id,$usuario){
 			return "0";
 		}
 	}
+public function Activar_desactivar_proyecto($proyecto,$estado){
+		$sql=DB::conexion()->prepare("UPDATE proyecto SET estado = ? WHERE id = ?");
 
+		if($sql){
+			$sql->bind_param('ii',$estado,$proyecto);
+			if ($sql->execute()) {
+				return "1";
+			}else{
+				return "0";
+			} 
+		} 
+	}
 
 public function verificar_Trabajo_proyecto_validacion($id,$usuario){
 		$respuesta=null;

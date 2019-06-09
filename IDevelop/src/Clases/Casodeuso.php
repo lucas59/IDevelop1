@@ -52,6 +52,20 @@ class Casodeuso
 		return $respuesta;
 	}
 
+	public function ExistePlanificacion($id){
+		$respuesta = null;
+		$consulta = DB::conexion()->prepare("SELECT * FROM casodeuso WHERE proyecto_id =");
+		$consulta->bind_param('i',$id);
+		$consulta->execute();
+		$respuesta = $consulta->get_result();
+		if(mysql_num_rows($respuesta) < 1){
+			$respuesta = "1";
+		}else{
+			$respuesta = "0";
+		}
+		return $respuesta;
+	}
+
 	public function subirCasoDeUso($nombre, $descripcion, $impacto,$proy){
 		$puntosA = "0";
 		$sql=DB::conexion()->prepare("INSERT INTO casodeuso ( descripcion, nombre, puntosActuales, puntosTot, proyecto_id) VALUES (?,?,?,?,?)");
@@ -65,8 +79,21 @@ class Casodeuso
 		return $respuesta;
 	}
 
-	public function listacasodeuso(){
-		$sql=DB::conexion()->prepare("SELECT * FROM casodeuso");
+	public function actualizarCU($nombre, $progreso){
+		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE ?");
+		$sql->bind_param('is',$progreso,$nombre);
+		$respuesta = null;
+		if($sql->execute()){
+			$respuesta = "1";
+		} else {
+			$respuesta = "0";
+		}	
+		return $respuesta;
+	}
+
+	public function listacasodeuso($idProyecto){
+		$sql=DB::conexion()->prepare("SELECT * FROM casodeuso WHERE proyecto_id = ?");
+		$sql->bind_param('i',$idProyecto);
 		$sql->execute();
 		return $sql->get_result();
 	}

@@ -1,9 +1,13 @@
-	function Postularse(id,usuario,destino){
-
-		$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
-		var retorno = Postularse_proyecto(id,usuario,destino);
-		if(retorno == "1"){
-			var mensaje = "Usted se postulo correctamente";
+	function Estado_proyecto(id,estado){
+		var retorno = Estado_proyecto_funcion(id,estado);
+		console.log(estado);
+		if(retorno == "1" && estado == 0){
+			var mensaje = "Usted activo el proyecto correctamente";
+			$("#mensajeModal").html(mensaje);	
+			$("#modalAviso").modal();
+		}
+		else if(retorno == "1" && estado == 4){
+			var mensaje = "Usted desactivo el proyecto correctamente";
 			$("#mensajeModal").html(mensaje);	
 			$("#modalAviso").modal();
 		}
@@ -17,16 +21,15 @@
 		contenedor.style.opacity = '0';
 	}
 
-	function Postularse_proyecto(id,usuario,destino){
+	function Estado_proyecto_funcion(id,estado){
 		var retorno;
 		$.ajax({
 			async:false,
-			url: urlBase+'/Proyecto/Postularse',
+			url: urlBase+'/Proyecto/activar_desactivar',
 			type: 'POST',
 			data: {
-				"id": id,
-				"usuario": usuario,
-				"destino": destino
+				"proyecto": id,
+				"estado": estado
 			},
 			success: function(response){
 				response = response.trim();
@@ -39,4 +42,3 @@
 		});		
 		return retorno;
 	}
-
