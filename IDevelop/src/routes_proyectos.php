@@ -124,6 +124,9 @@ return function (App $app){
 	});
 
 	$app->get('/Proyecto/Proyectos',function($request,$response,$args){
+		if($request->getQueryParam("IdEmpresa") != null){
+$args['idEmpresa']=$request->getQueryParam("IdEmpresa");
+		}
 		$controladorP = new  ctr_proyecto();
 		if (!$_SESSION) {
 			return $this->view->render($response,"index.twig",$args);
@@ -142,7 +145,7 @@ return function (App $app){
 		}
 	})->setName('proyectos');
 
-	$app->get('/Proyecto/{id}', function($request,$response,$args){
+	$app->get('/Proyecto/{id}/{idEmpresa}', function($request,$response,$args){
 		if(!$_SESSION){
 			return $this->view->render($response,"index.twig",$args);
 		}else{
@@ -168,6 +171,7 @@ return function (App $app){
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
 					$args['referencia']=$referencia;
 				}
+				$args['Empresa']=$args['idEmpresa'];
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}
 		}

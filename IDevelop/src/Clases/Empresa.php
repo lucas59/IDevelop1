@@ -229,7 +229,7 @@ class Empresa extends Usuario
 		$sql2->bind_param('is',$idProyecto,$email);
 		$sql2->execute();
 		return true;
-	}s
+	}
 	public function verificarReferencia($session,$idProyecto){
 		$sql=DB::conexion()->prepare("SELECT * FROM empresa_proyecto WHERE Empresa_id=? AND proyectos_id=?");
 		$sql->bind_param('si',$session,$idProyecto);

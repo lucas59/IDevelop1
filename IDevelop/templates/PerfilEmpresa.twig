@@ -49,7 +49,6 @@
 						<td>Nombre</td>
 						<td>Descripcion</td>
 						<td>Accion</td>
-						<td>Accion2</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -57,8 +56,7 @@
 					<tr>
 						<td>{{proy.nombre}}</td>
 						<td>{{proy.descripcion}}</td>
-						<td><a href="http://localhost/IDevelop1/IDevelop/public/Proyecto/VerPostulantes?proy={{proy.id}}&IdEmpresa={{Empresa.email}}">Ver postulantes</a></td>
-						<td><a>Ver mas..</a></td>
+						<td><a href="http://localhost/IDevelop1/IDevelop/public/Proyecto/Proyectos?&IdEmpresa={{Empresa.email}}">Ver Proyecto</a></td>
 					</tr>
 					{% endfor %}
 				</tbody>

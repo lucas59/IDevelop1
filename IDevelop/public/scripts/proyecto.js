@@ -24,7 +24,7 @@ function verDatosdeProyecto(){
 	});		
 }
 
-function mostrarProyecto(id){
-	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/"+id;
+function mostrarProyecto(id,idEmpresa){
+	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/"+id+"/"+idEmpresa;
 	
 }

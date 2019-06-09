@@ -18,7 +18,7 @@ function ElejirPostulante(){
 			response = response.trim();
 			console.log(response);
 			if(response=="1"){
-				rediriir(idEmpresa);
+				redirigir(idEmpresa);
 			}else{
 				window.location.href="/IDevelop1/IDevelop/public";
 			}
@@ -26,7 +26,7 @@ function ElejirPostulante(){
 	});	
 }
 
-function rediriir(idEmpresa){
+function redirigir(idEmpresa){
 	alert("Usuario elegido con exito");
 	window.location.href="http://localhost/IDevelop1/IDevelop/public/Usuario/PerfilE?email="+idEmpresa;
 }
