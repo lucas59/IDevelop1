@@ -45,7 +45,7 @@ public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 }
 
 public function hayPlanificacion($id){
-	$retorno = Casodeuso::ExistePlafinicacion($id);
+	$retorno = Casodeuso::ExistePlanificacion($id);
 
 	if($retorno == "1"){
 		return "1";
