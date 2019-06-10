@@ -16,6 +16,7 @@ function ElejirPostulante(){
 			response = response.trim();
 			console.log(response);
 			if(response=="1"){
+				alert("Contratado con exito");
 				//redirigir(idEmpresa);
 			}else{
 				window.location.href="/IDevelop1/IDevelop/public";
