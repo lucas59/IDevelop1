@@ -206,8 +206,8 @@ class Proyecto
 	}
 
 	public function obtenerProyecto($idProyecto){
-		$sql=DB::conexion()->prepare("SELECT * FROM proyecto AS P WHERE P.id=?");
-		$sql->bind_param("s",$idProyecto);
+		$sql=DB::conexion()->prepare("SELECT P.*,D.Empresa_id FROM proyecto AS P ,empresa_proyecto AS D WHERE P.id=? AND D.proyectos_id = ?");
+		$sql->bind_param("ss",$idProyecto,$idProyecto);
 		$sql->execute();
 		return $sql->get_result()->fetch_assoc();
 	}

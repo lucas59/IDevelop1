@@ -9,6 +9,7 @@ require_once '../src/Clases/Proyecto.php';
 require_once '../src/Clases/Postulacion.php';
 require_once '../src/Clases/Casodeuso.php';
 require_once '../src/Clases/proyecto_postulacion.php';
+require_once '../src/Clases/Correos.php';
 require_once '../src/Clases/console.php';
 /**
  */class ctr_proyecto {
@@ -64,7 +65,6 @@ public function PostularseProyecto($id,$usuario){
 
 public function DespostularseProyecto($id,$usuario){
 	$id_postulacion = Postulacion::Despostularse_postulacion($id,$usuario);	
-	echo Console::log("ew","prueba_clase");
 	if($id_postulacion == "1"){
 		return "1";
 	}else{
@@ -117,6 +117,10 @@ public function Activar_desactivar_proyecto($proyecto,$estado){
 
 public function obtenerProyecto($idProyecto){
 	return Proyecto::obtenerProyecto($idProyecto);
+}
+
+public function enviarCorreo($id_proyecto,$email,$titulo,$mensaje){
+	return Correos::enviarMail($id_proyecto, $email, $titulo, $mensaje);
 }
 }
 

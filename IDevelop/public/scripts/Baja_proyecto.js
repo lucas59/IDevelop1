@@ -1,11 +1,8 @@
-const urlBase = "/IDevelop1/IDevelop/public";
-
 function Baja(id,usuario){
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var retorno = Baja_postulacion(id,usuario);
-	console.log("js:" + retorno);
 	if(retorno == "1"){
-		var mensaje = "Acción correcta";
+		var mensaje = "Usted se despostuló correctamente";
 		$("#mensajeModal").html(mensaje);	
 		$("#modalAviso").modal();
 	}

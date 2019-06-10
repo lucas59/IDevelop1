@@ -1,9 +1,7 @@
-	const urlBase = "/IDevelop1/IDevelop/public";
-
-	function Postularse(id,usuario){
+	function Postularse(id,usuario,destino){
 
 		$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
-		var retorno = Postularse_proyecto(id,usuario);
+		var retorno = Postularse_proyecto(id,usuario,destino);
 		if(retorno == "1"){
 			var mensaje = "Usted se postulo correctamente";
 			$("#mensajeModal").html(mensaje);	
@@ -19,7 +17,7 @@
 		contenedor.style.opacity = '0';
 	}
 
-	function Postularse_proyecto(id,usuario){
+	function Postularse_proyecto(id,usuario,destino){
 		var retorno;
 		$.ajax({
 			async:false,
@@ -27,7 +25,8 @@
 			type: 'POST',
 			data: {
 				"id": id,
-				"usuario": usuario
+				"usuario": usuario,
+				"destino": destino
 			},
 			success: function(response){
 				response = response.trim();

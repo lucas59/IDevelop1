@@ -68,9 +68,7 @@ class Postulacion
 			} 
 		} 
 	}
-
 	
-
 	public static function PostulantesDeProyecto($id){
 		$postulantes=array();
 		$sql=DB::conexion()->prepare("SELECT * FROM postulacion WHERE proyecto_id = ?");
