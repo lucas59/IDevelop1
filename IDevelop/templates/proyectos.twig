@@ -1,19 +1,17 @@
 {% extends "base.twig" %}
 {% block title %}Proyectos{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 
-{% block content %}
-
-{% if session %}
+{% block content %}	
 <div id="tabla_id">
 <h1>Proyectos </h1> 
   <table class="table">
     <thead>
 		<tr id="tabla_titulo" class="bg-info">
 			<th scope="col">Nombre</th>
-			<th scope="col">Descripción</th>
+			<th class="tdDescripcion" scope="col">Descripción</th>
 			<th scope="col">Entrega</th>
 			<th scope="col">Empresa</th>
 			<th scope="col">Estado</th>
@@ -25,7 +23,7 @@
 		{% for proyecto in proyectos %}
 		<tr class="fila" id="{{proyecto.id}}">
 			<td>{{ proyecto.nombre }}</td>
-			<td>{{ proyecto.descripcion }}</td>
+			<td class="tdDescripcion">{{ proyecto.descripcion }}</td>
 			<td>{{ proyecto.fechaEntrega }}</td>
 			<td>{{ proyecto.empresa }}</td>
 			<td>{{ proyecto.estado }}</td>
@@ -34,12 +32,9 @@
 		{% endfor %}
 	</tbody>
 </table>
-{% endif %}
-
-
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/proyecto.js"></script>
+<script type="text/javascript" src="{{path_for('Inicio')}}scripts/proyecto.js"></script>
 {% endblock %}
 

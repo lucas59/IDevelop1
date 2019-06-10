@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 {% block title %}Proyecto: {{proyecto.nombre}}{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
 
@@ -25,7 +25,7 @@
 
 
   <div style="background-color: #17A2B8" class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
-    <img class="mr-3" src="/IDevelop1/IDevelop/public/img/proyecto.png" alt="" width="48" height="48">
+    <img class="mr-3" src="{{path_for('Inicio')}}img/proyecto.png" alt="" width="48" height="48">
     <div class="lh-100">
       <h6 class="mb-0 text-white lh-100">{{proyecto.nombre | upper}}</h6>
     </div>
@@ -47,14 +47,14 @@
       <!-- PONER EN DONDE QUEDE BONITO -->
       
       {% if session.tipo == 0 %}      
-      <input type="button" name="Planificacion" value="planificacion" onclick="javascript:verPlanificacion({{proyecto.id |upper}},'{{session.id |upper}}');">
+      <input type="button" name="Planificacion" value="Gestionar" onclick="javascript:verPlanificacion({{proyecto.id |upper}},'{{session.id |upper}}');">
       {% endif %}
       
       <!-- aca termina lo que no se donde queda bonito -->
       
       {% if session.tipo == 1 %}
       {% if referencia == 1 %}
-      <a style="margin-right: 5px" href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Gestionar</a>
+      <input type="button" name="Planificacion" value="Ver planificacion" onclick="javascript:verPlanificacion({{proyecto.id |upper}},'{{session.id |upper}}');">
       {% if proyecto.estado == 0 %}
       <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},4);">
       {% elseif proyecto.estado == 4 %}
@@ -92,7 +92,7 @@
     <!-- for -->
     {% for pos in postulante%}
     <div class="media text-muted pt-3">
-     <img class="mr-3" src="/IDevelop1/IDevelop/public/img/user.png" alt="" width="30" height="30">
+     <img class="mr-3" src="{{path_for('Inicio')}}img/user.png" alt="" width="30" height="30">
      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
       <div class="d-flex justify-content-between align-items-center w-100">
         <strong class="text-gray-dark">{{pos.email}}</strong>

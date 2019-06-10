@@ -23,12 +23,12 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 
-	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
+	$app->get('/Proyecto/casosdeuso/{id}',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin'])){	
 			$session = $_SESSION['admin'];
 			$idproyecto = $args['id'];
 			$controlador = new ctr_proyecto();
-			$listaCU = $controlador->Listarcasosdeuso($idProyecto);
+			$listaCU = $controlador->Listarcasosdeuso($idproyecto);
 			$sesion = array("nombreProy" => $nomProyecto, "casosdeuso" => $listaCU, "session" => $session);
 			return $this->view->render($response,"VerCasosDeUso.twig",$args);
 		}else{
@@ -36,7 +36,7 @@ return function (App $app){
 			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
 			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
 		}
-	})->setName("casodeusos");
+	})->setName("CasosDeUso");
 
 	$app->get('/Proyecto/nuevoCU/',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
@@ -176,27 +176,22 @@ return function (App $app){
 	$app->get('/Proyecto/Proyectos',function($request,$response,$args){
 		
 		$controladorP = new  ctr_proyecto();
-		if (!$_SESSION) {
-			return $this->view->render($response,"index.twig",$args);
-		}else{
+		if ($_SESSION) {
 			$session = $_SESSION['admin'];
-			$args['session']=$_SESSION['admin'];
-			//if($session->tipo == 0){
-			$proyectos = $controladorP->listarProyectos($session->id);
+			$args['session']=$_SESSION['admin'];		
+			}
+			$proyectos = $controladorP->listarProyectos();
 			$args['proyectos']=$proyectos;
-			//}else{
-				//$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
-				//$args['proyectos']=$proyectos; 
-			//}
-			return $this->view->render($response,"proyectos.twig",$args,);
-		}
+			echo Console::log('asd',$proyectos);
+			return $this->view->render($response,"proyectos.twig",$args);
+		
 	})->setName('proyectos');
 
 	$app->get('/Proyecto/{id}', function($request,$response,$args){
-		if(!$_SESSION){
-			return $this->view->render($response,"index.twig",$args);
-		}else{
+		if($_SESSION){
 			$args['session']=$_SESSION['admin'];
+		}
+
 			$controladorP = new ctr_proyecto();
 			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
@@ -222,7 +217,7 @@ return function (App $app){
 				$args['idProyecto'] = $idProyecto;
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}
-		}
+		
 	});
 
 }

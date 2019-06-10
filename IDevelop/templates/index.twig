@@ -3,11 +3,11 @@
 {% block title %}Inicio{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/index.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/index.css">
 {% endblock %}
 {% block content %}
 <p class="important">
-	<div><img src="/IDevelop1/IDevelop/public/img/inicio.png"></div> 
+	<div><img src="{{path_for('Inicio')}}img/inicio.png"></div> 
 </p>
 <div class="container marketing"><hr class="featurette-divider">
 
@@ -17,7 +17,7 @@
 			<p class="lead">Si tienes una idea puedes registrarla en la pagina y ofrecer puestos para el desarrollo</p>
 		</div>
 		<div class="col-md-5">
-			<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="/IDevelop1/IDevelop/public/img/empresa.jpg" >
+			<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="{{path_for('Inicio')}}img/empresa.jpg" >
 		</div>
 	</div>
 
@@ -29,7 +29,7 @@
 			<p class="lead">Si eres un desarrollador puedes registrarte, mostrar que herramienta es tu preferida y postularte a proyectos que estan en Idevelop</p>
 		</div>
 		<div class="col-md-5">
-			<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="/IDevelop1/IDevelop/public/img/desarrollador.png" >
+			<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="{{path_for('Inicio')}}img/desarrollador.png" >
 		</div>
 	</div>
 
@@ -41,7 +41,7 @@
 			<p class="lead">Una vez que el desarrollador fue aceptado en el proyecto, este puede colaborar y trabajar en la idea que planteó la Empresa</p>
 		</div>
 		<div class="col-md-5">
-			<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="/IDevelop1/IDevelop/public/img/ruta.jpeg" >
+			<img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" src="{{path_for('Inicio')}}img/ruta.jpeg" >
 		</div>
 	</div>
 

@@ -120,6 +120,7 @@ function actualizarCasoDeUso2(nombre, progreso){
 			"nombre": nombre,
 			"progreso": progreso,
 		}
+		
 		success: function(response){
 			response = response.trim();
 			retorno = response;
@@ -132,7 +133,7 @@ function verPlanificacion(id){
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 		var retorno = existePlanificacion(id);
 	if(retorno == "1"){
-		
+		visualizarPlanificacion(id);
 	}else{
 		var mensaje = "El desarrollador todavia no realizado la planificacion del proyecto";
 		$("#mensajeModal").html(mensaje);	
@@ -141,7 +142,7 @@ function verPlanificacion(id){
 }
 
 function visualizarPlanificacion(id){
-	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/casodeusos/"+id;
+	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/casosdeuso/"+id;
 }
 
 function existePlanificacion(id){

@@ -46,7 +46,12 @@
 				var row = tabla.insertRow();
 				row.id= usuarios[i]['id'];
 				var cell1 = row.insertCell(0);
-				var nuevaFila = "<a href="+urlBase+"/Usuario/Perfil?email="+usuarios[i]['email']+">";
+				var nuevaFila=null;
+				if (tipo == 'Desarrollador') {
+				nuevaFila = "<a href="+urlBase+"/Usuario/Perfil?email="+usuarios[i]['email']+">";	
+				}else{
+				 nuevaFila = "<a href="+urlBase+"/Usuario/PerfilE?email="+usuarios[i]['email']+">";	
+				}
 				nuevaFila += mayuscula(nombre) + " " + mayuscula(apellido);
 				nuevaFila +=  "</a>";
 				nuevaFila += "<br><small>" + tipo + "-" + mayuscula(pais) + "</small><br>";

@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 {% block title %}Registrarse{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nuevoUser.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/nuevoUser.css">
 {% endblock %}
 
 {% block content %}
@@ -65,5 +65,5 @@
 {% endblock %}
 
 {% block script %}
-<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/nuevoUsuario.js"></script>
+<script type="text/javascript" src="{{path_for('Inicio')}}scripts/nuevoUsuario.js"></script>
 {% endblock %}
