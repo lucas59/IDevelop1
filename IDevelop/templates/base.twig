@@ -4,9 +4,9 @@
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %} - IDevelop</title>
 	<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/nav.css">
-	<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/carga.css">
-	<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/footer.css">
+	<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/nav.css">
+	<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/carga.css">
+	<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/footer.css">
 
 	{% block head %}{% endblock %}
 
@@ -17,8 +17,8 @@
 	<div id="content">{% block content %}{% endblock %}</div>
 	<script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/jquery/jquery-3.4.1.min.js" ></script>
 	<script type="text/javascript" src="/IDevelop1/IDevelop/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/nav.js"></script>
-	<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/buscador.js"></script>
+	<script type="text/javascript" src="{{path_for('Inicio')}}scripts/nav.js"></script>
+	<script type="text/javascript" src="{{path_for('Inicio')}}scripts/buscador.js"></script>
 	{% block script %}{% endblock %}
 </body>
 </html>

@@ -237,12 +237,8 @@ return function (App $app){
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
-			if(isset($_SESSION['admin'])){
-				if($_SESSION['admin']->tipo == 0){
-					$args['session']=$_SESSION['admin'];	
-				}else if($_SESSION['admin']->tipo == 1){
-					$args['sesion']=$_SESSION['admin']; 
-				}
+			if($_SESSION && $_SESSION['admin']->tipo == 0){
+					$args['session']=$_SESSION['admin'];		
 			}		
 			return $this->view->render($response,"PerfilDesarrollador.twig",$args);
 		}
@@ -279,7 +275,6 @@ return function (App $app){
 		if($Empresa){
 			$proyectos = $controladorUsuarios->proyectosEmpresa($email);
 		}
-		echo Console::log("we",$Empresa);
 		if(isset($_SESSION['admin'])){
 			if($_SESSION['admin']->tipo == 0){
 				$session=$_SESSION['admin'];

@@ -1,7 +1,7 @@
 {% block title %}Desarrolladores{% endblock %}
 {% extends "base.twig" %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
 
@@ -22,7 +22,7 @@
     <td>{{ emp.email }}</td>
     <td>{{ emp.nombre }}</td>
     <td>{{ emp.telefono }}</td>
-    <td><a href="http://localhost/IDevelop1/IDevelop/public/Usuario/PerfilE?email={{ emp.email }}">Ver Perfil</a></td>
+    <td><a href="../Usuario/PerfilE?email={{ emp.email }}">Ver Perfil</a></td>
   </tr>
   {% endfor %}
 </tbody>

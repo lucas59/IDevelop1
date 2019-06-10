@@ -1,7 +1,7 @@
 {% extends "base.twig" %}
 {% block title %}Empresa{% endblock %}
 {% block head %}
-<link rel="stylesheet" type="text/css" href="/IDevelop1/IDevelop/public/styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
 <div id="tabla_id">
@@ -57,7 +57,7 @@
 						<tr>
 							<td>{{proy.nombre}}</td>
 							<td>{{proy.descripcion}}</td>
-							<td><a href="http://localhost/IDevelop1/IDevelop/public/Proyecto/VerPostulantes?proy={{proy.id}}">Ver postulantes</a></td>
+							<td><a href="{{path_for('Inicio')}}Proyecto/VerPostulantes?proy={{proy.id}}">Ver postulantes</a></td>
 							<td><a>Ver mas..</a></td>
 						</tr>
 						{% endfor %}
