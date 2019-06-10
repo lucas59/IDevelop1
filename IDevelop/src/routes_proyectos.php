@@ -160,21 +160,21 @@ return function (App $app){
 
 
 	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
+		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 1){
 		$id=$request->getQueryParam("proy");
+		$idEmpresa =$request->getQueryParam("IdEmpresa");
 		$controladorProyecto = new ctr_proyecto();
-		$args['postulantes']=$controladorProyecto->PostulantesDeProyecto($id);
-		if(isset($_SESSION['admin'])){
-			if($_SESSION['admin']->tipo == 0){
-				$args['session']=$_SESSION['admin'];	
-			}else if($_SESSION['admin']->tipo == 1){
-				$args['sesion']=$_SESSION['admin']; 
+		$postulantes=$controladorProyecto->PostulantesDeProyecto($id);
+		$sesion=$_SESSION['admin'];
+		$proyecto = $controladorProyecto->obtenerProyecto($id);
+		$session = array("proyecto" => $proyecto,"session" => $sesion,"postulantes" => $postulantes,"idEmpresa" => $idEmpresa);
+		return $this->view->render($response,"PostulantesProyecto.twig",$session);
 			}
-		}
-		return $this->view->render($response,"PostulantesProyecto.twig",$args);
-		
+			return $this->view->render($response,"index.twig");	
 	});
 
 	$app->get('/Proyecto/Proyectos',function($request,$response,$args){
+		
 		$controladorP = new  ctr_proyecto();
 		if ($_SESSION) {
 			$session = $_SESSION['admin'];
@@ -212,6 +212,9 @@ return function (App $app){
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
 					$args['referencia']=$referencia;
 				}
+				$postulante=$controladorP->PostulantesDeProyecto($idProyecto);
+				$args['postulante'] = $postulante;
+				$args['idProyecto'] = $idProyecto;
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}
 		

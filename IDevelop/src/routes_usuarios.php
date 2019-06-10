@@ -213,6 +213,10 @@ return function (App $app){
 	});
 	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
 		$email=$request->getQueryParam("email");
+		if($request->getQueryParam("idproyecto") != null){
+		$args['idProyecto']=$request->getQueryParam("idproyecto");
+		$args['idEmpresa']=$request->getQueryParam("idEmpresa");
+		}
 		if($email==null){
 			if(isset($_SESSION['admin'])){
 				if($_SESSION['admin']->tipo==1){
@@ -253,8 +257,8 @@ return function (App $app){
 				$session=$_SESSION['admin'];
 				return $this->view->render($response,"listadoempreza.twig",compact('Empresas','session'));
 			}else if($_SESSION['admin']->tipo == 1){
-				$sesion=$_SESSION['admin']; 
-				return $this->view->render($response,"listadoempreza.twig",compact('Empresas','sesion'));
+				$session=$_SESSION['admin']; 
+				return $this->view->render($response,"listadoempreza.twig",compact('Empresas','session'));
 			}
 		}
 		return $this->view->render($response,"listadoempreza.twig",compact('Empresas'));
@@ -286,5 +290,24 @@ return function (App $app){
 		}
 		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
 	})->setName("PerfilE");
+	
+	$app->post('/Usuario/ElejirPostulante',function($request,$response,$args){
+		$data = $request->getParams();
+		$email=$data['email'];
+		$idProyecto=$data['idproyecto'];
+		//$email=$request->getQueryParam("email");
+		//$idProyecto=$request->getQueryParam("idproyecto");
+		if($email==null){
+				return '0';
+		}
+		$controladorUsuarios = new ctr_usuarios();
+		$Postulante = $controladorUsuarios->ElejirPostulante($email,$idProyecto);
+	
+		if(isset($_SESSION['admin'])){
+				$session=$_SESSION['admin'];
+				return '1'; 	
+		}
+		return '1';
+	})->setName("EPostulate");
 }
 ?>

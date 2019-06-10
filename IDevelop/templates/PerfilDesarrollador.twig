@@ -42,6 +42,14 @@
         {% if Desarrollador.email == session.id %}
         <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
         {%endif%}
+        {% if idProyecto %}
+        <form id="elegirForm" method="POST" class="form-signin">
+        <input type="hidden" name="email" value="{{Desarrollador.email}}">
+        <input type="hidden" name="idProyecto" value="{{idProyecto}}">
+        <input type="hidden" name="idEmpresa" value="{{idEmpresa}}">
+        <input class="btn btn-info" type="submit" value="Elejir Postulante">
+         </form>
+        {% endif %}
       </dl>
     </div>
   </div>
@@ -117,6 +125,7 @@
       <div class="modal-footer">
         <button onclick="desactivarUsuario()" type="button" class="btn btn-default" id="modal-btn-si">Si</button>
         <button type="button" class="btn btn-primary" id="btn_cerrar">No</button>
+        
       </div>
     </div>
   </div>
@@ -124,5 +133,6 @@
 
 {% endblock %}
 {% block script %}
-<script type="text/javascript" src="{{path_for('Inicio')}}scripts/desactivarUsuario.js"></script>
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/desactivarUsuario.js"></script>
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/ElejirPostulante.js"></script>
 {% endblock %}

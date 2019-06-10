@@ -211,5 +211,8 @@ class ctr_usuarios{
 	public function proyectosEmpresa($email){
 		return Empresa::proyectosEmpresa($email);
 	}
+	public function ElejirPostulante($email,$idProyecto){
+		return Empresa::ElejirPostulante($email,$idProyecto);
+	}
 }
 ?>
