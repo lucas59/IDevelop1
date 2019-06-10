@@ -174,9 +174,7 @@ return function (App $app){
 	});
 
 	$app->get('/Proyecto/Proyectos',function($request,$response,$args){
-		if($request->getQueryParam("IdEmpresa") != null){
-$args['idEmpresa']=$request->getQueryParam("IdEmpresa");
-		}
+		
 		$controladorP = new  ctr_proyecto();
 		if (!$_SESSION) {
 			return $this->view->render($response,"index.twig",$args);
@@ -190,12 +188,11 @@ $args['idEmpresa']=$request->getQueryParam("IdEmpresa");
 				//$proyectos =  $controladorP->ListarProyectosDeEmpresa($session->id);
 				//$args['proyectos']=$proyectos; 
 			//}
-
-			return $this->view->render($response,"proyectos.twig",$args);
+			return $this->view->render($response,"proyectos.twig",$args,);
 		}
 	})->setName('proyectos');
 
-	$app->get('/Proyecto/{id}/{idEmpresa}', function($request,$response,$args){
+	$app->get('/Proyecto/{id}', function($request,$response,$args){
 		if(!$_SESSION){
 			return $this->view->render($response,"index.twig",$args);
 		}else{
@@ -220,7 +217,9 @@ $args['idEmpresa']=$request->getQueryParam("IdEmpresa");
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
 					$args['referencia']=$referencia;
 				}
-				$args['Empresa']=$args['idEmpresa'];
+				$postulante=$controladorP->PostulantesDeProyecto($idProyecto);
+				$args['postulante'] = $postulante;
+				$args['idProyecto'] = $idProyecto;
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}
 		}

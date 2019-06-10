@@ -90,23 +90,22 @@
     <h6 class="border-bottom border-gray pb-2 mb-0">Postulantes</h6>
 
     <!-- for -->
+    {% for pos in postulante%}
     <div class="media text-muted pt-3">
      <img class="mr-3" src="/IDevelop1/IDevelop/public/img/user.png" alt="" width="30" height="30">
      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
       <div class="d-flex justify-content-between align-items-center w-100">
-        <strong class="text-gray-dark">Nombre del postulante</strong>
+        <strong class="text-gray-dark">{{pos.email}}</strong>
         <form id="elegirForm" method="POST" class="form-signin">
-        <!-- me falta email del desarrollador -->
-       <!-- <input type="hidden" name="email" value="{{Desarrollador}}">-->
-        <input type="hidden" name="idProyecto" value="{{idProyecto}}">
-        <input type="hidden" name="idEmpresa" value="{{Empresa}}">
+        <input type="hidden" name="email" value="{{pos.email}}">
+        <input type="hidden" name="idProyecto" value="{{proyecto.id}}">
         <input class="btn btn-info" type="submit" value="Contratar">
          </form>
        <!-- <a href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Contratar</a>  -->
       </div>
     </div>
   </div>
-  <!-- termina for -->
+  {% endfor %}
 
 </div>
 </main>
@@ -133,4 +132,5 @@
 <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/postularse.js"></script>
 <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/Baja_proyecto.js"></script>
 <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/estado_proyecto.js"></script>
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/ElejirPostulante.js"></script>
 {% endblock %}

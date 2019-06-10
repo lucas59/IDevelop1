@@ -1,11 +1,9 @@
 function ElejirPostulante(){
 	event.preventDefault();
-	console.log("llego aca");
 	var formulario = document.forms['elegirForm'];
 	var email = formulario['email'].value;
 	var idproyecto = formulario['idProyecto'].value;
-	var idEmpresa = formulario['idEmpresa'].value;
-	console.log("hola");
+	//var idEmpresa = formulario['idEmpresa'].value;
 	$.ajax({
 		async:false,
 		url: '/IDevelop1/IDevelop/public/Usuario/ElejirPostulante',
@@ -18,7 +16,7 @@ function ElejirPostulante(){
 			response = response.trim();
 			console.log(response);
 			if(response=="1"){
-				redirigir(idEmpresa);
+				//redirigir(idEmpresa);
 			}else{
 				window.location.href="/IDevelop1/IDevelop/public";
 			}

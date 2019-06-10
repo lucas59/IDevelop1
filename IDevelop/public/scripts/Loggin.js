@@ -8,7 +8,8 @@
 		login = loguearse(email,pass);
 		console.log(login);
 		if(login == true){
-			window.location.replace(urlBase);
+			window.location.href=urlBase;
+			
 		}else{
 			$('#modalLogin').modal();//
 			document.getElementById('textoModal').innerHTML = "Error al intentar iniciar sesión"

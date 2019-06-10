@@ -27,7 +27,7 @@ const urlBase = "/IDevelop1/IDevelop/public";
 
 function enviarDatos(){
 	event.preventDefault();
-	
+	const urlBase = "/IDevelop1/IDevelop/public";
 	var e = document.getElementById("lenguaFav");
 	var lenguaje = e.options[e.selectedIndex].value;
 
