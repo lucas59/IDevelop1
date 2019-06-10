@@ -120,6 +120,7 @@ function actualizarCasoDeUso2(nombre, progreso){
 			"nombre": nombre,
 			"progreso": progreso,
 		}
+		
 		success: function(response){
 			response = response.trim();
 			retorno = response;
