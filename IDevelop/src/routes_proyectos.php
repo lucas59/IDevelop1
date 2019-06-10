@@ -23,7 +23,7 @@ return function (App $app){
 	})->setName("NuevoProyecto");
 
 
-	$app->get('/Proyecto/casodeusos/{id}',function($request,$response,$args) use ($container){
+	$app->get('/Proyecto/casosdeuso/{id}',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin'])){	
 			$session = $_SESSION['admin'];
 			$idproyecto = $args['id'];
@@ -36,7 +36,7 @@ return function (App $app){
 			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
 			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
 		}
-	})->setName("casodeusos");
+	})->setName("CasosDeUso");
 
 	$app->get('/Proyecto/nuevoCU/',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
