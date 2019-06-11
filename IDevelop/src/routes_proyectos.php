@@ -188,16 +188,17 @@ return function (App $app){
 	})->setName('proyectos');
 
 	$app->get('/Proyecto/{id}', function($request,$response,$args){
+		$session=null;
 		if($_SESSION){
 			$args['session']=$_SESSION['admin'];
+			$session = $_SESSION['admin'];
 		}
 
 			$controladorP = new ctr_proyecto();
 			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
-			$session = $_SESSION['admin'];
 			$proyecto = $controladorP::obtenerProyecto($idProyecto);
-			if($proyecto["id"] == null ){
+			if($proyecto["id"] == null || $session == null ){
 				return $this->view->render($response,"index.twig",$args);
 			}else{
 				$args['proyecto']=$proyecto;
