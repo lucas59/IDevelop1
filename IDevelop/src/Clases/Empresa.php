@@ -232,12 +232,14 @@ class Empresa extends Usuario
 	public function ElejirPostulante($email,$idProyecto){
 		$sql = DB::conexion()->prepare("INSERT INTO desarrollador_proyecto (Desarrollador_id,proyectos_id) VALUES (?,?)");
 		$sql->bind_param('si',$email,$idProyecto);
-		
-		/*$sql2 = DB::conexion()->prepare("INSERT INTO proyecto_desarrollador (Proyecto_id,desarrolladores_id) VALUES (?,?)");
-		$sql2->bind_param('is',$idProyecto,$email);
-		$sql2->execute();*/
 		if($sql->execute()){
-		return true;
+			$sql2 = DB::conexion()->prepare("UPDATE `proyecto` SET `estado` = '2' WHERE `proyecto`.`id` = ?");
+		$sql2->bind_param('i',$idProyecto);
+		if($sql2->execute()){
+			return true;
+		}else{
+		return false;
+		}
 		}else{
 			return false;
 		}

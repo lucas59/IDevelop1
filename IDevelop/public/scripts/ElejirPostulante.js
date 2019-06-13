@@ -3,6 +3,8 @@ function ElejirPostulante(){
 	var formulario = document.forms['elegirForm'];
 	var email = formulario['email'].value;
 	var idproyecto = formulario['idProyecto'].value;
+	console.log(idproyecto);
+	console.log(email);
 	//var idEmpresa = formulario['idEmpresa'].value;
 	$.ajax({
 		async:false,

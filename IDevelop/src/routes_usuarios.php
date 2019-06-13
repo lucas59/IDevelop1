@@ -291,23 +291,23 @@ return function (App $app){
 		return $this->view->render($response,"PerfilEmpresa.twig",compact('Empresa','proyectos'));
 	})->setName("PerfilE");
 	
-	$app->post('/Usuario/ElejirPostulante',function($request,$response,$args){
-		$data = $request->getParams();
+	$app->get('/Usuario/ElejirPostulante',function($request,$response,$args){
+		/*$data = $request->getParams();
 		$email=$data['email'];
-		$idProyecto=$data['idproyecto'];
-		//$email=$request->getQueryParam("email");
-		//$idProyecto=$request->getQueryParam("idproyecto");
+		$idProyecto=$data['idproyecto'];*/
+		$email=$request->getQueryParam("email");
+		$idProyecto=$request->getQueryParam("idProyecto");
 		if($email==null){
-				return '0';
+			header("Location: http://localhost/IDevelop1/IDevelop/public/Proyecto/$idProyecto");
 		}
 		$controladorUsuarios = new ctr_usuarios();
 		$Postulante = $controladorUsuarios->ElejirPostulante($email,$idProyecto);
 	
 		if(isset($_SESSION['admin'])){
-				$session=$_SESSION['admin'];
-				return '1'; 	
+				$session=$_SESSION['admin'];	
 		}
-		return '1';
+		header("Location: http://localhost/IDevelop1/IDevelop/public/Proyecto/$idProyecto");
+exit();
 	})->setName("EPostulate");
 }
 ?>
