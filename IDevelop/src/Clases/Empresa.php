@@ -206,7 +206,7 @@ class Empresa extends Usuario
 		if(!$resultado->num_rows > 0){
 			return $proyectos;	
 		}
-		for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+		for ($num_fila = $resultado->num_rows -1; $num_fila >= 0; $num_fila--) {
 			$resultado->data_seek($num_fila);
 			$fila = $resultado->fetch_assoc();
 			
@@ -215,8 +215,8 @@ class Empresa extends Usuario
 			$sql2->execute();
 			$resultado2=$sql2->get_result();
 
-			for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
-				$resultado2->data_seek($num_fila);
+			for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+				$resultado2->data_seek($num_fila2);
 				$fila2 = $resultado2->fetch_assoc();
 			}
 			$nombre = $fila2['nombre'];

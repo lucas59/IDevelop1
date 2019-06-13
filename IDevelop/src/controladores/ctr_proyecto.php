@@ -122,6 +122,10 @@ public function obtenerProyecto($idProyecto){
 public function enviarCorreo($id_proyecto,$email,$titulo,$mensaje){
 	return Correos::enviarMail($id_proyecto, $email, $titulo, $mensaje);
 }
+
+public function verificarContratacion($idProyecto){
+	return Proyecto::verificarContratacion($idProyecto);
+}
 }
 
 ?>

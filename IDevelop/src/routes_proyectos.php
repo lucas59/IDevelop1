@@ -213,8 +213,12 @@ return function (App $app){
 					$referencia = $controladorP->verificarReferencia($session->id,$idProyecto,1);
 					$args['referencia']=$referencia;
 				}
+				$contratacion=$controladorP->verificarContratacion($idProyecto);
+				
+				if($contratacion == false){
 				$postulante=$controladorP->PostulantesDeProyecto($idProyecto);
 				$args['postulante'] = $postulante;
+				}
 				$args['idProyecto'] = $idProyecto;
 				return $this->view->render($response,"perfilProyecto.twig",$args);
 			}

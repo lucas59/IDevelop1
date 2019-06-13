@@ -251,6 +251,18 @@ public function verificar_Trabajo_proyecto_validacion($id,$usuario){
 			return "0";
 		}
 	}
+
+	public static function verificarContratacion($idProyecto){
+		$consulta = DB::conexion()->prepare('SELECT * FROM desarrollador_proyecto WHERE proyectos_id=? ');
+		$consulta->bind_param('i',$idProyecto);		
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if($resultado->num_rows > 0){
+			return true;	
+		}else{
+			return false;
+		}
+	}
 }
 
 ?>

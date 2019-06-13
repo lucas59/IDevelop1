@@ -17,17 +17,13 @@ function ElejirPostulante(){
 			console.log(response);
 			if(response=="1"){
 				alert("Contratado con exito");
+				window.location.href="/IDevelop1/IDevelop/public/Proyecto/"+idproyecto;
 				//redirigir(idEmpresa);
 			}else{
 				window.location.href="/IDevelop1/IDevelop/public";
 			}
 		}
 	});	
-}
-
-function redirigir(idEmpresa){
-	alert("Usuario elegido con exito");
-	window.location.href="http://localhost/IDevelop1/IDevelop/public/Usuario/PerfilE?email="+idEmpresa;
 }
 const form = document.getElementById('elegirForm');
 form.addEventListener('submit', ElejirPostulante);

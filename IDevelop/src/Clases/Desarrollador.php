@@ -234,8 +234,8 @@ $this->nombre= $nombre;
 			$sql2->execute();
 			$resultado2=$sql2->get_result();
 
-			for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
-				$resultado2->data_seek($num_fila);
+			for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+				$resultado2->data_seek($num_fila2);
 				$fila2 = $resultado2->fetch_assoc();
 			}
 
@@ -269,8 +269,8 @@ $this->nombre= $nombre;
 			$sql2->execute();
 			$resultado2=$sql2->get_result();
 
-			for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
-				$resultado2->data_seek($num_fila);
+			for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+				$resultado2->data_seek($num_fila2);
 				$fila2 = $resultado2->fetch_assoc();
 			}
 
@@ -301,8 +301,8 @@ $this->nombre= $nombre;
 			$sql2->execute();
 			$resultado2=$sql2->get_result();
 
-			for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
-				$resultado2->data_seek($num_fila);
+			for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+				$resultado2->data_seek($num_fila2);
 				$fila2 = $resultado2->fetch_assoc();
 			}
 
@@ -312,6 +312,7 @@ $this->nombre= $nombre;
 
 
 			$proy = new Proyecto($nombre, $descripcion, $fechaEntrega,"","","", "", "");
+			$proy->setId($fila2['id']);
 			array_push($proyectos,$proy);
 		}
 		return $proyectos;

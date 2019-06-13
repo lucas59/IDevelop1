@@ -91,7 +91,7 @@
       <tr>
         <td>{{ proy.nombre }}</td>
         <td>{{ proy.descripcion }}</td>
-        <td><a>Ver Mas..</a></td>
+        <td><a href="{{path_for('Inicio')}}Proyecto/{{ proy.id }}">Ver Proyecto</a></td>
       </tr>
       {% endfor %}
     </tbody>

@@ -85,8 +85,8 @@ class Postulacion
 				$sql2->execute();
 				$resultado2=$sql2->get_result();
 				if($resultado2->num_rows > 0){
-					for ($num_fila = $resultado2->num_rows - 1; $num_fila >= 0; $num_fila--) {
-						$resultado2->data_seek($num_fila);
+					for ($num_fila2 = $resultado2->num_rows - 1; $num_fila2 >= 0; $num_fila2--) {
+						$resultado2->data_seek($num_fila2);
 						$fila2 = $resultado2->fetch_assoc();
 						if($fila2['estado'] == 1){
 							$email = $fila2['id'];

@@ -85,11 +85,12 @@
     <dd>{{proyecto.fechaEntrega}}</dd>
 
   </div>
-
+    {% if postulante %}
   <div class="my-3 p-3 bg-white rounded shadow-sm">
     <h6 class="border-bottom border-gray pb-2 mb-0">Postulantes</h6>
 
     <!-- for -->
+
     {% for pos in postulante%}
     <div class="media text-muted pt-3">
      <img class="mr-3" src="{{path_for('Inicio')}}img/user.png" alt="" width="30" height="30">
@@ -99,14 +100,16 @@
         <form id="elegirForm" method="POST" class="form-signin">
         <input type="hidden" name="email" value="{{pos.email}}">
         <input type="hidden" name="idProyecto" value="{{proyecto.id}}">
+        {% if session.tipo == 1 %}
         <input class="btn btn-info" type="submit" value="Contratar">
+        {% endif %}
          </form>
        <!-- <a href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Contratar</a>  -->
       </div>
     </div>
   </div>
   {% endfor %}
-
+ {% endif %}
 </div>
 </main>
 <!-- Modal  de mensajes -->
