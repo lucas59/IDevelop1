@@ -38,10 +38,10 @@ class Casodeuso
 		$this->puntosTot = $puntos;
 	}
 
-	public function validarNombreCU($nombre){
+	public function validarNombreCU($nombre, $proyecto){
 		$respuesta = null;
-		$consulta = DB::conexion()->prepare("SELECT * FROM casodeuso WHERE nombre =");
-		$consulta->bind_param('s',$nombre);
+		$consulta = DB::conexion()->prepare("SELECT * FROM casodeuso WHERE nombre = ? AND proyecto_id = ?");
+		$consulta->bind_param('si',$nombre, $proyecto);
 		$consulta->execute();
 		$respuesta = $consulta->get_result();
 		if(mysqli_num_rows($respuesta) ==1){

@@ -25,8 +25,8 @@ public function validarNombreProyecto($nombre){
 	return $resultado;
 }
 
-public function validarNombreCasoDeUso($nombre){
-	$resultado = Casodeuso::validarNombreCU($nombre);
+public function validarNombreCasoDeUso($nombre, $proyecto){
+	$resultado = Casodeuso::validarNombreCU($nombre, $proyecto);
 	return $resultado;
 }
 
@@ -126,6 +126,11 @@ public function enviarCorreo($id_proyecto,$email,$titulo,$mensaje){
 public function verificarContratacion($idProyecto){
 	return Proyecto::verificarContratacion($idProyecto);
 }
+
+public function obtenerProyectoCU($idproy){
+	return Proyecto::ObtenerProyectoCU($idproy);
+}
+
 }
 
 ?>

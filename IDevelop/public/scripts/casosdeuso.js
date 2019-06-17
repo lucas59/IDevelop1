@@ -1,23 +1,21 @@
-const urlBase = "/IDevelop1/IDevelop/public";
 
 function nuevoCasoDeUso(){
 	event.preventDefault();
 	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
 	var formulario = document.forms['formCasosDeUso'];
-	var proyecto = "1";
+	var proyecto = formulario['proyecto_id'].value;
 	var nombre = formulario['txtNombreCU'].value;
 	var descripcion = formulario['txtDescripcion'].value;
 	var combo = document.getElementById("Impacto");
 	var impacto = combo.options[combo.selectedIndex].value;
-
-	console.log(impacto);
+	var urlBase = "/IDevelop1/IDevelop/public";
 	var disponible = nombreCdUDisponible(nombre);
 
 	if(disponible == "1"){
 		var mensaje = "Ya creo un caso de uso bajo este nombre para esta planificacion";
 		$("#mensajeModal").html(mensaje);				
 		var link = document.getElementById("redirigir");
-		link.setAttribute("href",  urlBase+"/Proyecto/casodeusos/"+proyecto);
+		link.setAttribute("href",  urlBase+"/Proyecto/casosdeuso/"+proyecto);
 		$("#modalAviso").modal();
 		console.log("Existe caso 1");
 	}else{
@@ -29,13 +27,13 @@ function nuevoCasoDeUso(){
 			var mensaje = "Caso de uso ingresado con exito";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", urlBase);
+			link.setAttribute("href", urlBase+"/Proyecto/casosdeuso/"+proyecto);
 			$("#modalAviso").modal();
 		}else{
 			var mensaje = "Hubo un problema al registrar el nuevo caso de uso";
 			$("#mensajeModal").html(mensaje);				
 			var link = document.getElementById("redirigir");
-			link.setAttribute("href", urlBase+"/Proyecto/nuevoCU");
+			link.setAttribute("href", urlBase+"/Proyecto/nuevoCU/"+proyecto);
 			$("#modalAviso").modal();
 
 			console.log("No ingresado")
@@ -47,12 +45,12 @@ function nuevoCasoDeUso(){
 	contenedor.style.opacity = '0';
 }
 
-
 function ingresarCasoDeUso(nombre,descripcion,impacto,proyecto){
 	var retorno;
+	
 	$.ajax({
 		async:false,
-		url: urlBase+'/Proyecto/NuevoCasoDeUso',
+		url: '/IDevelop1/IDevelop/public/Proyecto/NuevoCasoDeUso',
 		type: 'POST',
 		data: {
 			"nombre": nombre,
@@ -77,6 +75,8 @@ function ingresarCasoDeUso(nombre,descripcion,impacto,proyecto){
 
 function nombreCdUDisponible(nombre){
 	var retorno;
+		var urlBase = "/IDevelop1/IDevelop/public";
+
 	$.ajax({
 		async:false,
 		url: urlBase+'/Proyecto/validarNombreCU/'+nombre,
@@ -111,6 +111,7 @@ function actualizarCasoDeUso1(nombre){
 	contenedor.style.opacity = '0';
 }
 
+/*
 function actualizarCasoDeUso2(nombre, progreso){
 		$.ajax({
 		async:false,
@@ -119,53 +120,15 @@ function actualizarCasoDeUso2(nombre, progreso){
 		data:{
 			"nombre": nombre,
 			"progreso": progreso,
-		}
-		
+		},		
 		success: function(response){
 			response = response.trim();
 			retorno = response;
-		}
+		},
 	});
 	return retorno;
 }
-
-function verPlanificacion(id){
-	$('.lista_tabla').load('/IDevelop1/IDevelop/templates/modal_carga.twig');
-		var retorno = existePlanificacion(id);
-	if(retorno == "1"){
-		visualizarPlanificacion(id);
-	}else{
-		var mensaje = "El desarrollador todavia no realizado la planificacion del proyecto";
-		$("#mensajeModal").html(mensaje);	
-		$("#modalAviso").modal();
-	}
-}
-
-function visualizarPlanificacion(id){
-	window.location.href = "/IDevelop1/IDevelop/public/Proyecto/casosdeuso/"+id;
-}
-
-function existePlanificacion(id){
-	var retorno;
-	$.ajax({
-		async:false,
-		url: urlBase+'/Proyecto/existeCasoDeUso',
-		type: 'POST',
-		data: {
-			"id": id,
-		},
-		success: function(response){
-			response = response.trim();
-			if(response=="1"){
-				retorno = "1";
-			}else{
-				retorno = "0";
-			}
-		}
-	});		
-	return retorno;
-}
+*/
 	
-
 const form = document.getElementById('formCasosDeUso');
 form.addEventListener('submit', nuevoCasoDeUso);

@@ -22,26 +22,13 @@ return function (App $app){
 		}
 	})->setName("NuevoProyecto");
 
-
-	$app->get('/Proyecto/casosdeuso/{id}',function($request,$response,$args) use ($container){
-		if(isset($_SESSION['admin'])){	
-			$session = $_SESSION['admin'];
-			$idproyecto = $args['id'];
-			$controlador = new ctr_proyecto();
-			$listaCU = $controlador->Listarcasosdeuso($idproyecto);
-			$sesion = array("nombreProy" => $nomProyecto, "casosdeuso" => $listaCU, "session" => $session);
-			return $this->view->render($response,"VerCasosDeUso.twig",$args);
-		}else{
-			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
-			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
-			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
-		}
-	})->setName("CasosDeUso");
-
-	$app->get('/Proyecto/nuevoCU/',function($request,$response,$args) use ($container){
+	$app->get('/Proyecto/nuevoCU/{id}',function($request,$response,$args) use ($container){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 0){
 			$session = $_SESSION['admin'];
-			$sesion = array("session" => $session);
+			$idp = $args['id'];
+			$controlador = new ctr_proyecto();
+			$proyecto =  $controlador->obtenerProyectoCU($idp);
+			$sesion = array("proyecto" => $proyecto, "session" => $session);
 			return $this->view->render($response,"casosdeuso.twig",$sesion);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
@@ -157,8 +144,6 @@ return function (App $app){
 		}
 	});
 
-
-
 	$app->get('/Proyecto/VerPostulantes',function($request,$response,$args){
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->tipo == 1){
 		$id=$request->getQueryParam("proy");
@@ -186,6 +171,23 @@ return function (App $app){
 			return $this->view->render($response,"proyectos.twig",$args);
 		
 	})->setName('proyectos');
+
+	$app->get('/Proyecto/casosdeuso/{id}', function($request,$response,$args){
+		if(isset($_SESSION['admin'])){	
+			$session = $_SESSION['admin'];
+			$idproyecto = $args['id'];
+			$controlador = new ctr_proyecto();
+			$proy = $controlador->obtenerProyectoCU($idproyecto);
+			$listaCU = $controlador->Listarcasosdeuso($idproyecto);
+			$args = array("proyecto" => $proy, "casosdeuso" => $listaCU, "session" => $session);
+			return $this->view->render($response,"VerCasosDeUso.twig",$args);
+		}else{
+			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
+			$mensaje_sesion = $arrayName = array('mensaje' => $mensaje );
+			return $this->view->render($response,"mensaje.twig",$mensaje_sesion);
+		}
+	})->setName("CasosDeUso");
+
 
 	$app->get('/Proyecto/{id}', function($request,$response,$args){
 		$session=null;
