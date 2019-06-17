@@ -48,7 +48,9 @@
 					<tr id="tabla_titulo" class="bg-info">
 						<td>Nombre</td>
 						<td>Descripcion</td>
+						{% if session %}
 						<td>Accion</td>
+						{% endif %}
 					</tr>
 				</thead>
 				<tbody>
@@ -56,7 +58,9 @@
 					<tr>
 						<td>{{proy.nombre}}</td>
 						<td>{{proy.descripcion}}</td>
+						{% if session%}
 						<td><a href="{{path_for('Inicio')}}Proyecto/{{ proy.id }}">Ver Proyecto</a></td>
+						{%endif%}
 					</tr>
 					{% endfor %}
 				</tbody>
