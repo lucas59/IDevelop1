@@ -35,8 +35,9 @@ public function agregarCasoDeUso($nombre, $descripcion, $impacto, $proy){
 	return $insertado;
 }
 
-public function actualizarCU($nombre,$progreso){
-	$actualizado = Casodeuso::actualizarCU($nombre,$progreso);
+public function actualizarCU($id, $progreso, $nombre){
+	$actualizado = Casodeuso::actualizarCasoDeUso($id, $progreso, $nombre);
+	return $actualizado;
 }
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	$usuario = $_SESSION['admin']->id;

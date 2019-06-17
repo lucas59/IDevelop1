@@ -106,17 +106,17 @@ return function (App $app){
 		}
 	});
 
-	$app->post('/Proyecto/actualizarCasoDeUso', function(Request $request, Response $response){
+	$app->post('/Proyecto/actualizarCasoDeUso2', function(Request $request, Response $response){
 		$data = $request->getParams();
-		$nombre= $data['nombre'];
+		$id= $data['id'];
 		$progreso = $data['progreso'];
-		$retorno = ctr_proyecto::actualizarCU($nombre,$progreso);
+		$nombre = $data['nombre'];
+		ob_clean();
+		
+		$retorno = ctr_proyecto::actualizarCU($id, $progreso, $nombre);
 
-		if($retorno){
-			return "1";
-		}else{
-			return "0";
-		}	
+
+		return $retorno;
 	});
 
 	$app->post('/Proyecto/activar_desactivar',function(Request $request, Response $response){

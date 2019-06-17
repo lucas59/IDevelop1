@@ -75,7 +75,7 @@ function ingresarCasoDeUso(nombre,descripcion,impacto,proyecto){
 
 function nombreCdUDisponible(nombre){
 	var retorno;
-		var urlBase = "/IDevelop1/IDevelop/public";
+	var urlBase = "/IDevelop1/IDevelop/public";
 
 	$.ajax({
 		async:false,
@@ -88,14 +88,15 @@ function nombreCdUDisponible(nombre){
 	return retorno;
 }
 
-function actualizarCasoDeUso1(nombre){
+function actualizarCasoDeUso1(id, nombre){
 
+	
+	var combo = document.getElementById(nombre);
+	var progreso = 25; //combo.options[combo.selectedIndex].value;	
 	console.log("No ingreso");
 	
-	var combo = document.getElementById("cmb"+nombre);
-	var progreso = combo.options[combo.selectedIndex].value;	
-	
-	$intento = actualizarCasoDeUso2(nombre, progrso);	
+	intento = actualizarCasoDeUso2(id, progreso, nombre);	
+	console.log("intento:" +intento);
 	
 	if(intento==true){
 		var mensaje = "Caso de uso actualizado";
@@ -108,30 +109,38 @@ function actualizarCasoDeUso1(nombre){
 		var link = document.getElementById("redirigir");
 		$("#modalAviso").modal();
 	}
-
-	var contenedor = document.getElementById('contenedor_carga');
-	contenedor.style.visibility = 'hidden';
-	contenedor.style.opacity = '0';
 }
 
-/*
-function actualizarCasoDeUso2(nombre, progreso){
-		$.ajax({
+
+function actualizarCasoDeUso2(id, progreso, nombre){
+	var retorno = null;
+	console.log("No ingreso");
+	
+	$.ajax({
 		async:false,
-		url: urlBase+'/Proyecto/actualizarCasoDeUso',
+		url: '/IDevelop1/IDevelop/public/Proyecto/actualizarCasoDeUso2',
 		type: 'POST',
-		data:{
+		data: {
 			"nombre": nombre,
 			"progreso": progreso,
-		},		
-		success: function(response){
-			response = response.trim();
-			retorno = response;
+			"id": id,
 		},
+		success: function(response){
+			response=response.trim();
+			if(response=="1"){
+				retorno = true;
+			}else if(response == "0"){
+				retorno =false;
+			}
+		},
+		error: function(response){
+		console.log("response:" + eval(response));
+		}
 	});
-	return retorno;
+
+	return retorno;	
 }
-*/
+
 	
 const form = document.getElementById('formCasosDeUso');
 form.addEventListener('submit', nuevoCasoDeUso);

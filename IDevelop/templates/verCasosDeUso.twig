@@ -8,7 +8,7 @@
 <main>
 <div  class="card">
 	<div class="card card-body border-info">
-		<form method="POST" id="formModificarCU">
+		<form>
 			<h2>Actualizar progreso de proyecto</h2>
 			<br>
 			<label > Nombre del Proyecto: {{proyecto.nombre}} </label>
@@ -28,7 +28,7 @@
 				</thead>
 			<tbody>
 			{% for cu in casosdeuso %}
-				<tr class="fila" id="cu.nombre">
+				<tr class="fila">
 					<td>{{ cu.nombre }}</td>
 					<td>{{ cu.descripcion }}</td>
 					{% if cu.puntosTot == 10 %}
@@ -41,16 +41,14 @@
 					<td>Alto</td>
 					{% endif %}
 					<td>
-						<select id="cmb{{cu.nombre}}">
+						<select id="{{cu.nombre}}">
 							<option value="0">No iniciado</option>
 							<option value="25">Comenzado</option>
 							<option value="50">En progreso</option>
 							<option value="100">Finalizado</option>
 						</select>
-					</td>
-					{% if session.tipo == 0%}
-					<td> <input type="button" onclick="actualizarCasoDeUso1({{cu.nombre}})" value="Actualizar"> </td>				
-					{% endif %}
+					</td>				
+					<td> <input id="cu.nombre" type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, '{{cu.nombre}}')" value="Actualizar"></td>
 				</tr>
 			{% endfor %}
 			</tbody>
