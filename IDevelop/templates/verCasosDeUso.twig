@@ -11,10 +11,11 @@
 		<form method="POST" id="formModificarCU">
 			<h2>Actualizar progreso de proyecto</h2>
 			<br>
-			<label for="nombreP"> Nombre del Proyecto:</label>
-			<input type="text" name="nombreP" value="{{nombreProy}}">
+			<label > Nombre del Proyecto: {{proyecto.nombre}} </label>
 			<br>
 			<br>
+			<a href="{{path_for('Inicio')}}Proyecto/nuevoCU/{{ proyecto.id }}">Nuevo Caso de uso </a>
+		
 			<table class="table table-striped">
 				<thead>
 					<tr>

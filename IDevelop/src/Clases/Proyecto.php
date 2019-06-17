@@ -167,6 +167,14 @@ class Proyecto
 		}
 	}
 
+	public function obtenerProyectoCU($idproy){
+		$respuesta = null;
+		$sql = DB::conexion()->prepare("SELECT * FROM proyecto WHERE id = ?");
+		$sql->bind_param('i',$idproy);
+		$sql->execute();
+		return $sql->get_result()->fetch_assoc();
+	}
+
 	public function ListarProyectosDeDesarrolladores($email){
 		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND D.id= ?");
 		$sql->bind_param('s',$email);

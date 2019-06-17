@@ -10,10 +10,10 @@
 	<div class="card card-body border-info">
 		<form method="POST" id="formCasosDeUso">
 			<span>
-				<label for="nombreProy"> Proyecto:</label>
-				<input class="form-control" type="text" id="nombreProy" name="nombre" value="">
+				<h2> Proyecto: {{proyecto.nombre}} </h2>
+				<br>
 			</span>
-			<h2>Informacion del caso de uso</h2>
+			<h3>Informacion del caso de uso</h3>
 			<span>
 				<label for="txtNombreCU"> Nombre caso de uso:</label>
 				<input class="form-control" type="text" id="txtNombreCU" name="nombre" required>
@@ -34,8 +34,10 @@
 			</span>
 			<br>
 			<br>
+			<input type="hidden" id="proyecto_id" value="{{proyecto.id}}">
 			<input class="btn btn-info" type="submit" name="submit" value="Crear caso de uso">
-			<br>		
+			<br>
+					
 		</form>
 	</div>
 </div>
