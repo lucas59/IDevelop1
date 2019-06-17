@@ -4,6 +4,7 @@ use Slim\App;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+require_once 'controladores/ctr_proyecto.php';
 require_once 'controladores/ctr_usuarios.php';
 require_once '../src/Clases/console.php';
 
@@ -214,8 +215,8 @@ return function (App $app){
 	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
 		$email=$request->getQueryParam("email");
 		if($request->getQueryParam("idproyecto") != null){
-		$args['idProyecto']=$request->getQueryParam("idproyecto");
-		$args['idEmpresa']=$request->getQueryParam("idEmpresa");
+			$args['idProyecto']=$request->getQueryParam("idproyecto");
+			$args['idEmpresa']=$request->getQueryParam("idEmpresa");
 		}
 		if($email==null){
 			if(isset($_SESSION['admin'])){
@@ -242,7 +243,7 @@ return function (App $app){
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
 			if($_SESSION && $_SESSION['admin']->tipo == 0){
-					$args['session']=$_SESSION['admin'];		
+				$args['session']=$_SESSION['admin'];		
 			}		
 			return $this->view->render($response,"PerfilDesarrollador.twig",$args);
 		}
@@ -301,13 +302,16 @@ return function (App $app){
 			header("Location: http://localhost/IDevelop1/IDevelop/public/Proyecto/$idProyecto");
 		}
 		$controladorUsuarios = new ctr_usuarios();
+
 		$Postulante = $controladorUsuarios->ElejirPostulante($email,$idProyecto);
-	
+		$titulo = "Postulaciones";
+		$mensaje = "Usted ha sido aceptado en el proyecto: ";
+		$retorno_2 = ctr_proyecto::enviarCorreo($idProyecto,$email,$titulo,$mensaje);
 		if(isset($_SESSION['admin'])){
-				$session=$_SESSION['admin'];	
+			$session=$_SESSION['admin'];	
 		}
 		header("Location: http://localhost/IDevelop1/IDevelop/public/Proyecto/$idProyecto");
-exit();
+		exit();
 	})->setName("EPostulate");
 }
 ?>
