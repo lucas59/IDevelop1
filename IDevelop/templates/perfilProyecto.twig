@@ -44,11 +44,11 @@
       {% endif %}
       {% endif %}
       {% if session.tipo == 0 %}      
-      <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Gestionar" onclick="">
+      <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Gestionar" onclick="window.location.href='{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}';">
       {% endif %}      
       {% if session.tipo == 1 %}
       {% if referencia == 1 %}
-      <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Ver planificacion" onclick="javascript:verPlanificacion({{proyecto.id |upper}},'{{session.id |upper}}');">
+      <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Ver planificacion" onclick="window.location.href='{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}';">
       {% if proyecto.estado == 0 %}
       <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},4);">
       {% elseif proyecto.estado == 4 %}
