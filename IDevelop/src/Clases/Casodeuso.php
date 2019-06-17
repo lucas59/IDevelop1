@@ -5,8 +5,11 @@ class Casodeuso
 {
 	private $nombre;
 	private $descripcion;
-	private $puntosTot; // traduccion de tiempo en puntos de realizar el caso de uso
-	
+	private $puntosActuales; // traduccion de tiempo en puntos de realizar el caso de uso
+	private $puntosTot;
+	private $proyecto_id;
+
+
 	function __construct($nombre, $descripcion, $puntosTot)
 	{
 		$this->nombre = $nombre;
@@ -79,10 +82,13 @@ class Casodeuso
 		return $respuesta;
 	}
 
-	public function actualizarCU($nombre, $progreso){
-		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE ?");
-		$sql->bind_param('is',$progreso,$nombre);
+	public function actualizarCasoDeUso($id, $progreso, $nombre){
+		
+		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE proyecto_id = ? AND nombre = ?");
+		$sql->bind_param('iis', $progreso, $id, $nombre);
+		
 		$respuesta = null;
+		
 		if($sql->execute()){
 			$respuesta = "1";
 		} else {
