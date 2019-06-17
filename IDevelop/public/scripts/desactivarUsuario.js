@@ -14,6 +14,20 @@ function desactivarUsuario(){
 
 }
 
+function descargarPDF(){
+
+	var datos =	$("#curriculo").val();
+	console.log(datos);
+
+	var pdf = 'data:application/octet-stream;base64,' + datos;
+
+	var dlnk = document.getElementById('descarga');
+    dlnk.href = pdf;
+
+    dlnk.click();
+
+}
+
 $("#btn_desactivar").on("click", function(){
     $("#mi-modal").modal('show');
   });

@@ -39,6 +39,12 @@
         <dd>{{Desarrollador.ciudad_actual}}</dd>
         <dt>Pais:</dt>
         <dd>{{Desarrollador.pais}}, {{Desarrollador.estado}}</dd>
+        {% if curriculo %}
+        <dt>Curriculum:</dt>
+        <a id='descarga' download='Curriculo.pdf' style="display:none;"></a>  
+        <input style="display: none" type="text" id="curriculo" name="curriculo" value="{{curriculo.datos}}">
+        <button onclick="descargarPDF()" id="btn_curriculo" type="button" class="btn btn-info">Descargar Curriculo</button>
+        {% endif %}
         {% if Desarrollador.email == session.id %}
         <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
         {%endif%}

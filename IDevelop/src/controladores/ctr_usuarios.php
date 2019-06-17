@@ -214,5 +214,8 @@ class ctr_usuarios{
 	public function ElejirPostulante($email,$idProyecto){
 		return Empresa::ElejirPostulante($email,$idProyecto);
 	}
+	public function obtenerCurriculo($email){
+		return curriculum::obtenerCurriculo($email);
+	}
 }
 ?>

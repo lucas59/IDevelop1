@@ -134,24 +134,23 @@ return function (App $app){
 	});
 
 	$app->post('/Usuario/Desarrollador/Datos',function (Request $request, Response $response){
-		$file = $_FILES['file'];
+		$file = $_FILES['curriculo'];
 		$foto = $_FILES['fotoPerfil'];		
 		$pais = $_POST['pais'];
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
 		$lenguaje = $_POST['lenguaje'];
 		//obtengo el curriculo
-		$nombreArchivo = $_FILES['file']['name'];
-		$base64 = base64_encode(file_get_contents($_FILES["file"]["tmp_name"]));
-		$tamañoArchivo = $_FILES['file']['size'];
-		$extension = explode('.', $nombreArchivo);
+		$nombreArchivoCurriculo = $_FILES['curriculo']['name'];
+		$base64Curriculo = base64_encode(file_get_contents($_FILES["curriculo"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['curriculo']['size'];
+		$extension = explode('.', $nombreArchivoCurriculo);
 		$extension = end($extension);
-		$extension = strtolower($extension);
+		$extensionCurriculo = strtolower($extension);
 
-		$arrayCurriculo = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
+		$arrayCurriculo = array('base64' =>$base64Curriculo ,'tamaño'=>$tamañoArchivo,'extension'=>$extensionCurriculo );
 
 		$curriculo = json_encode($arrayCurriculo);
-
 //obtengo la foto de perfil
 
 		$nombreArchivo = $_FILES['fotoPerfil']['name'];
@@ -164,7 +163,6 @@ return function (App $app){
 		$arrayFoto = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
 
 		$foto = json_encode($arrayFoto);
-
 
 		$controladorUsuarios = new ctr_usuarios();
 		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguaje,$curriculo,$foto);
@@ -237,7 +235,10 @@ return function (App $app){
 		$proyectos=null;
 		if($Desarrollador){
 			$args['Desarrollador']=$Desarrollador;
-			echo Console::log('asd',$Desarrollador);
+
+			$curriculo = $controladorUsuarios->obtenerCurriculo($email);
+			$args['curriculo']=$curriculo;
+			echo Console::log('asd',$curriculo);
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);

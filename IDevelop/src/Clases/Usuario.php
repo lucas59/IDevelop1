@@ -66,8 +66,8 @@ class Usuario
 
 	public function subirFotoPerfil($foto,$email){
 		$foto=json_decode($foto);
-		$sql = DB::conexion()->prepare("INSERT INTO `fotos_perfiles` (`id`, `contenido`, `extension`, `nombre`) VALUES (NULL, ?, ?,?)");
-		$sql->bind_param('sss',$foto->base64,$curriculum->extension,$email);
+		$sql = DB::conexion()->prepare("INSERT INTO `fotos_perfiles` (`id`, `contenido`, `extension`, `nombre`) VALUES (NULL, ?, ?, ?)");
+		$sql->bind_param('sss',$foto->base64,$foto->extension,$email);
 		if ($sql->execute()) {
 			return true;
 		} else{

@@ -26,12 +26,23 @@ class curriculum {
 	}
 
 	public function obtenerIDCurriculo($nombreC){
-		$sql = DB::conexion()->prepare("SELECT * FROM curriculum WHERE nombreCurriculum = ?");
+		$sql = DB::conexion()->prepare("SELECT * FROM curriculum WHERE nombreCurriculum = ? ");
 		$sql->bind_param("s",$nombreC);
 		$sql->execute();
 		$resultado = $sql->get_result();
 		$curriculum=$resultado->fetch_object();
 		return $curriculum->id;
 	}
+
+
+	public function obtenerCurriculo($nombreC){
+		$sql = DB::conexion()->prepare("SELECT * FROM curriculum WHERE nombreCurriculum = ?");
+		$sql->bind_param("s",$nombreC);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$curriculum=$resultado->fetch_object();
+		return $curriculum;
+	}
+
 
 } ?>
