@@ -5,8 +5,11 @@ class Casodeuso
 {
 	private $nombre;
 	private $descripcion;
-	private $puntosTot; // traduccion de tiempo en puntos de realizar el caso de uso
-	
+	private $puntosActuales; // traduccion de tiempo en puntos de realizar el caso de uso
+	private $puntosTot;
+	private $proyecto_id;
+
+
 	function __construct($nombre, $descripcion, $puntosTot)
 	{
 		$this->nombre = $nombre;

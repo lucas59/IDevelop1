@@ -89,6 +89,9 @@ function nombreCdUDisponible(nombre){
 }
 
 function actualizarCasoDeUso1(nombre){
+
+	console.log("No ingreso");
+	
 	var combo = document.getElementById("cmb"+nombre);
 	var progreso = combo.options[combo.selectedIndex].value;	
 	

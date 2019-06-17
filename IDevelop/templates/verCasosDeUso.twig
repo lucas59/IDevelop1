@@ -6,7 +6,7 @@
 
 {% block content %}
 <main>
-<div id="tabla_id" class="card">
+<div  class="card">
 	<div class="card card-body border-info">
 		<form method="POST" id="formModificarCU">
 			<h2>Actualizar progreso de proyecto</h2>
@@ -23,18 +23,23 @@
 						<th scope="col">Descripción</th>
 						<th scope="col">Impacto</th>
 						<th scope="col">Progreso</th>
+						<th scope="col">Acción </th>
 					</tr>
 				</thead>
 			<tbody>
 			{% for cu in casosdeuso %}
-				
-				{% if session.tipo == 0%}
-				<tr class="fila" onclick="actualizarCasoDeUso1({{cu.nombre}})" id="{{cu.nombre}}">				
-				{% endif %}
-
+				<tr class="fila" id="cu.nombre">
 					<td>{{ cu.nombre }}</td>
 					<td>{{ cu.descripcion }}</td>
-					<td>{{ cu.impacto }}</td>
+					{% if cu.puntosTot == 10 %}
+					<td>Bajo</td>
+					{% endif %}
+					{% if cu.puntosTot == 20 %}
+					<td>Medio</td>
+					{% endif %}
+					{% if cu.puntosTot == 30 %}
+					<td>Alto</td>
+					{% endif %}
 					<td>
 						<select id="cmb{{cu.nombre}}">
 							<option value="0">No iniciado</option>
@@ -43,6 +48,9 @@
 							<option value="100">Finalizado</option>
 						</select>
 					</td>
+					{% if session.tipo == 0%}
+					<td> <input type="button" onclick="actualizarCasoDeUso1({{cu.nombre}})" value="Actualizar"> </td>				
+					{% endif %}
 				</tr>
 			{% endfor %}
 			</tbody>
