@@ -162,7 +162,7 @@ class ctr_usuarios{
 		session_destroy();
 	}
 	public function obtenerUsuarios(){
-		return Desarrollador::obtenerDesarrolladores();
+		return Desarrollador::obtenerDesarrolladoresParaFiltrar();
 	}
 
 	public function obtenerDesarrolladoresParaFiltrar(){
@@ -203,7 +203,7 @@ class ctr_usuarios{
 		return Desarrollador::ObtenerExperiencia($email);
 	}
 	public function listarEmprezas(){
-		return Empresa::listarempresas();
+		return Usuario::obtenerEmpresasParaFiltrar();
 	}
 	public function PerfilEmpresa($email){
 		return Empresa::perfilEmpresa($email);

@@ -28,6 +28,12 @@ function descargarPDF(){
 
 }
 
+function editarUsuario($id){
+	console.log($id);
+    $("#modalEditar").modal('show');
+    
+  };
+
 $("#btn_desactivar").on("click", function(){
     $("#mi-modal").modal('show');
   });

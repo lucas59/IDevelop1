@@ -13,25 +13,50 @@
 			<th scope="col">Nombre</th>
 			<th class="tdDescripcion" scope="col">Descripción</th>
 			<th scope="col">Entrega</th>
-			<th scope="col">Empresa</th>
-			<th scope="col">Estado</th>
-			<th scope="col">Acción</th>
+			<th scope="col">Fase actual</th>
 
 		</tr>
 	</thead>
 	<tbody>
 		{% for proyecto in proyectos %}
-		<tr class="fila" id="{{proyecto.id}}">
+		{% if session %}
+		<tr onclick="window.location='{{path_for('Inicio')}}Proyecto/{{proyecto.id}}' " class="fila" id="{{proyecto.id}}">
+		{% else %}
+		<tr onclick="$('#modalNO').modal('show');" class="fila" id="{{proyecto.id}}">
+		{% endif %}
 			<td>{{ proyecto.nombre }}</td>
 			<td class="tdDescripcion">{{ proyecto.descripcion }}</td>
 			<td>{{ proyecto.fechaEntrega }}</td>
-			<td>{{ proyecto.empresa }}</td>
-			<td>{{ proyecto.estado }}</td>
-			<td id="accion"><a href="{{path_for('Inicio')}}Proyecto/{{proyecto.id}}"> Ver perfil </a></td>
+
+		{% if proyecto.estado == 1 %}
+			<td>En espera</td>
+		{% elseif proyecto.estado == 2 %}
+			<td>En desarrollo</td>
+		{% elseif proyecto.estado == 3 %}
+			<td>Finalizado</td>
+		{% endif %}
 		</tr>
 		{% endfor %}
 	</tbody>
 </table>
+
+<div id="modalNO" class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Inicia sesión</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		<button onclick="window.location='{{path_for('Inicio')}}Usuario/login'" type="button" class="btn btn-success">Inicia sesión</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
 {% block script %}

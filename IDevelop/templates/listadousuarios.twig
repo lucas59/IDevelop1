@@ -7,23 +7,16 @@
 <div id="tabla_id">
 <h1>Desarrolladores</h1>
   <table class="table">
-    <thead>
-      <tr id="tabla_titulo" class="bg-info">
-        <td>Email</td>
-        <td>Apellido</td>
-        <td>Pais</td>
-        <td>Accion</td>
-        <td>Accion 2</td>
-      </tr>
-    </thead>
     <tbody>
       {% for user in usuarios %}
-      <tr class="fila">
+      <tr onclick="window.location='{{path_for('Inicio')}}Usuario/Perfil?email={{ user.email }}' " class="fila">
+        <td><button  style="background-image: url(data:image/png;base64,{{user.contenido}})" id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+      </button>
+        {{user.nombre}}
+        {{ user.apellido }}
+      </td>
         <td>{{ user.email }}</td>
-        <td>{{ user.apellido }}</td>
         <td>{{ user.pais }}</td>
-        <td><a href="{{path_for('Inicio')}}Usuario/Perfil?email={{ user.email }}">Ver Perfil</a> 
-          <td><a>Puntuar</a></td>
         </tr>
         {% endfor %}
         </tbody>

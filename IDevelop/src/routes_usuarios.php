@@ -30,6 +30,7 @@ return function (App $app){
 		}
 		$controladorUsuarios = new ctr_usuarios();
 		$usuarios = $controladorUsuarios->obtenerUsuarios();
+		echo Console::log("ads",$usuarios);
 		return $this->view->render($response,"listadousuarios.twig",compact('usuarios','session'));
 	})->setName("listado");
 
@@ -37,7 +38,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$controladorUsuarios->cerrarsesion();
 		$sesion = null;
-		return $this->view->render($response,"index.twig",compact('sesion'));
+		return $this->view->render($response,"login.twig",compact('sesion'));
 	})->setName("cerrar");
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
@@ -254,6 +255,7 @@ return function (App $app){
 	$app->get('/Usuario/VerEmpresas',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
 		$Empresas = $controladorUsuarios->listarEmprezas();
+		echo Console::log("asd",$Empresas);
 		if(isset($_SESSION['admin'])){
 			if($_SESSION['admin']->tipo == 0){
 				$session=$_SESSION['admin'];
