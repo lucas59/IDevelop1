@@ -74,6 +74,18 @@ class Usuario
 			return false;
 		}
 	}
+	
+	public function	actualizarFotoPerfil($foto,$email){
+	$foto=json_decode($foto);
+	$sql = DB::conexion()->prepare("UPDATE `fotos_perfiles` SET `contenido` = ? WHERE `fotos_perfiles`.`nombre` = ?");
+		$sql->bind_param('ss',$foto->base64,$email);
+		if ($sql->execute()) {
+			return true;
+		} else{
+			return false;
+		}
+
+}
 
 	public function obtenerUsuario($email){
 		$sql = DB::conexion()->prepare("SELECT * FROM usuario WHERE email = ?");
@@ -276,6 +288,7 @@ class Usuario
 			$myArray = array();
 
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				//$row['contenido']=base64_encode($row['contenido']);
 				$myArray[] = $row;
 			}
 			return $myArray;
@@ -290,6 +303,7 @@ class Usuario
 			$myArray = array();
 
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				//$row['contenido']=base64_encode($row['contenido']);
 				$myArray[] = $row;
 			}
 			return $myArray;

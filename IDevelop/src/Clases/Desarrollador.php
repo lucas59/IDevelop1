@@ -381,7 +381,22 @@ $this->nombre= $nombre;
 			return false;
 		}
 	}
-
+public function actualizarPerfil($email,$nombre,$apellido,$lenguaje){
+	if ($lenguaje!="...") {
+		$sql=DB::conexion()->prepare("UPDATE `desarrollador` SET `apellido` = ?, `desarrolloPreferido` = ?, `nombre` = ? WHERE `desarrollador`.`id` = ?");
+		$sql->bind_param('ssss',$apellido,$lenguaje,$nombre,$email);
+		}else{
+		$sql=DB::conexion()->prepare("UPDATE `desarrollador` SET `apellido` = ?, `nombre` = ? WHERE `desarrollador`.`id` = ?");	
+			
+		$sql->bind_param('sss',$apellido,$nombre,$email);
+			}
+		if ($sql->execute()) {
+			return true;
+		}else{
+			return false;
+		}
+	
+}
 
 }
 ?>

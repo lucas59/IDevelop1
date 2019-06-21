@@ -5,159 +5,186 @@
 {% endblock %}
 {% block content %}
 <div id="tabla_id">
-  <h1>Perfil Desarrollador</h1>
-  <ul class="nav nav-tabs" id="myTab" role="tablist" >
-    <li class="nav-item" >
-      <a class="nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="home" aria-selected="true">Datos</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Experiencia" role="tab" aria-controls="profile" aria-selected="false">Experiencia laboral</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="profile" aria-selected="false">Proyectos</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Herramientas" role="tab" aria-controls="profile" aria-selected="false">Herramientas</a>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-   <div role="tabpanel" class="tab-pane active" id="Datos">
-    <div class="row">
-      <div class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Desarrollador.foto_perfil}}"/><h3>{{Desarrollador.nombre}}</h3>
+    <h1>Perfil Desarrollador</h1>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="home" aria-selected="true">Datos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Experiencia" role="tab" aria-controls="profile" aria-selected="false">Experiencia laboral</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="profile" aria-selected="false">Proyectos</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Herramientas" role="tab" aria-controls="profile" aria-selected="false">Herramientas</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div role="tabpanel" class="tab-pane active" id="Datos">
+            <div class="row">
+                <div class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Desarrollador.foto_perfil}}" />
+                    <h3>{{Desarrollador.nombre}} {{Desarrollador.apellido}}</h3>
+                </div>
+                <div class="col-lg-6">
+                    <dl class="dl-horizontal">
+                        <dt>Email:</dt>
+                        <dd>{{Desarrollador.email}}</dd>
+                        <dt>Cedula:</dt>
+                        <dd>{{Desarrollador.cedula}}</dd>
+                        <dt>Fecha de nacimiento:</dt>
+                        <dd>{{Desarrollador.fecha_Nacimiento}}</dd>
+                        <dt>Ciudad:</dt>
+                        <dd>{{Desarrollador.ciudad_actual}}</dd>
+                        <dt>Pais:</dt>
+                        <dd>{{Desarrollador.pais}}, {{Desarrollador.estado}}</dd>
+                        {% if curriculo %}
+                        <dt>Curriculum:</dt>
+                        <a id='descarga' download='Curriculo.pdf' style="display:none;"></a>
+                        <input style="display: none" type="text" id="curriculo" name="curriculo" value="{{curriculo.datos}}">
+                        <button onclick="descargarPDF()" id="btn_curriculo" type="button" class="btn btn-info">Descargar Curriculo</button>
+                        {% endif %}
+                        {% if Desarrollador.email == session.id %}
+                        <button id="btn_editar" onclick="editarUsuario()" type="button" class="btn btn-info">Editar perfil</button>
+                        <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
+                        {%endif%}
+                        {% if idProyecto %}
+                        <form id="elegirForm" method="POST" class="form-signin">
+                            <input type="hidden" name="email" value="{{Desarrollador.email}}">
+                            <input type="hidden" name="idProyecto" value="{{idProyecto}}">
+                            <input type="hidden" name="idEmpresa" value="{{idEmpresa}}">
+                            <input class="btn btn-info" type="submit" value="Elejir Postulante">
+                        </form>
+                        {% endif %}
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Experiencia" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="table">
+                <thead>
+                    <tr id="tabla_titulo" class="bg-info">
+                        <td>Empreza</td>
+                        <td>Descripcion</td>
+                        <td>Fecha Inicio</td>
+                        <td>Fecha Fin</td>
+                        <td>Contacto</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exp in experiencia %}
+                    <tr>
+                        <td>{{ exp.empresa }}</td>
+                        <td>{{ exp.descripcion }}</td>
+                        <td>{{ exp.fechaini }}</td>
+                        <td>{{ exp.fechafin }}</td>
+                        <td>{{ exp.contacto }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="table">
+                <thead>
+                    <tr id="tabla_titulo" class="bg-info">
+                        <td>Nombre</td>
+                        <td>Descripcion</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for proy in proyectos %}
+                    <tr class="fila" onclick="window.location='{{path_for('Inicio')}}Proyecto/{{ proy.id }}'">
+                        <td>{{ proy.nombre }}</td>
+                        <td>{{ proy.descripcion }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="Herramientas" role="tabpanel" aria-labelledby="profile-tab">
+            <table class="table">
+                <thead>
+                    <tr id="tabla_titulo" class="bg-info">
+                        <td>Nombre</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for her in herramientas %}
+                    <tr>
+                        <td>{{ her.nombre }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <div class="col-lg-6">
-      <dl class="dl-horizontal">
-        <dt>Email:</dt>
-        <dd>{{Desarrollador.email}}</dd>
-        <dt>Apellido:</dt>
-        <dd>{{Desarrollador.apellido}}</dd>
-        <dt>Cedula:</dt>
-        <dd>{{Desarrollador.cedula}}</dd>
-        <dt>Fecha de nacimiento:</dt>
-        <dd>{{Desarrollador.fecha_Nacimiento}}</dd>
-        <dt>Ciudad:</dt>
-        <dd>{{Desarrollador.ciudad_actual}}</dd>
-        <dt>Pais:</dt>
-        <dd>{{Desarrollador.pais}}, {{Desarrollador.estado}}</dd>
-        {% if curriculo %}
-        <dt>Curriculum:</dt>
-        <a id='descarga' download='Curriculo.pdf' style="display:none;"></a>  
-        <input style="display: none" type="text" id="curriculo" name="curriculo" value="{{curriculo.datos}}">
-        <button onclick="descargarPDF()" id="btn_curriculo" type="button" class="btn btn-info">Descargar Curriculo</button>
-        {% endif %}
-        {% if Desarrollador.email == session.id %}
-        <button id="btn_editar" onclick="editarUsuario('{{ session.id }}')" type="button" class="btn btn-info">Editar perfil</button>
-        <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
-        {%endif%}
-        {% if idProyecto %}
-        <form id="elegirForm" method="POST" class="form-signin">
-        <input type="hidden" name="email" value="{{Desarrollador.email}}">
-        <input type="hidden" name="idProyecto" value="{{idProyecto}}">
-        <input type="hidden" name="idEmpresa" value="{{idEmpresa}}">
-        <input class="btn btn-info" type="submit" value="Elejir Postulante">
-         </form>
-        {% endif %}
-      </dl>
-    </div>
-  </div>
-</div>
-<div class="tab-pane fade" id="Experiencia" role="tabpanel" aria-labelledby="profile-tab">
-  <table class="table">
-    <thead>
-      <tr id="tabla_titulo" class="bg-info">
-        <td>Empreza</td>
-        <td>Descripcion</td>
-        <td>Fecha Inicio</td>
-        <td>Fecha Fin</td>
-        <td>Contacto</td>
-      </tr>
-    </thead>
-    <tbody>
-      {% for exp in experiencia %}
-      <tr>
-        <td>{{ exp.empresa }}</td>
-        <td>{{ exp.descripcion }}</td>
-        <td>{{ exp.fechaini }}</td>
-        <td>{{ exp.fechafin }}</td>
-        <td>{{ exp.contacto }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="profile-tab">
-  <table class="table">
-    <thead>
-      <tr id="tabla_titulo" class="bg-info">
-        <td>Nombre</td>
-        <td>Descripcion</td>
-      </tr>
-    </thead>
-    <tbody>
-      {% for proy in proyectos %}
-      <tr class="fila" onclick="window.location='{{path_for('Inicio')}}Proyecto/{{ proy.id }}'" >
-        <td>{{ proy.nombre }}</td>
-        <td>{{ proy.descripcion }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-<div class="tab-pane fade" id="Herramientas" role="tabpanel" aria-labelledby="profile-tab">
-  <table class="table">
-    <thead>
-      <tr id="tabla_titulo" class="bg-info">
-        <td>Nombre</td>
-      </tr>
-    </thead>
-    <tbody>
-      {% for her in herramientas %}
-      <tr>
-        <td>{{ her.nombre }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-</div>
 </div>
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Confirmar</h5>
-      </div>
-      <div class="modal-footer">
-        <button onclick="desactivarUsuario()" type="button" class="btn btn-default" id="modal-btn-si">Si</button>
-        <button type="button" class="btn btn-primary" id="btn_cerrar">No</button>
-        
-      </div>
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirmar</h5>
+            </div>
+            <div class="modal-footer">
+                <button onclick="desactivarUsuario()" type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+                <button type="button" class="btn btn-primary" id="btn_cerrar">No</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
-
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modalEditar">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Editar mis datos</h5>
-      </div>
-      <div class="modal-body">
-        <input type="text" name="nombre">        
-        <input type="text" name="apellido">
-        <input type="" name="">
-        <input type="" name="">
-        <input type="" name="">
-      </div>
-      
-      <div class="modal-footer">
-        <button onclick="desactivarUsuario()" type="button" class="btn btn-default" id="modal-btn-si">Si</button>
-        <button type="button" class="btn btn-primary" id="btn_cerrar">No</button>
-        
-      </div>
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edita tus datos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenedorFoto">
+                    <input type="text" style="display: none" name="emailD" value="{{Desarrollador.email}}" id="emailD">
+                    <div id="fotoActual" class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Desarrollador.foto_perfil}}">
+                    </div>
+                    <div id="fotoPuesta" class="col-lg-6">
+                        <input style="display: none;" id="foto" type="text" /></div>
+                    <input type="file" name="filePerfil" id="fotoPerfil" required />
+                </div>
+                <br>
+                <span>
+                    <label>Nombre </label>
+                    <input value="{{Desarrollador.nombre}}" class="form-control" id="txtNombre" type="text" name="nombre" required>
+                </span><span>
+                    <label>Apellido </label>
+                    <input value="{{Desarrollador.apellido}}" class="form-control" id="txtApellido" type="text" name="apellido" required>
+                </span>
+                <span>
+                    <label for="lenguaFav">Tu lenguaje favorito</label>
+                    <select id="lenguaFav" class="form-control">
+                        <option value="">...</option>
+                        <option value="C">C</option>
+                        <option value="Java">Java</option>
+                        <option value="C++">C++</option>
+                        <option value="C#">C#</option>
+                        <option value="R">R</option>
+                        <option value="PHP">PHP</option>
+                        <option value="GO">GO</option>
+                        <option value="Swift">Swift</option>
+                    </select>
+                </span>
+                <span>
+                    <label>Curriculum vitae: </label>
+                    <input accept="application/pdf" class="form-control" id="curriculum" type="file" name="file">
+                </span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="actualizarPerfil()" id="btn_Guardar" type="button" class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {% endblock %}
 {% block script %}

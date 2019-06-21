@@ -44,5 +44,16 @@ class curriculum {
 		return $curriculum;
 	}
 
+	public function actualizarCurriculo($arrayCurriculo,$email){
+		$arrayCurriculo=json_decode($arrayCurriculo);
+		$sql=DB::conexion()->prepare("UPDATE `curriculum` SET `datos` = ?  WHERE `curriculum`.`nombreCurriculum` = ?");
+		$sql->bind_param('ss',$arrayCurriculo->base64,$email);
+		if ($sql->execute()) {
+			return true;
+		} else{
+			return false;
+		}
+	}
+
 
 } ?>

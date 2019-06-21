@@ -37,6 +37,10 @@
 					<dd> {{Empresa.reclutador}}</dd>
 					<dt>Direccion:</dt>
 					<dd> {{Empresa.direccion}}</dd>
+					{% if Empresa.email == session.id %}
+                        <button id="btn_editar" onclick="editarEmpresa()" type="button" class="btn btn-info">Editar perfil</button>
+                        <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
+                    {%endif%}
 			  </dl>
     </div>
   </div>
@@ -69,6 +73,63 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edita tus datos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="contenedorFoto">
+                    <input type="text" style="display: none" name="emailD" value="{{Empresa.email}}" id="emailD">
+                    <div id="fotoActual" class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Empresa.foto_perfil}}">
+                    </div>
+                    <div id="fotoPuesta" class="col-lg-6">
+                        <input style="display: none;" id="foto" type="text" /></div>
+                    <input type="file" name="filePerfil" id="fotoPerfil" required />
+                </div>
+                <br>
+                <span>
+                    <label>Nombre </label>
+                    <input value="{{Empresa.nombre}}" class="form-control" id="txtNombre" type="text" name="nombre" required>
+                </span>
+				<span>
+                    <label>Rubro</label>
+                    <input value="{{Empresa.rubro}}" class="form-control" id="txtRubro" type="text" name="rubro" required>
+                </span>
+				<span>
+                    <label>Mision</label>
+                    <textarea class="form-control" id="txtMision" type="text" name="mision" required>{{Empresa.mision}}</textarea>
+                </span>
+                <span>
+                    <label>Vision</label>
+                    <textarea class="form-control" id="txtVision" type="text" name="vision" required>{{Empresa.vision}}</textarea>
+                </span>
+                <span>
+                    <label>Reclutador</label>
+                    <input value="{{Empresa.reclutador}}" class="form-control" id="txtReclutador" type="text" name="reclutador" required>
+                </span>
+                <span>
+                    <label>Direccion</label>
+                    <textarea class="form-control" id="txtDireccion" type="text" name="direccion" required>{{Empresa.direccion}}</textarea>
+                </span>
+				<span>
+                    <label>Telefono </label>
+                    <input value="{{Empresa.telefono}}" class="form-control" id="txtTel" type="text" name="telefono" required>
+                </span>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="actualizarPerfilEmpresa()" id="btn_Guardar" type="button" class="btn btn-primary">Guardar cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% block script %}
+<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/desactivarUsuario.js"></script>
+{% endblock %}
 
 
 

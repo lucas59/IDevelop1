@@ -102,6 +102,22 @@ class ctr_usuarios{
 		}
 	}
 
+	public function editarDatosDesarrollador($email, $nombre, $apellido,$lenguaje,$arrayCurriculo,$arrayFoto){
+		if($arrayCurriculo){
+			curriculum::actualizarCurriculo($arrayCurriculo,$email);	
+		}
+	
+	if ($arrayFoto) {
+			 Usuario::actualizarFotoPerfil($arrayFoto,$email);
+		}	
+
+		$actualizacion= Desarrollador::actualizarPerfil($email,$nombre,$apellido,$lenguaje);		
+		
+		return $actualizacion;
+		
+	}
+
+
 	public function ponerSession($email,$tipoUsuario){
 		
 		if(!isset($_SESSION)) 
@@ -130,6 +146,17 @@ class ctr_usuarios{
 
 		}
 	}
+public function	actualizarDatosEmpresa($email,$nombre,$vision,$mision,$tel,$rubro,$reclutador,$direccion,$foto){
+	
+	if ($foto) {
+			 Usuario::actualizarFotoPerfil($foto,$email);
+		}	
+
+		$actualizacion= Empresa::actualizarPerfil($email,$nombre,$vision,$mision,$tel,$rubro,$reclutador,$direccion);		
+		
+		return $actualizacion;
+
+}
 
 
 	public function obtenerUsuarioPorToken($token){
@@ -142,6 +169,14 @@ class ctr_usuarios{
 		}else{
 			$usuarioEmpresa = Empresa::obtenerEmpresa($email);
 			return $usuarioEmpresa;
+		}
+	}
+
+	public function obtenerUsuario($id,$tipo){
+		if ($tipo==0) {
+			return Desarrollador::obtenerDesarrollador_login($id);
+		}else{
+			return Empresa::obtenerEmpresa_login($email);
 		}
 	}
 	
