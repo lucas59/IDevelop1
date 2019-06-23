@@ -6,56 +6,66 @@
 
 {% block content %}
 <main>
+
 <div  class="card">
 	<div class="card card-body border-info">
 		<form>
-			<h2>Actualizar progreso de proyecto</h2>
+			<h2>Planificación del proyecto</h2>
 			<br>
 			<label > Nombre del Proyecto: {{proyecto.nombre}} </label>
 			<br>
 			<br>
-			<a href="{{path_for('Inicio')}}Proyecto/nuevoCU/{{ proyecto.id }}">Nuevo Caso de uso </a>
-		
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th scope="col">Nombre caso de uso</th>
-						<th scope="col">Descripción</th>
-						<th scope="col">Impacto</th>
-						<th scope="col">Progreso</th>
-						<th scope="col">Acción </th>
+			{% if session.tipo == 0 %}	
+				<a href="{{path_for('Inicio')}}Proyecto/nuevoCU/{{ proyecto.id }}">Nuevo Caso de uso </a>
+			
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Nombre caso de uso</th>
+							<th scope="col">Descripción</th>
+							<th scope="col">Impacto</th>
+							<th scope="col">Progreso</th>
+							<th scope="col">Acción </th>
+						</tr>
+					</thead>
+				<tbody>
+				{% for cu in casosdeuso %}
+					<tr class="fila">
+						<td>{{ cu.nombre }}</td>
+						<td>{{ cu.descripcion }}</td>
+						{% if cu.puntosTot == 10 %}
+							<td>Bajo</td>
+						{% endif %}
+						{% if cu.puntosTot == 20 %}
+							<td>Medio</td>
+						{% endif %}
+						{% if cu.puntosTot == 30 %}
+							<td>Alto</td>
+						{% endif %}
+						<td>
+							<select id="{{cu.nombre}}">
+								<option value="0">No iniciado</option>
+								<option value="25">Comenzado</option>
+								<option value="50">En progreso</option>
+								<option value="100">Finalizado</option>
+							</select>
+						</td>				
+						<td> <input id="cu.nombre" type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, '{{cu.nombre}}')" value="Actualizar"></td>
 					</tr>
-				</thead>
-			<tbody>
-			{% for cu in casosdeuso %}
-				<tr class="fila">
-					<td>{{ cu.nombre }}</td>
-					<td>{{ cu.descripcion }}</td>
-					{% if cu.puntosTot == 10 %}
-					<td>Bajo</td>
-					{% endif %}
-					{% if cu.puntosTot == 20 %}
-					<td>Medio</td>
-					{% endif %}
-					{% if cu.puntosTot == 30 %}
-					<td>Alto</td>
-					{% endif %}
-					<td>
-						<select id="{{cu.nombre}}">
-							<option value="0">No iniciado</option>
-							<option value="25">Comenzado</option>
-							<option value="50">En progreso</option>
-							<option value="100">Finalizado</option>
-						</select>
-					</td>				
-					<td> <input id="cu.nombre" type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, '{{cu.nombre}}')" value="Actualizar"></td>
-				</tr>
-			{% endfor %}
-			</tbody>
-			</table>
+				{% endfor %}
+				</tbody>
+				</table>
+				{% endif %}
+				
+				{% if session.tipo == 1 %}
+				
+				
+
+				{% endif %}
 		</form>
 	</div>
 </div>
+
 </main>
 
 <!-- Modal  de mensajes -->

@@ -39,6 +39,7 @@ public function actualizarCU($id, $progreso, $nombre){
 	$actualizado = Casodeuso::actualizarCasoDeUso($id, $progreso, $nombre);
 	return $actualizado;
 }
+
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	$usuario = $_SESSION['admin']->id;
 	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
