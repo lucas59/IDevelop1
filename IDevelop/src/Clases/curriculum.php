@@ -26,12 +26,34 @@ class curriculum {
 	}
 
 	public function obtenerIDCurriculo($nombreC){
-		$sql = DB::conexion()->prepare("SELECT * FROM curriculum WHERE nombreCurriculum = ?");
+		$sql = DB::conexion()->prepare("SELECT * FROM curriculum WHERE nombreCurriculum = ? ");
 		$sql->bind_param("s",$nombreC);
 		$sql->execute();
 		$resultado = $sql->get_result();
 		$curriculum=$resultado->fetch_object();
 		return $curriculum->id;
 	}
+
+
+	public function obtenerCurriculo($nombreC){
+		$sql = DB::conexion()->prepare("SELECT * FROM curriculum WHERE nombreCurriculum = ?");
+		$sql->bind_param("s",$nombreC);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$curriculum=$resultado->fetch_object();
+		return $curriculum;
+	}
+
+	public function actualizarCurriculo($arrayCurriculo,$email){
+		$arrayCurriculo=json_decode($arrayCurriculo);
+		$sql=DB::conexion()->prepare("UPDATE `curriculum` SET `datos` = ?  WHERE `curriculum`.`nombreCurriculum` = ?");
+		$sql->bind_param('ss',$arrayCurriculo->base64,$email);
+		if ($sql->execute()) {
+			return true;
+		} else{
+			return false;
+		}
+	}
+
 
 } ?>

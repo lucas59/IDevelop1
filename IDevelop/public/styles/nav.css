@@ -44,22 +44,28 @@
 .show {display: block;}
 
 #formBuscar tbody{
+  width: 100%;
   background: white;
   position: absolute;
   z-index: 5;
 }
+#formBuscar  input{
+  width: 300px;
+}
 #formBuscar{
-  margin-right: 5px;
+ margin-right: auto;
+ margin-left: auto;
+  display: inline-block;
 }
 
 #formBuscar tbody td{
   width: 220px;
 } 
 
-#buscador_div{
-  width: 50%;
+#search{
+  position: relative;
+  
 }
-
 #searchTable {
   position: relative;
 }

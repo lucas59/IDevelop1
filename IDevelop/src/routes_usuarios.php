@@ -37,7 +37,7 @@ return function (App $app){
 		$controladorUsuarios = new ctr_usuarios();
 		$controladorUsuarios->cerrarsesion();
 		$sesion = null;
-		return $this->view->render($response,"index.twig",compact('sesion'));
+		return $this->view->render($response,"login.twig",compact('sesion'));
 	})->setName("cerrar");
 
 	$app->get('/Usuario/validarCorreo/{email}',function($request,$response,$args){
@@ -55,7 +55,6 @@ return function (App $app){
 		if($validar){
 			$usuario=$controladorUsuarios->obtenerUsuarioPorToken($token);
 			$usuario = array ("usuario"  => $usuario);
-			echo Console::log("er",$usuario);
 			return $this->view->render($response,"altaUser2.twig",$usuario);	
 		}else{
 			return $this->view->render($response,"index.twig");
@@ -77,6 +76,17 @@ return function (App $app){
 		return json_encode($retorno);
 	});
 
+	$app->get('/Usuario/DatosSession',function($request,$response,$args){
+		$controladorUsuarios = new ctr_usuarios();
+		$tipo=$args['tipo'];
+		if($_SESSION==null){
+			return "0";
+		}else{
+			$session=$_SESSION['admin'];
+		return json_encode($controladorUsuarios->obtenerUsuario($session->id,$session->tipo));
+		}
+	});
+	
 	$app->get('/Usuario/Ciudad/{pais}',function($request,$response,$args){
 		$controladorUsuarios = new ctr_usuarios();
 		$pais = $args['pais'];
@@ -135,24 +145,23 @@ return function (App $app){
 	});
 
 	$app->post('/Usuario/Desarrollador/Datos',function (Request $request, Response $response){
-		$file = $_FILES['file'];
+		$file = $_FILES['curriculo'];
 		$foto = $_FILES['fotoPerfil'];		
 		$pais = $_POST['pais'];
 		$ciudad = $_POST['ciudad'];
 		$email = $_POST['email'];
 		$lenguaje = $_POST['lenguaje'];
 		//obtengo el curriculo
-		$nombreArchivo = $_FILES['file']['name'];
-		$base64 = base64_encode(file_get_contents($_FILES["file"]["tmp_name"]));
-		$tamañoArchivo = $_FILES['file']['size'];
-		$extension = explode('.', $nombreArchivo);
+		$nombreArchivoCurriculo = $_FILES['curriculo']['name'];
+		$base64Curriculo = base64_encode(file_get_contents($_FILES["curriculo"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['curriculo']['size'];
+		$extension = explode('.', $nombreArchivoCurriculo);
 		$extension = end($extension);
-		$extension = strtolower($extension);
+		$extensionCurriculo = strtolower($extension);
 
-		$arrayCurriculo = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
+		$arrayCurriculo = array('base64' =>$base64Curriculo ,'tamaño'=>$tamañoArchivo,'extension'=>$extensionCurriculo );
 
 		$curriculo = json_encode($arrayCurriculo);
-
 //obtengo la foto de perfil
 
 		$nombreArchivo = $_FILES['fotoPerfil']['name'];
@@ -166,7 +175,6 @@ return function (App $app){
 
 		$foto = json_encode($arrayFoto);
 
-
 		$controladorUsuarios = new ctr_usuarios();
 		$retorno = $controladorUsuarios->enviarDatosDesarrollador($email,$pais,$ciudad,$lenguaje,$curriculo,$foto);
 		if($retorno==1){
@@ -176,6 +184,63 @@ return function (App $app){
 			return "0";
 		}
 	});
+		$app->post('/Usuario/Desarrollador/DatosEditar',function (Request $request, Response $response){
+		
+		if (isset($_FILES['curriculo'])) {
+			$file = $_FILES['curriculo'];
+		}else{
+			$file=null;
+		}
+		
+		if (isset($_FILES['fotoPerfil'])) {
+			$foto = $_FILES['fotoPerfil'];
+		}else{
+			$foto=null;
+		}
+		
+		$email = $_POST['email'];
+		$nombre = $_POST['nombre'];
+		$apellido = $_POST['apellido'];
+		
+		$lenguaje = $_POST['lenguaje'];
+		$arrayCurriculo=null;
+		$arrayFoto=null;
+		if($file){
+
+		$nombreArchivoCurriculo = $_FILES['curriculo']['name'];
+		$base64Curriculo = base64_encode(file_get_contents($_FILES["curriculo"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['curriculo']['size'];
+		$extension = explode('.', $nombreArchivoCurriculo);
+		$extension = end($extension);
+		$extensionCurriculo = strtolower($extension);
+
+		$arrayCurriculo = array('base64' =>$base64Curriculo ,'tamaño'=>$tamañoArchivo,'extension'=>$extensionCurriculo );
+
+		$arrayCurriculo = json_encode($arrayCurriculo);
+	}
+	//obtengo la foto de perfil
+if ($foto) {
+		$nombreArchivo = $_FILES['fotoPerfil']['name'];
+		$base64 = base64_encode(file_get_contents($_FILES["fotoPerfil"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['fotoPerfil']['size'];
+		$extension = explode('.', $nombreArchivo);
+		$extension = end($extension);
+		$extension = strtolower($extension);
+
+		$arrayFoto = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
+
+		$arrayFoto = json_encode($arrayFoto);
+	}
+		$controladorUsuarios = new ctr_usuarios();
+		$retorno = $controladorUsuarios->editarDatosDesarrollador($email, $nombre, $apellido,$lenguaje,$arrayCurriculo,$arrayFoto);
+		if($retorno==1){
+			ctr_usuarios::ponerSession($email,'d');
+			return "1";
+		}else{
+			return "0";
+		}
+	});
+
 
 
 	$app->post('/Usuario/Empresa/Datos',function (Request $request, Response $response){
@@ -212,6 +277,52 @@ return function (App $app){
 			return "0";
 		}	
 	});
+
+
+	$app->post('/Usuario/Empresa/DatosEditar',function (Request $request, Response $response){
+		$vision = $_POST['vision'];
+		$mision = $_POST['mision'];
+		$tel = $_POST['tel'];
+		$rubro = $_POST['rubro'];
+		$reclutador = $_POST['reclutador'];
+		$direccion = $_POST['direccion'];
+		$email = $_POST['email'];
+		$nombre = $_POST['nombre'];
+
+
+
+if (isset($_FILES['fotoPerfil'])) {
+			$foto = $_FILES['fotoPerfil'];
+		}else{
+			$foto=null;
+		}
+
+
+	if ($foto) {
+
+		$nombreArchivo = $_FILES['fotoPerfil']['name'];
+		$base64 = base64_encode(file_get_contents($_FILES["fotoPerfil"]["tmp_name"]));
+		$tamañoArchivo = $_FILES['fotoPerfil']['size'];
+		$extension = explode('.', $nombreArchivo);
+		$extension = end($extension);
+		$extension = strtolower($extension);
+
+		$arrayFoto = array('base64' =>$base64 ,'tamaño'=>$tamañoArchivo,'extension'=>$extension );
+
+		$foto = json_encode($arrayFoto);
+
+	}
+
+		$controladorUsuarios = new ctr_usuarios();
+		$retorno = $controladorUsuarios->actualizarDatosEmpresa($email,$nombre,$vision,$mision,$tel,$rubro,$reclutador,$direccion,$foto);
+		if($retorno==1){
+			ctr_usuarios::ponerSession($email,'e');
+			return "1";
+		}else{
+			return "0";
+		}	
+	});
+
 	$app->get('/Usuario/Perfil',function(Request $request, Response $response,$args){
 		$email=$request->getQueryParam("email");
 		if($request->getQueryParam("idproyecto") != null){
@@ -222,9 +333,9 @@ return function (App $app){
 			if(isset($_SESSION['admin'])){
 				if($_SESSION['admin']->tipo==1){
 					$args['session']=$_SESSION['admin'];
-					return $this->view->render($response,"index.twig",$args);					
+					return $this->view->render($response,"index.twig",$args);		
 				}else{
-					
+										
 					$email=$_SESSION['admin']->id; 	
 				}
 			}else{
@@ -238,7 +349,9 @@ return function (App $app){
 		$proyectos=null;
 		if($Desarrollador){
 			$args['Desarrollador']=$Desarrollador;
-			echo Console::log('asd',$Desarrollador);
+
+			$curriculo = $controladorUsuarios->obtenerCurriculo($email);
+			$args['curriculo']=$curriculo;
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);

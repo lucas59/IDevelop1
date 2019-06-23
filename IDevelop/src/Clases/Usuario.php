@@ -66,14 +66,26 @@ class Usuario
 
 	public function subirFotoPerfil($foto,$email){
 		$foto=json_decode($foto);
-		$sql = DB::conexion()->prepare("INSERT INTO `fotos_perfiles` (`id`, `contenido`, `extension`, `nombre`) VALUES (NULL, ?, ?,?)");
-		$sql->bind_param('sss',$foto->base64,$curriculum->extension,$email);
+		$sql = DB::conexion()->prepare("INSERT INTO `fotos_perfiles` (`id`, `contenido`, `extension`, `nombre`) VALUES (NULL, ?, ?, ?)");
+		$sql->bind_param('sss',$foto->base64,$foto->extension,$email);
 		if ($sql->execute()) {
 			return true;
 		} else{
 			return false;
 		}
 	}
+	
+	public function	actualizarFotoPerfil($foto,$email){
+	$foto=json_decode($foto);
+	$sql = DB::conexion()->prepare("UPDATE `fotos_perfiles` SET `contenido` = ? WHERE `fotos_perfiles`.`nombre` = ?");
+		$sql->bind_param('ss',$foto->base64,$email);
+		if ($sql->execute()) {
+			return true;
+		} else{
+			return false;
+		}
+
+}
 
 	public function obtenerUsuario($email){
 		$sql = DB::conexion()->prepare("SELECT * FROM usuario WHERE email = ?");
@@ -276,13 +288,14 @@ class Usuario
 			$myArray = array();
 
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				//$row['contenido']=base64_encode($row['contenido']);
 				$myArray[] = $row;
 			}
 			return $myArray;
 		}
 
 		public function obtenerEmpresasParaFiltrar(){
-			$sql=DB::conexion()->prepare("SELECT U.email,U.estado,U.tipo,U.foto_id, E.nombre, F.contenido, P.nombre as pais FROM empresa AS E, usuario AS U, fotos_perfiles AS F, pais AS p WHERE U.email=E.id AND F.id=U.foto_id AND p.id=E.pais_id");
+			$sql=DB::conexion()->prepare("SELECT U.email,U.estado,U.tipo,U.foto_id, E.*, F.contenido, P.nombre as pais FROM empresa AS E, usuario AS U, fotos_perfiles AS F, pais AS p WHERE U.email=E.id AND F.id=U.foto_id AND p.id=E.pais_id");
 			//SELECT * FROM desarrollador AS D, Empresa AS E, usuario AS U WHERE U.email=D.id AND U.email=E.id 
 			$sql->execute();
 			$resultado =  $sql->get_result();
@@ -290,6 +303,7 @@ class Usuario
 			$myArray = array();
 
 			while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+				//$row['contenido']=base64_encode($row['contenido']);
 				$myArray[] = $row;
 			}
 			return $myArray;

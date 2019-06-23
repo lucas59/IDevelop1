@@ -106,6 +106,15 @@ class Empresa extends Usuario
 			return "0";
 		}
 	}
+	public function actualizarPerfil($email,$nombre,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
+	$sql=DB::conexion()->prepare("UPDATE `empresa` SET `direccion` = ?, `mision` = ?, `reclutador` = ?, `rubro` = ?, `telefono` = ?, `vision` = ?, `nombre` = ? WHERE `empresa`.`id` = ?");
+		$sql->bind_param('ssssssss',$direccion,$mision,$reclutador,$rubro,$tel,$vision,$nombre,$email);
+		if ($sql->execute()){
+			return true;
+		} else{
+			return false;
+		}
+	}
 
 	public function actualizarAltaUser($pais,$ciudad,$email,$vision,$mision,$tel,$rubro,$reclutador,$direccion){
 		$sql=DB::conexion()->prepare("UPDATE `empresa` SET `direccion` = ?, `mision` = ?, `reclutador` = ?, `rubro` = ?, `telefono` = ?, `vision` = ?,`pais_id` = ?, `ciudad_id` = ? WHERE `empresa`.`id` = ?");

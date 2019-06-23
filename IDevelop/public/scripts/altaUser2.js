@@ -34,9 +34,10 @@ function enviarDatos(){
 	var pais = $('#idPaises').val();
 	var email = $('#email').val();
 	var ciudad = $('#idCiudad').val();
-	var file = document.querySelector('input[type=file]').files[0];
+	var file = document.getElementById("curriculum").files[0];
 	var fotoPerfil = document.getElementById("fotoPerfil").files[0];
 	var datos = new FormData();
+	datos.append('curriculo',file);
 	datos.append('fotoPerfil',fotoPerfil);
 	datos.append('email',email);
 	datos.append('lenguaje',lenguaje);
@@ -55,7 +56,6 @@ function enviarDatos(){
 			console.log(response);
 			response=response.trim();
 			if(response=="1"){
-				console.log("llega ok");
 				window.location.replace("/IDevelop1/IDevelop/public");
 			}else{
 				var mensaje = "A ocurrido un problema...Revisa tus datos.";

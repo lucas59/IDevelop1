@@ -10,6 +10,7 @@
 			dataType: "json",
 			success: function(response){
 				usuarios=response;
+				console.log(usuarios);
 			}
 		});	
 
@@ -47,10 +48,13 @@
 				row.id= usuarios[i]['id'];
 				var cell1 = row.insertCell(0);
 				var nuevaFila=null;
+				var contenido=usuarios[i]['contenido'];
+					nuevaFila="<button style=background-image:url(data:image/jpg;base64,"+contenido+") id=boton type=button class='dropbtn user' data-toggle=dropdown data-display=static aria-haspopup=true aria-expanded=false ></button>";
+								
 				if (tipo == 'Desarrollador') {
-				nuevaFila = "<a href="+urlBase+"/Usuario/Perfil?email="+usuarios[i]['email']+">";	
+				nuevaFila += "<a href="+urlBase+"/Usuario/Perfil?email="+usuarios[i]['email']+">";	
 				}else{
-				 nuevaFila = "<a href="+urlBase+"/Usuario/PerfilE?email="+usuarios[i]['email']+">";	
+				 nuevaFila += "<a href="+urlBase+"/Usuario/PerfilE?email="+usuarios[i]['email']+">";	
 				}
 				nuevaFila += mayuscula(nombre) + " " + mayuscula(apellido);
 				nuevaFila +=  "</a>";
