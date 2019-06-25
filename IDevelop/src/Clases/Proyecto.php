@@ -271,6 +271,7 @@ public function verificar_Trabajo_proyecto_validacion($id,$usuario){
 			return false;
 		}
 	}
+
 }
 
 ?>

@@ -83,19 +83,8 @@ class Casodeuso
 	}
 
 	public function actualizarCasoDeUso($id, $progreso, $nombre){
-		$caso = null;
-		$progReal = 0;
-		$consulta = DB::conexion()->prepare("SELECT * FROM casodeuso WHERE nombre = ? AND proyecto_id = ?");
-		$consulta->bind_param('si',$nombre, $proyecto);
-		$consulta->execute();
-		$caso = $consulta->get_result();
-	
-		if($progreso < 0){
-			$progReal = ($caso->puntosTot * $progreso) / 100;
-		}
-		
 		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE proyecto_id = ? AND nombre = ?");
-		$sql->bind_param('iis', $progReal, $id, $nombre);
+		$sql->bind_param('iis', $progreso, $id, $nombre);
 		
 		$respuesta = null;
 		
@@ -112,6 +101,35 @@ class Casodeuso
 		$sql->bind_param('i',$idProyecto);
 		$sql->execute();
 		return $sql->get_result();
+	}
+
+	public function calcularProgresoTotalProyecto($idProyecto){
+
+		$consulta = DB::conexion()->prepare('SELECT * FROM casodeuso WHERE proyecto_id = ?');
+		$consulta->bind_param('i', $idProyecto);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+
+		$puntosTotales = 0;
+		$progresoTotal = 0;
+		foreach ($resultado as $caso) {
+			$progresoTotal = $progresoTotal + $caso->puntosActuales;
+		}
+		return $progresoTotal;
+	}
+
+	public function calcularPuntosTotalesProyecto($idProyecto){
+
+		$consulta = DB::conexion()->prepare('SELECT * FROM casodeuso WHERE proyecto_id = ?');
+		$consulta->bind_param('i', $idProyecto);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+
+		$puntosTotales = 0;
+		foreach ($resultado as $caso) {
+			$puntosTotales = $puntosTotales + $caso->puntosTot;
+		}
+		return $puntosTotales;
 	}
 }
  ?>

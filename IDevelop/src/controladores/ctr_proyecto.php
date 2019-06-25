@@ -133,6 +133,13 @@ public function obtenerProyectoCU($idproy){
 	return Proyecto::ObtenerProyectoCU($idproy);
 }
 
+public function obtenerProgresoTotalProy($idProyecto){
+	return Casodeuso::calcularProgresoTotalProyecto($idProyecto);
+}
+
+public function obtenerPuntosTotalProy($idProyecto){
+	return Casodeuso::calcularPuntosTotalesProyecto($idProyecto);
+}
 }
 
 ?>

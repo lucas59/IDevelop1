@@ -179,7 +179,10 @@ return function (App $app){
 			$controlador = new ctr_proyecto();
 			$proy = $controlador->obtenerProyectoCU($idproyecto);
 			$listaCU = $controlador->Listarcasosdeuso($idproyecto);
-			$args = array("proyecto" => $proy, "casosdeuso" => $listaCU, "session" => $session);
+			$puntosTot = $controlador->obtenerPuntosTotalProy($idProyecto);
+			$progresoTot = $controlador->obtenerProgresoTotalProy($idProyecto);
+
+			$args = array("proyecto" => $proy,"casosdeuso" => $listaCU,"puntosTot" => $puntosTot,"progresoTot" => $progresoTot,"session" => $session);
 			return $this->view->render($response,"VerCasosDeUso.twig",$args);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";

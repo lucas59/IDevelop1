@@ -15,6 +15,7 @@
 			<h2>Planificación del proyecto</h2>
 			<br>
 			<label > Nombre del Proyecto: {{proyecto.nombre}} </label>
+			<label>Puntos: {{ puntosTot }}   Progreso: {{ progresoTot }}</label>
 			<br>
 			<br>
 			{% if session.tipo == 0 %}	
@@ -26,6 +27,7 @@
 							<th scope="col">Nombre caso de uso</th>
 							<th scope="col">Descripción</th>
 							<th scope="col">Impacto</th>
+							<th scope="col">Progreso Actual</th>
 							<th scope="col">Progreso</th>
 							<th scope="col">Acción </th>
 						</tr>
@@ -44,6 +46,7 @@
 						{% if cu.puntosTot == 30 %}
 							<td>Alto</td>
 						{% endif %}
+						<td><progress value="{{ cu.puntosActuales }}" max="{{ cu.puntosTot }}"></td>
 						<td>
 							<select id="{{cu.nombre}}">
 								<option value="0">No iniciado</option>
@@ -52,7 +55,7 @@
 								<option value="100">Finalizado</option>
 							</select>
 						</td>				
-						<td> <input id="cu.nombre" type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, '{{cu.nombre}}')" value="Actualizar"></td>
+						<td> <input id="cu.nombre" type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, {{cu.puntosTot}} ,'{{cu.nombre}}')" value="Actualizar"></td>
 					</tr>
 				{% endfor %}
 				</tbody>
