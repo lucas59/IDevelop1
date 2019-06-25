@@ -2,6 +2,8 @@
 {% block title %}Planificar Proyecto{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/altaProyecto.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/casosdeuso.css">
+
 {% endblock %}
 
 {% block content %}
@@ -58,9 +60,29 @@
 				{% endif %}
 				
 				{% if session.tipo == 1 %}
-				
-				
-
+					{% for cu in casosdeuso %}
+					<div class="grid-container">
+						<div class="casodeuso">
+							<label><strong>Nombre: {{ cu.nombre}} </strong></label>
+							<br>
+							<p><strong>Descripcion: </strong> {{ cu.descripcion }}</p>
+							<br>
+							{% if cu.puntosTot == 10 %}
+							<p><strong>Impacto: </strong> Bajo</p>	
+							{% endif %}
+							{% if cu.puntosTot == 20 %}
+							<p><strong>Impacto: </strong> Medio</p>	
+							{% endif %}
+							{% if cu.puntosTot == 30 %}
+							<p><strong>Impacto: </strong> Alto</p>	
+							{% endif %}
+							<br>
+							<p><strong>Progreso: </strong>
+							<progress value="{{ cu.puntosActuales }}" max="{{ cu.puntosTot }}">
+							</p>
+							</div>
+					</div>
+					{% endfor %}
 				{% endif %}
 		</form>
 	</div>

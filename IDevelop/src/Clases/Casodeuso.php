@@ -83,9 +83,19 @@ class Casodeuso
 	}
 
 	public function actualizarCasoDeUso($id, $progreso, $nombre){
+		$caso = null;
+		$progReal = 0;
+		$consulta = DB::conexion()->prepare("SELECT * FROM casodeuso WHERE nombre = ? AND proyecto_id = ?");
+		$consulta->bind_param('si',$nombre, $proyecto);
+		$consulta->execute();
+		$caso = $consulta->get_result();
+	
+		if($progreso < 0){
+			$progReal = ($caso->puntosTot * $progreso) / 100;
+		}
 		
 		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE proyecto_id = ? AND nombre = ?");
-		$sql->bind_param('iis', $progreso, $id, $nombre);
+		$sql->bind_param('iis', $progReal, $id, $nombre);
 		
 		$respuesta = null;
 		
