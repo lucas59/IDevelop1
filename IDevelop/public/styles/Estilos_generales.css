@@ -44,3 +44,9 @@ h3{
 #accion{
 	cursor: pointer;
 }
+#buscar{
+	border-color: gray;
+	border-radius: 5px;
+	width: 300px;
+	height: 40px;
+}

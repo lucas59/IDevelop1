@@ -187,6 +187,7 @@ class Proyecto
 		}
 		return $myArray;
 	}
+	
 	public function ListarProyectosDeEmpresa($email){
 		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, empresa_proyecto AS EP , empresa AS EMP WHERE EMP.id=EP.Empresa_id AND P.id=EP.proyectos_id  AND EMP.id= ?");
 		$sql->bind_param('s',$email);

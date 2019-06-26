@@ -8,4 +8,10 @@ main{
 	margin:10px auto 30px auto;
 	text-align: center;
 }
+input{
+	margin: 10px;
+}
 
+div{
+	background-repeat: repeat-y;
+}

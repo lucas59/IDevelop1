@@ -17,6 +17,16 @@ return function (App $app) {
 
 	$app->get('/',function($request,$response,$args){
 		if(isset($_SESSION['admin'])){
+			$session = $_SESSION['admin'];
+			if ($session->tipo == 1 ) {
+				$proyectos = ctr_proyecto::ListarProyectosDeDesarrolladores($session->id);
+				$args['proy']=$proyectos;
+			}else{
+				$proyectos = ctr_proyecto::ListarProyectosDeDesarrolladores($session->id);	
+				$args['proy']=$proyectos;
+			}
+
+			echo Console::log("asd",$proyectos);
 			$args["session"]=$_SESSION['admin']; 
 	}
 		return $this->view->render($response,"index.twig",$args);
