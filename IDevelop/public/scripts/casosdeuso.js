@@ -88,14 +88,16 @@ function nombreCdUDisponible(nombre){
 	return retorno;
 }
 
-function actualizarCasoDeUso1(id, nombre){
+function actualizarCasoDeUso1(id, puntosTot , nombre){
 
 	
 	var combo = document.getElementById(nombre);
-	var progreso = 25; //combo.options[combo.selectedIndex].value;	
-	console.log("No ingreso");
+	var progreso = combo.options[combo.selectedIndex].value;	
 	
-	intento = actualizarCasoDeUso2(id, progreso, nombre);	
+	
+	var puntosActuales = (puntosTot * progreso) / 100;
+	console.log(puntosActuales);
+	intento = actualizarCasoDeUso2(id, puntosActuales, nombre);	
 	console.log("intento:" +intento);
 	
 	if(intento==true){

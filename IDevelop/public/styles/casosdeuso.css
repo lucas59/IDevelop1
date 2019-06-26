@@ -1,0 +1,47 @@
+.casodeuso {
+	border: 2px solid blue;
+	background: LightBlue;
+	width: 350px;
+	padding: 5px 20px;
+	box-shadow: 1px 5px 5px;
+	margin: 2px 5px;
+  
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 355px;
+  padding: 10px;
+}
+
+div p{
+	display: none;
+}
+
+div:hover > p{
+	 display: block;
+}
+
+progress[value]::-moz-progress-bar { 
+  background-image:
+    -moz-linear-gradient(
+      135deg, 
+      transparent 33%, 
+      rgba(0, 0, 0, 0.1) 33%, 
+      rgba(0, 0, 0, 0.1) 66%, 
+      transparent 66% 
+    ),
+    -moz-linear-gradient(
+      top, 
+      rgba(255, 255, 255, 0.25), 
+      rgba(0, 0, 0, 0.25)
+    ),
+    -moz-linear-gradient(
+      left, 
+      #09c, 
+      #f44
+    );
+
+  border-radius: 2px; 
+  background-size: 35px 20px, 100% 100%, 100% 100%; 
+}

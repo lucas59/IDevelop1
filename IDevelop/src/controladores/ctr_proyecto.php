@@ -39,6 +39,7 @@ public function actualizarCU($id, $progreso, $nombre){
 	$actualizado = Casodeuso::actualizarCasoDeUso($id, $progreso, $nombre);
 	return $actualizado;
 }
+
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	$usuario = $_SESSION['admin']->id;
 	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
@@ -132,6 +133,13 @@ public function obtenerProyectoCU($idproy){
 	return Proyecto::ObtenerProyectoCU($idproy);
 }
 
+public function obtenerProgresoTotalProy($idProyecto){
+	return Casodeuso::calcularProgresoTotalProyecto($idProyecto);
+}
+
+public function obtenerPuntosTotalProy($idProyecto){
+	return Casodeuso::calcularPuntosTotalesProyecto($idProyecto);
+}
 }
 
 ?>
