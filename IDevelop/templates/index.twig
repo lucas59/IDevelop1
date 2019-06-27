@@ -2,9 +2,12 @@
 {% block title %}Inicio{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/index.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/tabProyectos.css">
 {% endblock %}
 {% block content %}
 <p class="important">
+        {% include("tabProyectos.twig") %}
+
     <div><img src="{{path_for('Inicio')}}img/inicio.png"></div>
 </p>
 <div class="container marketing">

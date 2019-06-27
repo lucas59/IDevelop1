@@ -136,12 +136,41 @@ class Proyecto
 		$consulta = DB::conexion()->prepare("SELECT * FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id NOT IN (SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
+			echo Console::log('asd',$resultado);
 		if (mysqli_num_rows($resultado) >= 1) {
 			return $resultado;
 		} else {
 			return $resultado;
 		}
 	}
+
+public function ListarProyectosPostulados($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT P.* FROM `proyecto` AS p, postulacion AS PN, usuario AS U WHERE U.email=? AND P.id = PN.proyecto_id AND P.estado = 0");
+		$consulta->bind_param("s",$id);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+			echo Console::log('asd',$resultado);
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+	public function ListarProyectosFinalizados($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT P.* FROM `proyecto` AS p, postulacion AS PN, usuario AS U WHERE U.email=? AND P.id = PN.proyecto_id AND P.estado = 3");
+		$consulta->bind_param("s",$id);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+			echo Console::log('asd',$resultado);
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+
 
 	public function Listar_proyectos_despostularse($id){
 		$respuesta=null;
@@ -177,6 +206,19 @@ class Proyecto
 
 	public function ListarProyectosDeDesarrolladores($email){
 		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND D.id= ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$myArray = array();
+
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$myArray[] = $row;
+		}
+		return $myArray;
+	}
+
+	public function ListarProyectosEnDesarrollo($email){
+		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND P.estado = 2 AND D.id= ?");
 		$sql->bind_param('s',$email);
 		$sql->execute();
 		$resultado = $sql->get_result();
