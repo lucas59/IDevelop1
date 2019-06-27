@@ -93,6 +93,7 @@ public function ListarProyectosDeEmpresa($email){
 	return Proyecto::ListarProyectosDeEmpresa($email);
 }
 
+
 public function ListarProyectosPostulados($email){
 	return Proyecto::ListarProyectosPostulados($email);
 }

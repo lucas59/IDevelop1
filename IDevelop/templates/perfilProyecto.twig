@@ -32,7 +32,9 @@
     <div class="col-md-10 col-md-offset-2">
       {% if session.tipo == 0 %}
       {% if referencia == 1 %}
+      {% if proyecto.estado == 0 or proyecto.estado == 2 %}
       <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Gestionar" onclick="window.location.href='{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}';">
+      {% endif %}
       {% endif %}
       {% if trabajando_proyecto == 1%}
       {% if postulacion == 0 %}
@@ -45,10 +47,15 @@
       {% endif %}
          
       {% if session.tipo == 1 %}
-      {% if referencia == 1 %}
+      {% if referencia == 1  %}
       <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Ver planificacion" onclick="window.location.href='{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}';">
       {% if proyecto.estado == 0 %}
       <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},4);">
+
+      {% elseif proyecto.estado == 2 %}
+      <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Terminar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},3);">
+      
+
       {% elseif proyecto.estado == 4 %}
       <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Activar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},0);">
       {% endif %}
