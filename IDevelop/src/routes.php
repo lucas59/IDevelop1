@@ -17,6 +17,38 @@ return function (App $app) {
 
 	$app->get('/',function($request,$response,$args){
 		if(isset($_SESSION['admin'])){
+			$session = $_SESSION['admin'];
+			if ($session->tipo == 1 ) {
+//
+			//				echo Console::log("asd",$session);
+				$proyectos = ctr_proyecto::ListarProyectosDeEmpresa($session->id);
+					$espera = array();
+					$terminado = array();
+					$desarrollo = array();
+
+					foreach ($proyectos as $proy) {
+						if ($proy['estado'] == '0') {
+							$espera[]=$proy;
+						}else if ($proy['estado'] == 2) {
+							$desarrollo[] = $proy;
+						}else{
+							$terminado[] = $proy;
+						}
+					}
+				$args['postulaciones'] =$espera;	
+				$args['proy']=$desarrollo;
+				$args['finalizados']=$terminado;
+			}else{
+				$postulaciones = ctr_proyecto::ListarProyectosPostulados($session->id);	
+				$args['postulaciones']=$postulaciones;
+
+				$asignados = ctr_proyecto::ListarProyectosEnDesarrollo($session->id);
+				$args['proy']=$asignados;
+
+				$finalizados = ctr_proyecto::ListarProyectosFinalizados($session->id);
+				$args['finalizados']=$finalizados;
+			}
+
 			$args["session"]=$_SESSION['admin']; 
 	}
 		return $this->view->render($response,"index.twig",$args);

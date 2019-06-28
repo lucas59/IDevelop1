@@ -109,12 +109,11 @@ class Casodeuso
 		$consulta->bind_param('i', $idProyecto);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-
 		$puntosTotales = 0;
 		$progresoTotal = 0;
 		
-		foreach ($resultado as $caso) {
-			$progresoTotal = $progresoTotal + $caso;
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$progresoTotal = $progresoTotal + $row['puntosTot'];
 		}
 		
 		return $progresoTotal;
@@ -126,10 +125,9 @@ class Casodeuso
 		$consulta->bind_param('i', $idProyecto);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-
 		$puntosTotales = 0;
-		foreach ($resultado as $caso) {
-			$puntosTotales = $puntosTotales + $caso;
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$puntosTotales = $puntosTotales + $row['puntosTot'];
 		}
 
 		return $puntosTotales;

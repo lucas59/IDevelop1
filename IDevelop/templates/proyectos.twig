@@ -6,8 +6,9 @@
 
 {% block content %}	
 <div id="tabla_id">
-<h1>Proyectos </h1> 
-  <table class="table">
+<h1>Proyectos </h1>
+<input type="text" id="buscar" onkeyup="FiltrarTabla()" placeholder="Buscar..." name=""> 
+  <table id="tabla" class="table">
     <thead>
 		<tr id="tabla_titulo" class="bg-info">
 			<th scope="col">Nombre</th>
@@ -60,6 +61,8 @@
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="{{path_for('Inicio')}}scripts/filtrarTabla.js"></script>
+
 <script type="text/javascript" src="{{path_for('Inicio')}}scripts/proyecto.js"></script>
 {% endblock %}
 

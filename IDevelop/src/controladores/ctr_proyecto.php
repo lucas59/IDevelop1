@@ -85,8 +85,21 @@ public function Listarcasosdeuso($idProyecto){
 public function ListarProyectosDeDesarrolladores($email){
 	return Proyecto::ListarProyectosDeDesarrolladores($email);
 }
+
+public function ListarProyectosEnDesarrollo($email){
+	return Proyecto::ListarProyectosEnDesarrollo($email);
+}
 public function ListarProyectosDeEmpresa($email){
 	return Proyecto::ListarProyectosDeEmpresa($email);
+}
+
+
+public function ListarProyectosPostulados($email){
+	return Proyecto::ListarProyectosPostulados($email);
+}
+
+public function ListarProyectosFinalizados($email){
+	return Proyecto::ListarProyectosFinalizados($email);
 }
 
 public function listarProyectos(){
@@ -139,6 +152,8 @@ public function obtenerProgresoTotalProy($idProyecto){
 
 public function obtenerPuntosTotalProy($idProyecto){
 	return Casodeuso::calcularPuntosTotalesProyecto($idProyecto);
+
+
 }
 }
 
