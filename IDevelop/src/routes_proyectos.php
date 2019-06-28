@@ -179,8 +179,8 @@ return function (App $app){
 			$controlador = new ctr_proyecto();
 			$proy = $controlador->obtenerProyectoCU($idproyecto);
 			$listaCU = $controlador->Listarcasosdeuso($idproyecto);
-			$puntosTot = $controlador->obtenerPuntosTotalProy($idProyecto);
-			$progresoTot = $controlador->obtenerProgresoTotalProy($idProyecto);
+			$puntosTot = $controlador->obtenerPuntosTotalProy($idproyecto);
+			$progresoTot = $controlador->obtenerProgresoTotalProy($idproyecto);
 
 			$args = array("proyecto" => $proy,"casosdeuso" => $listaCU,"puntosTot" => $puntosTot,"progresoTot" => $progresoTot,"session" => $session);
 			return $this->view->render($response,"VerCasosDeUso.twig",$args);
