@@ -105,30 +105,33 @@ class Casodeuso
 
 	public function calcularProgresoTotalProyecto($idProyecto){
 
-		$consulta = DB::conexion()->prepare('SELECT * FROM casodeuso WHERE proyecto_id = ?');
+		$consulta = DB::conexion()->prepare('SELECT puntosTot FROM casodeuso WHERE proyecto_id = ?');
 		$consulta->bind_param('i', $idProyecto);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
 
 		$puntosTotales = 0;
 		$progresoTotal = 0;
+		
 		foreach ($resultado as $caso) {
-			$progresoTotal = $progresoTotal + $caso->puntosActuales;
+			$progresoTotal = $progresoTotal + $caso;
 		}
+		
 		return $progresoTotal;
 	}
 
 	public function calcularPuntosTotalesProyecto($idProyecto){
 
-		$consulta = DB::conexion()->prepare('SELECT * FROM casodeuso WHERE proyecto_id = ?');
+		$consulta = DB::conexion()->prepare('SELECT puntosActuales FROM casodeuso WHERE proyecto_id = ?');
 		$consulta->bind_param('i', $idProyecto);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
 
 		$puntosTotales = 0;
 		foreach ($resultado as $caso) {
-			$puntosTotales = $puntosTotales + $caso->puntosTot;
+			$puntosTotales = $puntosTotales + $caso;
 		}
+
 		return $puntosTotales;
 	}
 }
