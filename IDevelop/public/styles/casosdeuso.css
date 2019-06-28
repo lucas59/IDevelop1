@@ -1,11 +1,25 @@
 .casodeuso {
-	border: 2px solid blue;
-	background: LightBlue;
-	width: 350px;
-	padding: 5px 20px;
+	border: 2px solid #007B5E;
+	background: #0378A6;
 	box-shadow: 1px 5px 5px;
-	margin: 2px 5px;
-  
+  margin-bottom: 10px;
+  border-radius: 10px;
+}
+
+.padre{
+  text-align:center;
+}
+
+p{
+  color: white;
+}
+
+label{
+  color: white;
+}
+
+.hijo{
+   display: inline-block;
 }
 
 .grid-container {
@@ -22,6 +36,26 @@ div:hover > p{
 	 display: block;
 }
 
+progress {
+    border: 0;
+    height: 20px;
+    border-radius: 20px;
+}
+progress::-webkit-progress-bar {
+    border: 0;
+    height: 20px;
+    border-radius: 20px;
+}
+progress::-webkit-progress-value {
+    border: 0;
+    height: 20px;
+    border-radius: 20px;
+}
+progress::-moz-progress-bar {
+    border: 0;
+    height: 20px;
+    border-radius: 20px;
+}
 progress[value]::-moz-progress-bar { 
   background-image:
     -moz-linear-gradient(
@@ -38,8 +72,8 @@ progress[value]::-moz-progress-bar {
     ),
     -moz-linear-gradient(
       left, 
-      #09c, 
-      #f44
+      #009acd , 
+      #1ac6ff
     );
 
   border-radius: 2px; 
