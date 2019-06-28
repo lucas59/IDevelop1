@@ -136,7 +136,6 @@ class Proyecto
 		$consulta = DB::conexion()->prepare("SELECT * FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id NOT IN (SELECT proyecto_id FROM postulacion WHERE postulacion.desarrollador_id = '" . $id . "')");
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-			echo Console::log('asd',$resultado);
 		if (mysqli_num_rows($resultado) >= 1) {
 			return $resultado;
 		} else {
@@ -150,7 +149,6 @@ public function ListarProyectosPostulados($id){
 		$consulta->bind_param("s",$id);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-			echo Console::log('asd',$resultado);
 		if (mysqli_num_rows($resultado) >= 1) {
 			return $resultado;
 		} else {
@@ -163,7 +161,6 @@ public function ListarProyectosPostulados($id){
 		$consulta->bind_param("s",$id);
 		$consulta->execute();
 		$resultado = $consulta->get_result();
-			echo Console::log('asd',$resultado);
 		if (mysqli_num_rows($resultado) >= 1) {
 			return $resultado;
 		} else {

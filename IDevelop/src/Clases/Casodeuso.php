@@ -112,9 +112,6 @@ class Casodeuso
 		$puntosTotales = 0;
 		$progresoTotal = 0;
 		
-		/*foreach ($resultado as $caso) {
-			$progresoTotal = $progresoTotal + $caso->puntosActuales;
-		}*/
 		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
 			$progresoTotal = $progresoTotal + $row['puntosTot'];
 		}
