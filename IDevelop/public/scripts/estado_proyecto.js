@@ -1,5 +1,7 @@
 	function Estado_proyecto(id,estado){
 		if(document.getElementById("txtFechaFP").value == '' || document.getElementById("txtFechaE").value == ''){
+			console.log(document.getElementById("txtFechaFP").value);
+			console.log(document.getElementById("txtFechaE").value);
 			var mensaje = "Error, ingrese una fecha valida";
 			$("#mensajeModal").html(mensaje);	
 			$("#modalAviso").modal();

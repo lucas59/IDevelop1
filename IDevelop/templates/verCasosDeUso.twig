@@ -102,19 +102,19 @@
 <!-- Modal  de mensajes -->
 <div id="modalAviso" class="modal" tabindex="-1" role="dialog">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Aviso</h5>
-			</div>
-			<div class="modal-body">
-				<p id="mensajeModal">Modal body text goes here.</p>
-			</div>
-			<div class="modal-footer">	
-				<a type="button" href="{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}" class="btn" id="redirigir">Aceptar</a>
-			</div>
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title">Aviso</h5>
 		</div>
+		<div class="modal-body">
+		  <p id="mensajeModal"> </p>
+		</div>
+		<div class="modal-footer">  
+			<a type="button" href="{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}" class="btn" id="redirigir">Aceptar</a>
+		</div>
+	  </div>
 	</div>
-</div>
+  </div>
 </body> 
 {% endblock %}
 
