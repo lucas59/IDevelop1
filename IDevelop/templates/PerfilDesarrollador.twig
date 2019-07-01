@@ -97,7 +97,7 @@
                     {% for proy in proyectos %}
                     <tr class="fila" onclick="window.location='{{path_for('Inicio')}}Proyecto/{{ proy.id }}'">
                         <td>{{ proy.nombre }}</td>
-                        <td><textarea class="descripcion">{{ proy.descripcion }}</textarea></td>
+                        <td><p>{{ proy.descripcion }}</p></td>
                     </tr>
                     {% endfor %}
                 </tbody>

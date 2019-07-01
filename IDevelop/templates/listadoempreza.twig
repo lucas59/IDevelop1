@@ -20,7 +20,7 @@
 
     </tr>
   </thead>
-  <tbody id="tabla table-bordered">
+  <tbody id="tabla">
     {% for emp in Empresas %}
     <tr onclick="window.location='{{path_for('Inicio')}}Usuario/PerfilE?email={{ emp.email }}'" class="fila">
       <td>
