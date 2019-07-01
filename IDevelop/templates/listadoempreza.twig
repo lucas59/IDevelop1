@@ -4,14 +4,14 @@
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
-
-<div style="text-align: center;" id="tabla_id">
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
+<div id="tabla_id">
   <h1>Empresas</h1> 
 
-  <table id="tabla" class="table">  
+  <table class="table table-bordered">  
    <thead>
-    <div style="display: inline-block;">
-      <input  placeholder="Buscar..." onkeyup="FiltrarTabla()" type="text" id="buscar" name="">
+    <div >
+      <input placeholder="Buscar..." onkeyup="FiltrarTabla()" type="text" id="buscar" name="">
     </div>
     <tr id="tabla_titulo" class="bg-info">
       <th scope="col">Nombre</th>
@@ -20,7 +20,7 @@
 
     </tr>
   </thead>
-  <tbody>
+  <tbody id="tabla table-bordered">
     {% for emp in Empresas %}
     <tr onclick="window.location='{{path_for('Inicio')}}Usuario/PerfilE?email={{ emp.email }}'" class="fila">
       <td>
@@ -34,6 +34,7 @@
     {% endfor %}
   </tbody>
 </table>
+</body>
 {% endblock %}
 
 {% block script %}

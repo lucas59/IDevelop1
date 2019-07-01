@@ -4,7 +4,8 @@
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/nuevoUser.css">
 {% endblock %}
 {% block content %}
-<div id="tabla_id" class="card">
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
+<div id="tabla_id" class="card tarjeta">
     <div class="card card-body border-info">
         <main>
             <form id="formAlta">
@@ -54,6 +55,7 @@
     </div>
 </div>
 </div>
+</body>
 {% endblock %}
 {% block script %}
 <script type="text/javascript" src="{{path_for('Inicio')}}scripts/nuevoUsuario.js"></script>

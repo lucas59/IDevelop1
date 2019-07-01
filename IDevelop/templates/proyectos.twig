@@ -2,13 +2,15 @@
 {% block title %}Proyectos{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/proyecto.css">
 {% endblock %}
 
-{% block content %}	
+{% block content %}
+<body background="{{path_for('Inicio')}}img/fondo.png">	
 <div id="tabla_id">
 <h1>Proyectos </h1>
 <input type="text" id="buscar" onkeyup="FiltrarTabla()" placeholder="Buscar..." name=""> 
-  <table id="tabla" class="table">
+  <table class="table table-bordered">
     <thead>
 		<tr id="tabla_titulo" class="bg-info">
 			<th scope="col">Nombre</th>
@@ -18,7 +20,7 @@
 
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="tabla">
 		{% for proyecto in proyectos %}
 		{% if session %}
 		<tr onclick="window.location='{{path_for('Inicio')}}Proyecto/{{proyecto.id}}' " class="fila" id="{{proyecto.id}}">
@@ -61,7 +63,7 @@
     </div>
   </div>
 </div>
-
+</body>
 {% endblock %}
 
 {% block script %}

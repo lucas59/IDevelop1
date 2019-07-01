@@ -1,11 +1,11 @@
 h1 {
 	text-align: center;	
+	font-family: Comfortaa;
 }
 
 #tabla_titulo{
 	color:white;
 }
-
 #tabla_id{
 	max-width: 960px;
 	margin:30px auto 0px auto ;
@@ -31,20 +31,20 @@ h1 {
 	background-size: cover;
 	margin-left: 100px;
 	margin-top: 65px;
+	style="display: inline-block;"
 }
 
 h3{
 	margin-left: 150px;
 }
 
+
+
 .fila:hover{
   background-color: #D7D9DE;
+  cursor: pointer;
 }
 
-
-#accion{
-	cursor: pointer;
-}
 #buscar{
 	border-color: gray;
 	border-radius: 5px;
