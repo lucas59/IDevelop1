@@ -50,10 +50,10 @@
         {% if referencia == 1  %}
         <input style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" value="Ver planificacion" onclick="window.location.href='{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}';">
         {% if proyecto.estado == 0 %}
-        <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},4);" >
+        <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto_des({{proyecto.id |upper}},4);" >
 
         {% elseif proyecto.estado == 2 %}
-        <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Terminar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},3);">
+        <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Terminar proyecto" onclick="javascript:Estado_proyecto_des({{proyecto.id |upper}},3);">
 
 
         {% elseif proyecto.estado == 4 %}
@@ -181,12 +181,9 @@
     var today = new Date(val);
     
     today.setDate(today.getDate() + 30);
-
     var dd = today.getDate() + 1;
     var mm = today.getMonth() + 1;
     var yyyy = today.getFullYear();
-
-
     if (dd < 10) {
       dd = '0' + dd
     }

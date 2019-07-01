@@ -286,6 +286,17 @@ public function Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro){
 		} 
 	}
 
+public function Activar_desactivar_proyecto_des($proyecto,$estado){
+		$sql=DB::conexion()->prepare("UPDATE proyecto SET estado = ? WHERE id = ?");
+		if($sql){
+			$sql->bind_param('ii',$estado,$proyecto);
+			if ($sql->execute()) {
+				return "1";
+			}else{
+				return "0";
+			} 
+		} 
+	}
 public function verificar_Trabajo_proyecto_validacion($id,$usuario){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT * FROM proyecto WHERE proyecto.id IN (SELECT desarrollador_proyecto.proyectos_id FROM desarrollador_proyecto WHERE desarrollador_proyecto.proyectos_id = '". $id ."' AND desarrollador_proyecto.Desarrollador_id = '" . $usuario . "')");

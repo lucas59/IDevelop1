@@ -133,6 +133,18 @@ return function (App $app){
 		}
 	});
 
+	$app->post('/Proyecto/activar_desactivar_des',function(Request $request, Response $response){
+		$data = $request->getParams();
+		$id = $data['proyecto'];
+		$estado = $data['estado'];
+		$retorno = ctr_proyecto::Activar_desactivar_proyecto_des($id,$estado);
+		if($retorno){
+			return "1";
+		} else{
+			return "0";
+		}
+	});
+
 	$app->post('/Proyecto/Despostularse',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id=$data['id'];
