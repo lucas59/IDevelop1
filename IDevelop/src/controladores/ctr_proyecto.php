@@ -130,6 +130,10 @@ public function Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro){
 	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro);
 }
 
+public function Activar_desactivar_proyecto_des($proyecto,$estado){
+	return Proyecto::Activar_desactivar_proyecto_des($proyecto,$estado);
+}
+
 public function obtenerProyecto($idProyecto){
 	return Proyecto::obtenerProyecto($idProyecto);
 }
