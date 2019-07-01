@@ -80,7 +80,7 @@ class Postulacion
 				$resultado->data_seek($num_fila);
 				$fila = $resultado->fetch_assoc();
 
-				$sql2=DB::conexion()->prepare("SELECT d.*,u.estado FROM desarrollador as d,usuario as u WHERE u.email = ? AND u.email=d.id");
+				$sql2=DB::conexion()->prepare("SELECT d.*,u.estado, fp.contenido FROM desarrollador as d,usuario as u, fotos_perfiles as fp WHERE u.email = ? AND u.email=d.id AND u.email=fp.nombre ");
 				$sql2->bind_param('s',$fila['desarrollador_id']);
 				$sql2->execute();
 				$resultado2=$sql2->get_result();

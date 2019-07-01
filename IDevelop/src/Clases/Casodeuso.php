@@ -127,7 +127,7 @@ class Casodeuso
 		$resultado = $consulta->get_result();
 		$puntosTotales = 0;
 		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
-			$puntosTotales = $puntosTotales + $row['puntosTot'];
+			$puntosTotales = $puntosTotales + $row['puntosActuales'];
 		}
 
 		return $puntosTotales;

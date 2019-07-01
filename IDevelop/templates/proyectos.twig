@@ -26,7 +26,7 @@
 		<tr onclick="$('#modalNO').modal('show');" class="fila" id="{{proyecto.id}}">
 		{% endif %}
 			<td>{{ proyecto.nombre }}</td>
-			<td class="tdDescripcion">{{ proyecto.descripcion }}</td>
+			<td class="tdDescripcion"><textarea class="descripcion">{{ proyecto.descripcion }}</textarea></td>
 			<td>{{ proyecto.fechaEntrega }}</td>
 
 		{% if proyecto.estado == 1 %}
@@ -35,6 +35,10 @@
 			<td>En desarrollo</td>
 		{% elseif proyecto.estado == 3 %}
 			<td>Finalizado</td>
+		{% elseif proyecto.estado == 0 %}
+			<td>Buscando postulantes</td>
+		{% elseif proyecto.estado == 4 %}
+			<td>Terminado</td>
 		{% endif %}
 		</tr>
 		{% endfor %}

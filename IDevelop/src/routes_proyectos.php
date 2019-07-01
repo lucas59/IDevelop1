@@ -198,7 +198,6 @@ return function (App $app){
 			$args['session']=$_SESSION['admin'];
 			$session = $_SESSION['admin'];
 		}
-
 			$controladorP = new ctr_proyecto();
 			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
@@ -222,6 +221,7 @@ return function (App $app){
 				
 				if($contratacion == false){
 				$postulante=$controladorP->PostulantesDeProyecto($idProyecto);
+				echo Console::log("asd",$postulante);
 				$args['postulante'] = $postulante;
 				}
 				$args['idProyecto'] = $idProyecto;
