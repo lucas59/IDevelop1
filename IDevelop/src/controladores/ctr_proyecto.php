@@ -39,6 +39,7 @@ public function actualizarCU($id, $progreso, $nombre){
 	$actualizado = Casodeuso::actualizarCasoDeUso($id, $progreso, $nombre);
 	return $actualizado;
 }
+
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	$usuario = $_SESSION['admin']->id;
 	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);
@@ -84,8 +85,21 @@ public function Listarcasosdeuso($idProyecto){
 public function ListarProyectosDeDesarrolladores($email){
 	return Proyecto::ListarProyectosDeDesarrolladores($email);
 }
+
+public function ListarProyectosEnDesarrollo($email){
+	return Proyecto::ListarProyectosEnDesarrollo($email);
+}
 public function ListarProyectosDeEmpresa($email){
 	return Proyecto::ListarProyectosDeEmpresa($email);
+}
+
+
+public function ListarProyectosPostulados($email){
+	return Proyecto::ListarProyectosPostulados($email);
+}
+
+public function ListarProyectosFinalizados($email){
+	return Proyecto::ListarProyectosFinalizados($email);
 }
 
 public function listarProyectos(){
@@ -112,8 +126,8 @@ public function verificarTrabajo_proyecto($session, $idProyecto){
 	}
 }
 
-public function Activar_desactivar_proyecto($proyecto,$estado){
-	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado);
+public function Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro){
+	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro);
 }
 
 public function obtenerProyecto($idProyecto){
@@ -132,6 +146,15 @@ public function obtenerProyectoCU($idproy){
 	return Proyecto::ObtenerProyectoCU($idproy);
 }
 
+public function obtenerProgresoTotalProy($idProyecto){
+	return Casodeuso::calcularProgresoTotalProyecto($idProyecto);
+}
+
+public function obtenerPuntosTotalProy($idProyecto){
+	return Casodeuso::calcularPuntosTotalesProyecto($idProyecto);
+
+
+}
 }
 
 ?>

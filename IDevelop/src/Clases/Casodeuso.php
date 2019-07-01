@@ -83,7 +83,6 @@ class Casodeuso
 	}
 
 	public function actualizarCasoDeUso($id, $progreso, $nombre){
-		
 		$sql= DB::conexion()->prepare("UPDATE casodeuso SET puntosActuales=? WHERE proyecto_id = ? AND nombre = ?");
 		$sql->bind_param('iis', $progreso, $id, $nombre);
 		
@@ -102,6 +101,36 @@ class Casodeuso
 		$sql->bind_param('i',$idProyecto);
 		$sql->execute();
 		return $sql->get_result();
+	}
+
+	public function calcularPuntosTotalesProyecto($idProyecto){
+
+		$consulta = DB::conexion()->prepare('SELECT puntosTot FROM casodeuso WHERE proyecto_id = ?');
+		$consulta->bind_param('i', $idProyecto);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		$puntosTotales = 0;
+		$progresoTotal = 0;
+		
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$progresoTotal = $progresoTotal + $row['puntosTot'];
+		}
+		
+		return $progresoTotal;
+	}
+
+	public function calcularProgresoTotalProyecto($idProyecto){
+
+		$consulta = DB::conexion()->prepare('SELECT puntosActuales FROM casodeuso WHERE proyecto_id = ?');
+		$consulta->bind_param('i', $idProyecto);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		$puntosTotales = 0;
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$puntosTotales = $puntosTotales + $row['puntosActuales'];
+		}
+
+		return $puntosTotales;
 	}
 }
  ?>

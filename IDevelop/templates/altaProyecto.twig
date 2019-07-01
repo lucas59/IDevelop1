@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block content %}
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
 <main>
-<div id="tabla_id" class="card">
+<div id="tabla_id" class="card tarjeta">
 		<div class="card card-body border-info">
 	<form method="POST" id="formAltaProyecto">
 		<h2>Crea un proyecto</h2>
@@ -49,7 +50,7 @@
 		</div>
 	</div>
 </div>
-
+</body>
 {% endblock %}
 
 {% block script %}

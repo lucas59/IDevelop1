@@ -4,22 +4,39 @@
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
-
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
 <div id="tabla_id">
-<h1>Empresas</h1> 
-  <table class="table">  
-    <tbody>
-  {% for emp in Empresas %}
-  <tr onclick="window.location='{{path_for('Inicio')}}Usuario/PerfilE?email={{ emp.email }}'" class="fila">
-  <td>
-    <button  style="background-image: url(data:image/png;base64,{{emp.contenido}})" id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-    </button>
+  <h1>Empresas</h1> 
+
+  <table class="table table-bordered">  
+   <thead>
+    <div >
+      <input placeholder="Buscar..." onkeyup="FiltrarTabla()" type="text" id="buscar" name="">
+    </div>
+    <tr id="tabla_titulo" class="bg-info">
+      <th scope="col">Nombre</th>
+      <th class="tdDescripcion" scope="col">Correo</th>
+      <th scope="col">Teléfono</th>
+
+    </tr>
+  </thead>
+  <tbody id="tabla">
+    {% for emp in Empresas %}
+    <tr onclick="window.location='{{path_for('Inicio')}}Usuario/PerfilE?email={{ emp.email }}'" class="fila">
+      <td>
+        <button  style="background-image: url(data:image/png;base64,{{emp.contenido}})" id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+        </button>
         {{emp.nombre}}
-  </td>
-    <td>{{ emp.email }}</td>
-    <td>{{ emp.telefono }}</td>
-  </tr>
-  {% endfor %}
-</tbody>
+      </td>
+      <td>{{ emp.email }}</td>
+      <td>{{ emp.telefono }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
 </table>
+</body>
 {% endblock %}
+
+{% block script %}
+<script type="text/javascript" src="{{path_for('Inicio')}}scripts/filtrarTabla.js"></script>
+{%endblock%}

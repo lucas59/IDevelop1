@@ -10,7 +10,6 @@
 			dataType: "json",
 			success: function(response){
 				usuarios=response;
-				console.log(usuarios);
 			}
 		});	
 

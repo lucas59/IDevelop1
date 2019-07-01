@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
 {% if usuario %}
 
 {% if usuario.tipo == false %}<!-- Usuario del tipo desarrollador -->
@@ -54,6 +54,7 @@
 		</form>
 	</div>
 </div>
+</body>
 {% endif %}
 
 {% if usuario.tipo == true %}<!-- Usuario del tipo empresa -->

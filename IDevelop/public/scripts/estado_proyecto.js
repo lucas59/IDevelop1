@@ -1,6 +1,15 @@
 	function Estado_proyecto(id,estado){
-		var retorno = Estado_proyecto_funcion(id,estado);
-		console.log(estado);
+		if(document.getElementById("txtFechaFP").value == '' || document.getElementById("txtFechaE").value == ''){
+			var mensaje = "Error, ingrese una fecha valida";
+			$("#mensajeModal").html(mensaje);	
+			$("#modalAviso").modal();
+		}
+		else{
+		console.log(document.getElementById("txtFechaFP").value == '');
+		var fechafinP = document.getElementById("txtFechaFP").value; 
+		var fechaEntregaP = document.getElementById("txtFechaE").value; 
+		
+		var retorno = Estado_proyecto_funcion(id,estado,fechafinP,fechaEntregaP);
 		if(retorno == "1" && estado == 0){
 			var mensaje = "Usted activo el proyecto correctamente";
 			$("#mensajeModal").html(mensaje);	
@@ -20,8 +29,8 @@
 		contenedor.style.visibility = 'hidden';
 		contenedor.style.opacity = '0';
 	}
-
-	function Estado_proyecto_funcion(id,estado){
+}
+	function Estado_proyecto_funcion(id,estado,fechafinP,fechaEntregaP){
 		var retorno;
 		$.ajax({
 			async:false,
@@ -29,7 +38,9 @@
 			type: 'POST',
 			data: {
 				"proyecto": id,
-				"estado": estado
+				"estado": estado,
+				"fechafinP": fechafinP,
+				"fechaEntregaP": fechaEntregaP
 			},
 			success: function(response){
 				response = response.trim();

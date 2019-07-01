@@ -3,67 +3,60 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/nuevoUser.css">
 {% endblock %}
-
 {% block content %}
-	<div id="tabla_id" class="card">
-		<div class="card card-body border-info">
-		<main>
-			<form id="formAlta" >
-				<h1>Crea una cuenta</h1>
-				<span>
-					<label for="inputEmail">Nombre:</label>
-					<input type="text" id="txtNombre" name="nombre" placeholder="Nombre" class="form-control" required>
-				</span>
-				<span>
-					<label for="inputEmail">Apellido:</label>
-					<input type="text" id="txtApellido" name="apellido" placeholder="Apellido" class="form-control" required>
-				</span>
-				<span>
-					<label for="inputEmail">Correo:</label>
-					<input type="email" id="txtID" name="identificador" placeholder="Correo electónico" class="form-control" required>
-				</span>
-				<span>
-					<label for="inputEmail">Contraseña:</label>
-					<input minlength=10 type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva" class="form-control" required>
-				</span>
-				<br>
-				<span>
-					<label for="inputEmail">Fecha de nacimiento:</label>
-					<input type="date" id="fecha" name="fecha" class="form-control" required>
-				</span>
-				<br>
-				<span>
-					<label for="inputEmail">Fecha de nacimiento:</label><br>
-					<input type="radio" name="tipo" value="e" checked="">Empresa <br>
-					<input type="radio" name="tipo" value="d">Desarrollador<br>
-				</span>
-				<br>
-				<input id="boton" class="btn btn-info" type="submit" name="submit" value="Registrarme"><br>
-				<a href="{{ path_for('ingresar') }}">Ya tengo una cuenta</a>
-			</form>
-		</main>
-	</div>
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
+<div id="tabla_id" class="card tarjeta">
+    <div class="card card-body border-info">
+        <main>
+            <form id="formAlta">
+                <h1>Crea una cuenta</h1>
+                <span>
+                    <input type="text" id="txtNombre" name="nombre" placeholder="Nombre" class="form-control" required>
+                </span>
+                <span>
+                    <input type="text" id="txtApellido" name="apellido" placeholder="Apellido" class="form-control" required>
+                </span>
+                <span>
+                    <input type="email" id="txtID" name="identificador" placeholder="Correo electónico" class="form-control" required>
+                </span>
+                <span>
+                    <input minlength=10 type="password" id="txtPass" name="pass" value="" placeholder="Contraseña nueva" class="form-control" required>
+                </span>
+                <span>
+                    <input type="date" id="fecha" name="fecha" class="form-control" required>
+                </span>
+                <br>
+                <span>
+                    <input type="radio" name="tipo" value="e" checked="">Empresa
+                    <input type="radio" name="tipo" value="d">Desarrollador<br>
+                </span>
+                <br>
+                <input id="boton" class="btn btn-info" type="submit" name="submit" value="Registrarme"><br>
+                <a href="{{ path_for('ingresar') }}">Ya tengo una cuenta</a>
+            </form>
+        </main>
+    </div>
 </div>
 
 <!-- Modal  de mensajes -->
 <div id="modalAviso" class="modal" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Resultado</h5>
-			</div>
-			<div class="modal-body">
-				<p id="mensajeModal">Modal body text goes here.</p>
-			</div>
-			<div class="modal-footer">	
-				<a type="button" class="btn" id="redirigir">Aceptar</a>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Resultado</h5>
+            </div>
+            <div class="modal-body">
+                <p id="mensajeModal">Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn" id="redirigir">Aceptar</a>
+            </div>
+        </div>
+    </div>
 </div>
-
+</div>
+</body>
 {% endblock %}
-
 {% block script %}
 <script type="text/javascript" src="{{path_for('Inicio')}}scripts/nuevoUsuario.js"></script>
 {% endblock %}

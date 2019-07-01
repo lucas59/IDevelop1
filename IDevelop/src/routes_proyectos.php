@@ -123,7 +123,9 @@ return function (App $app){
 		$data = $request->getParams();
 		$id = $data['proyecto'];
 		$estado = $data['estado'];
-		$retorno = ctr_proyecto::Activar_desactivar_proyecto($id,$estado);
+		$finPos = $data['fechafinP'];
+		$finPro = $data['fechaEntregaP'];
+		$retorno = ctr_proyecto::Activar_desactivar_proyecto($id,$estado,$finPos,$finPro);
 		if($retorno){
 			return "1";
 		} else{
@@ -179,7 +181,10 @@ return function (App $app){
 			$controlador = new ctr_proyecto();
 			$proy = $controlador->obtenerProyectoCU($idproyecto);
 			$listaCU = $controlador->Listarcasosdeuso($idproyecto);
-			$args = array("proyecto" => $proy, "casosdeuso" => $listaCU, "session" => $session);
+			$puntosTot = $controlador->obtenerPuntosTotalProy($idproyecto);
+			$progresoTot = $controlador->obtenerProgresoTotalProy($idproyecto);
+
+			$args = array("proyecto" => $proy,"casosdeuso" => $listaCU,"puntosTot" => $puntosTot,"progresoTot" => $progresoTot,"session" => $session);
 			return $this->view->render($response,"VerCasosDeUso.twig",$args);
 		}else{
 			$mensaje ="Debe iniciar sesión como Desarrollador para poder planificar proyectos";
@@ -195,7 +200,6 @@ return function (App $app){
 			$args['session']=$_SESSION['admin'];
 			$session = $_SESSION['admin'];
 		}
-
 			$controladorP = new ctr_proyecto();
 			$controladorU = new ctr_usuarios();
 			$idProyecto = $args['id'];
@@ -219,6 +223,7 @@ return function (App $app){
 				
 				if($contratacion == false){
 				$postulante=$controladorP->PostulantesDeProyecto($idProyecto);
+				echo Console::log("asd",$postulante);
 				$args['postulante'] = $postulante;
 				}
 				$args['idProyecto'] = $idProyecto;

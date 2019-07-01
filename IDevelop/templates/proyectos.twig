@@ -2,12 +2,15 @@
 {% block title %}Proyectos{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/proyecto.css">
 {% endblock %}
 
-{% block content %}	
+{% block content %}
+<body background="{{path_for('Inicio')}}img/fondo.png">	
 <div id="tabla_id">
-<h1>Proyectos </h1> 
-  <table class="table">
+<h1>Proyectos </h1>
+<input type="text" id="buscar" onkeyup="FiltrarTabla()" placeholder="Buscar..." name=""> 
+  <table class="table table-bordered">
     <thead>
 		<tr id="tabla_titulo" class="bg-info">
 			<th scope="col">Nombre</th>
@@ -17,7 +20,7 @@
 
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="tabla">
 		{% for proyecto in proyectos %}
 		{% if session %}
 		<tr onclick="window.location='{{path_for('Inicio')}}Proyecto/{{proyecto.id}}' " class="fila" id="{{proyecto.id}}">
@@ -25,7 +28,7 @@
 		<tr onclick="$('#modalNO').modal('show');" class="fila" id="{{proyecto.id}}">
 		{% endif %}
 			<td>{{ proyecto.nombre }}</td>
-			<td class="tdDescripcion">{{ proyecto.descripcion }}</td>
+			<td class="tdDescripcion"><textarea class="descripcion" readonly>{{ proyecto.descripcion }}</textarea></td>
 			<td>{{ proyecto.fechaEntrega }}</td>
 
 		{% if proyecto.estado == 1 %}
@@ -34,6 +37,10 @@
 			<td>En desarrollo</td>
 		{% elseif proyecto.estado == 3 %}
 			<td>Finalizado</td>
+		{% elseif proyecto.estado == 0 %}
+			<td>Buscando postulantes</td>
+		{% elseif proyecto.estado == 4 %}
+			<td>Terminado</td>
 		{% endif %}
 		</tr>
 		{% endfor %}
@@ -56,10 +63,12 @@
     </div>
   </div>
 </div>
-
+</body>
 {% endblock %}
 
 {% block script %}
+<script type="text/javascript" src="{{path_for('Inicio')}}scripts/filtrarTabla.js"></script>
+
 <script type="text/javascript" src="{{path_for('Inicio')}}scripts/proyecto.js"></script>
 {% endblock %}
 

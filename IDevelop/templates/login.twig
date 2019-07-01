@@ -5,8 +5,9 @@
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/login_2.css">
 {% endblock %}
 {% block content %}
-<div id="tabla_id" class="card">
-    <div class="card card-body border-info">
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
+<div id="tabla_id" class="card ">
+    <div class="card card-body border-info tarjeta">
         <h1>Iniciar sesión</h1>
         <form id="formLogin" method="POST" class="form-signin">
            <div class="text-center mb-4">
@@ -39,6 +40,7 @@
   </div>
 </div>
 </div>
+</body>
 {%block script%}
 <script type="text/javascript" src="{{path_for('Inicio')}}scripts/Loggin.js"></script>
 {% endblock %}

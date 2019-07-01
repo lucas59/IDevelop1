@@ -4,23 +4,37 @@
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
 <div id="tabla_id">
-<h1>Desarrolladores</h1>
-  <table class="table">
-    <tbody>
-      {% for user in usuarios %}
-      <tr onclick="window.location='{{path_for('Inicio')}}Usuario/Perfil?email={{ user.email }}' " class="fila">
-        <td><button  style="background-image: url(data:image/png;base64,{{user.contenido}})" id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-      </button>
-        {{user.nombre}}
-        {{ user.apellido }}
-      </td>
-        <td>{{ user.email }}</td>
-        <td>{{ user.pais }}</td>
-        </tr>
-        {% endfor %}
+    <h1>Desarrolladores</h1>
+    <table  class="table table-bordered">
+          <thead>
+     <input placeholder="Buscar..." type="text" onkeyup="FiltrarTabla()" id="buscar">
+    <tr id="tabla_titulo" class="bg-info">
+      <th scope="col">Nombre</th>
+      <th class="tdDescripcion" scope="col">Correo</th>
+      <th scope="col">Pais</th>
+
+    </tr>
+  </thead>
+        <tbody id="tabla">
+            {% for user in usuarios %}
+            <tr onclick="window.location='{{path_for('Inicio')}}Usuario/Perfil?email={{ user.email }}' " class="fila">
+                <td>
+                    <button style="background-image: url(data:image/png;base64,{{user.contenido}})" id="boton" type="button" class="dropbtn user" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
+                    </button>
+                    {{user.nombre}}
+                    {{ user.apellido }}
+                </td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.pais }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
 </div>
 </body>
 {% endblock %}
+{% block script %}
+<script type="text/javascript" src="{{path_for('Inicio')}}scripts/filtrarTabla.js"></script>
+{%endblock%}

@@ -143,6 +143,32 @@ class Proyecto
 		}
 	}
 
+public function ListarProyectosPostulados($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT P.* FROM `proyecto` AS p, postulacion AS PN, usuario AS U WHERE U.email=? AND P.id = PN.proyecto_id AND P.estado = 0");
+		$consulta->bind_param("s",$id);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+	public function ListarProyectosFinalizados($id){
+		$respuesta=null;
+		$consulta = DB::conexion()->prepare("SELECT P.* FROM `proyecto` AS p, postulacion AS PN, usuario AS U WHERE U.email=? AND P.id = PN.proyecto_id AND P.estado = 3");
+		$consulta->bind_param("s",$id);
+		$consulta->execute();
+		$resultado = $consulta->get_result();
+		if (mysqli_num_rows($resultado) >= 1) {
+			return $resultado;
+		} else {
+			return $resultado;
+		}
+	}
+
+
 	public function Listar_proyectos_despostularse($id){
 		$respuesta=null;
 		$consulta = DB::conexion()->prepare("SELECT proyecto.*,empresa.nombre AS nombre_empresa ,empresa.id AS id_empresa FROM empresa_proyecto INNER JOIN proyecto ON proyecto.id = empresa_proyecto.proyectos_id INNER JOIN empresa ON empresa.id = empresa_proyecto.Empresa_id AND proyecto.id IN (SELECT proyectos_id FROM desarrollador_proyecto WHERE desarrollador_proyecto.Desarrollador_id = '" . $id . "' AND desarrollador_proyecto.Estado IS NULL)");
@@ -187,6 +213,20 @@ class Proyecto
 		}
 		return $myArray;
 	}
+
+	public function ListarProyectosEnDesarrollo($email){
+		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, desarrollador_proyecto AS DP , desarrollador AS D WHERE D.id=DP.Desarrollador_id AND P.id=DP.proyectos_id AND P.estado = 2 AND D.id= ?");
+		$sql->bind_param('s',$email);
+		$sql->execute();
+		$resultado = $sql->get_result();
+		$myArray = array();
+
+		while($row = $resultado->fetch_array(MYSQLI_ASSOC)) {
+			$myArray[] = $row;
+		}
+		return $myArray;
+	}
+	
 	public function ListarProyectosDeEmpresa($email){
 		$sql=DB::conexion()->prepare("SELECT P.id, P.nombre,P.fechaEntrega,P.descripcion, P.estado FROM `proyecto` AS P, empresa_proyecto AS EP , empresa AS EMP WHERE EMP.id=EP.Empresa_id AND P.id=EP.proyectos_id  AND EMP.id= ?");
 		$sql->bind_param('s',$email);
@@ -234,9 +274,8 @@ public function usuario_postualarse_validacion($id,$usuario){
 			return "0";
 		}
 	}
-public function Activar_desactivar_proyecto($proyecto,$estado){
-		$sql=DB::conexion()->prepare("UPDATE proyecto SET estado = ? WHERE id = ?");
-
+public function Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro){
+		$sql=DB::conexion()->prepare("UPDATE proyecto SET estado = ?,fechaEntrega = '$finPro',fechaFinPostulacion = '$finPos' WHERE id = ?");
 		if($sql){
 			$sql->bind_param('ii',$estado,$proyecto);
 			if ($sql->execute()) {
@@ -271,6 +310,7 @@ public function verificar_Trabajo_proyecto_validacion($id,$usuario){
 			return false;
 		}
 	}
+
 }
 
 ?>
