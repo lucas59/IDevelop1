@@ -22,7 +22,7 @@ class Desarrollador extends Usuario
 		$this->email = $email;
 		$this->foto_perfil = $foto_perfil;
 		$this->contrasena = $contrasena;
-$this->nombre= $nombre;
+		$this->nombre= $nombre;
 		$this->cedula = $cedula;
 		$this->apellido = $apellido;
 		$this->fecha_Nacimiento = $fecha_Nacimiento;

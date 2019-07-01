@@ -77,6 +77,27 @@
       {% elseif proyecto.estado == 4 %}
       <h6>Desactivado</h6>
       {% endif %}
+    </div>
+  </div>
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+
+    <dt>Estado</dt>
+    {% if proyecto.estado == 0 %}
+    <h6>En espera</h6>
+    {% elseif proyecto.estado == 1 %}
+    <h6>Fin de la fecha de reclutamiento</h6>
+    {% elseif proyecto.estado == 2 %}
+    <h6>Iniciado</h6>
+    {% elseif proyecto.estado == 3 %}
+    <h6>Finalizado</h6>
+    {% elseif proyecto.estado == 4 %}
+    <h6>Desactivado</h6>
+    {% endif %}
+
+    <dt>Descripción</dt>
+    <dd><textarea class="descripcion">{{proyecto.descripcion}}</textarea></dd>
+    <dt>Fecha de finalización</dt>
+    <dd>{{proyecto.fechaEntrega}}</dd>
 
       <dt>Descripción</dt>
       <dd>{{proyecto.descripcion}}</dd>
@@ -91,17 +112,17 @@
 
       <!-- for -->
 
-      {% for pos in postulante%}
-      <div class="media text-muted pt-3">
-       <img class="mr-3" src="{{path_for('Inicio')}}img/user.png" alt="" width="30" height="30">
-       <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
-        <div class="d-flex justify-content-between align-items-center w-100">
-          <strong class="text-gray-dark">{{pos.email}}</strong>
-          {% if session.tipo == 1 %}
-          <a href="{{path_for('Inicio')}}Usuario/ElejirPostulante?email={{pos.email}}&idProyecto={{proyecto.id}}">Contratar</a>
-          {% endif %}
-          <!-- <a href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Contratar</a>  -->
-        </div>
+    {% for pos in postulante%}
+    <div class="media text-muted pt-3" >
+     <img class="mr-3" src="{{path_for('Inicio')}}img/user.png" alt="" width="30" height="30">
+     <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        
+        <a href="{{path_for('Inicio')}}Usuario/Perfil?email={{pos.email}}"><strong class="text-gray-dark">{{pos.email}}</strong></a>
+        {% if session.tipo == 1 %}
+        <a href="{{path_for('Inicio')}}Usuario/ElejirPostulante?email={{pos.email}}&idProyecto={{proyecto.id}}">Contratar</a>
+         {% endif %}
+       <!-- <a href="#" class="btn btn-info btn-sm active float-right" role="button" aria-pressed="true">Contratar</a>  -->
       </div>
     </div>
     {% endfor %}
