@@ -45,7 +45,7 @@
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">{{proyecto.nombre}}</h5>
                                 <p title="{{proyecto.descripcion}}" class="card-text">{{proyecto.descripcion}}</p>
-
+                                <label><progress value="{{proyecto.progresoTot}}" max="{{proyecto.puntosTot}}"></label>
                                 <a style="position:absolute;right:40px;left:40px;bottom:0;" href="{{path_for('Inicio')}}Proyecto/{{ proyecto.id }}" class="btn btn-primary">Entrar</a>
                             </div>
                         </div>
@@ -65,6 +65,7 @@
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{proyecto.nombre}}</h5>
                         <p title="{{proyecto.descripcion}}" class="card-text">{{proyecto.descripcion}}</p>
+                        <label><progress value="{{proyecto.progresoTot}}" max="{{proyecto.puntosTot}}"></label>
                         <a style="position:absolute;right:40px;left:40px;bottom:0;" href="{{path_for('Inicio')}}Proyecto/{{ proyecto.id }}" class="btn btn-primary">Entrar</a>
                     </div>
                 </div>
