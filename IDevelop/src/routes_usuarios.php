@@ -355,7 +355,7 @@ if (isset($_FILES['fotoPerfil'])) {
 			$args['herramientas']=$controladorUsuarios->DesarrolladorHerramientas($email);
 			$args['proyectos']=$controladorUsuarios->DesarrolladorProyectos($email);
 			$args['experiencia']=$controladorUsuarios->DesarrolladorExperiencia($email);
-			if($_SESSION && $_SESSION['admin']->tipo == 0){
+			if($_SESSION /*&& $_SESSION['admin']->tipo == 0*/){
 				$args['session']=$_SESSION['admin'];		
 			}		
 			return $this->view->render($response,"PerfilDesarrollador.twig",$args);

@@ -89,7 +89,7 @@
      <img class="mr-3" src="{{path_for('Inicio')}}img/user.png" alt="" width="30" height="30">
      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
       <div class="d-flex justify-content-between align-items-center w-100">
-        <strong class="text-gray-dark">{{pos.email}}</strong>
+        <a onclick="window.location='{{path_for('Inicio')}}Usuario/Perfil?email={{pos.email}}'">{{pos.email}}</a>
         {% if session.tipo == 1 %}
         <a href="{{path_for('Inicio')}}Usuario/ElejirPostulante?email={{pos.email}}&idProyecto={{proyecto.id}}">Contratar</a>
          {% endif %}
