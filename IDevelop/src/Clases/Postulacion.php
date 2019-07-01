@@ -44,6 +44,27 @@ class Postulacion
 	}
 
 	public function AltaPostulacion($usuario,$proyecto){
+		$sql2=DB::conexion()->prepare("SELECT Empresa_id FROM empresa_proyecto WHERE proyectos_id=?");
+		$sql2->bind_param('s',$proyecto);
+		$resultado=$sql2->get_result();
+		if($resultado->num_rows > 0){
+			for ($num_fila = $resultado->num_rows - 1; $num_fila >= 0; $num_fila--) {
+				$resultado->data_seek($num_fila);
+				$fila = $resultado->fetch_assoc();
+			}
+		}
+		$sql3=DB::conexion()->prepare("SELECT estado FROM usuario WHERE email=?");
+		$sql3->bind_param('s',$fila['Empresa_id']);
+		$resultado2=$sql2->get_result();
+		if($resultado2->num_rows > 0){
+			for ($num_fila2 = $resultado2->num_rows2 - 1; $num_fila2 >= 0; $num_fila2--) {
+				$resultado2->data_seek($num_fila2);
+				$fila2 = $resultado2->fetch_assoc();
+			}
+		}
+		if($fila2['estado'] == 0){
+			return "0";
+		}
 		$sql=DB::conexion()->prepare("INSERT INTO `postulacion` (`fechaPostulacion`, `desarrollador_id`, `proyecto_id`) VALUES (?,?,?)");
 		if($sql){
 			$date = date("Y-m-d H:i:s");

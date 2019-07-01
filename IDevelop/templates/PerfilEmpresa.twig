@@ -74,6 +74,20 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel">Confirmar</h5>
+            </div>
+            <div class="modal-footer">
+            <input type="hidden" value="{{Empresa.email}}" id="emailDesarrollador">
+                <button onclick="desactivarUsuario()" type="button" class="btn btn-default" id="modal-btn-si">Si</button>
+                <button type="button" class="btn btn-primary" id="btn_cerrar">No</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal fade" id="modalEditar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
