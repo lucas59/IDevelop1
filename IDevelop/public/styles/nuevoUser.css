@@ -2,16 +2,23 @@ main{
   max-width: 960px;
   margin:30px auto 0px auto ;
 }
-
+h1 {
+	text-align: center;	
+	font-family: Comfortaa;
+}
 #tabla_id{
 	max-width: 560px;
 	margin:10px auto 30px auto;
 	text-align: center;
 }
-input{
+input:not(#buscador){
 	margin: 10px;
 }
 
 div{
 	background-repeat: repeat-y;
+}
+.tarjeta{
+  border-radius: 5px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1), 0 4px 4px rgba(0, 0, 0, 0.2);
 }

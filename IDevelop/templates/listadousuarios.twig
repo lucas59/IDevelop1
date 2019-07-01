@@ -4,11 +4,20 @@
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
 {% endblock %}
 {% block content %}
+<body background="{{path_for('Inicio')}}img/fondo.png"> 
 <div id="tabla_id">
     <h1>Desarrolladores</h1>
-    <input placeholder="Buscar..." type="text" onkeyup="FiltrarTabla()" id="buscar">
-    <table id="tabla" class="table">
-        <tbody>
+    <table  class="table table-bordered">
+          <thead>
+     <input placeholder="Buscar..." type="text" onkeyup="FiltrarTabla()" id="buscar">
+    <tr id="tabla_titulo" class="bg-info">
+      <th scope="col">Nombre</th>
+      <th class="tdDescripcion" scope="col">Correo</th>
+      <th scope="col">Pais</th>
+
+    </tr>
+  </thead>
+        <tbody id="tabla table-bordered">
             {% for user in usuarios %}
             <tr onclick="window.location='{{path_for('Inicio')}}Usuario/Perfil?email={{ user.email }}' " class="fila">
                 <td>

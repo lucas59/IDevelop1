@@ -126,8 +126,8 @@ public function verificarTrabajo_proyecto($session, $idProyecto){
 	}
 }
 
-public function Activar_desactivar_proyecto($proyecto,$estado){
-	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado);
+public function Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro){
+	return Proyecto::Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro);
 }
 
 public function obtenerProyecto($idProyecto){

@@ -8,3 +8,8 @@
 	bottom: 0;
 	width: 100%;
 }
+
+body{
+	 background-repeat:no-repeat; background-position:center;
+      background-attachment:fixed;  background-size:cover;
+}

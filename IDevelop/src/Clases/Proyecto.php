@@ -277,9 +277,8 @@ public function usuario_postualarse_validacion($id,$usuario){
 			return "0";
 		}
 	}
-public function Activar_desactivar_proyecto($proyecto,$estado){
-		$sql=DB::conexion()->prepare("UPDATE proyecto SET estado = ? WHERE id = ?");
-
+public function Activar_desactivar_proyecto($proyecto,$estado,$finPos,$finPro){
+		$sql=DB::conexion()->prepare("UPDATE proyecto SET estado = ?,fechaEntrega = '$finPro',fechaFinPostulacion = '$finPos' WHERE id = ?");
 		if($sql){
 			$sql->bind_param('ii',$estado,$proyecto);
 			if ($sql->execute()) {

@@ -9,7 +9,9 @@
 .padre{
   text-align:center;
 }
-
+.hijo{
+   display: inline-block;
+}
 p{
   color: white;
 }
@@ -18,9 +20,7 @@ label{
   color: white;
 }
 
-.hijo{
-   display: inline-block;
-}
+
 
 .grid-container {
   display: grid;

@@ -123,7 +123,9 @@ return function (App $app){
 		$data = $request->getParams();
 		$id = $data['proyecto'];
 		$estado = $data['estado'];
-		$retorno = ctr_proyecto::Activar_desactivar_proyecto($id,$estado);
+		$finPos = $data['fechafinP'];
+		$finPro = $data['fechaEntregaP'];
+		$retorno = ctr_proyecto::Activar_desactivar_proyecto($id,$estado,$finPos,$finPro);
 		if($retorno){
 			return "1";
 		} else{
