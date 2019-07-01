@@ -11,15 +11,9 @@
         <li class="nav-item">
             <a class="nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="home" aria-selected="true">Datos</a>
         </li>
-       <!-- <li class="nav-item">
-            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Experiencia" role="tab" aria-controls="profile" aria-selected="false">Experiencia laboral</a>
-        </li>-->
         <li class="nav-item">
             <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="profile" aria-selected="false">Proyectos</a>
         </li>
-       <!-- <li class="nav-item">
-            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Herramientas" role="tab" aria-controls="profile" aria-selected="false">Herramientas</a>
-        </li>-->
     </ul>
     <div class="tab-content" id="myTabContent">
         <div role="tabpanel" class="tab-pane active" id="Datos">
@@ -61,30 +55,6 @@
                 </div>
             </div>
         </div>
-      <!--  <div class="tab-pane fade" id="Experiencia" role="tabpanel" aria-labelledby="profile-tab">
-            <table class="table table-bordered">
-                <thead>
-                    <tr id="tabla_titulo" class="bg-info">
-                        <td>Empreza</td>
-                        <td>Descripcion</td>
-                        <td>Fecha Inicio</td>
-                        <td>Fecha Fin</td>
-                        <td>Contacto</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for exp in experiencia %}
-                    <tr>
-                        <td>{{ exp.empresa }}</td>
-                        <td>{{ exp.descripcion }}</td>
-                        <td>{{ exp.fechaini }}</td>
-                        <td>{{ exp.fechafin }}</td>
-                        <td>{{ exp.contacto }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>-->
         <div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="profile-tab">
             <table class="table table-bordered">
                 <thead>
@@ -97,28 +67,12 @@
                     {% for proy in proyectos %}
                     <tr class="fila" onclick="window.location='{{path_for('Inicio')}}Proyecto/{{ proy.id }}'">
                         <td>{{ proy.nombre }}</td>
-                        <td><p>{{ proy.descripcion }}</p></td>
+                        <td><textarea class="descripcion" readonly>{{ proy.descripcion }}</textarea></td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-       <!-- <div class="tab-pane fade" id="Herramientas" role="tabpanel" aria-labelledby="profile-tab">
-            <table class="table table-bordered">
-                <thead>
-                    <tr id="tabla_titulo" class="bg-info">
-                        <td>Nombre</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for her in herramientas %}
-                    <tr>
-                        <td>{{ her.nombre }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>-->
     </div>
 </div>
 </div>

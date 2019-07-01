@@ -57,3 +57,15 @@ h3{
 	margin-bottom: 10px;
 }
 
+.descripcion{
+	width: 100%;
+	border: none;
+	height: 200px;
+	
+	background-color: transparent;
+
+}
+
+.tdDescripcion{
+	width: 80%;
+}

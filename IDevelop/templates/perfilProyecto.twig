@@ -77,32 +77,15 @@
       {% elseif proyecto.estado == 4 %}
       <h6>Desactivado</h6>
       {% endif %}
-    </div>
+<!--    </div>
   </div>
   <div class="my-3 p-3 bg-white rounded shadow-sm">
-
-    <dt>Estado</dt>
-    {% if proyecto.estado == 0 %}
-    <h6>En espera</h6>
-    {% elseif proyecto.estado == 1 %}
-    <h6>Fin de la fecha de reclutamiento</h6>
-    {% elseif proyecto.estado == 2 %}
-    <h6>Iniciado</h6>
-    {% elseif proyecto.estado == 3 %}
-    <h6>Finalizado</h6>
-    {% elseif proyecto.estado == 4 %}
-    <h6>Desactivado</h6>
-    {% endif %}
+-->
 
     <dt>Descripción</dt>
-    <dd><p>{{proyecto.descripcion}}</p></dd>
+    <dd><textarea class="descripcion" readonly>{{proyecto.descripcion}}</textarea></dd>
     <dt>Fecha de finalización</dt>
     <dd>{{proyecto.fechaEntrega}}</dd>
-
-      <dt>Descripción</dt>
-      <dd>{{proyecto.descripcion}}</dd>
-      <dt>Fecha de finalización</dt>
-      <dd>{{proyecto.fechaEntrega}}</dd>
 
     </div>
     {% if postulante %}
