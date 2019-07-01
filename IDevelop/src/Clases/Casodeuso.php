@@ -103,7 +103,7 @@ class Casodeuso
 		return $sql->get_result();
 	}
 
-	public function calcularProgresoTotalProyecto($idProyecto){
+	public function calcularPuntosTotalesProyecto($idProyecto){
 
 		$consulta = DB::conexion()->prepare('SELECT puntosTot FROM casodeuso WHERE proyecto_id = ?');
 		$consulta->bind_param('i', $idProyecto);
@@ -119,7 +119,7 @@ class Casodeuso
 		return $progresoTotal;
 	}
 
-	public function calcularPuntosTotalesProyecto($idProyecto){
+	public function calcularProgresoTotalProyecto($idProyecto){
 
 		$consulta = DB::conexion()->prepare('SELECT puntosActuales FROM casodeuso WHERE proyecto_id = ?');
 		$consulta->bind_param('i', $idProyecto);

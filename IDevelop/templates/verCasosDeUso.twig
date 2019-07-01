@@ -17,10 +17,9 @@
 			<br>
 			<dt>Nombre del proyecto</dt>
 			<dd>{{proyecto.nombre}}</dd>
-			<dt>Puntos:</dt>
-			<dd>{{ puntosTot }}</dd>
-			<dt>Progreso:</dt>
-			<dd>{{ progresoTot }}</dd>
+			<br>
+			<dt>Progreso actual del proyecto</dt>
+			<label><progress value="{{progresoTot}}" max="{{puntosTot}}"></label>
 			<br>
 			<br>
 			{% if session.tipo == 0 %}	
