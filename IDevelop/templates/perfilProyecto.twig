@@ -142,7 +142,7 @@
       <div class="modal-body">
         <span>
           <label for="txtFechaFP"> Fecha final de postulación:</label>
-          <input class="form-control" type="date" id="txtFechaFP" onchange="cambiarFecha(this.value)" name="txtFechaFP" required>
+          <input class="form-control" type="date" id="txtFechaFP" value="onchange=cambiarFecha(this.value)" name="txtFechaFP" required>
           <span>
             <label for="txtFecha"> Fecha Entrega proyecto:</label>
             <input class="form-control" type="date" id="txtFechaE" name="txtFechaE" required>
@@ -162,7 +162,7 @@
 {% endblock %}
 {% block script %}
 <script>
-  var today = new Date();
+  let today = new Date();
   var dd = today.getDate() + 1;
   var mm = today.getMonth() + 1;
   var yyyy = today.getFullYear();
@@ -173,6 +173,7 @@
     mm = '0' + mm
   }
   today = yyyy + '-' + mm + '-' + dd;
+   console.log(today);
   document.getElementById("txtFechaFP").setAttribute("min", today);
 </script>
 
@@ -182,19 +183,17 @@
     var today = new Date(val);
     
     today.setDate(today.getDate() + 30);
-
     var dd = today.getDate() + 1;
     var mm = today.getMonth() + 1;
     var yyyy = today.getFullYear();
-
-
     if (dd < 10) {
       dd = '0' + dd
     }
     if (mm < 10) {
       mm = '0' + mm
     }
-    today = yyyy + '-' + mm + '-' + dd;
+    today2 = yyyy + '-' + mm + '-' + dd;
+    console.log(today2);
     document.getElementById("txtFechaE").setAttribute("value",today);
     document.getElementById("txtFechaE").setAttribute("min", today);
   }

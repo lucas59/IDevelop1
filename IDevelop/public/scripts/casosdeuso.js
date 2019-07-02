@@ -102,7 +102,9 @@ function actualizarCasoDeUso1(id, puntosTot , nombre){
 	
 	if(intento==true){
 		var mensaje = "Caso de uso actualizado";
-		$("#mensajeModal").html(mensaje);				
+		console.log(mensaje);
+		$("#mensajeModal").html(mensaje);
+						
 		var link = document.getElementById("redirigir");
 		$("#modalAviso").modal();
 	}else{

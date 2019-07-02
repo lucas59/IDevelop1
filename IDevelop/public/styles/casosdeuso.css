@@ -35,18 +35,19 @@ label{
   padding: 10px;
 }
 
-div p{
-	display: inline-block;
+div.cdu p{
+	display: none;
 }
 
-div:ashover > p{
+div.cdu:hover > p{
 	 display: block;
 }
-
-.progressTot{
-  width: 500px;
+div{
+  color:black;
 }
-
+p{
+  color:black;
+}
 progress {
     border: 0;
     height: 20px;
