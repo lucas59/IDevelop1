@@ -18,6 +18,10 @@ h1 {
 	padding: 10px;
 }
 
+button i{
+	font-size: 25px;
+}
+
 #perfil_tab{
 	color: #17A2B8;
 }

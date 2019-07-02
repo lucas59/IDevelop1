@@ -1,17 +1,24 @@
 .casodeuso {
-	border: 2px solid #007B5E;
-	background: #0378A6;
+  border: none;
+	background: #00A4BA;
 	box-shadow: 1px 5px 5px;
-  margin-bottom: 10px;
   border-radius: 10px;
+  width: 18rem;
+  margin: 10px; 
+}
+
+option{
+  width: 400px;
 }
 
 .padre{
   text-align:center;
 }
-.hijo{
-   display: inline-block;
+
+.mediano{
+  
 }
+
 p{
   color: white;
 }
@@ -29,11 +36,15 @@ label{
 }
 
 div p{
-	display: none;
+	display: inline-block;
 }
 
-div:hover > p{
+div:ashover > p{
 	 display: block;
+}
+
+.progressTot{
+  width: 500px;
 }
 
 progress {

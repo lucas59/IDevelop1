@@ -119,6 +119,19 @@ return function (App $app){
 		return $retorno;
 	});
 
+
+	$app->post('/Proyecto/eliminarCU', function(Request $request, Response $response){
+		$data = $request->getParams();
+		$id= $data['id'];
+		$nombre = $data['nombre'];
+		ob_clean();
+		$retorno = ctr_proyecto::eliminarCU($id, $nombre);
+		return $retorno;
+	});
+
+
+
+
 	$app->post('/Proyecto/activar_desactivar',function(Request $request, Response $response){
 		$data = $request->getParams();
 		$id = $data['proyecto'];

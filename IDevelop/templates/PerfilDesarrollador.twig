@@ -9,10 +9,10 @@
     <h1>Perfil Desarrollador</h1>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="home" aria-selected="true">Datos</a>
+            <a class="nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="home" aria-selected="true"><i style="color: black" class="fas fa-user"></i>Datos</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="profile" aria-selected="false">Proyectos</a>
+            <a class="nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="profile" aria-selected="false"><i style="color: black" class="fas fa-project-diagram"></i>Proyectos</a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
@@ -37,11 +37,11 @@
                         <dt>Curriculum:</dt>
                         <a id='descarga' download='Curriculo.pdf' style="display:none;"></a>
                         <input style="display: none" type="text" id="curriculo" name="curriculo" value="{{curriculo.datos}}">
-                        <button onclick="descargarPDF()" id="btn_curriculo" type="button" class="btn btn-info">Descargar Curriculo</button>
+                        <button onclick="descargarPDF()" id="btn_curriculo" type="button" class="btn btn-info"><i class="fas fa-file-download"></i>Descargar Curriculo</button>
                         {% endif %}
                         {% if Desarrollador.email == session.id %}
-                        <button id="btn_editar" onclick="editarUsuario()" type="button" class="btn btn-info">Editar perfil</button>
-                        <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
+                        <button id="btn_editar" onclick="editarUsuario()" type="button" class="btn btn-info"><i class="fas fa-edit"></i>Editar perfil</button>
+                        <button id="btn_desactivar" type="button" class="btn btn-info"><i class="fas fa-lock"></i>Desactivar cuenta</button>
                         {%endif%}
                         {% if idProyecto %}
                         <form id="elegirForm" method="POST" class="form-signin">

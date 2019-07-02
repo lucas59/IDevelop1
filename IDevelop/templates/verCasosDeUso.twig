@@ -3,7 +3,6 @@
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/altaProyecto.css">
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/casosdeuso.css">
-
 {% endblock %}
 
 {% block content %}
@@ -19,28 +18,28 @@
 			<dd>{{proyecto.nombre}}</dd>
 			<br>
 			<dt>Progreso actual del proyecto</dt>
-			<label><progress value="{{progresoTot}}" max="{{puntosTot}}"></label>
+			<label><progress class="progressTot" value="{{progresoTot}}" max="{{puntosTot}}"></progress></label>
 			<br>
 			<br>
-			{% if session.tipo == 0 %}	
-				<a href="{{path_for('Inicio')}}Proyecto/nuevoCU/{{ proyecto.id }}">Nuevo Caso de uso </a>
+			{% if session.tipo == 0 %}
+				<a style="color: white" class="btn btn-dark href="{{path_for('Inicio')}}Proyecto/nuevoCU/{{ proyecto.id }}">
+				<i class="fas fa-plus-circle"></i>Nuevo Caso de uso </a>
 			
-				<table class="table table-bordered">
+				<table class="table">
 					<thead>
 						<tr class="bg-info">
 							<th scope="col">Nombre caso de uso</th>
-							<th scope="col">Descripción</th>
 							<th scope="col">Impacto</th>
 							<th scope="col">Progreso Actual</th>
 							<th scope="col">Progreso</th>
 							<th scope="col">Acción </th>
+							<th scope="col">Eliminar</th>
 						</tr>
 					</thead>
 				<tbody>
 				{% for cu in casosdeuso %}
 					<tr class="fila">
 						<td>{{ cu.nombre }}</td>
-						<td>{{ cu.descripcion }}</td>
 						{% if cu.puntosTot == 10 %}
 							<td>Bajo</td>
 						{% endif %}
@@ -52,7 +51,7 @@
 						{% endif %}
 						<td><progress value="{{ cu.puntosActuales }}" max="{{ cu.puntosTot }}"></td>
 						<td>
-							<select id="{{cu.nombre}}">
+							<select class="custom-select" id="{{cu.nombre}}">
 								<option value="0">No iniciado</option>
 								<option value="25">Comenzado</option>
 								<option value="50">En progreso</option>
@@ -60,7 +59,10 @@
 								<option value="100">Finalizado</option>
 							</select>
 						</td>				
-						<td> <input id="cu.nombre" type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, {{cu.puntosTot}} ,'{{cu.nombre}}')" value="Actualizar"></td>
+						<td>
+							<button id="cu.nombre" class="btn btn-success " type="button" onclick="actualizarCasoDeUso1({{proyecto.id}}, {{cu.puntosTot}} ,'{{cu.nombre}}')"><i class="fas fa-edit"></i> Actualizar</button> </td>
+						<td><button class="btn btn-danger " id="cu.nombre" type="button" onclick="EliminarCasoDeUso1({{cu.id}},'{{cu.nombre}}')" ><i class="fas fa-trash-alt"></i> Eliminar</button></td>
+						
 					</tr>
 				{% endfor %}
 				</tbody>
@@ -69,7 +71,7 @@
 				<div class="hijo">
 				{% if session.tipo == 1 %}
 					{% for cu in casosdeuso %}
-					   <div class="card  casodeuso" style="width: 18rem;margin-left: 10px">
+					   <div class="d-inline-block casodeuso">
                         <div class="card-body d-flex flex-column">
 							<label><strong>Nombre: {{ cu.nombre}} </strong></label>
 							<br>
@@ -92,7 +94,7 @@
 					</div>
 					{% endfor %}
 				{% endif %}
-			</div>
+		</div>
 		</form>
 	</div>
 </div>

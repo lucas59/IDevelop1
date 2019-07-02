@@ -15,6 +15,8 @@ section .section-title {
     color: #eee;
 }
 
+
+
 #tabs h6.section-title {
     color: #eee;
 }
@@ -76,12 +78,16 @@ section .section-title {
   cursor: pointer;
 }
 
+.entrar{
+}
 
 progress {
     border: 0;
     height: 20px;
     border-radius: 20px;
+    margin: 20px 0 20px 0;
 }
+
 progress::-webkit-progress-bar {
     border: 0;
     height: 20px;

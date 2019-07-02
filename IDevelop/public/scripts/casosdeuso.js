@@ -90,7 +90,7 @@ function nombreCdUDisponible(nombre){
 
 function actualizarCasoDeUso1(id, puntosTot , nombre){
 
-	
+	console.log(id,nombre);
 	var combo = document.getElementById(nombre);
 	var progreso = combo.options[combo.selectedIndex].value;	
 	
@@ -113,6 +113,52 @@ function actualizarCasoDeUso1(id, puntosTot , nombre){
 	}
 }
 
+function EliminarCasoDeUso1(idProyecto,nombreCU){
+	console.log(idProyecto,nombreCU);
+	var intento = eliminarCU(idProyecto, nombreCU);	
+	console.log("intento:" +intento);
+	
+	if(intento==true){
+		var mensaje = "Caso de uso eliminado";
+		$("#mensajeModal").html(mensaje);				
+		var link = document.getElementById("redirigir");
+		$("#modalAviso").modal();
+	}else{
+		var mensaje = "Problema al eliminar";
+		$("#mensajeModal").html(mensaje);				
+		var link = document.getElementById("redirigir");
+		$("#modalAviso").modal();
+	}
+
+
+}
+
+function eliminarCU(idProyecto,nombreCU){
+	var retorno = null;
+	$.ajax({
+		async:false,
+		url: '/IDevelop1/IDevelop/public/Proyecto/eliminarCU',
+		type: 'POST',
+		data: {
+			"nombre": nombreCU,
+			"id": idProyecto,
+		},
+		success: function(response){
+			response=response.trim();
+			console.log(response);
+			if(response=="1"){
+				retorno = true;
+			}else if(response == "0"){
+				retorno =false;
+			}
+		},
+		error: function(response){
+		console.log("response:" + eval(response));
+		}
+	});
+
+	return retorno;	
+}
 
 function actualizarCasoDeUso2(id, progreso, nombre){
 	var retorno = null;

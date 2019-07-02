@@ -40,6 +40,11 @@ public function actualizarCU($id, $progreso, $nombre){
 	return $actualizado;
 }
 
+public function eliminarCU($id, $nombre){
+	$actualizado = Casodeuso::eliminarCU($id, $nombre);
+	return $actualizado;
+}
+
 public function agregarProyecto($nombre, $descripcion, $fechaE, $fechaFP){
 	$usuario = $_SESSION['admin']->id;
 	$insertado = Proyecto::subirProyecto($nombre, $descripcion, $fechaE, $fechaFP,$usuario);

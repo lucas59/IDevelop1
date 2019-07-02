@@ -1,5 +1,6 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="{{ path_for('Inicio') }}">IDevelop</a>
+      
+      <a class="navbar-brand" href="{{ path_for('Inicio') }}"><i class="fas fa-home"></i>IDevelop</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -7,24 +8,24 @@
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Proyecto</a>
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-lightbulb"></i>Proyecto</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
              {% if session.tipo == 1 %}
-             <a class="dropdown-item" href="{{ path_for('NuevoProyecto') }}">Crear proyecto<span class="sr-only">(current)</span></a>
-             <a class="dropdown-item" href="{{ path_for('proyectos') }}">Proyectos<span class="sr-only">(current)</span></a>
+             <a class="dropdown-item" href="{{ path_for('NuevoProyecto') }}"><i style="color: black" class="fas fa-plus-square"></i>Crear proyecto<span class="sr-only">(current)</span></a>
+             <a class="dropdown-item" href="{{ path_for('proyectos') }}"><i style="color: black" class="fas fa-list"></i>Proyectos<span class="sr-only">(current)</span></a>
              {%  endif %}
              {% if session.tipo == 0 %}
-             <a class="dropdown-item" href="{{ path_for('proyectos') }}">Proyectos<span class="sr-only">(current)</span></a>
+             <a class="dropdown-item" href="{{ path_for('proyectos') }}"><i style="color: black" class="fas fa-list"></i>Proyectos<span class="sr-only">(current)</span></a>
              {%  endif %}
            </div>
          </li>
          <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Usuarios
+
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-users"></i>Usuarios
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{{ path_for('listado') }}">Desarrolladores<span class="sr-only">(current)</span></a>
-            <a class="dropdown-item" href="{{ path_for('listadoE') }}">Empresas<span class="sr-only">(current)</span></a>
+            <a class="dropdown-item" href="{{ path_for('listado') }}"><i style="color: black" class="fas fa-code"></i>Desarrolladores<span class="sr-only">(current)</span></a>
+            <a class="dropdown-item" href="{{ path_for('listadoE') }}"><i style="color: black" class="fas fa-building"></i>Empresas<span class="sr-only">(current)</span></a>
           </div>
         </li>
 
@@ -57,11 +58,11 @@
       </button>
       <div class="dropdown-menu dropdown-menu-right">
         {% if session.tipo == 0 %}
-        <a href="{{ path_for('perfil') }}" class="dropdown-item" type="button">Perfil del desarrollador {{session.nombre}}</a>
+        <a href="{{ path_for('perfil') }}" class="dropdown-item" type="button"><i style="color: black" class="fas fa-user-circle"></i>Perfil del desarrollador {{session.nombre}}</a>
         {% elseif session.tipo == 1 %}
-        <a href="{{ path_for('PerfilE') }}" class="dropdown-item" type="button">Perfil del Empresa {{session.nombre}}</a>
+        <a href="{{ path_for('PerfilE') }}" class="dropdown-item" type="button"><i style="color: black" class="fas fa-user-circle"></i>Perfil del Empresa {{session.nombre}}</a>
         {%  endif %}
-        <a href="{{ path_for('cerrar') }}" class="dropdown-item" type="button">Cerrar sesión</a>
+        <a href="{{ path_for('cerrar') }}" class="dropdown-item" type="button"><i style="color: black" class="fas fa-sign-out-alt"></i>Cerrar sesión</a>
       </div>
     </div>
   </nav>  
