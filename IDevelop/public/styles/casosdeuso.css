@@ -28,14 +28,19 @@ label{
   padding: 10px;
 }
 
-div p{
+div.cdu p{
 	display: none;
 }
 
-div:hover > p{
+div.cdu:hover > p{
 	 display: block;
 }
-
+div{
+  color:black;
+}
+p{
+  color:black;
+}
 progress {
     border: 0;
     height: 20px;
