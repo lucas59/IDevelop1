@@ -2,6 +2,7 @@
 {% block title %}Proyecto: {{proyecto.nombre}}{% endblock %}
 {% block head %}
 <link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/Estilos_generales.css">
+<link rel="stylesheet" type="text/css" href="{{path_for('Inicio')}}styles/proyecto.css">
 {% endblock %}
 {% block content %}
 <body background="{{path_for('Inicio')}}img/fondo.png"> 
@@ -22,8 +23,6 @@
   </div>
 
   <main class="container">
-
-
     <div style="background-color: #17A2B8" class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
       <img class="mr-3" src="{{path_for('Inicio')}}img/proyecto.png" alt="" width="48" height="48">
       <div class="lh-100">
@@ -51,14 +50,14 @@
         <button style="margin-right: 5px" type="button" name="Planificacion" class="btn btn-info btn-sm active float-right" onclick="window.location.href='{{path_for('Inicio')}}Proyecto/casosdeuso/{{ proyecto.id }}';">
         <i class="fas fa-eye"></i>Ver planificación</button>
         {% if proyecto.estado == 0 %}
-        <button style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},4);"><i class="fas fa-minus"></i>Desactivar proyecto</button>
+        <button style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Desactivar proyecto" onclick="javascript:Estado_proyecto_des({{proyecto.id |upper}},4);"><i class="fas fa-minus"></i>Desactivar proyecto</button>
 
         {% elseif proyecto.estado == 2 %}
-        <button style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Terminar proyecto" onclick="javascript:Estado_proyecto({{proyecto.id |upper}},3);"><i class="fas fa-check"></i>Terminar proyecto</button>
+        <button id="btn_terminar" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Terminar proyecto" onclick="javascript:Estado_proyecto_des({{proyecto.id |upper}},3);"><i class="fas fa-check"></i>Terminar proyecto</button>
 
 
         {% elseif proyecto.estado == 4 %}
-        <input style="margin-right: 5px" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Activar proyecto" data-target="#modalADproyecto" data-toggle="modal">
+        <button id="btn_activar" type="button" class="btn btn-info btn-sm active float-right" name="aceptar" value="Activar proyecto" data-target="#modalADproyecto" data-toggle="modal"><i class="fas fa-minus"></i>Activar proyecto</button>
         {% endif %}
         {% endif %}
         {% endif %}
@@ -141,12 +140,12 @@
       </div>
       <div class="modal-body">
         <span>
-          <label for="txtFechaFP"> Fecha final de postulación:</label>
-          <input class="form-control" type="date" id="txtFechaFP" value="onchange=cambiarFecha(this.value)" name="txtFechaFP" required>
+            <label for="txtFechaFP"> Fecha final de postulación:</label>
+          <input class="form-control" type="date" id="txtFechaFP" onchange="cambiarFecha(this.value)" name="txtFechaFP" required>
           <span>
             <label for="txtFecha"> Fecha Entrega proyecto:</label>
             <input class="form-control" type="date" id="txtFechaE" name="txtFechaE" required>
-          </span>
+</span>
 
         </div>
         <div class="modal-footer">  
@@ -162,7 +161,7 @@
 {% endblock %}
 {% block script %}
 <script>
-  let today = new Date();
+  var today = new Date();
   var dd = today.getDate() + 1;
   var mm = today.getMonth() + 1;
   var yyyy = today.getFullYear();
@@ -173,7 +172,6 @@
     mm = '0' + mm
   }
   today = yyyy + '-' + mm + '-' + dd;
-   console.log(today);
   document.getElementById("txtFechaFP").setAttribute("min", today);
 </script>
 
@@ -192,8 +190,7 @@
     if (mm < 10) {
       mm = '0' + mm
     }
-    today2 = yyyy + '-' + mm + '-' + dd;
-    console.log(today2);
+    today = yyyy + '-' + mm + '-' + dd;
     document.getElementById("txtFechaE").setAttribute("value",today);
     document.getElementById("txtFechaE").setAttribute("min", today);
   }
