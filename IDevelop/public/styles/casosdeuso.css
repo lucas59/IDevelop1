@@ -14,6 +14,12 @@ option{
 .padre{
   text-align:center;
 }
+.cdu{
+  display: inline-block;
+}
+.hijo{
+  display: inline-block;
+}
 
 .mediano{
   
@@ -36,10 +42,8 @@ label{
 }
 
 div.cdu p{
-	display: none;
-}
-
-div.cdu:hover > p{
+  color: white;
+  text-align: left;
 	 display: block;
 }
 div{
