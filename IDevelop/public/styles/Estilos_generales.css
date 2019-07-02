@@ -12,6 +12,10 @@ h1 {
 	margin:30px auto 0px auto ;
 }
 
+tbody{
+	background-color: #ecf5ff;
+}
+
 .tab-content {
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
