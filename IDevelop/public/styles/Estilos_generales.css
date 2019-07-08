@@ -40,9 +40,13 @@ button i{
 }
 
 h3{
-	margin-left: 150px;
+	margin-left: 105px;
 }
 
+.perfil{
+	text-align: center;
+	right: 5%;
+}
 
 
 .fila:hover{
@@ -65,8 +69,8 @@ h3{
 .descripcion{
 	width: 100%;
 	border: none;
-	height: 200px;
-	
+	height: 51px;
+	resize: none;
 	background-color: transparent;
 
 }

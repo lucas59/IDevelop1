@@ -5,74 +5,80 @@
 {% endblock %}
 {% block content %}
 <body background="{{path_for('Inicio')}}img/fondo.png"> 
-<div id="tabla_id">
-	<h1>Perfil Empresa</h1>
-	<nav>
-		<div class="nav nav-tabs" id="nav-tab" role="tablist">
-			<a class="nav-item nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="nav-home" aria-selected="true">Datos</a>
-			<a class="nav-item nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="nav-profile" aria-selected="false">Proyectos</a>
-		</div>
-	</nav>
-	<div class="tab-content" id="myTabContent">
-		<div role="tabpanel" class="tab-pane active" id="Datos">
-			<div class="row">
-				<div class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Empresa.foto_perfil}}"/><h3>{{Empresa.nombre}}</h3>
-				</div>
-				<div class="col-lg-6">
-      <dl class="dl-horizontal">
-					<dt>Email:</dt>
-					<dd> {{Empresa.email}}</dd>
-					<dt>Nombre:</dt>
-					<dd> {{Empresa.nombre}}</dd>
-					<dt>Telefono:</dt>
-					<dd> {{Empresa.telefono}}</dd>
-					<dt>Fecha de creacion:</dt>
-					<dd> {{Empresa.fecha_Creacion}}</dd>
-					<dt>Rubro:</dt>
-					<dd> {{Empresa.rubro}}</dd>
-					<dt>Mision:</dt>
-					<dd> {{Empresa.mision}}</dd>
-					<dt>Vision:</dt>
-					<dd> {{Empresa.vision}}</dd>
-					<dt>Reclutador:</dt>
-					<dd> {{Empresa.reclutador}}</dd>
-					<dt>Direccion:</dt>
-					<dd> {{Empresa.direccion}}</dd>
-					{% if Empresa.email == session.id %}
-                        <button id="btn_editar" onclick="editarEmpresa()" type="button" class="btn btn-info">Editar perfil</button>
-                        <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
-                    {%endif%}
-			  </dl>
+    <div id="tabla_id">
+     <h1>Perfil Empresa</h1>
+     <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+       <a class="nav-item nav-link active" id="perfil_tab" data-toggle="tab" href="#Datos" role="tab" aria-controls="nav-home" aria-selected="true">Datos</a>
+       <a class="nav-item nav-link" id="perfil_tab" data-toggle="tab" href="#Proyectos" role="tab" aria-controls="nav-profile" aria-selected="false">Proyectos</a>
+   </div>
+</nav>
+<div class="tab-content" id="myTabContent">
+  <div role="tabpanel" class="tab-pane active" id="Datos">
+   <div class="row">
+    <div class="col-lg-6 perfil"><img id="imagen_perfil" src="data:image/png;base64,{{Empresa.foto_perfil}}"/><h3>{{Empresa.nombre}}</h3>
     </div>
-  </div>
+    <div class="col-lg-6">
+      <dl class="dl-horizontal">
+         <dt>Email:</dt>
+         <dd> {{Empresa.email}}</dd>
+         <dt>Nombre:</dt>
+         <dd> {{Empresa.nombre}}</dd>
+         <dt>Telefono:</dt>
+         <dd> {{Empresa.telefono}}</dd>
+         <dt>Fecha de creacion:</dt>
+         <dd> {{Empresa.fecha_Creacion}}</dd>
+         <dt>Rubro:</dt>
+         <dd> {{Empresa.rubro}}</dd>
+         <dt>Mision:</dt>
+         <dd> {{Empresa.mision}}</dd>
+         <dt>Vision:</dt>
+         <dd> {{Empresa.vision}}</dd>
+         <dt>Reclutador:</dt>
+         <dd> {{Empresa.reclutador}}</dd>
+         <dt>Direccion:</dt>
+         <dd> {{Empresa.direccion}}</dd>
+         {% if Empresa.email == session.id %}
+         <button id="btn_editar" onclick="editarEmpresa()" type="button" class="btn btn-info">Editar perfil</button>
+         <button id="btn_desactivar" type="button" class="btn btn-info">Desactivar cuenta</button>
+         {%endif%}
+     </dl>
+ </div>
 </div>
-	<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="nav-profile-tab">
-		<div id="tabla_id">
-			<table class="table table-bordered">
-				<thead>
-					<tr  id="tabla_titulo" class="bg-info">
-						<td>Nombre</td>
-						<td>Descripcion</td>
-					</tr>
-				</thead>
-				<tbody>
-					{% for proy in proyectos%}
-					{% if session%}
-					<tr  onclick="window.location='{{path_for('Inicio')}}Proyecto/{{ proy.id }}'"  class="fila" >
-						
-						{%else%}
-						<tr class="fila" >
-						
-						{%endif%}
-					<td>{{proy.nombre}}</td>
-						<td class="tdDescripcion"><textarea class="descripcion" readonly>{{proy.descripcion}}</textarea></td>
-						
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-		</div>
-	</div>
+</div>
+<div class="tab-pane fade" id="Proyectos" role="tabpanel" aria-labelledby="nav-profile-tab">
+  <div id="tabla_id">
+      {% if(proyectos != null) %}
+      <table class="table table-bordered">
+        <thead>
+         <tr  id="tabla_titulo" class="bg-info">
+          <td>Nombre</td>
+          <td>Descripcion</td>
+      </tr>
+  </thead>
+  <tbody>
+
+     {% for proy in proyectos%}
+     {% if session%}
+     <tr  onclick="window.location='{{path_for('Inicio')}}Proyecto/{{ proy.id }}'"  class="fila" >
+
+      {%else%}
+      <tr class="fila" >
+
+          {%endif%}
+          <td>{{proy.nombre}}</td>
+          <td class="tdDescripcion"><textarea class="descripcion" readonly>{{proy.descripcion}}</textarea></td>
+
+      </tr>
+      {% endfor %}
+      
+  </tbody>
+</table>
+{%else%}
+<h5 style="text-align: center;">No existen proyectos para este desarrollador</h5>
+{% endif %}
+</div>
+</div>
 </div>
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="mi-modal">
     <div class="modal-dialog modal-sm">
@@ -81,7 +87,7 @@
                 <h5 class="modal-title" id="myModalLabel">Confirmar</h5>
             </div>
             <div class="modal-footer">
-            <input type="hidden" value="{{Empresa.email}}" id="emailDesarrollador">
+                <input type="hidden" value="{{Empresa.email}}" id="emailDesarrollador">
                 <button onclick="desactivarUsuario()" type="button" class="btn btn-default" id="modal-btn-si">Si</button>
                 <button type="button" class="btn btn-primary" id="btn_cerrar">No</button>
             </div>
@@ -100,53 +106,53 @@
             <div class="modal-body">
                 <div id="contenedorFoto">
                     <input type="text" style="display: none" name="emailD" value="{{Empresa.email}}" id="emailD">
-                    <div id="fotoActual" class="col-lg-6"><img id="imagen_perfil" src="data:image/png;base64,{{Empresa.foto_perfil}}">
+                    <div id="fotoActual" class="col-lg-6 perfil"><img id="imagen_perfil" src="data:image/png;base64,{{Empresa.foto_perfil}}">
                     </div>
                     <div id="fotoPuesta" class="col-lg-6">
                         <input style="display: none;" id="foto" type="text" /></div>
-                    <input type="file" name="filePerfil" id="fotoPerfil" required />
+                        <input type="file" name="filePerfil" id="fotoPerfil" required />
+                    </div>
+                    <br>
+                    <span>
+                        <label>Nombre </label>
+                        <input value="{{Empresa.nombre}}" class="form-control" id="txtNombre" type="text" name="nombre" required>
+                    </span>
+                    <span>
+                        <label>Rubro</label>
+                        <input value="{{Empresa.rubro}}" class="form-control" id="txtRubro" type="text" name="rubro" required>
+                    </span>
+                    <span>
+                        <label>Mision</label>
+                        <textarea class="form-control" id="txtMision" type="text" name="mision" required>{{Empresa.mision}}</textarea>
+                    </span>
+                    <span>
+                        <label>Vision</label>
+                        <textarea class="form-control" id="txtVision" type="text" name="vision" required>{{Empresa.vision}}</textarea>
+                    </span>
+                    <span>
+                        <label>Reclutador</label>
+                        <input value="{{Empresa.reclutador}}" class="form-control" id="txtReclutador" type="text" name="reclutador" required>
+                    </span>
+                    <span>
+                        <label>Direccion</label>
+                        <textarea class="form-control" id="txtDireccion" type="text" name="direccion" required>{{Empresa.direccion}}</textarea>
+                    </span>
+                    <span>
+                        <label>Telefono </label>
+                        <input value="{{Empresa.telefono}}" class="form-control" id="txtTel" type="text" name="telefono" required>
+                    </span>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="actualizarPerfilEmpresa()" id="btn_Guardar" type="button" class="btn btn-primary">Guardar cambios</button>
+                    </div>
                 </div>
-                <br>
-                <span>
-                    <label>Nombre </label>
-                    <input value="{{Empresa.nombre}}" class="form-control" id="txtNombre" type="text" name="nombre" required>
-                </span>
-				<span>
-                    <label>Rubro</label>
-                    <input value="{{Empresa.rubro}}" class="form-control" id="txtRubro" type="text" name="rubro" required>
-                </span>
-				<span>
-                    <label>Mision</label>
-                    <textarea class="form-control" id="txtMision" type="text" name="mision" required>{{Empresa.mision}}</textarea>
-                </span>
-                <span>
-                    <label>Vision</label>
-                    <textarea class="form-control" id="txtVision" type="text" name="vision" required>{{Empresa.vision}}</textarea>
-                </span>
-                <span>
-                    <label>Reclutador</label>
-                    <input value="{{Empresa.reclutador}}" class="form-control" id="txtReclutador" type="text" name="reclutador" required>
-                </span>
-                <span>
-                    <label>Direccion</label>
-                    <textarea class="form-control" id="txtDireccion" type="text" name="direccion" required>{{Empresa.direccion}}</textarea>
-                </span>
-				<span>
-                    <label>Telefono </label>
-                    <input value="{{Empresa.telefono}}" class="form-control" id="txtTel" type="text" name="telefono" required>
-                </span>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onclick="actualizarPerfilEmpresa()" id="btn_Guardar" type="button" class="btn btn-primary">Guardar cambios</button>
             </div>
         </div>
-    </div>
-</div>
-</body>
-{% block script %}
-<script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/desactivarUsuario.js"></script>
-{% endblock %}
+    </body>
+    {% block script %}
+    <script type="text/javascript" src="/IDevelop1/IDevelop/public/scripts/desactivarUsuario.js"></script>
+    {% endblock %}
 
 
 
-{% endblock %}
+    {% endblock %}
